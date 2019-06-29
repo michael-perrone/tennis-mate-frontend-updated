@@ -1,0 +1,19 @@
+#loginScreenContainer {
+  height: 100vh;
+  width: 100vw;
+  background: url(https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: flex;
+}
+
+#loginScreenLeftSide {
+  display: flex;
+  flex-direction: column;
+  width: 47.3vw;
+  height: 100vh;
+  align-items: flex-end;
+}

@@ -1,0 +1,23 @@
+#captionsContainerMain {
+  height: 60vh;
+  width: 48vw;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.9) 52%,
+    rgba(255, 255, 255, 0)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.captions {
+  font-size: 36px;
+}
+
+#captionsContainerSub {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
