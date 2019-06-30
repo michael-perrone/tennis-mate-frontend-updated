@@ -195,10 +195,13 @@ class UserLoginForm extends React.Component {
                   <option>Other</option>
                 </select>
               </div>
+              <button id={styles.userSignUpButton}>Sign Up</button>
             </div>
           </form>
-          <div>
-            <p id={styles.loginLink}>Already have an account? Login here!</p>
+          <div id={styles.instructorLink}>
+            <p style={{ textAlign: "center" }}>
+              Sign up as an Instructor HERE!!!
+            </p>
           </div>
         </div>
       </div>
