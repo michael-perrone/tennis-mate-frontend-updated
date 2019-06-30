@@ -11,7 +11,7 @@ class Title extends React.Component {
           alt="tennis ball"
         />
         <p className={styles.jello} id={styles.title}>
-          Tennis Buddy
+          Tennis Mate
         </p>
       </div>
     );

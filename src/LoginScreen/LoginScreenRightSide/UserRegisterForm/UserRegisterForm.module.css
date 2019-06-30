@@ -1,0 +1,73 @@
+#registerForm {
+  height: 480px;
+  width: 700px;
+  border: 2px solid white;
+  border-radius: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#registerP {
+  color: white;
+  font-size: 52px;
+  font-family: "Indie Flower", cursive;
+}
+
+#registerFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 40px;
+}
+
+.labels {
+  color: white;
+  font-family: cursive;
+  font-size: 36px;
+  margin-left: 40px;
+}
+
+#selecter {
+  height: 40px;
+  width: 60px;
+  font-size: 20px;
+  margin-left: 10px;
+  position: relative;
+  top: -4px;
+}
+
+.inputs {
+  color: white;
+  height: 36px;
+  width: 300px;
+  position: relative;
+  background-color: black;
+  border-radius: 6px;
+  border: 2px solid white;
+  top: -6px;
+  font-size: 20px;
+  padding-left: 12px;
+  margin-left: 15px;
+  outline: none;
+}
+
+#ageGenderDiv {
+  position: relative;
+  left: 80px;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#loginLink {
+  color: gold;
+  font-family: cursive;
+  font-size: 36px;
+  margin-left: 40px;
+  margin-top: 12px;
+  margin-right: 40px;
+  padding-top: 10px;
+  border-top: 2px solid white;
+}

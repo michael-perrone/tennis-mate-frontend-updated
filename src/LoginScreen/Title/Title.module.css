@@ -3,8 +3,8 @@
   width: 100%;
   align-self: flex-end;
   background: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 0.92) 35%,
+    to right,
+    rgba(255, 255, 255, 0.8) 60%,
     rgba(255, 255, 255, 0)
   );
   display: flex;
@@ -20,14 +20,14 @@
   position: relative;
   margin: 0;
   position: relative;
-  left: -35px;
+
   font-family: "Permanent Marker", cursive;
 }
 
 #tennisBall {
   position: relative;
-  left: -95px;
-  top: 40px;
+  top: 45px;
+  left: -60px;
   animation-name: tennisBallBounce;
   animation-duration: 2s;
   animation-timing-function: linear;

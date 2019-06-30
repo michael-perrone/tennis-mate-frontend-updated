@@ -2,13 +2,14 @@
   height: 60vh;
   width: 48vw;
   background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.9) 52%,
+    to right,
+    rgba(255, 255, 255, 0.8) 60%,
     rgba(255, 255, 255, 0)
   );
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .captions {
@@ -20,4 +21,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+#icons2 {
+  margin-right: 24px;
+}
+
+#icons1 {
+  margin-right: 18px;
+}
+
+#tennisPlayer {
+  position: relative;
+  font-size: 108px;
+  top: 150px;
+  left: -270px;
 }

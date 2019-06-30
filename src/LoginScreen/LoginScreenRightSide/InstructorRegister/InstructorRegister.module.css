@@ -1,0 +1,14 @@
+#instructorRegisterButton {
+  border: 10px double white;
+  color: white;
+  height: 110px;
+  width: 700px;
+  margin-top: 40px;
+  font-size: 56px;
+  position: relative;
+  left: 40px;
+  border-radius: 85px;
+  background: transparent;
+  outline: none;
+  box-shadow: 2px 2px 50px white;
+}

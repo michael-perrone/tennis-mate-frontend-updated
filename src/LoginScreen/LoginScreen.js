@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LoginScreen.module.css";
-import Title from "./SloganTitle/Title";
+import Title from "./Title/Title";
 import LoginScreenRightSide from "./LoginScreenRightSide/LoginScreenRightSide";
 import Captions from "./Captions/Captions";
 
