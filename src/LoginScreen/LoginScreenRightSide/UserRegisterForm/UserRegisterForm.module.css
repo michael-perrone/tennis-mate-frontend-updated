@@ -22,10 +22,14 @@
   border: none;
   color: black;
   position: absolute;
-  bottom: 152px;
+  bottom: 90px;
   right: 50px;
   color: black;
   background-color: white;
+}
+
+.mediaAgeGenderDiv {
+  margin-top: 12px;
 }
 
 #registerFormContainer {
@@ -73,6 +77,10 @@
   font-family: "Stylish", sans-serif;
   font-size: 36px;
   margin-left: 40px;
+}
+
+.divWidthControl {
+  margin-top: 8px;
 }
 
 #input2 {
