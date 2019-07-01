@@ -9,6 +9,7 @@
   justify-content: center;
 }
 #loginFormSubContainer {
+  left: -30px;
   position: relative;
   display: flex;
   margin-top: 15px;
@@ -49,7 +50,6 @@
     display: none;
   }
   #loginFormSubContainer {
-    position: relative;
     left: -10px;
   }
   #loginFormContainer {
@@ -64,6 +64,9 @@
   }
   #loginP {
     display: none;
+  }
+  #loginFormSubContainer {
+    left: 0px;
   }
 }
 
