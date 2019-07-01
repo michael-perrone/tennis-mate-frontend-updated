@@ -68,6 +68,13 @@
   outline: none;
 }
 
+.selectorLabels {
+  color: white;
+  font-family: cursive;
+  font-size: 36px;
+  margin-left: 40px;
+}
+
 #input2 {
   width: 348px;
 }
@@ -91,7 +98,7 @@
 
 #ageGenderDiv {
   position: relative;
-  width: 650px;
+  width: 600px;
   display: flex;
   justify-content: space-between;
 }
@@ -110,5 +117,58 @@
 @media (max-width: 1400px) and (min-width: 0px) {
   #registerFormContainer {
     left: 0;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 0px) {
+  #registerForm {
+    width: 355px;
+    display: flex;
+    align-items: center;
+  }
+  .labels {
+    display: none;
+  }
+
+  #input1 {
+    width: 300px;
+  }
+  #input15 {
+    width: 300px;
+    margin-left: 0px;
+  }
+
+  #input2 {
+    width: 300px;
+  }
+
+  #ml26 {
+    margin-left: 0px;
+  }
+  #ml8 {
+    margin-left: 0px;
+  }
+
+  .inputs {
+    width: 300px;
+    margin-left: 0px;
+    margin-bottom: 8px;
+  }
+
+  #registerP {
+    font-size: 28px;
+  }
+
+  #ageGenderDiv {
+    width: 330px;
+  }
+
+  .mediaAgeGenderDiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .selectorLabels {
+    margin-left: 0px;
+    margin-bottom: 12px;
   }
 }

@@ -7,7 +7,7 @@ class Captions extends React.Component {
         <div id={styles.captionsContainerSub}>
           <p className={styles.captions}>
             <i class="far fa-building" id={styles.icons1} /> Get connected to
-            local tennis clubs.
+            tennis clubs.
           </p>
           <p className={styles.captions}>
             <i className="fas fa-user-friends" id={styles.icons2} />

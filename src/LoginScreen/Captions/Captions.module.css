@@ -36,13 +36,6 @@
   margin-right: 18px;
 }
 
-#tennisPlayer {
-  position: relative;
-  font-size: 108px;
-  top: 150px;
-  left: -270px;
-}
-
 @media (max-width: 1650px) and (min-width: 1370px) {
   #captionsContainerSub {
     left: 0;
@@ -56,13 +49,26 @@
   #captionsContainerMain {
     background: none;
     width: 100vw;
-    height: 42vh;
+    height: 400px;
     margin-bottom: 100px;
   }
   #captionsContainerSub {
-    left: 20px;
+    left: 1px;
     height: 300px;
     padding-top: 20px;
     margin-top: 50px;
+  }
+}
+
+@media (max-width: 600px) and (min-width: 0px) {
+  .captions {
+    font-size: 24px;
+  }
+
+  #icons1 {
+    margin-right: 8px;
+  }
+  #icons2 {
+    margin-right: 8px;
   }
 }

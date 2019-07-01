@@ -63,8 +63,8 @@ class UserLoginForm extends React.Component {
               />
             </div>
             <div id={styles.ageGenderDiv}>
-              <div>
-                <label className={styles.labels}>Age:</label>
+              <div className={styles.mediaAgeGenderDiv}>
+                <label className={styles.selectorLabels}>Age:</label>
                 <select id={styles.selecter}>
                   <option />
                   <option>1</option>
@@ -190,8 +190,11 @@ class UserLoginForm extends React.Component {
                   <option>119</option>
                 </select>
               </div>
-              <div>
-                <label style={{ marginLeft: "20px" }} className={styles.labels}>
+              <div className={styles.mediaAgeGenderDiv}>
+                <label
+                  style={{ marginLeft: "20px" }}
+                  className={styles.selectorLabels}
+                >
                   Gender:
                 </label>
                 <select style={{ width: "100px" }} id={styles.selecter}>

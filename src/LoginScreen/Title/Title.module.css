@@ -77,3 +77,9 @@
     left: -44px;
   }
 }
+
+@media (max-width: 600px) and (min-width: 0px) {
+  #title {
+    font-size: 60px;
+  }
+}
