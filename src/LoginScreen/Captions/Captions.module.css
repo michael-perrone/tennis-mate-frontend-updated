@@ -1,11 +1,11 @@
 #captionsContainerMain {
-  height: 60vh;
-  width: 48vw;
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.8) 60%,
+    rgba(255, 255, 255, 0.72) 72%,
     rgba(255, 255, 255, 0)
   );
+  height: 60vh;
+  width: 43vw;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -18,9 +18,14 @@
 
 #captionsContainerSub {
   height: 300px;
+  position: relative;
+  left: -40px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-top: 3px solid black;
+  margin-top: 30px;
+  padding-top: 80px;
 }
 
 #icons2 {
@@ -36,4 +41,28 @@
   font-size: 108px;
   top: 150px;
   left: -270px;
+}
+
+@media (max-width: 1650px) and (min-width: 1370px) {
+  #captionsContainerSub {
+    left: 0;
+  }
+  .captions {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  #captionsContainerMain {
+    background: none;
+    width: 100vw;
+    height: 42vh;
+    margin-bottom: 100px;
+  }
+  #captionsContainerSub {
+    left: 20px;
+    height: 300px;
+    padding-top: 20px;
+    margin-top: 50px;
+  }
 }

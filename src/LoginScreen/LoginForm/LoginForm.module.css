@@ -1,0 +1,74 @@
+#loginFormContainer {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.72) 72%,
+    rgba(255, 255, 255, 0)
+  );
+  width: 43vw;
+  display: flex;
+  justify-content: center;
+}
+#loginFormSubContainer {
+  position: relative;
+  display: flex;
+  margin-top: 15px;
+}
+#loginP {
+  font-size: 32px;
+  font-family: cursive;
+}
+
+.loginInputs {
+  height: 35px;
+  font-family: cursive;
+  color: "black";
+  padding-left: 8px;
+  width: 240px;
+  font-size: 22px;
+  margin-left: 13px;
+  border-radius: 3px;
+  border: 2px solid black;
+  outline: none;
+}
+
+#loginButton {
+  height: 40px;
+  width: 80px;
+  position: relative;
+  top: -4px;
+  font-size: 16px;
+  background-color: white;
+  border: none;
+  color: black;
+  margin-left: 12px;
+  border-radius: 18px;
+}
+
+@media (max-width: 1660px) and (min-width: 1400px) {
+  #loginP {
+    display: none;
+  }
+  #loginFormSubContainer {
+    position: relative;
+    left: -10px;
+  }
+  #loginFormContainer {
+    width: 45vw;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  #loginFormContainer {
+    width: 100vw;
+    background: none;
+  }
+  #loginP {
+    display: none;
+  }
+}
+
+@media (max-width: 750px) and (min-width: 0px) {
+  .loginInputs {
+    margin: 0px 4px;
+  }
+}

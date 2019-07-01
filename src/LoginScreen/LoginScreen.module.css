@@ -13,6 +13,25 @@
 #loginScreenLeftSide {
   display: flex;
   flex-direction: column;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.54) 72%,
+    rgba(255, 255, 255, 0)
+  );
   width: 44vw;
   height: 100vh;
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  #loginScreenContainer {
+    flex-direction: column;
+    height: 175vh;
+  }
+
+  #loginScreenLeftSide {
+    width: 100vw;
+    height: 75vh;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.72);
+  }
 }

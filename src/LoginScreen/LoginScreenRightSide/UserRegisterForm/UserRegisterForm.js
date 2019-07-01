@@ -11,7 +11,8 @@ class UserLoginForm extends React.Component {
             <div style={{ marginTop: "20px" }}>
               <label className={styles.labels}>First Name:</label>
               <input
-                style={{ width: "400px" }}
+                placeholder="First Name"
+                id={styles.input1}
                 className={styles.inputs}
                 type="text"
               />
@@ -19,7 +20,8 @@ class UserLoginForm extends React.Component {
             <div>
               <label className={styles.labels}>Last Name:</label>
               <input
-                style={{ marginLeft: "26px", width: "400px" }}
+                placeholder="Last Name"
+                id={styles.input15}
                 className={styles.inputs}
                 type="text"
               />
@@ -27,7 +29,8 @@ class UserLoginForm extends React.Component {
             <div>
               <label className={styles.labels}>Email Address:</label>
               <input
-                style={{ width: "348px" }}
+                placeholder="Email Address"
+                id={styles.input2}
                 className={styles.inputs}
                 type="text"
               />
@@ -35,7 +38,8 @@ class UserLoginForm extends React.Component {
             <div>
               <label className={styles.labels}>Phone Number:</label>
               <input
-                style={{ width: "348px" }}
+                placeholder="Phone Number"
+                id={styles.input2}
                 className={styles.inputs}
                 type="text"
               />
@@ -43,7 +47,8 @@ class UserLoginForm extends React.Component {
             <div>
               <label className={styles.labels}>Create Password:</label>
               <input
-                style={{ marginLeft: "26px" }}
+                placeholder="Create Password"
+                id={styles.ml26}
                 className={styles.inputs}
                 type="text"
               />
@@ -51,7 +56,8 @@ class UserLoginForm extends React.Component {
             <div>
               <label className={styles.labels}>Password Confirm:</label>
               <input
-                style={{ marginLeft: "8px" }}
+                placeholder="Password Confirm"
+                id={styles.ml8}
                 className={styles.inputs}
                 type="text"
               />
