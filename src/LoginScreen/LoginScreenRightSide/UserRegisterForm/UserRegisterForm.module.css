@@ -103,15 +103,11 @@
   justify-content: flex-start;
 }
 
-#instructorLink {
-  color: gold;
-  font-family: "Stylish", sans-serif;
-  font-size: 34px;
-  margin-left: 40px;
-  margin-top: 12px;
-  margin-right: 40px;
-  padding-top: 10px;
-  border-top: 2px solid white;
+@media (min-width: 700px) {
+  .mediaAgeGenderDiv {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 @media (max-width: 1400px) and (min-width: 0px) {

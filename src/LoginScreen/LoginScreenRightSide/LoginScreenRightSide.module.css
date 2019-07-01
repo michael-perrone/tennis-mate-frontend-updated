@@ -16,6 +16,6 @@
   #rightSideContainer {
     background: rgba(0, 0, 0, 0.84);
     height: 880px;
-    width: 100vw;
+    width: 100%;
   }
 }
