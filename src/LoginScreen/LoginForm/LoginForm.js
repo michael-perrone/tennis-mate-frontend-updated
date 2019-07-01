@@ -6,7 +6,6 @@ class LoginForm extends React.Component {
     return (
       <div id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
-          <p id={styles.loginP}>Login: </p>
           <form id={styles.forms}>
             <input
               className={styles.loginInputs}

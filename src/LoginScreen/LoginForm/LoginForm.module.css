@@ -15,12 +15,12 @@
 }
 #loginP {
   font-size: 32px;
-  font-family: cursive;
+  font-family: "Stylish", sans-serif;
 }
 
 .loginInputs {
   height: 35px;
-  font-family: cursive;
+  font-family: "Stylish", sans-serif;
   color: "black";
   padding-left: 8px;
   width: 240px;
@@ -73,7 +73,7 @@
   }
 }
 
-@media (max-width: 600px) and (min-width: 0px) {
+@media (max-width: 700px) and (min-width: 0px) {
   .loginInputs {
     width: 132px;
     font-size: 16px;

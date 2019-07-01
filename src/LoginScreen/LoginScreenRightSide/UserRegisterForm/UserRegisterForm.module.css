@@ -21,9 +21,9 @@
   font-size: 16px;
   border: none;
   color: black;
-  position: relative;
-  top: 9px;
-  left: 14px;
+  position: absolute;
+  bottom: 152px;
+  right: 50px;
   color: black;
   background-color: white;
 }
@@ -39,7 +39,7 @@
 
 .labels {
   color: white;
-  font-family: cursive;
+  font-family: "Stylish", sans-serif;
   font-size: 36px;
   margin-left: 40px;
 }
@@ -70,7 +70,7 @@
 
 .selectorLabels {
   color: white;
-  font-family: cursive;
+  font-family: "Stylish", sans-serif;
   font-size: 36px;
   margin-left: 40px;
 }
@@ -98,14 +98,14 @@
 
 #ageGenderDiv {
   position: relative;
-  width: 600px;
+  width: 628px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 #instructorLink {
   color: gold;
-  font-family: cursive;
+  font-family: "Stylish", sans-serif;
   font-size: 34px;
   margin-left: 40px;
   margin-top: 12px;
@@ -159,16 +159,31 @@
     font-size: 28px;
   }
 
-  #ageGenderDiv {
-    width: 330px;
+  .selectorLabels {
+    margin-left: 8px;
+    position: relative;
+    top: -8px;
+  }
+  #userSignUpButton {
+    height: 40px;
+    width: 96px;
+    border-radius: 6px;
+    font-size: 16px;
+    bottom: 6px;
+    right: -8px;
   }
 
-  .mediaAgeGenderDiv {
-    display: flex;
-    flex-direction: column;
+  .divWidthControl {
+    width: 300px;
+    margin-top: 12px;
   }
-  .selectorLabels {
-    margin-left: 0px;
-    margin-bottom: 12px;
+  #form {
+    width: 310px;
+    position: relative;
+    top: 20px;
+  }
+
+  #ageGenderDiv {
+    width: 240px;
   }
 }

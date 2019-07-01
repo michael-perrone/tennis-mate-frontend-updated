@@ -7,8 +7,8 @@ class UserLoginForm extends React.Component {
       <div id={styles.registerFormContainer}>
         <p id={styles.registerP}>Register for Tennis Mate</p>
         <div id={styles.registerForm}>
-          <form>
-            <div style={{ marginTop: "20px" }}>
+          <form id={styles.form}>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
                 placeholder="First Name"
@@ -17,7 +17,7 @@ class UserLoginForm extends React.Component {
                 type="text"
               />
             </div>
-            <div>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
                 placeholder="Last Name"
@@ -26,7 +26,7 @@ class UserLoginForm extends React.Component {
                 type="text"
               />
             </div>
-            <div>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
                 placeholder="Email Address"
@@ -35,7 +35,7 @@ class UserLoginForm extends React.Component {
                 type="text"
               />
             </div>
-            <div>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
                 placeholder="Phone Number"
@@ -44,7 +44,7 @@ class UserLoginForm extends React.Component {
                 type="text"
               />
             </div>
-            <div>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
                 placeholder="Create Password"
@@ -53,7 +53,7 @@ class UserLoginForm extends React.Component {
                 type="text"
               />
             </div>
-            <div>
+            <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
                 placeholder="Password Confirm"
@@ -191,12 +191,7 @@ class UserLoginForm extends React.Component {
                 </select>
               </div>
               <div className={styles.mediaAgeGenderDiv}>
-                <label
-                  style={{ marginLeft: "20px" }}
-                  className={styles.selectorLabels}
-                >
-                  Gender:
-                </label>
+                <label className={styles.selectorLabels}>Gender:</label>
                 <select style={{ width: "100px" }} id={styles.selecter}>
                   <option />
                   <option>Male</option>
@@ -204,14 +199,9 @@ class UserLoginForm extends React.Component {
                   <option>Other</option>
                 </select>
               </div>
-              <button id={styles.userSignUpButton}>Sign Up</button>
             </div>
+            <button id={styles.userSignUpButton}>Sign Up</button>
           </form>
-          <div id={styles.instructorLink}>
-            <p style={{ textAlign: "center" }}>
-              Sign up as an Instructor HERE!!!
-            </p>
-          </div>
         </div>
       </div>
     );
