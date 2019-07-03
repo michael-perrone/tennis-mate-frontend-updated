@@ -1,0 +1,13 @@
+#instructorSignup {
+  color: lightgreen;
+  font-size: 42px;
+  position: relative;
+  top: 6px;
+}
+
+@media (max-width: 700px) {
+  #instructorSignup {
+    font-size: 26px;
+    top: 36px;
+  }
+}

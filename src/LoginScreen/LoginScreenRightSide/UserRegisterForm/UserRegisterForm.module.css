@@ -6,6 +6,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+#form {
+  border-bottom: 2px solid lightgreen;
+  padding-bottom: 20px;
 }
 
 #registerP {
@@ -125,6 +131,7 @@
 
 @media (max-width: 700px) and (min-width: 0px) {
   #registerForm {
+    height: 600px;
     width: 355px;
     display: flex;
     align-items: center;
@@ -172,7 +179,7 @@
     width: 96px;
     border-radius: 6px;
     font-size: 16px;
-    bottom: 6px;
+    bottom: 24px;
     right: -8px;
   }
 

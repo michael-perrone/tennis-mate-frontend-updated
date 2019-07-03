@@ -1,7 +1,47 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
+import axios from "axios";
+import InstructorSignup from "./InstructorSignup/InstructorSignup";
 
 class UserLoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.registerUser = this.registerUser.bind(this);
+    this.getUserInput = this.getUserInput.bind(this);
+
+    this.state = {
+      user: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        createPassword: "",
+        passwordConfirm: "",
+        age: "",
+        gender: ""
+      }
+    };
+  }
+
+  getUserInput(event) {
+    const newUserStateObject = { ...this.state.user };
+    newUserStateObject[event.target.name] = event.target.value;
+    console.log(newUserStateObject);
+    this.setState({ user: newUserStateObject });
+  }
+
+  registerUser(event) {
+    event.preventDefault();
+    axios
+      .post("http://localhost:8080/api/usersSignup", this.state.user)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div id={styles.registerFormContainer}>
@@ -11,6 +51,9 @@ class UserLoginForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.firstName}
+                name="firstName"
                 placeholder="First Name"
                 id={styles.input1}
                 className={styles.inputs}
@@ -20,6 +63,9 @@ class UserLoginForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.lastName}
+                name="lastName"
                 placeholder="Last Name"
                 id={styles.input15}
                 className={styles.inputs}
@@ -29,6 +75,9 @@ class UserLoginForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.email}
+                name="email"
                 placeholder="Email Address"
                 id={styles.input2}
                 className={styles.inputs}
@@ -38,6 +87,9 @@ class UserLoginForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.phoneNumber}
+                name="phoneNumber"
                 placeholder="Phone Number"
                 id={styles.input2}
                 className={styles.inputs}
@@ -47,26 +99,37 @@ class UserLoginForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.createPassword}
+                name="createPassword"
                 placeholder="Create Password"
                 id={styles.ml26}
                 className={styles.inputs}
-                type="text"
+                type="password"
               />
             </div>
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
+                onChange={this.getUserInput}
+                value={this.state.passwordConfirm}
+                name="passwordConfirm"
                 placeholder="Password Confirm"
                 id={styles.ml8}
                 className={styles.inputs}
-                type="text"
+                type="password"
               />
             </div>
             <div id={styles.ageGenderDiv}>
               <div className={styles.mediaAgeGenderDiv}>
                 <label className={styles.selectorLabels}>Age:</label>
                 <div>
-                  <select id={styles.selecter}>
+                  <select
+                    id={styles.selecter}
+                    value={this.state.age}
+                    onChange={this.getUserInput}
+                    name="age"
+                  >
                     <option />
                     <option>1</option>
                     <option>2</option>
@@ -192,7 +255,6 @@ class UserLoginForm extends React.Component {
                   </select>
                 </div>
               </div>
-
               <div
                 style={{ marginLeft: "15px" }}
                 className={styles.mediaAgeGenderDiv}
@@ -201,7 +263,13 @@ class UserLoginForm extends React.Component {
 
                 <div>
                   {" "}
-                  <select style={{ width: "100px" }} id={styles.selecter}>
+                  <select
+                    style={{ width: "100px" }}
+                    id={styles.selecter}
+                    value={this.state.gender}
+                    onChange={this.getUserInput}
+                    name="gender"
+                  >
                     <option />
                     <option>Male</option>
                     <option style={{ width: "100px" }}>Female</option>
@@ -210,8 +278,11 @@ class UserLoginForm extends React.Component {
                 </div>
               </div>
             </div>
-            <button id={styles.userSignUpButton}>Sign Up</button>
+            <button onClick={this.registerUser} id={styles.userSignUpButton}>
+              Sign Up
+            </button>
           </form>
+          <InstructorSignup />
         </div>
       </div>
     );

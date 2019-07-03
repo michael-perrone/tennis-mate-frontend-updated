@@ -25,7 +25,7 @@
 @media (max-width: 1400px) and (min-width: 0px) {
   #loginScreenContainer {
     flex-direction: column;
-    height: 1400px;
+    height: 1500px;
   }
   #loginScreenLeftSide {
     width: 100%;
