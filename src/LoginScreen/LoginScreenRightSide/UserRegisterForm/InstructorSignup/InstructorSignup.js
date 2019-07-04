@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./InstructorSignup.module.css";
 import { connect } from "react-redux";
-import { SHOW_MODAL } from "../../../../actions/actions";
+import { FLIP_FORM } from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {
   render() {
     console.log(window.innerHeight);
     return (
       <div id={styles.instructorSignupContainer}>
-        <p onClick={this.props.showModalHandler} id={styles.instructorSignup}>
+        <p onClick={this.props.flipFormHandler} id={styles.instructorSignup}>
           {" "}
-          OR signup as instructor here
+          OR register as instructor here
         </p>
       </div>
     );
@@ -18,7 +18,7 @@ class InstuctorSignup extends React.Component {
 }
 const mapDispatchToProps = function(dispatch) {
   return {
-    showModalHandler: () => dispatch({ type: SHOW_MODAL })
+    flipFormHandler: () => dispatch({ type: FLIP_FORM })
   };
 };
 

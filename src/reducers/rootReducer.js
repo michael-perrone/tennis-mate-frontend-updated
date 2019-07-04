@@ -1,4 +1,4 @@
-import { SHOW_MODAL } from "../actions/actions";
+import { FLIP_FORM } from "../actions/actions";
 
 const initialState = {
   showModal: false
@@ -6,10 +6,10 @@ const initialState = {
 
 export const rootReducer = function(state = initialState, action) {
   switch (action.type) {
-    case SHOW_MODAL:
+    case FLIP_FORM:
       return {
         ...state,
-        showModal: !state.showModal
+        flipForm: !state.flipForm
       };
     default: {
       return state;
