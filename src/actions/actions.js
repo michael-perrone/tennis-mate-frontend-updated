@@ -1,1 +1,1 @@
-export const FLIP_FORM = "FLIP_FORM";
+export const INSTRUCTOR_REGISTER = "INSTRUCTOR_REGISTER";

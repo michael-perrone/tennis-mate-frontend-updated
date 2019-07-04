@@ -1,15 +1,15 @@
-import { FLIP_FORM } from "../actions/actions";
+import { INSTRUCTOR_REGISTER } from "../actions/actions";
 
 const initialState = {
-  showModal: false
+  instructorRegister: false
 };
 
 export const rootReducer = function(state = initialState, action) {
   switch (action.type) {
-    case FLIP_FORM:
+    case INSTRUCTOR_REGISTER:
       return {
         ...state,
-        flipForm: !state.flipForm
+        instructorRegister: !state.instructorRegister
       };
     default: {
       return state;

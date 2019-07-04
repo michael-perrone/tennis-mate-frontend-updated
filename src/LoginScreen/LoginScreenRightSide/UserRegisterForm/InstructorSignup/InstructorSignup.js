@@ -1,14 +1,16 @@
 import React from "react";
 import styles from "./InstructorSignup.module.css";
 import { connect } from "react-redux";
-import { FLIP_FORM } from "../../../../actions/actions";
+import { INSTRUCTOR_REGISTER } from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {
   render() {
-    console.log(window.innerHeight);
     return (
       <div id={styles.instructorSignupContainer}>
-        <p onClick={this.props.flipFormHandler} id={styles.instructorSignup}>
+        <p
+          onClick={this.props.instructorRegisterHandler}
+          id={styles.instructorSignup}
+        >
           {" "}
           OR register as instructor here
         </p>
@@ -16,9 +18,10 @@ class InstuctorSignup extends React.Component {
     );
   }
 }
+
 const mapDispatchToProps = function(dispatch) {
   return {
-    flipFormHandler: () => dispatch({ type: FLIP_FORM })
+    instructorRegisterHandler: () => dispatch({ type: INSTRUCTOR_REGISTER })
   };
 };
 

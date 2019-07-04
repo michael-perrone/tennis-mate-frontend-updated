@@ -10,10 +10,8 @@
   background-color: transparent;
 }
 
-#cardContainer {
-  perspective: 1500px;
-  -moz-perspective: 1500px;
-  transition-duration: 2s;
+.animator {
+  transform: scale(0);
 }
 
 #form {
@@ -52,6 +50,7 @@
   align-items: center;
   position: relative;
   left: 40px;
+  transition-duration: 3s;
 }
 
 .labels {
