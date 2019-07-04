@@ -25,16 +25,16 @@ class InstructorRegisterForm extends React.Component {
   }
 
   getInstructorInput(event) {
-    const newUserStateObject = { ...this.state.instructor };
-    newUserStateObject[event.target.name] = event.target.value;
-    console.log(newUserStateObject);
-    this.setState({ instructor: newUserStateObject });
+    const newInstructorStateObject = { ...this.state.instructor };
+    newInstructorStateObject[event.target.name] = event.target.value;
+    console.log(newInstructorStateObject);
+    this.setState({ instructor: newInstructorStateObject });
   }
 
   registerInstructor(event) {
     event.preventDefault();
     axios
-      .post("http://localhost:8080/api/usersSignup", this.state.instructor)
+      .post("http://localhost:8080/api/instructorSignup", this.state.instructor)
       .then(response => {
         console.log(response);
       })
@@ -56,7 +56,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>First Name:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.firstName}
                   name="firstName"
                   placeholder="First Name"
@@ -68,7 +68,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>Last Name:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.lastName}
                   name="lastName"
                   placeholder="Last Name"
@@ -80,7 +80,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>Email Address:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.email}
                   name="email"
                   placeholder="Email Address"
@@ -92,7 +92,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>Phone Number:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.phoneNumber}
                   name="phoneNumber"
                   placeholder="Phone Number"
@@ -104,7 +104,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>Create Password:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.createPassword}
                   name="createPassword"
                   placeholder="Create Password"
@@ -116,7 +116,7 @@ class InstructorRegisterForm extends React.Component {
               <div className={styles.divWidthControl}>
                 <label className={styles.labels}>Password Confirm:</label>
                 <input
-                  onChange={this.getUserInput}
+                  onChange={this.getInstructorInput}
                   value={this.state.instructor.passwordConfirm}
                   name="passwordConfirm"
                   placeholder="Password Confirm"
@@ -132,7 +132,7 @@ class InstructorRegisterForm extends React.Component {
                     <select
                       id={styles.selecter}
                       value={this.state.instructor.age}
-                      onChange={this.getUserInput}
+                      onChange={this.getInstructorInput}
                       name="age"
                     >
                       <option />
@@ -283,7 +283,10 @@ class InstructorRegisterForm extends React.Component {
                   </div>
                 </div>
               </div>
-              <button onClick={this.registerUser} id={styles.userSignUpButton}>
+              <button
+                onClick={this.registerInstructor}
+                id={styles.userSignUpButton}
+              >
                 Sign Up
               </button>
             </form>

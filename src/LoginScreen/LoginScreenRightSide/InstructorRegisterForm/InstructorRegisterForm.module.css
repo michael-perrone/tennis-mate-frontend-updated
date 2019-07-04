@@ -1,3 +1,42 @@
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+#registerP {
+  color: white;
+  font-size: 52px;
+  font-family: "Indie Flower", cursive;
+}
+
+#userSignUpButton {
+  height: 42px;
+  width: 96px;
+  border-radius: 20px;
+  font-size: 16px;
+  border: none;
+  color: black;
+  align-self: flex-end;
+  position: relative;
+  top: -48px;
+  right: 14px;
+  color: black;
+  background-color: white;
+}
+
+.mediaAgeGenderDiv {
+  margin-top: 12px;
+}
+
+.registerFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 40px;
+  transition-duration: 1.2s;
+}
+
 #animator {
   transform: scale(1);
   transition-delay: 1.2s;
@@ -21,4 +60,156 @@
   position: absolute;
   transform: scale(0);
   transition-duration: 1.2s;
+}
+
+.labels {
+  color: white;
+  font-family: "Stylish", sans-serif;
+  font-size: 36px;
+  margin-left: 40px;
+}
+
+#selecter {
+  height: 40px;
+  width: 60px;
+  font-size: 20px;
+  margin-left: 10px;
+  position: relative;
+  top: -4px;
+}
+
+.inputs {
+  color: white;
+  height: 36px;
+  width: 300px;
+  position: relative;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 2px solid white;
+  top: -6px;
+  font-size: 20px;
+  padding-left: 12px;
+  margin-left: 15px;
+  outline: none;
+}
+
+.selectorLabels {
+  color: white;
+  font-family: "Stylish", sans-serif;
+  font-size: 36px;
+  margin-left: 40px;
+}
+
+.divWidthControl {
+  margin-top: 8px;
+}
+
+#input2 {
+  width: 348px;
+}
+
+#input1 {
+  width: 400px;
+}
+
+#input15 {
+  width: 400px;
+  margin-left: 26px;
+}
+
+#ml26 {
+  margin-left: 26px;
+}
+
+#ml8 {
+  margin-left: 8px;
+}
+
+#ageGenderDiv {
+  position: relative;
+  width: 628px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 700px) {
+  .mediaAgeGenderDiv {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  #registerFormContainer {
+    left: 0;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 0px) {
+  #registerForm {
+    height: 600px;
+    width: 355px;
+    display: flex;
+    align-items: center;
+  }
+  .labels {
+    display: none;
+  }
+
+  #input1 {
+    width: 300px;
+  }
+  #input15 {
+    width: 300px;
+    margin-left: 0px;
+  }
+
+  #input2 {
+    width: 300px;
+  }
+
+  #ml26 {
+    margin-left: 0px;
+  }
+  #ml8 {
+    margin-left: 0px;
+  }
+
+  .inputs {
+    width: 300px;
+    margin-left: 0px;
+    margin-bottom: 8px;
+  }
+
+  #registerP {
+    font-size: 28px;
+  }
+
+  .selectorLabels {
+    margin-left: 8px;
+    position: relative;
+    top: -8px;
+  }
+  #userSignUpButton {
+    height: 40px;
+    width: 96px;
+    border-radius: 6px;
+    font-size: 16px;
+    top: -44px;
+    right: -8px;
+  }
+
+  .divWidthControl {
+    width: 300px;
+    margin-top: 12px;
+  }
+  #form {
+    width: 310px;
+    position: relative;
+    top: 20px;
+  }
+
+  #ageGenderDiv {
+    width: 240px;
+  }
 }
