@@ -10,10 +10,6 @@
   background-color: transparent;
 }
 
-.animator {
-  transform: scale(0);
-}
-
 #form {
   display: flex;
   flex-direction: column;
@@ -44,13 +40,22 @@
   margin-top: 12px;
 }
 
-#registerFormContainer {
+.registerFormContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   left: 40px;
-  transition-duration: 3s;
+  transition-duration: 1.2s;
+}
+
+#animator {
+  transform: scale(0);
+  transition-delay: 0s;
+}
+
+#animator2 {
+  transition-delay: 1.2s;
 }
 
 .labels {

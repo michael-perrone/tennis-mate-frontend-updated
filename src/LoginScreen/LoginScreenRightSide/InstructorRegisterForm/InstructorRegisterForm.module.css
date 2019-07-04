@@ -1,6 +1,6 @@
 #animator {
   transform: scale(1);
-  transition-delay: 3s;
+  transition-delay: 1.2s;
 }
 
 #headBack {
@@ -20,5 +20,5 @@
   background-color: transparent;
   position: absolute;
   transform: scale(0);
-  transition-duration: 3s;
+  transition-duration: 1.2s;
 }

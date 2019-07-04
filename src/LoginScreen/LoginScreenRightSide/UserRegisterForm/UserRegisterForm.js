@@ -47,10 +47,12 @@ class UserRegisterForm extends React.Component {
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
+    } else {
+      className = styles.animator2;
     }
 
     return (
-      <div id={styles.registerFormContainer} className={className}>
+      <div className={styles.registerFormContainer} id={className}>
         <p id={styles.registerP}>Register for Tennis Mate</p>
         <div id={styles.registerForm}>
           <form id={styles.form}>
