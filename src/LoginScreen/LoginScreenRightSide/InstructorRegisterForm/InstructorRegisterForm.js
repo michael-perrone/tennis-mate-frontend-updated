@@ -18,6 +18,7 @@ class InstructorRegisterForm extends React.Component {
         phoneNumber: "",
         createPassword: "",
         passwordConfirm: "",
+        tennisClub: "",
         age: "",
         gender: ""
       }
