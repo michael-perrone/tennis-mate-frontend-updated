@@ -11,7 +11,7 @@ class LoginScreenRightSide extends React.Component {
       <div id={styles.rightSideContainer}>
         <UserRegisterForm />
         <InstructorRegisterForm />
-        <ClubSignUp />
+        {!this.props.instructorRegister && <ClubSignUp />}
       </div>
     );
   }
