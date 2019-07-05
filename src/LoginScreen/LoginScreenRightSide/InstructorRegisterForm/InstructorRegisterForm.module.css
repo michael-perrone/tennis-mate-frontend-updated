@@ -35,7 +35,7 @@
   align-items: center;
   position: absolute;
   transform: scale(0);
-  width: 100%;
+
   transition-duration: 1.2s;
   margin-top: 30px;
 }
@@ -142,6 +142,7 @@
 
 @media (max-width: 1400px) and (min-width: 0px) {
   .registerFormContainer {
+    width: 100%;
   }
 }
 
