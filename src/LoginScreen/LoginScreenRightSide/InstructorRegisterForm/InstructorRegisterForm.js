@@ -45,7 +45,7 @@ class InstructorRegisterForm extends React.Component {
   render() {
     let id = "";
     if (this.props.instructorRegister) {
-      id = styles.animator;
+      id = styles.animation;
     }
     return (
       <div className={styles.registerFormContainer} id={id}>
@@ -122,6 +122,18 @@ class InstructorRegisterForm extends React.Component {
                 id={styles.ml8}
                 className={styles.inputs}
                 type="password"
+              />
+            </div>
+            <div>
+              <label className={styles.labels}>Current Employer:</label>
+              <input
+                onChange={this.getInstructorInput}
+                value={this.state.instructor.tennisClub}
+                name="tennisClub"
+                placeholder="Tennis Club Name"
+                id={styles.ml8}
+                className={styles.inputs}
+                type="text"
               />
             </div>
             <div id={styles.ageGenderDiv}>
@@ -284,7 +296,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             <button
               onClick={this.registerInstructor}
-              id={styles.userSignUpButton}
+              id={styles.instructorSignUpButton}
             >
               Sign Up
             </button>

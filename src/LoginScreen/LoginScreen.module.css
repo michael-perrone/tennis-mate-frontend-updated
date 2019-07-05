@@ -35,8 +35,8 @@
   }
 }
 
-@media (max-height: 670px) {
+@media (max-width: 700px) {
   #loginScreenContainer {
-    height: 1350px;
+    height: 1550px;
   }
 }

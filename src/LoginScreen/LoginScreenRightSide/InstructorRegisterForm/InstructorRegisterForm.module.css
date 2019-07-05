@@ -10,7 +10,7 @@
   margin-bottom: 10px;
 }
 
-#userSignUpButton {
+#instructorSignUpButton {
   height: 42px;
   width: 96px;
   border-radius: 20px;
@@ -22,7 +22,9 @@
   top: -48px;
   right: 14px;
   color: black;
-  background-color: white;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  background-color: yellowgreen;
 }
 
 .mediaAgeGenderDiv {
@@ -35,12 +37,11 @@
   align-items: center;
   position: absolute;
   transform: scale(0);
-
   transition-duration: 1.2s;
   margin-top: 30px;
 }
 
-#animator {
+#animation {
   transform: scale(1);
   transition-delay: 1.2s;
 }
@@ -48,10 +49,13 @@
 #headBack {
   color: yellowgreen;
   font-size: 42px;
+  border-bottom: 1px solid yellowgreen;
+  cursor: pointer;
+  margin-top: -20px;
 }
 
 .registerForm {
-  height: 480px;
+  height: 530px;
   width: 680px;
   border: 2px solid yellowgreen;
   border-radius: 22px;
@@ -86,7 +90,7 @@
   position: relative;
   background-color: transparent;
   border-radius: 6px;
-  border: 2px solid white;
+  border: 2px solid yellowgreen;
   top: -6px;
   font-size: 20px;
   padding-left: 12px;
@@ -95,7 +99,7 @@
 }
 
 .selectorLabels {
-  color: white;
+  color: yellowgreen;
   font-family: "Stylish", sans-serif;
   font-size: 36px;
   margin-left: 40px;
@@ -148,7 +152,7 @@
 
 @media (max-width: 700px) and (min-width: 0px) {
   .registerForm {
-    height: 600px;
+    height: 640px;
     width: 355px;
     display: flex;
     align-items: center;
@@ -156,6 +160,7 @@
 
   #headBack {
     font-size: 28px;
+    margin-top: 20px;
   }
   .labels {
     display: none;
@@ -195,7 +200,7 @@
     position: relative;
     top: -8px;
   }
-  #userSignUpButton {
+  #instructorSignUpButton {
     height: 40px;
     width: 96px;
     border-radius: 6px;
