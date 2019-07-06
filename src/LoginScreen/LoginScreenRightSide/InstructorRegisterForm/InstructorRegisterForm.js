@@ -26,9 +26,11 @@ class InstructorRegisterForm extends React.Component {
   }
 
   getInstructorInput(event) {
+    console.log(this.state.gender);
     const newInstructorStateObject = { ...this.state.instructor };
     newInstructorStateObject[event.target.name] = event.target.value;
     console.log(newInstructorStateObject);
+
     this.setState({ instructor: newInstructorStateObject });
   }
 
@@ -284,7 +286,7 @@ class InstructorRegisterForm extends React.Component {
                     style={{ width: "100px" }}
                     id={styles.selecter}
                     value={this.state.gender}
-                    onChange={this.getUserInput}
+                    onChange={this.getInstructorInput}
                     name="gender"
                   >
                     <option />
