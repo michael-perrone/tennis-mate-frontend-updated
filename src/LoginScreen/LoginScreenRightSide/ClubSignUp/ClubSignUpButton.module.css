@@ -11,6 +11,7 @@
   background: transparent;
   outline: none;
   box-shadow: 2px 2px 50px white;
+  cursor: pointer;
 }
 
 @media (max-width: 1400px) and (min-width: 0) {
