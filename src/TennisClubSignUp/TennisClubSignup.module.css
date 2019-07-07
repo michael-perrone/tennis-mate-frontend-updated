@@ -1,0 +1,81 @@
+#container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+#containerLeft {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#subContainerLeft {
+  height: 900px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+}
+
+.pTagsInLeftContainer {
+  font-size: 22px;
+  box-shadow: 1px 1px 9px black;
+  padding: 8px;
+  background-color: white;
+}
+
+.pTagsInLeftContainerDiv {
+  font-size: 22px;
+  margin-top: 22px;
+  background-color: white;
+}
+
+#middleParagraphHolder {
+  box-shadow: 1px 1px 12px black;
+  padding: 12px;
+}
+
+#containerRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 12px;
+}
+
+#subContainerRight {
+  margin-top: 20px;
+  height: 900px;
+  width: 80%;
+}
+
+#registerForm {
+  box-shadow: 1px 1px 12px black;
+  border-radius: 8px;
+  height: 880px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.labels {
+  font-size: 32px;
+  margin-right: 10px;
+}
+
+.inputs {
+  height: 32px;
+  width: 300px;
+  font-size: 22px;
+  padding: 4px 0 4px 8px;
+  border-radius: 7px;
+}
+
+.inputLabelContainer {
+  margin-bottom: 10px;
+}
