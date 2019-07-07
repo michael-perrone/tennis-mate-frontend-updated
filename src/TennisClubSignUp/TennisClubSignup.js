@@ -1,8 +1,43 @@
 import styles from "./TennisClubSignup.module.css";
-
 import React from "react";
+import axios from "axios";
 
 class TennisClubSignup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      admin: {
+        tennisClub: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        createPassword: "",
+        passwordConfirm: ""
+      }
+    };
+    this.getAdminInput = this.getAdminInput.bind(this);
+    this.sendAdminInfo = this.sendAdminInfo.bind(this);
+  }
+
+  getAdminInput(event) {
+    const newStateObject = { ...this.state.admin };
+    newStateObject[event.target.name] = event.target.value;
+    this.setState({ admin: newStateObject });
+  }
+
+  sendAdminInfo(event) {
+    event.preventDefault();
+    axios
+      .post("http://localhost:8080/api/adminSignup", this.state.admin)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div id={styles.container}>
@@ -65,42 +100,101 @@ class TennisClubSignup extends React.Component {
             </p>
           </div>
         </div>
+
         <div id={styles.containerRight}>
+          <p id={styles.registerP}>Admin Register</p>
           <div id={styles.subContainerRight}>
             <form id={styles.registerForm}>
-              <div className={styles.inputLabelContainer}>
-                <label className={styles.labels}>Club Name:</label>
+              <div
+                style={{ marginTop: "14px" }}
+                className={styles.divWidthControl}
+              >
+                <label className={styles.labels}>Tennis Club:</label>
                 <input
-                  placeholder="Name"
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.tennisClub}
+                  name="tennisClub"
+                  placeholder="Tennis Club Name"
+                  id={styles.input1}
                   className={styles.inputs}
                   type="text"
                 />
               </div>
-
-              <div className={styles.inputLabelContainer}>
-                <label className={styles.labels}>Club State:</label>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>First Name:</label>
                 <input
-                  placeholder="State"
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.firstName}
+                  name="firstName"
+                  placeholder="First Name"
+                  id={styles.input1}
                   className={styles.inputs}
                   type="text"
                 />
               </div>
-              <div className={styles.inputLabelContainer}>
-                <label className={styles.labels}>Club City:</label>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>Last Name:</label>
                 <input
-                  placeholder="City"
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.lastName}
+                  name="lastName"
+                  placeholder="Last Name"
+                  id={styles.input15}
                   className={styles.inputs}
                   type="text"
                 />
               </div>
-              <div className={styles.inputLabelContainer}>
-                <label className={styles.labels}>Club Zip:</label>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>Email Address:</label>
                 <input
-                  placeholder="Zip"
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.email}
+                  name="email"
+                  placeholder="Email Address"
+                  id={styles.input2}
                   className={styles.inputs}
                   type="text"
                 />
               </div>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>Phone Number:</label>
+                <input
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.phoneNumber}
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  id={styles.input2}
+                  className={styles.inputs}
+                  type="text"
+                />
+              </div>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>Create Password:</label>
+                <input
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.createPassword}
+                  name="createPassword"
+                  placeholder="Create Password"
+                  id={styles.ml26}
+                  className={styles.inputs}
+                  type="password"
+                />
+              </div>
+              <div className={styles.divWidthControl}>
+                <label className={styles.labels}>Password Confirm:</label>
+                <input
+                  onChange={this.getAdminInput}
+                  value={this.state.admin.passwordConfirm}
+                  name="passwordConfirm"
+                  placeholder="Password Confirm"
+                  id={styles.ml8}
+                  className={styles.inputs}
+                  type="password"
+                />
+              </div>
+              <button onClick={this.sendAdminInfo} id={styles.registerButton}>
+                Register As Club Admin
+              </button>
             </form>
           </div>
         </div>
