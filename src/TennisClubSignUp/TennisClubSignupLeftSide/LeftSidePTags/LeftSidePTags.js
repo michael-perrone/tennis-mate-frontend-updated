@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./LeftSidePTags.module.css";
+import { connect } from "react-redux";
 
 class LeftSidePTags extends React.Component {
   render() {
     return (
-      <div id={styles.subContainerLeft}>
+      <div className={styles.subContainerLeft}>
         <p className={styles.pTagsInLeftContainer}>
           Thanks for registering your club for Tennis Mate. We are so glad
           you're joining us. Tennis mate is a great solution for tennis players,
@@ -63,4 +64,10 @@ class LeftSidePTags extends React.Component {
   }
 }
 
-export default LeftSidePTags;
+const mapStateToProps = state => {
+  return {
+    adminEntered: state.adminEntered
+  };
+};
+
+export default connect(mapStateToProps)(LeftSidePTags);

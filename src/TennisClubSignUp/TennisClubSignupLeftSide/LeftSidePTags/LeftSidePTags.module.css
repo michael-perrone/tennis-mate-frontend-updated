@@ -1,4 +1,4 @@
-#subContainerLeft {
+.subContainerLeft {
   height: 900px;
   width: 80%;
   display: flex;

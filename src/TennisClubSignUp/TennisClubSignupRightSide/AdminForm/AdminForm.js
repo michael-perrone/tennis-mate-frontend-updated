@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./AdminForm.module.css";
+import { connect } from "react-redux";
 
 class AdminForm extends React.Component {
   constructor(props) {
@@ -129,4 +130,10 @@ class AdminForm extends React.Component {
   }
 }
 
-export default AdminForm;
+const mapStateToProps = state => {
+  return {
+    adminEntered: state.adminEntered
+  };
+};
+
+export default connect(mapStateToProps)(AdminForm);

@@ -2,6 +2,8 @@ import styles from "./TennisClubSignup.module.css";
 import React from "react";
 import TennisClubSignupLeftSide from "./TennisClubSignupLeftSide/TennisClubSignupLeftSide";
 import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSignupRightSide";
+import { ADMIN_ENTERED } from "../actions/actions";
+import { connect } from "react-redux";
 
 class TennisClubSignup extends React.Component {
   constructor(props) {
@@ -11,17 +13,7 @@ class TennisClubSignup extends React.Component {
         hi: null
       },
       tennisClub: {
-        clubName: ``,
-        numberCourts: "",
-        adminName: ``,
-        clubCity: "",
-        clubState: "",
-        clubZip: "",
-        clubPhoneNumber: "",
-        clubWebsite: "",
-        clubAddress: "",
-        clubOpenTime: "",
-        clubCloseTime: ""
+        clubName: null
       }
     };
     this.getAdminInfo = this.getAdminInfo.bind(this);
@@ -37,7 +29,7 @@ class TennisClubSignup extends React.Component {
   getAdminInfo = stateParamObj => event => {
     event.preventDefault();
     this.setState({ admin: stateParamObj });
-    console.log(this.state.admin);
+    this.props.adminInfoSent();
   };
   /* 
   sendAdminAndTennisClubInfo(event) {
@@ -62,4 +54,13 @@ class TennisClubSignup extends React.Component {
   }
 }
 
-export default TennisClubSignup;
+const mapDispatchToProps = dispatch => {
+  return {
+    adminInfoSent: () => dispatch({ type: ADMIN_ENTERED })
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TennisClubSignup);

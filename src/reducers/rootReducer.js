@@ -1,7 +1,9 @@
 import { INSTRUCTOR_REGISTER } from "../actions/actions";
+import { ADMIN_ENTERED } from "../actions/actions";
 
 const initialState = {
-  instructorRegister: false
+  instructorRegister: false,
+  adminEntered: false
 };
 
 export const rootReducer = function(state = initialState, action) {
@@ -10,6 +12,12 @@ export const rootReducer = function(state = initialState, action) {
       return {
         ...state,
         instructorRegister: !state.instructorRegister
+      };
+
+    case ADMIN_ENTERED:
+      return {
+        ...state,
+        adminEntered: !state.adminEntered
       };
     default: {
       return state;
