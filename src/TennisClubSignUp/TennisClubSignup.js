@@ -24,11 +24,13 @@ class TennisClubSignup extends React.Component {
   getTennisClubInfo = stateParamObj => event => {
     event.preventDefault();
     this.setState({ tennisClub: stateParamObj });
+    console.log(this.state.tennisClub);
   };
 
   getAdminInfo = stateParamObj => event => {
     event.preventDefault();
     this.setState({ admin: stateParamObj });
+    console.log(this.state.admin);
     this.props.adminInfoSent();
   };
   /* 

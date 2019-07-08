@@ -29,7 +29,7 @@ class TennisClubForm extends React.Component {
   }
   render() {
     return (
-      <div id={styles.subContainerLeft}>
+      <div className={styles.subContainerLeft}>
         <p id={styles.registerP}>Tennis Club Info Register</p>
         <form id={styles.registerForm}>
           <div className={styles.divWidthControl}>
@@ -86,8 +86,8 @@ class TennisClubForm extends React.Component {
             <input
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubWebsite}
-              name="Website URL"
-              placeholder="Password Confirm"
+              name="clubWebsite"
+              placeholder="WebSite URL"
               id={styles.ml8}
               className={styles.inputs}
               type="password"
