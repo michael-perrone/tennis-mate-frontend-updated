@@ -1,0 +1,25 @@
+#subContainerLeft {
+  height: 900px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+}
+
+.pTagsInLeftContainer {
+  font-size: 18px;
+  box-shadow: 1px 1px 9px black;
+  padding: 8px;
+  background-color: white;
+}
+
+.pTagsInLeftContainerDiv {
+  font-size: 18px;
+  margin-top: 22px;
+}
+
+#middleParagraphHolder {
+  box-shadow: 1px 1px 12px black;
+  padding: 12px;
+}

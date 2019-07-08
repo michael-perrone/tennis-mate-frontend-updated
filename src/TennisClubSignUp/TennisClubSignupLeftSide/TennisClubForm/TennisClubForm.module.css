@@ -1,0 +1,76 @@
+.labels {
+  font-family: "Stylish", sans-serif;
+  font-size: 30px;
+  margin-left: 40px;
+}
+.inputs {
+  height: 36px;
+  width: 300px;
+  position: relative;
+  background-color: transparent;
+  border-radius: 6px;
+  top: -6px;
+  font-size: 20px;
+  padding-left: 7px;
+  margin-left: 15px;
+  outline: none;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+#registerP {
+  font-size: 52px;
+  position: relative;
+  left: -30px;
+  font-family: "Stylish", sans-serif;
+}
+
+#registerForm {
+  height: 440px;
+  width: 680px;
+  box-shadow: 1px 1px 30px black;
+  border-radius: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+}
+
+#registerButton {
+  margin-top: 12px;
+  font-size: 28px;
+  border-radius: 14px;
+  padding: 8px;
+  width: 400px;
+  border: none;
+  box-shadow: 1px 1px 10px black;
+}
+
+.divWidthControl {
+  margin-top: 8px;
+}
+
+#input2 {
+  width: 348px;
+}
+
+#input1 {
+  width: 400px;
+}
+
+#input15 {
+  width: 400px;
+  margin-left: 26px;
+}
+
+#ml26 {
+  margin-left: 26px;
+}
+
+#ml8 {
+  margin-left: 8px;
+}
