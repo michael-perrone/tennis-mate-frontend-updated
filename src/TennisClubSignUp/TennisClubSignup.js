@@ -10,7 +10,8 @@ class TennisClubSignup extends React.Component {
     super(props);
     this.state = {
       admin: {
-        hi: null
+        firstName: "",
+        tennisClub: ""
       },
       tennisClub: {
         clubName: null
@@ -25,6 +26,7 @@ class TennisClubSignup extends React.Component {
     event.preventDefault();
     this.setState({ tennisClub: stateParamObj });
     console.log(this.state.tennisClub);
+    console.log(this.state.admin);
   };
 
   getAdminInfo = stateParamObj => event => {
@@ -50,7 +52,11 @@ class TennisClubSignup extends React.Component {
     return (
       <div id={styles.container}>
         <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} />
-        <TennisClubSignupRightSide getAdminInfo={this.getAdminInfo} />
+        <TennisClubSignupRightSide
+          name={this.state.admin.firstName}
+          tennisClub={this.state.admin.tennisClub}
+          getAdminInfo={this.getAdminInfo}
+        />
       </div>
     );
   }

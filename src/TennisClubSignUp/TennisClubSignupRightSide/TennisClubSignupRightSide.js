@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./TennisClubSignupRightSide.module.css";
 import AdminForm from "./AdminForm/AdminForm";
+import RightSidePTags from "./RightSidePTags/RightSidePTags";
 
 class TennisClubSignupRightSide extends React.Component {
   state = {
@@ -10,7 +11,10 @@ class TennisClubSignupRightSide extends React.Component {
     return (
       <div id={styles.containerRight}>
         <AdminForm getAdminInfo={this.props.getAdminInfo} />
-        {this.props.adminEntered && <p>dont forget about me</p>}
+        <RightSidePTags
+          name={this.props.name}
+          tennisClub={this.props.tennisClub}
+        />
       </div>
     );
   }

@@ -1,18 +1,19 @@
-.subContainerLeft {
+.subContainerRight {
   height: 900px;
-  width: 80%;
+  width: 40%;
   display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: space-around;
-  background-color: white;
-  transform: translateY(0);
-  transition-duration: 2s;
-  transition-delay: 1s;
+  background-color: transparent;
+  transform: translateX(-100vw);
+  transition-duration: 1.5s;
+  transition-delay: 0.7s;
 }
 
 #animationSubContainerLeft {
-  transform: translateY(-120vh);
-  transition-delay: 0s;
+  transform: translateX(0);
+  transition-delay: 0.7s;
 }
 
 .pTagsInLeftContainer {

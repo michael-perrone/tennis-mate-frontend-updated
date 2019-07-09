@@ -8,10 +8,9 @@ class TennisClubSignupLeftSide extends React.Component {
   render() {
     return (
       <div id={styles.containerLeft}>
-        {!this.props.adminEntered && <LeftSidePTags />}
-        {this.props.adminEntered && (
-          <TennisClubForm getTennisClubInfo={this.props.getTennisClubInfo} />
-        )}
+        <LeftSidePTags />
+
+        <TennisClubForm getTennisClubInfo={this.props.getTennisClubInfo} />
       </div>
     );
   }

@@ -28,8 +28,13 @@ class TennisClubForm extends React.Component {
     this.setState({ tennisClub: newStateObject });
   }
   render() {
+    let animationContainerLeft = "";
+    if (this.props.adminEntered) {
+      animationContainerLeft = styles.animationSubContainerLeft;
+    }
+
     return (
-      <div className={styles.subContainerLeft}>
+      <div className={styles.subContainerLeft} id={animationContainerLeft}>
         <p id={styles.registerP}>Tennis Club Info Register</p>
         <form id={styles.registerForm}>
           <div className={styles.divWidthControl}>

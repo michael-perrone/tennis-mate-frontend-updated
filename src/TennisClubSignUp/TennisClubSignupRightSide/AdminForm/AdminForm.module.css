@@ -1,7 +1,16 @@
-#subContainerRight {
+.subContainerRight {
   margin-top: 20px;
   height: 100vh;
   width: 80%;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: column;
+
+  transition-duration: 2s;
+}
+
+#animationSubRight {
+  transform: translateY(-100vh);
 }
 
 .labels {
@@ -30,7 +39,7 @@
 #registerP {
   font-size: 52px;
   position: relative;
-  left: -30px;
+  align-self: center;
   font-family: "Stylish", sans-serif;
 }
 

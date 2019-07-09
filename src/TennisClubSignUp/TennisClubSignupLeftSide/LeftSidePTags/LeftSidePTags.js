@@ -4,8 +4,12 @@ import { connect } from "react-redux";
 
 class LeftSidePTags extends React.Component {
   render() {
+    let animationLeftContainer = "";
+    if (this.props.adminEntered) {
+      animationLeftContainer = styles.animationSubContainerLeft;
+    }
     return (
-      <div className={styles.subContainerLeft}>
+      <div id={animationLeftContainer} className={styles.subContainerLeft}>
         <p className={styles.pTagsInLeftContainer}>
           Thanks for registering your club for Tennis Mate. We are so glad
           you're joining us. Tennis mate is a great solution for tennis players,
