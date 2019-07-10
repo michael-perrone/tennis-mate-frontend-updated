@@ -11,4 +11,5 @@
   border-bottom: 1px solid black;
   position: absolute;
   bottom: 40px;
+  cursor: pointer;
 }

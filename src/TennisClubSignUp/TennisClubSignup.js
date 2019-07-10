@@ -73,7 +73,9 @@ class TennisClubSignup extends React.Component {
           getAdminInfo={this.getAdminInfo}
         />
 
-        {this.state.allInfoReadyToSend && <BackDrop />}
+        {this.state.allInfoReadyToSend && (
+          <BackDrop unShowConfirmModal={this.unShowConfirmModal} />
+        )}
         <DropdownModal
           admin={this.state.admin}
           tennisClub={this.state.tennisClub}
