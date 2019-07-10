@@ -1,6 +1,7 @@
 .subContainerRight {
-  height: 900px;
+  height: 500px;
   width: 40%;
+  top: 100px;
   display: flex;
   position: absolute;
   flex-direction: column;
@@ -8,22 +9,21 @@
   background-color: transparent;
   transform: translateX(-100vw);
   transition-duration: 1.5s;
-  transition-delay: 0.7s;
+  transition-delay: 0.4s;
 }
 
-#animationSubContainerLeft {
+#animationSubContainerRight {
   transform: translateX(0);
   transition-delay: 0.7s;
 }
 
-.pTagsInLeftContainer {
+.pTagsInRightContainer {
   font-size: 18px;
   box-shadow: 1px 1px 9px black;
   padding: 8px;
-  background-color: white;
 }
 
-.pTagsInLeftContainerDiv {
+.pTagsInRightContainerDiv {
   font-size: 18px;
   margin-top: 22px;
 }

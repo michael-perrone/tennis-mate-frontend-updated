@@ -12,7 +12,7 @@ class TennisClubForm extends React.Component {
         clubCity: "",
         clubState: "",
         clubZip: "",
-        clubPhoneNumber: "",
+        phoneNumber: "",
         clubWebsite: "",
         clubAddress: "",
         clubOpenTime: "",
@@ -23,7 +23,7 @@ class TennisClubForm extends React.Component {
   }
 
   getTennisClubInput(event) {
-    const newStateObject = { ...this.state.admin };
+    const newStateObject = { ...this.state.tennisClub };
     newStateObject[event.target.name] = event.target.value;
     this.setState({ tennisClub: newStateObject });
   }
@@ -145,7 +145,6 @@ class TennisClubForm extends React.Component {
               className={styles.inputs}
               type="text"
               style={{ width: "180px" }}
-              onClick={this.props.adminInfoUnentered}
             />
           </div>
           <button
