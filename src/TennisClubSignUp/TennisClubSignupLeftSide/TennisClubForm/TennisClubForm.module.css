@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   position: absolute;
-  transform: translateX(-900px);
+  transform: translateX(-180vw);
   transition-duration: 2s;
 }
 

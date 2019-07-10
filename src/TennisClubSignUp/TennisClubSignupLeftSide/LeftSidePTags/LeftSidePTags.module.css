@@ -1,5 +1,5 @@
 .subContainerLeft {
-  height: 900px;
+  height: 100vh;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -11,23 +11,43 @@
 }
 
 #animationSubContainerLeft {
-  transform: translateY(-120vh);
+  transform: translateY(-200vh);
   transition-delay: 0s;
 }
 
 .pTagsInLeftContainer {
-  font-size: 18px;
+  font-size: 16px;
   box-shadow: 1px 1px 9px black;
   padding: 8px;
   background-color: white;
 }
 
 .pTagsInLeftContainerDiv {
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 22px;
 }
 
 #middleParagraphHolder {
   box-shadow: 1px 1px 12px black;
   padding: 12px;
+}
+
+@media (max-width: 1400px) and (min-width: 1000px) {
+  .subContainerLeft {
+    height: 650px;
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 750px) {
+  .subContainerLeft {
+    height: 800px;
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 750px) and (min-width: 500px) {
+  .subContainerLeft {
+    height: 980px;
+  }
 }
