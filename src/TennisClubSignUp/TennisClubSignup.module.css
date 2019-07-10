@@ -24,4 +24,10 @@
       height: 1900px;
     }
   }
+
+  @media (max-width: 500px) and (min-width: 0px) {
+    #container {
+      height: 2500px;
+    }
+  }
 }

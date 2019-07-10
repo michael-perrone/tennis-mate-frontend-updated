@@ -42,12 +42,17 @@
 @media (max-width: 1000px) and (min-width: 750px) {
   .subContainerLeft {
     height: 800px;
-    margin-top: 0px;
   }
 }
 
 @media (max-width: 750px) and (min-width: 500px) {
   .subContainerLeft {
     height: 980px;
+  }
+}
+
+@media (max-width: 500px) and (min-width: 0px) {
+  .subContainerLeft {
+    height: 1470px;
   }
 }
