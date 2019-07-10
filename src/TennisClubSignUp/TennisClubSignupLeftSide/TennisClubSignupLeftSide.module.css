@@ -1,7 +1,14 @@
 #containerLeft {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#unEnterAdmin {
+  font-size: 50px;
+  border-bottom: 1px solid black;
+  position: absolute;
+  bottom: 40px;
+}

@@ -5,6 +5,8 @@ import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSig
 import { ADMIN_ENTERED } from "../actions/actions";
 import { connect } from "react-redux";
 import axios from "axios";
+import BackDrop from "./BackDrop/BackDrop";
+import DropdownModal from "./DropdownModal/DropdownModal";
 
 class TennisClubSignup extends React.Component {
   constructor(props) {
@@ -16,28 +18,35 @@ class TennisClubSignup extends React.Component {
       },
       tennisClub: {
         clubName: ""
-      }
+      },
+
+      allInfoReadyToSend: false
     };
+    this.sendAllInfo = this.sendAllInfo.bind(this);
     this.getAdminInfo = this.getAdminInfo.bind(this);
     // this.sendAdminInfo = this.sendAdminInfo.bind(this);
     this.getTennisClubInfo = this.getTennisClubInfo.bind(this);
-    this.sendBigState = this.sendBigState.bind(this);
+    this.unShowConfirmModal = this.unShowConfirmModal.bind(this);
+  }
+
+  unShowConfirmModal() {
+    this.setState(prevState => {
+      return { allInfoReadyToSend: !prevState.allInfoReadyToSend };
+    });
   }
 
   getTennisClubInfo = stateParamObj => event => {
     event.preventDefault();
-    this.setState({ tennisClub: stateParamObj });
-    console.log(this.state.tennisClub);
+    this.setState({ tennisClub: stateParamObj, allInfoReadyToSend: true });
   };
 
   getAdminInfo = stateParamObj => event => {
     event.preventDefault();
     this.setState({ admin: stateParamObj });
-    console.log(this.state.admin);
     this.props.adminInfoSent();
   };
 
-  sendBigState() {
+  sendAllInfo() {
     const bigStateObject = {
       admin: this.state.admin,
       tennisClub: this.state.tennisClub
@@ -53,37 +62,24 @@ class TennisClubSignup extends React.Component {
       });
   }
 
-  /* 
-  sendAdminAndTennisClubInfo(event) {
-    event.preventDefault();
-    axios
-      .post("http://localhost:8080/api/adminSignup", this.state.admin)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  } */
-
   render() {
     return (
       <div id={styles.container}>
         <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} />
+
         <TennisClubSignupRightSide
           name={this.state.admin.firstName}
           tennisClub={this.state.admin.tennisClub}
           getAdminInfo={this.getAdminInfo}
         />
-        <button
-          style={{
-            position: "absolute",
-            height: "400px",
-            width: "100px",
-            top: "300px",
-            left: "900px"
-          }}
-          onClick={this.sendBigState}
+
+        {this.state.allInfoReadyToSend && <BackDrop />}
+        <DropdownModal
+          admin={this.state.admin}
+          tennisClub={this.state.tennisClub}
+          sendAllInfo={this.sendAllInfo}
+          unShowConfirmModal={this.unShowConfirmModal}
+          allInfoReadyToSend={this.state.allInfoReadyToSend}
         />
       </div>
     );
