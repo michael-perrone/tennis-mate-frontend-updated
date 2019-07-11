@@ -71,11 +71,43 @@ button {
   height: 600px;
 }
 
-@media (max-width: 1000px) and (min-width: 0px) {
+@media (max-width: 1400px) and (min-width: 0px) {
   .modalContainer {
     width: 80vw;
+    left: 7%;
   }
   #subModalContainer {
     width: 80%;
+  }
+  #showModal {
+    transform: translateY(180px);
+  }
+  #backButton {
+    left: 38%;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 625px) {
+  #backButton {
+    left: 10%;
+  }
+  #showModal {
+    transform: translateY(300px);
+  }
+}
+
+@media (max-width: 625px) and (min-width: 0px) {
+  #backButton {
+    width: 30%;
+    font-size: 18px;
+    left: 20%;
+  }
+  #showModal {
+    transform: translateY(400px);
+  }
+
+  #sendAllInfo {
+    width: 50%;
+    font-size: 18px;
   }
 }

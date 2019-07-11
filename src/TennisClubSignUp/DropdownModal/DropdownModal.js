@@ -36,14 +36,13 @@ class DropdownModal extends React.Component {
           </ul>
 
           <button id={styles.sendAllInfo} onClick={this.props.sendAllInfo}>
-            {" "}
             Send all Info
           </button>
           <button
             onClick={this.props.unShowConfirmModal}
             id={styles.backButton}
           >
-            Go Back
+            Back
           </button>
         </div>
       </div>
