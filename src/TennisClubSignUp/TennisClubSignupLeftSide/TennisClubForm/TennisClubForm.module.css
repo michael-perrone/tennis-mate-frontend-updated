@@ -63,6 +63,9 @@
 
 .divWidthControl {
   margin-top: 8px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
 }
 
 #input2 {
@@ -84,4 +87,57 @@
 
 #ml8 {
   margin-left: 8px;
+}
+
+@media (max-width: 1587px) and (min-width: 1400px) {
+  .subContainerLeft {
+    margin-right: 80px;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  .subContainerLeft {
+    width: 95vw;
+    height: 600px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 720px) and (min-width: 0px) {
+  #registerForm {
+    width: 90%;
+  }
+
+  .labels {
+    display: none;
+  }
+  .inputs {
+    width: 90%;
+    margin-left: 0px;
+  }
+  #input15 {
+    width: 90%;
+    margin-left: 0px;
+  }
+  #input1 {
+    width: 90%;
+    margin-left: 0px;
+  }
+  #input2 {
+    width: 90%;
+    margin-left: 0px;
+  }
+  #ml26 {
+    margin-left: 0px;
+  }
+  #ml8 {
+    margin-left: 0px;
+  }
+  #registerButton {
+    width: 90%;
+    font-size: 22px;
+  }
+  #registerP {
+    font-size: 34px;
+  }
 }

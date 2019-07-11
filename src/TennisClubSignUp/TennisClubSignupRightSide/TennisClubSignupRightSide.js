@@ -14,7 +14,7 @@ class TennisClubSignupRightSide extends React.Component {
           tennisClub={this.props.tennisClub}
         />
         {!this.props.adminEntered && (
-          <div style={{ width: "90%", marginTop: "30px" }}>
+          <div id={styles.pTagContainer}>
             <p id={styles.pTag}>
               Before getting started with your tennis club. We need a little
               information about you. You will create an administrator account

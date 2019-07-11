@@ -32,3 +32,9 @@
   box-shadow: 1px 1px 12px black;
   padding: 12px;
 }
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  .subContainerRight {
+    width: 80%;
+  }
+}

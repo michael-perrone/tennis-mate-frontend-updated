@@ -8,15 +8,24 @@
 }
 
 #pTag {
-  box-shadow: 1px 1px 12px black;
+  box-shadow: 2px 2px 40px rgb(66, 85, 29);
   padding: 8px;
   font-size: 18px;
   margin-bottom: 36px;
+  background-color: rgb(239, 255, 208);
+}
+
+#pTagContainer {
+  width: 90%;
+  margin-bottom: 14px;
 }
 
 @media (max-width: 1400px) and (min-width: 0px) {
   #containerRight {
     flex-direction: column-reverse;
     width: 95vw;
+  }
+  #pTagContainer {
+    margin-top: 30px;
   }
 }
