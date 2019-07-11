@@ -103,9 +103,13 @@ button {
     left: 20%;
   }
   #showModal {
-    transform: translateY(400px);
+    transform: translateY(550px);
   }
-
+  .modalContainer {
+    width: 92%;
+    left: 0;
+    height: 900px;
+  }
   #sendAllInfo {
     width: 50%;
     font-size: 18px;

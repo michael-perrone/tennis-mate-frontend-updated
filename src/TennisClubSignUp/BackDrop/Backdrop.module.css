@@ -1,6 +1,30 @@
-#Backdrop {
+#backDrop {
   width: 98vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.722);
   position: absolute;
+}
+
+@media (max-width: 1400px) and (min-width: 1000px) {
+  #backDrop {
+    height: 1210px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 720px) {
+  #backDrop {
+    height: 1300px;
+  }
+}
+
+@media (max-width: 720px) and (min-width: 500px) {
+  #backDrop {
+    height: 1440px;
+  }
+}
+
+@media (max-width: 500px) and (min-width: 0px) {
+  #backDrop {
+    height: 1720px;
+  }
 }
