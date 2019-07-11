@@ -142,10 +142,9 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.numberCourts}
               name="numberCourts"
               placeholder="Number of Courts"
-              id={styles.input1}
+              id={styles.input12}
               className={styles.inputs}
               type="text"
-              style={{ width: "180px" }}
             />
           </div>
           <button
@@ -154,8 +153,8 @@ class TennisClubForm extends React.Component {
           >
             Continue Registration
           </button>
+          <GoBackToAdmin unEnterAdmin={this.props.unEnterAdmin} />
         </form>
-        <GoBackToAdmin unEnterAdmin={this.props.unEnterAdmin} />
       </div>
     );
   }

@@ -36,22 +36,23 @@
 @media (max-width: 1400px) and (min-width: 0px) {
   .subContainerRight {
     width: 80%;
+    top: 0px;
   }
 }
 @media (max-width: 1000px) and (min-width: 750px) {
   .subContainerRight {
-    height: 700px;
+    height: 600px;
   }
 }
 
 @media (max-width: 750px) and (min-width: 500px) {
   .subContainerRight {
-    height: 800px;
+    height: 700px;
   }
 }
 
 @media (max-width: 500px) and (min-width: 0px) {
   .subContainerRight {
-    height: 1000px;
+    height: 800px;
   }
 }

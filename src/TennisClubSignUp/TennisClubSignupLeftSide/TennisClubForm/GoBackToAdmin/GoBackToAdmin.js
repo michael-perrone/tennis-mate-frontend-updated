@@ -5,7 +5,7 @@ class GoBackToAdmin extends React.Component {
   render() {
     return (
       <button id={styles.goBack} onClick={this.props.unEnterAdmin}>
-        Back to Admin Form
+        Back
       </button>
     );
   }
