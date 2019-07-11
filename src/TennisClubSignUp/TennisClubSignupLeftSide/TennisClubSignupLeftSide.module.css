@@ -1,4 +1,4 @@
-#containerLeft {
+.containerLeft {
   height: 100vh;
   width: 50%;
   display: flex;
@@ -6,36 +6,40 @@
   align-items: center;
 }
 
-#unEnterAdmin {
-  font-size: 50px;
-  border-bottom: 1px solid black;
-  position: absolute;
-  bottom: 40px;
-  cursor: pointer;
-}
-
 @media (max-width: 1400px) and (min-width: 0px) {
-  #containerLeft {
+  .containerLeft {
     width: 100%;
     height: 700px;
     border-top: 2px solid black;
   }
+  #newContainerLeft {
+    height: 600px;
+  }
 }
 
 @media (max-width: 1000px) and (min-width: 750px) {
-  #containerLeft {
+  .containerLeft {
     height: 1000px;
+  }
+  #newContainerLeft {
+    height: 600px;
   }
 }
 
 @media (max-width: 750px) and (min-width: 500px) {
-  #containerLeft {
+  .containerLeft {
     height: 1200px;
+  }
+  #newContainerLeft {
+    height: 600px;
   }
 }
 
 @media (max-width: 500px) and (min-width: 0px) {
-  #containerLeft {
+  .containerLeft {
     height: 1500px;
+  }
+  #newContainerLeft {
+    height: 800px;
   }
 }

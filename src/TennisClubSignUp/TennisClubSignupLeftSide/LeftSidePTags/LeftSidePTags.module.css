@@ -11,7 +11,7 @@
 }
 
 #animationSubContainerLeft {
-  transform: translateY(-200vh);
+  transform: translateY(-3000px);
   transition-delay: 0s;
 }
 

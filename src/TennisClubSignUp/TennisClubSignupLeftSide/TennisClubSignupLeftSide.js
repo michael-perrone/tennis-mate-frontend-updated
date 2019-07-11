@@ -7,17 +7,18 @@ import { ADMIN_ENTERED } from "../../actions/actions";
 
 class TennisClubSignupLeftSide extends React.Component {
   render() {
+    let newContainerLeft = "";
+    if (this.props.adminEntered) {
+      newContainerLeft = styles.newContainerLeft;
+    }
     return (
-      <div id={styles.containerLeft}>
+      <div id={newContainerLeft} className={styles.containerLeft}>
         <LeftSidePTags />
 
-        <TennisClubForm getTennisClubInfo={this.props.getTennisClubInfo} />
-
-        {this.props.adminEntered && (
-          <p id={styles.unEnterAdmin} onClick={this.props.unEnterAdmin}>
-            Go back to admin info enter
-          </p>
-        )}
+        <TennisClubForm
+          unEnterAdmin={this.props.unEnterAdmin}
+          getTennisClubInfo={this.props.getTennisClubInfo}
+        />
       </div>
     );
   }

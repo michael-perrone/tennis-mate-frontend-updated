@@ -1,0 +1,17 @@
+#goBack {
+  position: relative;
+  left: -220px;
+  top: -112px;
+  height: 49px;
+  border: none;
+  box-shadow: 1px 1px 10px black;
+  border-radius: 8px;
+  font-size: 18px;
+  padding: 0px 10px;
+}
+
+@media (max-width: 1400px) and (min-width: 0px) {
+  #goBack {
+    top: -50px;
+  }
+}

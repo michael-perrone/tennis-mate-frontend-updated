@@ -7,6 +7,7 @@
   position: absolute;
   transform: translateX(-180vw);
   transition-duration: 2s;
+  margin-top: 50px;
 }
 
 #animationSubContainerLeft {
@@ -58,7 +59,9 @@
   width: 400px;
   border: none;
   box-shadow: 1px 1px 10px black;
-  align-self: center;
+  align-self: flex-end;
+  position: relative;
+  right: 40px;
 }
 
 .divWidthControl {
@@ -91,7 +94,7 @@
 
 @media (max-width: 1587px) and (min-width: 1400px) {
   .subContainerLeft {
-    margin-right: 80px;
+    margin-left: 80px;
   }
 }
 

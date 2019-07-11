@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 class TennisClubSignupRightSide extends React.Component {
   render() {
     return (
-      <div id={styles.containerRight}>
+      <div className={styles.containerRight}>
         <AdminForm getAdminInfo={this.props.getAdminInfo} />
         <RightSidePTags
           name={this.props.name}

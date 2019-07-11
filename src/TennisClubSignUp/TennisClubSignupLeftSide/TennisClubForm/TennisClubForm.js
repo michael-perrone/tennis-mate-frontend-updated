@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TennisClubForm.module.css";
 import { ADMIN_ENTERED } from "../../../actions/actions";
 import { connect } from "react-redux";
+import GoBackToAdmin from "./GoBackToAdmin/GoBackToAdmin";
 
 class TennisClubForm extends React.Component {
   constructor(props) {
@@ -154,6 +155,7 @@ class TennisClubForm extends React.Component {
             Continue Registration
           </button>
         </form>
+        <GoBackToAdmin unEnterAdmin={this.props.unEnterAdmin} />
       </div>
     );
   }

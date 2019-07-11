@@ -63,8 +63,12 @@ class TennisClubSignup extends React.Component {
   }
 
   render() {
+    let newContainer = "";
+    if (this.props.adminEntered) {
+      newContainer = styles.newContainer;
+    }
     return (
-      <div id={styles.container}>
+      <div id={newContainer} className={styles.container}>
         <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} />
 
         <TennisClubSignupRightSide
@@ -88,6 +92,12 @@ class TennisClubSignup extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    adminEntered: state.adminEntered
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     adminInfoSent: () => dispatch({ type: ADMIN_ENTERED })
@@ -95,6 +105,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TennisClubSignup);

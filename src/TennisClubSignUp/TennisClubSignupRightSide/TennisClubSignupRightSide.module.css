@@ -1,4 +1,4 @@
-#containerRight {
+.containerRight {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,11 +21,29 @@
 }
 
 @media (max-width: 1400px) and (min-width: 0px) {
-  #containerRight {
+  .containerRight {
     flex-direction: column-reverse;
     width: 95vw;
   }
   #pTagContainer {
     margin-top: 30px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 750px) {
+  .containerRight {
+    height: 800px;
+  }
+}
+
+@media (max-width: 750px) and (min-width: 500px) {
+  .containerLeft {
+    height: 1000px;
+  }
+}
+
+@media (max-width: 500px) and (min-width: 0px) {
+  .containerLeft {
+    height: 1100px;
   }
 }
