@@ -19,6 +19,7 @@ export const rootReducer = function(state = initialState, action) {
         ...state,
         adminEntered: !state.adminEntered
       };
+
     default: {
       return state;
     }
