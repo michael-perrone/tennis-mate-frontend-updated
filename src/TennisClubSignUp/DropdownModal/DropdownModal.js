@@ -31,8 +31,18 @@ class DropdownModal extends React.Component {
 
             <li>Zipcode: {this.props.tennisClub.clubZip}</li>
             <li>Club Phone: {this.props.tennisClub.phoneNumber}</li>
-            <li>Open Time: {this.props.tennisClub.clubOpenTime}</li>
-            <li>Close Time: {this.props.tennisClub.clubCloseTime}</li>
+            <li>
+              Open Time:{" "}
+              {this.props.tennisClub.clubOpenTimeNumber +
+                " " +
+                this.props.tennisClub.clubOpenTimeAMPM}
+            </li>
+            <li>
+              Close Time:{" "}
+              {this.props.tennisClub.clubCloseTimeNumber +
+                " " +
+                this.props.tennisClub.clubCloseTimeAMPM}
+            </li>
           </ul>
 
           <button id={styles.sendAllInfo} onClick={this.props.sendAllInfo}>

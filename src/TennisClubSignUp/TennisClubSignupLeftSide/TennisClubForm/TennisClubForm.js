@@ -16,8 +16,10 @@ class TennisClubForm extends React.Component {
         phoneNumber: "",
         clubWebsite: "",
         clubAddress: "",
-        clubOpenTime: "",
-        clubCloseTime: ""
+        clubOpenTimeNumber: "",
+        clubOpenTimeAMPM: "",
+        clubCloseTimeNumber: "",
+        clubCloseTimeAMPM: ""
       }
     };
     this.getTennisClubInput = this.getTennisClubInput.bind(this);
@@ -27,6 +29,7 @@ class TennisClubForm extends React.Component {
     const newStateObject = { ...this.state.tennisClub };
     newStateObject[event.target.name] = event.target.value;
     this.setState({ tennisClub: newStateObject });
+    console.log(newStateObject);
   }
   render() {
     let animationContainerLeft = "";
@@ -83,7 +86,7 @@ class TennisClubForm extends React.Component {
               placeholder="Zip Code"
               id={styles.ml26}
               className={styles.inputs}
-              type="password"
+              type="text"
             />
           </div>
 
@@ -96,7 +99,7 @@ class TennisClubForm extends React.Component {
               placeholder="WebSite URL"
               id={styles.ml8}
               className={styles.inputs}
-              type="password"
+              type="text"
             />
           </div>
           <div className={styles.divWidthControl}>
@@ -113,27 +116,89 @@ class TennisClubForm extends React.Component {
           </div>
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Time Club Opens:</label>
-            <input
+            <select
               onChange={this.getTennisClubInput}
-              value={this.state.tennisClub.clubOpenTime}
-              name="clubOpenTime"
-              placeholder="Time Club Opens"
-              id={styles.ml8}
-              className={styles.inputs}
-              type="password"
-            />
+              name="clubOpenTimeNumber"
+              value={this.state.tennisClub.clubOpenTimeNumber}
+            >
+              <option disabled>{}</option>
+              <option>12:00</option>
+              <option>12:30</option>
+              <option>1:00</option>
+              <option>1:30</option>
+              <option>2:00</option>
+              <option>2:30</option>
+              <option>3:00</option>
+              <option>3:30</option>
+              <option>4:00</option>
+              <option>4:30</option>
+              <option>5:00</option>
+              <option>5:30</option>
+              <option>6:00</option>
+              <option>6:30</option>
+              <option>7:00</option>
+              <option>7:30</option>
+              <option>8:00</option>
+              <option>8:30</option>
+              <option>9:00</option>
+              <option>9:30</option>
+              <option>10:00</option>
+              <option>10:30</option>
+              <option>11:00</option>
+              <option>11:30</option>
+            </select>
+            <select
+              name="clubOpenTimeAMPM"
+              value={this.state.tennisClub.clubOpenTimeAMPM}
+              onChange={this.getTennisClubInput}
+            >
+              <option disabled>{}</option>
+              <option>AM</option>
+              <option>PM</option>
+            </select>
           </div>
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Time Club Closes:</label>
-            <input
+            <select
               onChange={this.getTennisClubInput}
-              value={this.state.tennisClub.clubCloseTime}
-              name="clubCloseTime"
-              placeholder="Time Club Closes"
-              id={styles.ml8}
-              className={styles.inputs}
-              type="password"
-            />
+              name="clubCloseTimeNumber"
+              value={this.state.tennisClub.clubCloseTimeNumber}
+            >
+              <option disabled>{}</option>
+              <option>12:00</option>
+              <option>12:30</option>
+              <option>1:00</option>
+              <option>1:30</option>
+              <option>2:00</option>
+              <option>2:30</option>
+              <option>3:00</option>
+              <option>3:30</option>
+              <option>4:00</option>
+              <option>4:30</option>
+              <option>5:00</option>
+              <option>5:30</option>
+              <option>6:00</option>
+              <option>6:30</option>
+              <option>7:00</option>
+              <option>7:30</option>
+              <option>8:00</option>
+              <option>8:30</option>
+              <option>9:00</option>
+              <option>9:30</option>
+              <option>10:00</option>
+              <option>10:30</option>
+              <option>11:00</option>
+              <option>11:30</option>
+            </select>
+            <select
+              name="clubCloseTimeAMPM"
+              value={this.state.tennisClub.clubCloseTimeAMPM}
+              onChange={this.getTennisClubInput}
+            >
+              <option disabled>{}</option>
+              <option>AM</option>
+              <option>PM</option>
+            </select>
           </div>
           <div style={{ marginTop: "2px" }} className={styles.divWidthControl}>
             <label className={styles.labels}>Number of Courts:</label>
