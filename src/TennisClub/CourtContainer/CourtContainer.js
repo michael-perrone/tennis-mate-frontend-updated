@@ -5,11 +5,13 @@ import CourtColumns from "./CourtColumns/CourtColumns";
 class CourtContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.courtNumbersToCourts = this.courtNumbersToCourts.bind(this);
+    this.courtNumbersToCourtColumns = this.courtNumbersToCourtColumns.bind(
+      this
+    );
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
   }
 
-  courtNumbersToCourts() {
+  courtNumbersToCourtColumns() {
     const newCourtsArray = [];
     for (let i = 1; i <= this.props.numberCourts; i++) {
       newCourtsArray.push({ courtNumber: i });
@@ -123,7 +125,7 @@ class CourtContainer extends React.Component {
     console.log(this.props);
     return (
       <div id={styles.courtContainer}>
-        {this.courtNumbersToCourts().map(element => {
+        {this.courtNumbersToCourtColumns().map(element => {
           return (
             <CourtColumns
               clubOpenNumber={this.convertTimeToCourts(
