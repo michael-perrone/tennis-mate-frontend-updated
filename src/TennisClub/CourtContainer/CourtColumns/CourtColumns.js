@@ -4,7 +4,7 @@ class CourtColumns extends React.Component {
   render() {
     return (
       <div>
-        <p />
+        <p>{this.props.courtNumber}</p>
       </div>
     );
   }
