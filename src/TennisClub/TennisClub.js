@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import styles from "./TennisClub.module.css";
 
 class TennisClub extends React.Component {
   constructor(props) {
@@ -14,13 +15,17 @@ class TennisClub extends React.Component {
         clubName: this.props.match.params.clubName
       })
       .then(response => {
-        console.log(response.data.tennisClub);
+        this.setState({ club: response.data.tennisClub });
       });
   }
 
   render() {
-    console.log();
-    return <div />;
+    console.log(this.state.club);
+    return (
+      <div id={styles.mainContainer}>
+        <p>{this.state.club.clubName}</p>
+      </div>
+    );
   }
 }
 
