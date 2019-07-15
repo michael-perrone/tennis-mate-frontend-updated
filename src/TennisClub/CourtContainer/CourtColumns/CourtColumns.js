@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./CourtColumns.module.css";
+import CourtSlot from "./CourtSlot/CourtSlot";
 
 class CourtColumns extends React.Component {
   constructor(props) {
@@ -126,7 +127,6 @@ class CourtColumns extends React.Component {
       i++
     ) {
       newCourtsArray.push({
-        booked: false,
         timeStart: this.convertNumberBackToTime(i),
         timeEnd: this.convertNumberBackToTime(i + 1)
       });
@@ -137,9 +137,19 @@ class CourtColumns extends React.Component {
   render() {
     console.log(this.state.courtsInColumn);
     return (
-      <div style={{ marginRight: "50px", marginLeft: "50px" }}>
-        <p>Court: {this.props.courtNumber}</p>
-        <div id={styles.courtColumn} />
+      <div>
+        <p style={{ textAlign: "center" }}>Court: {this.props.courtNumber}</p>
+        <div id={styles.courtColumn}>
+          {this.state.courtsInColumn.map(element => {
+            return (
+              <CourtSlot
+                timeStart={element.timeStart}
+                timeEnd={element.timeEnd}
+                key={element.timeStart + element.timeEnd}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }

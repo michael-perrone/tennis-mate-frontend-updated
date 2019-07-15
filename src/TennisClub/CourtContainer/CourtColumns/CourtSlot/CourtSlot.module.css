@@ -1,0 +1,17 @@
+#courtSlot {
+  border-bottom: 1px dashed black;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#courtSlot:nth-child(2n) {
+  border-bottom: 2px solid black;
+}
+
+#time {
+  font-size: 12px;
+}
