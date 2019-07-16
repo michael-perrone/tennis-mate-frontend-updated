@@ -44,7 +44,7 @@ class CourtSlot extends React.Component {
             : { backgroundColor: "#ebedf0" }
         }
       >
-        {!this.props.booked && <p id={styles.time}>{this.props.timeStart}</p>}
+        {!booked && <p id={styles.time}>{this.props.timeStart}</p>}
       </div>
     );
   }
