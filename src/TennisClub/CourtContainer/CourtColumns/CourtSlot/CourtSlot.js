@@ -15,6 +15,7 @@ class CourtSlot extends React.Component {
 
   bookCourt() {
     const objectToSend = {
+      clubName: this.props.clubName,
       courtId: this.props.courtId
     };
     axios
@@ -30,7 +31,10 @@ class CourtSlot extends React.Component {
   render() {
     let booked = false;
     for (let x = 0; x < this.props.bookedCourts.length; x++) {
-      if (this.props.bookedCourts[x].courtId === this.props.courtId) {
+      if (
+        this.props.bookedCourts[x].courtId === this.props.courtId &&
+        this.props.clubName === this.props.bookedCourts[x].clubName
+      ) {
         booked = true;
       }
     }

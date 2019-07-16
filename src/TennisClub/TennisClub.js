@@ -33,6 +33,7 @@ class TennisClub extends React.Component {
         <button onClick={this.showCourtsHandler}>click me for courts</button>
         {this.state.showCourts && (
           <CourtContainer
+            clubName={this.state.club.clubName}
             clubOpenTimeNumber={this.state.club.clubOpenTimeNumber}
             clubCloseTimeNumber={this.state.club.clubCloseTimeNumber}
             clubOpenTimeAMPM={this.state.club.clubOpenTimeAMPM}

@@ -137,6 +137,7 @@ class CourtContainer extends React.Component {
         {this.courtNumbersToCourtColumns().map(element => {
           return (
             <CourtColumns
+              clubName={this.props.clubName}
               bookedCourts={this.state.bookedCourts}
               clubOpenNumber={this.convertTimeToCourts(
                 this.props.clubOpenTimeNumber,
