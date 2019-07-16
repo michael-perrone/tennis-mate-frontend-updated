@@ -10,7 +10,6 @@ class CourtContainer extends React.Component {
       this
     );
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
-
     this.state = {
       bookedCourts: []
     };

@@ -9,7 +9,8 @@ class CourtColumns extends React.Component {
     this.convertNumberBackToTime = this.convertNumberBackToTime.bind(this);
 
     this.state = {
-      courtsInColumn: []
+      courtsInColumn: [],
+      bookedCourts: this.props.bookedCourts
     };
   }
 

@@ -5,20 +5,12 @@ import axios from "axios";
 class CourtSlot extends React.Component {
   constructor(props) {
     super(props);
+
+    this.bookCourt = this.bookCourt.bind(this);
     this.state = {
+      bookedCourts: [],
       booked: false
     };
-    this.anything = this.anything.bind(this);
-    this.bookCourt = this.bookCourt.bind(this);
-  }
-
-  static getDerivedStateFromProps() {
-    for (let i = 0; i < this.props.bookedCourts.length; i++) {
-      console.log(this.props.bookedCourts[i].courtId, this.props.courtId);
-      if (this.props.courtId == this.props.bookedCourts[i].courtId) {
-        this.setState({ booked: true });
-      }
-    }
   }
 
   bookCourt() {
@@ -36,12 +28,18 @@ class CourtSlot extends React.Component {
   }
 
   render() {
+    let booked = false;
+    for (let x = 0; x < this.props.bookedCourts.length; x++) {
+      if (this.props.bookedCourts[x].courtId === this.props.courtId) {
+        booked = true;
+      }
+    }
     return (
       <div
         onClick={this.bookCourt}
         id={styles.courtSlot}
         style={
-          this.state.booked
+          booked === true
             ? { backgroundColor: "#ff9999" }
             : { backgroundColor: "#ebedf0" }
         }
