@@ -135,17 +135,20 @@ class CourtColumns extends React.Component {
   }
 
   render() {
-    console.log(this.state.courtsInColumn);
     return (
       <div>
         <p style={{ textAlign: "center" }}>Court: {this.props.courtNumber}</p>
         <div id={styles.courtColumn}>
-          {this.state.courtsInColumn.map(element => {
+          {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                bookedCourts={this.props.bookedCourts}
+                courtNumber={this.props.courtNumber}
                 timeStart={element.timeStart}
                 timeEnd={element.timeEnd}
-                key={element.timeStart + element.timeEnd}
+                key={`${this.props.courtNumber.toString() + index.toString()}`}
+                courtId={`${this.props.courtNumber.toString() +
+                  index.toString()}`}
               />
             );
           })}

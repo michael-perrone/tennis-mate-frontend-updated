@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./CourtContainer.module.css";
+import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
 
 class CourtContainer extends React.Component {
@@ -9,6 +10,16 @@ class CourtContainer extends React.Component {
       this
     );
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
+
+    this.state = {
+      bookedCourts: []
+    };
+  }
+
+  componentDidMount() {
+    axios.get("http://localhost:8080/api/timeSlotBooked").then(response => {
+      this.setState({ bookedCourts: response.data.bookedCourts });
+    });
   }
 
   courtNumbersToCourtColumns() {
@@ -122,12 +133,12 @@ class CourtContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div id={styles.courtContainer}>
         {this.courtNumbersToCourtColumns().map(element => {
           return (
             <CourtColumns
+              bookedCourts={this.state.bookedCourts}
               clubOpenNumber={this.convertTimeToCourts(
                 this.props.clubOpenTimeNumber,
                 this.props.clubOpenTimeAMPM
