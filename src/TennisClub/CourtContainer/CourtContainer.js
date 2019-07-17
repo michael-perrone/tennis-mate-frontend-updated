@@ -9,17 +9,48 @@ class CourtContainer extends React.Component {
     this.courtNumbersToCourtColumns = this.courtNumbersToCourtColumns.bind(
       this
     );
+
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
     this.state = {
       bookedCourts: [],
-      bookingArray: []
+      bookingArray: [],
+      bookingError: false,
+      booked: false
     };
   }
 
   courtArray = param => {
     const newArray = [...this.state.bookingArray, param];
-    this.setState({ bookingArray: newArray });
+    const sortedStateArray = newArray.sort(function(a, b) {
+      return a.courtId - b.courtId;
+    });
+
+    this.setState({ bookingArray: sortedStateArray });
     console.log(this.state.bookingArray);
+  };
+
+  bookCourtArray = () => {
+    if (this.state.bookingArray.length === 1) {
+      console.log("me");
+      this.setState({ booked: true });
+      // write post
+    } else if (this.state.bookingArray.length > 0) {
+      let sortedArray = this.state.bookingArray.slice();
+      for (let i = 0; i < sortedArray.length - 1; i++) {
+        if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
+          this.setState({
+            bookingError: "You have selected the same timeslot multiple times"
+          });
+        }
+      }
+      if (this.state.bookingError) {
+        console.log(this.state.bookingArray);
+        this.setState({ booked: true });
+      }
+    } else {
+      console.log("Yeah no");
+      this.setState({ bookingError: "Please choose your courts" });
+    }
   };
 
   componentDidMount() {
@@ -140,26 +171,31 @@ class CourtContainer extends React.Component {
 
   render() {
     return (
-      <div id={styles.courtContainer}>
-        {this.courtNumbersToCourtColumns().map(element => {
-          return (
-            <CourtColumns
-              getCourt={this.courtArray}
-              clubName={this.props.clubName}
-              bookedCourts={this.state.bookedCourts}
-              clubOpenNumber={this.convertTimeToCourts(
-                this.props.clubOpenTimeNumber,
-                this.props.clubOpenTimeAMPM
-              )}
-              clubCloseNumber={this.convertTimeToCourts(
-                this.props.clubCloseTimeNumber,
-                this.props.clubCloseTimeAMPM
-              )}
-              key={element.courtNumber}
-              courtNumber={element.courtNumber}
-            />
-          );
-        })}
+      <div>
+        <button style={{ marginLeft: "400px" }} onClick={this.bookCourtArray}>
+          Book Court
+        </button>
+        <div id={styles.courtContainer}>
+          {this.courtNumbersToCourtColumns().map(element => {
+            return (
+              <CourtColumns
+                getCourt={this.courtArray}
+                clubName={this.props.clubName}
+                bookedCourts={this.state.bookedCourts}
+                clubOpenNumber={this.convertTimeToCourts(
+                  this.props.clubOpenTimeNumber,
+                  this.props.clubOpenTimeAMPM
+                )}
+                clubCloseNumber={this.convertTimeToCourts(
+                  this.props.clubCloseTimeNumber,
+                  this.props.clubCloseTimeAMPM
+                )}
+                key={element.courtNumber}
+                courtNumber={element.courtNumber}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
