@@ -14,8 +14,8 @@ class CourtContainer extends React.Component {
     this.state = {
       bookedCourts: [],
       bookingArray: [],
-      bookingError: false,
-      booked: false
+      bookingError: "",
+      booking: false
     };
   }
 
@@ -26,7 +26,6 @@ class CourtContainer extends React.Component {
     });
 
     this.setState({ bookingArray: sortedStateArray });
-    console.log(this.state.bookingArray);
   };
 
   bookCourtArray = () => {
@@ -35,17 +34,42 @@ class CourtContainer extends React.Component {
       this.setState({ booked: true });
       // write post
     } else if (this.state.bookingArray.length > 0) {
+      let resultsArray = [];
       let sortedArray = this.state.bookingArray.slice();
       for (let i = 0; i < sortedArray.length - 1; i++) {
         if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
-          this.setState({
-            bookingError: "You have selected the same timeslot multiple times"
-          });
+          resultsArray.push(sortedArray[i]);
         }
       }
-      if (this.state.bookingError) {
+      let otherResultsArray = [];
+      let otherSortedArray = this.state.bookingArray.slice();
+      for (let x = 0; x < sortedArray.length - 1; x++) {
+        if (
+          otherSortedArray[x + 1].courtId - 1 !=
+          otherSortedArray[x].courtId
+        ) {
+          otherResultsArray.push(otherResultsArray[x].courtId);
+          // console.log("got it");
+        }
+      }
+
+      if (resultsArray.length > 0) {
+        // console.log("bad");
+        this.setState({
+          bookingError: "You cannot select the same time slot twice"
+        });
+      }
+      if (otherResultsArray.length > 0) {
+        this.setState({
+          bookingError:
+            "You cannot select courts that are not connected in time slots"
+        });
+      }
+
+      if (resultsArray.length === 0 && otherResultsArray.length === 0) {
+        console.log("good");
         console.log(this.state.bookingArray);
-        this.setState({ booked: true });
+        this.setState({ booking: true });
       }
     } else {
       console.log("Yeah no");
