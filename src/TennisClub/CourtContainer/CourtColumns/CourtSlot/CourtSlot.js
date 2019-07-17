@@ -50,8 +50,14 @@ class CourtSlot extends React.Component {
         id={styles.courtSlot}
         style={
           this.props.booked === true
-            ? { backgroundColor: "#ff9999" }
-            : { backgroundColor: "#ebedf0" }
+            ? {
+                backgroundColor: "#ff9999",
+                borderBottom: "2px solid #ff9999",
+                borderTop: "none"
+              }
+            : {
+                backgroundColor: "#ebedf0"
+              }
         }
       >
         {!this.props.booked && <p id={styles.time}>{this.props.timeStart}</p>}

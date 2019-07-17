@@ -14,7 +14,7 @@ class CourtColumns extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.turnNumberIntoCourts();
   }
 
@@ -135,6 +135,22 @@ class CourtColumns extends React.Component {
     this.setState({ courtsInColumn: newCourtsArray });
   }
 
+  checkBooked = courtId => {
+    let booked = [];
+    let checkingVar = false;
+    this.props.bookedCourts.forEach(element => {
+      element.courtIds.forEach(element => {
+        booked.push(element);
+      });
+    });
+    booked.forEach(element => {
+      if (courtId === element) {
+        checkingVar = true;
+      }
+    });
+    return checkingVar;
+  };
+
   render() {
     return (
       <div>
@@ -143,6 +159,9 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                booked={this.checkBooked(
+                  `${this.props.courtNumber.toString() + index.toString()}`
+                )}
                 getCourt={this.props.getCourt}
                 clubName={this.props.clubName}
                 bookedCourts={this.props.bookedCourts}
