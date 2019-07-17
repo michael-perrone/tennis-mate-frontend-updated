@@ -7,10 +7,10 @@ class CourtColumns extends React.Component {
     super(props);
     this.turnNumberIntoCourts = this.turnNumberIntoCourts.bind(this);
     this.convertNumberBackToTime = this.convertNumberBackToTime.bind(this);
-
     this.state = {
       courtsInColumn: [],
-      bookedCourts: this.props.bookedCourts
+      bookedCourts: this.props.bookedCourts,
+      bookingArray: []
     };
   }
 
@@ -143,6 +143,7 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                getCourt={this.props.getCourt}
                 clubName={this.props.clubName}
                 bookedCourts={this.props.bookedCourts}
                 courtNumber={this.props.courtNumber}

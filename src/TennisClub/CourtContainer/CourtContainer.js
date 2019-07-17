@@ -11,9 +11,16 @@ class CourtContainer extends React.Component {
     );
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
     this.state = {
-      bookedCourts: []
+      bookedCourts: [],
+      bookingArray: []
     };
   }
+
+  courtArray = param => {
+    const newArray = [...this.state.bookingArray, param];
+    this.setState({ bookingArray: newArray });
+    console.log(this.state.bookingArray);
+  };
 
   componentDidMount() {
     axios.get("http://localhost:8080/api/timeSlotBooked").then(response => {
@@ -137,6 +144,7 @@ class CourtContainer extends React.Component {
         {this.courtNumbersToCourtColumns().map(element => {
           return (
             <CourtColumns
+              getCourt={this.courtArray}
               clubName={this.props.clubName}
               bookedCourts={this.state.bookedCourts}
               clubOpenNumber={this.convertTimeToCourts(
