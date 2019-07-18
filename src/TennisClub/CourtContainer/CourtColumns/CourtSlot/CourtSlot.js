@@ -25,7 +25,7 @@ class CourtSlot extends React.Component {
             style={{
               height: "100%",
               width: "100%",
-              borderBottom: "3px solid black"
+              borderBottom: "4px solid black"
             }}
           />
         )}

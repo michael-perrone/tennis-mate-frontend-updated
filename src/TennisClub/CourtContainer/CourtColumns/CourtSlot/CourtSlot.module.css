@@ -26,7 +26,7 @@
   justify-content: center;
   align-items: center;
   background-color: #ff9999;
-  border-bottom: 2px solid #ff9999;
+  border-bottom: 1px solid #ff9999;
 }
 
 #courtSlotNotBooked:nth-child(2n) {
