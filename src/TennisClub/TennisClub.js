@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import styles from "./TennisClub.module.css";
-import Calendar from "./Calendar/Calendar";
 import CourtContainer from "./CourtContainer/CourtContainer";
 
 class TennisClub extends React.Component {
@@ -31,7 +30,6 @@ class TennisClub extends React.Component {
     return (
       <div id={styles.mainContainer}>
         <p>{this.state.club.clubName}</p>
-        <Calendar />
         <button onClick={this.showCourtsHandler}>click me for courts</button>
         {this.state.showCourts && (
           <CourtContainer
