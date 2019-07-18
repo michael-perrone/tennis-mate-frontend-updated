@@ -135,11 +135,31 @@ class CourtColumns extends React.Component {
     this.setState({ courtsInColumn: newCourtsArray });
   }
 
+  sendBookingInfo = courtId => {
+    let objectSending = null;
+    this.props.bookedCourts.forEach(element => {
+      if (courtId === element.courtIds[0]) {
+        objectSending = element;
+      }
+    });
+    return objectSending;
+  };
+
+  borderDivEnd = courtId => {
+    let getLastElement;
+    this.props.bookedCourts.forEach(element => {
+      if (courtId === element.courtIds[element.courtIds.length - 1]) {
+        getLastElement = true;
+      }
+    });
+    return getLastElement;
+  };
+
   checkBooked = courtId => {
     let booked = [];
     let checkingVar = false;
-    this.props.bookedCourts.forEach(element => {
-      element.courtIds.forEach(element => {
+    this.props.bookedCourts.forEach(element1 => {
+      element1.courtIds.forEach(element => {
         booked.push(element);
       });
     });
@@ -159,7 +179,13 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                isLast={this.borderDivEnd(
+                  `${this.props.courtNumber.toString() + index.toString()}`
+                )}
                 booked={this.checkBooked(
+                  `${this.props.courtNumber.toString() + index.toString()}`
+                )}
+                bookingInfo={this.sendBookingInfo(
                   `${this.props.courtNumber.toString() + index.toString()}`
                 )}
                 getCourt={this.props.getCourt}

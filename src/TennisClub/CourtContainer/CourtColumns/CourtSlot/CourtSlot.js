@@ -7,60 +7,58 @@ class CourtSlot extends React.Component {
 
     // this.bookCourt = this.bookCourt.bind(this);
     this.state = {
-      bookedCourts: [],
-      booked: false
+      bookedCourts: []
     };
   }
 
-  /*   bookCourt() {
-    const objectToSend = {
-      clubName: this.props.clubName,
-      courtId: this.props.courtId
-    };
-    axios
-      .post("http://localhost:8080/api/timeSlotBooked", objectToSend)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  } */
-
   render() {
-    /*   let booked = false;
-    for (let x = 0; x < this.props.bookedCourts.length; x++) {
-      if (
-        this.props.bookedCourts[x].courtId === this.props.courtId &&
-        this.props.clubName === this.props.bookedCourts[x].clubName
-      ) {
-        booked = true;
-      }
-    } */
     return (
       <div
-        onClick={() =>
-          this.props.getCourt({
-            courtId: this.props.courtId,
-            timeStart: this.props.timeStart,
-            endTime: this.props.timeEnd,
-            clubName: this.props.clubName
-          })
-        }
-        id={styles.courtSlot}
-        style={
-          this.props.booked === true
-            ? {
-                backgroundColor: "#ff9999",
-                borderBottom: "2px solid #ff9999",
-                borderTop: "none"
-              }
-            : {
-                backgroundColor: "#ebedf0"
-              }
+        id={
+          !this.props.booked
+            ? styles.courtSlotNotBooked
+            : styles.courtSlotBooked
         }
       >
-        {!this.props.booked && <p id={styles.time}>{this.props.timeStart}</p>}
+        {this.props.booked && this.props.isLast && (
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              borderBottom: "3px solid black"
+            }}
+          />
+        )}
+
+        {this.props.booked && this.props.bookingInfo !== null && (
+          <div
+            onClick={this.showbookingModal(this.props.bookingInfo)}
+            id={styles.bookingInfo}
+          >
+            <p>Check Booking</p>
+          </div>
+        )}
+        {!this.props.booked && (
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onClick={() =>
+              this.props.getCourt({
+                courtId: this.props.courtId,
+                timeStart: this.props.timeStart,
+                endTime: this.props.timeEnd,
+                clubName: this.props.clubName
+              })
+            }
+          >
+            <p id={styles.time}>{this.props.timeStart}</p>
+          </div>
+        )}
       </div>
     );
   }

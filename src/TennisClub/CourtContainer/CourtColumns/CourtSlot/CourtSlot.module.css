@@ -1,4 +1,4 @@
-#courtSlot {
+#courtSlotNotBooked {
   border-bottom: 1px dashed black;
   width: 100%;
   flex: 1;
@@ -6,9 +6,30 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: #ebedf0;
 }
 
-#courtSlot:nth-child(2n) {
+#bookingInfo {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-top: 3px solid black;
+}
+
+#courtSlotBooked {
+  border-bottom: 1px dashed black;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff9999;
+  border-bottom: 2px solid #ff9999;
+}
+
+#courtSlotNotBooked:nth-child(2n) {
   border-bottom: 2px solid black;
 }
 
