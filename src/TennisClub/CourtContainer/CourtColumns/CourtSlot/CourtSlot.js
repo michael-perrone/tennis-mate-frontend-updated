@@ -32,7 +32,7 @@ class CourtSlot extends React.Component {
 
         {this.props.booked && this.props.bookingInfo !== null && (
           <div
-            onClick={this.showbookingModal(this.props.bookingInfo)}
+            onClick={this.props.getModalObject(this.props.bookingInfo)}
             id={styles.bookingInfo}
           >
             <p>Check Booking</p>

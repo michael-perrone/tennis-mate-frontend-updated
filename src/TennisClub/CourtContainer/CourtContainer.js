@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./CourtContainer.module.css";
 import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
+import BookingModal from "./BookingModal/BookingModal";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class CourtContainer extends React.Component {
       bookedCourts: [],
       bookingArray: [],
       bookingError: "",
-      booking: false
+      booking: false,
+      showBookingModalState: false,
+      objectToModal: {}
     };
   }
 
@@ -30,6 +33,10 @@ class CourtContainer extends React.Component {
       this.setState({ bookedCourts: clubsMatchArray });
     });
   }
+
+  showBookingModal = objectToModal => () => {
+    this.setState({ objectToModal, showBookingModalState: true });
+  };
 
   courtArray = param => {
     const newArray = [...this.state.bookingArray, param];
@@ -223,6 +230,9 @@ class CourtContainer extends React.Component {
     console.log("inside render court container");
     return (
       <div>
+        {this.state.showBookingModalState && (
+          <BookingModal objectToModal={this.state.objectToModal} />
+        )}
         <button style={{ marginLeft: "400px" }} onClick={this.bookCourtArray}>
           Book Court
         </button>
@@ -230,6 +240,7 @@ class CourtContainer extends React.Component {
           {this.courtNumbersToCourtColumns().map(element => {
             return (
               <CourtColumns
+                getModalObject={this.showBookingModal}
                 getCourt={this.courtArray}
                 clubName={this.props.clubName}
                 bookedCourts={this.state.bookedCourts}

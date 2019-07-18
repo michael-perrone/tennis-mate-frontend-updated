@@ -179,6 +179,7 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                getModalObject={this.props.getModalObject}
                 isLast={this.borderDivEnd(
                   `${this.props.courtNumber.toString() + index.toString()}`
                 )}
