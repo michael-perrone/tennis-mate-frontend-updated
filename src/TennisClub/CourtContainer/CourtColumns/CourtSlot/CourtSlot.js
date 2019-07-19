@@ -12,6 +12,7 @@ class CourtSlot extends React.Component {
   }
 
   render() {
+    console.log(this.props.isLast);
     return (
       <div
         id={

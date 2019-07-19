@@ -74,9 +74,25 @@ class CourtContainer extends React.Component {
 
   bookCourtArray = () => {
     if (this.state.bookingArray.length === 1) {
-      console.log("me");
-      this.setState({ booked: true });
-      // write post
+      const courtIdsArray = [];
+      this.state.bookingArray.forEach(element => {
+        courtIdsArray.push(element.courtId);
+      });
+      const bookingToSend = {
+        timeStart: this.state.bookingArray[0].timeStart,
+        timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+          .endTime,
+        courtIds: courtIdsArray,
+        minutes: this.state.bookingArray.length * 30,
+        clubName: this.props.clubName,
+        date: this.props.date
+      };
+      axios
+        .post("http://localhost:8080/api/courtBooked", bookingToSend)
+        .then(response => {
+          console.log(response);
+        });
+      this.setState({ booking: true });
     } else if (this.state.bookingArray.length > 0) {
       let resultsArray = [];
       let sortedArray = this.state.bookingArray.slice();

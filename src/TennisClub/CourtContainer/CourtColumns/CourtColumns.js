@@ -146,9 +146,12 @@ class CourtColumns extends React.Component {
   };
 
   borderDivEnd = courtId => {
-    let getLastElement;
+    let getLastElement = "";
     this.props.bookedCourts.forEach(element => {
-      if (courtId === element.courtIds[element.courtIds.length - 1]) {
+      if (
+        courtId === element.courtIds[element.courtIds.length - 1] &&
+        element.courtIds.length > 1
+      ) {
         getLastElement = true;
       }
     });
@@ -191,7 +194,6 @@ class CourtColumns extends React.Component {
                 )}
                 getCourt={this.props.getCourt}
                 clubName={this.props.clubName}
-                bookedCourts={this.props.bookedCourts}
                 courtNumber={this.props.courtNumber}
                 timeStart={element.timeStart}
                 timeEnd={element.timeEnd}
