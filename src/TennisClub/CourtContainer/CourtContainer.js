@@ -26,12 +26,36 @@ class CourtContainer extends React.Component {
     axios.get("http://localhost:8080/api/courtBooked").then(response => {
       let clubsMatchArray = [];
       response.data.bookings.forEach(element => {
-        if (element.clubName === this.props.clubName) {
+        if (
+          element.clubName === this.props.clubName &&
+          this.props.date === element.date
+        ) {
+          console.log(element.date);
+          console.log(this.props.date);
           clubsMatchArray.push(element);
         }
       });
       this.setState({ bookedCourts: clubsMatchArray });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.date !== this.props.date) {
+      axios.get("http://localhost:8080/api/courtBooked").then(response => {
+        let clubsMatchArray = [];
+        response.data.bookings.forEach(element => {
+          if (
+            element.clubName === this.props.clubName &&
+            this.props.date === element.date
+          ) {
+            console.log(element.date);
+            console.log(this.props.date);
+            clubsMatchArray.push(element);
+          }
+        });
+        this.setState({ bookedCourts: clubsMatchArray });
+      });
+    }
   }
 
   showBookingModal = objectToModal => () => {
@@ -101,7 +125,8 @@ class CourtContainer extends React.Component {
             .endTime,
           courtIds: courtIdsArray,
           minutes: this.state.bookingArray.length * 30,
-          clubName: this.props.clubName
+          clubName: this.props.clubName,
+          date: this.props.date
         };
         axios
           .post("http://localhost:8080/api/courtBooked", bookingToSend)

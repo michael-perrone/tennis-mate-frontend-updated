@@ -15,11 +15,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  border-top: 3px solid black;
+  border-top: 1px solid black;
 }
 
 #courtSlotBooked {
-  border-bottom: 1px dashed black;
   width: 100%;
   flex: 1;
   display: flex;

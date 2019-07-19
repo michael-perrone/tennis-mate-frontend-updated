@@ -23,9 +23,10 @@ class CourtSlot extends React.Component {
         {this.props.booked && this.props.isLast && (
           <div
             style={{
+              borderTop: "none",
               height: "100%",
               width: "100%",
-              borderBottom: "4px solid black"
+              borderBottom: "2px solid black"
             }}
           />
         )}
