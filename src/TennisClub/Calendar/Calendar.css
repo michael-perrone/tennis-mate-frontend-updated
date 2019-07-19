@@ -31,15 +31,11 @@
 
 /* GENERAL */
 
-* {
-  box-sizing: border-box;
-}
-
 #body {
   font-family: sans-serif;
   font-size: 16px;
   font-weight: 300;
-
+  box-sizing: border-box;
   color: black;
 
   position: relative;
@@ -73,16 +69,19 @@ header #logo .icon {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .row-middle {
   align-items: center;
+  box-sizing: border-box;
 }
 
 .col {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .col-start {
@@ -109,6 +108,7 @@ header #logo .icon {
   width: 600px;
   background: var(--neutral-color);
   border: 1px solid var(--border-color);
+  box-sizing: border-box;
 }
 
 .calendar .header {
