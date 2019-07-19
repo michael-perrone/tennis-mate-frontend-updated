@@ -7,9 +7,16 @@ class CourtSlot extends React.Component {
 
     // this.bookCourt = this.bookCourt.bind(this);
     this.state = {
-      bookedCourts: []
+      bookedCourts: [],
+      booking: false
     };
   }
+
+  click = () => {
+    this.setState(prevState => {
+      return { booking: !prevState.booking };
+    });
+  };
 
   render() {
     console.log(this.props.isLast);
@@ -40,7 +47,7 @@ class CourtSlot extends React.Component {
             <p>Check Booking</p>
           </div>
         )}
-        {!this.props.booked && (
+        {!this.props.booked && !this.state.booking && (
           <div
             style={{
               height: "100%",
@@ -50,15 +57,43 @@ class CourtSlot extends React.Component {
               justifyContent: "center"
             }}
             onClick={() =>
-              this.props.getCourt({
-                courtId: this.props.courtId,
-                timeStart: this.props.timeStart,
-                endTime: this.props.timeEnd,
-                clubName: this.props.clubName
-              })
+              this.props.getCourt(
+                {
+                  courtId: this.props.courtId,
+                  timeStart: this.props.timeStart,
+                  endTime: this.props.timeEnd,
+                  clubName: this.props.clubName
+                },
+                this.click
+              )
             }
           >
             <p id={styles.time}>{this.props.timeStart}</p>
+          </div>
+        )}
+        {!this.props.booked && this.state.booking && (
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "green"
+            }}
+            onClick={() =>
+              this.props.getCourt(
+                {
+                  courtId: this.props.courtId,
+                  timeStart: this.props.timeStart,
+                  endTime: this.props.timeEnd,
+                  clubName: this.props.clubName
+                },
+                this.click
+              )
+            }
+          >
+            <p id={styles.time}>Selected: {this.props.timeStart}</p>
           </div>
         )}
       </div>

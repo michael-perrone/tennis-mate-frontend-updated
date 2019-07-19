@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./BookingModal.module.css";
+import styles from "./CheckBookingModal.module.css";
 
-class BookingModal extends React.Component {
+class CheckBookingModal extends React.Component {
   render() {
     console.log(this.props);
     return (
@@ -13,4 +13,4 @@ class BookingModal extends React.Component {
   }
 }
 
-export default BookingModal;
+export default CheckBookingModal;

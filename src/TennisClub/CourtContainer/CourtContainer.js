@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CourtContainer.module.css";
 import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
-import BookingModal from "./BookingModal/BookingModal";
+import CheckBookingModal from "./CheckBookingModal/CheckBookingModal";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class CourtContainer extends React.Component {
     this.setState({ objectToModal, showBookingModalState: true });
   };
 
-  courtArray = param => {
+  courtArray = (param, secretFunction) => {
     const newArray = [...this.state.bookingArray, param];
     console.log(param);
     const sortedStateArray = newArray.sort(function(a, b) {
@@ -70,6 +70,7 @@ class CourtContainer extends React.Component {
     });
 
     this.setState({ bookingArray: sortedStateArray });
+    secretFunction();
   };
 
   bookCourtArray = () => {
@@ -272,7 +273,7 @@ class CourtContainer extends React.Component {
     return (
       <div>
         {this.state.showBookingModalState && (
-          <BookingModal objectToModal={this.state.objectToModal} />
+          <CheckBookingModal objectToModal={this.state.objectToModal} />
         )}
         <button style={{ marginLeft: "400px" }} onClick={this.bookCourtArray}>
           Book Court
