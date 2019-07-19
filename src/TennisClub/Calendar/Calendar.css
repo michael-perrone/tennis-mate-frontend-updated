@@ -158,13 +158,13 @@ header #logo .icon {
 }
 
 .calendar .body .cell:hover {
-  background: var(--bg-color);
+  background: var(black);
   transition: 0.5s ease-out;
 }
 
 .calendar .body .selected {
   border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%);
+  border-image: linear-gradient(45deg, var(--main-color) 0%, #53cbf1 40%);
   border-image-slice: 1;
 }
 
@@ -209,7 +209,7 @@ header #logo .icon {
 
 .calendar .body .cell:hover .bg,
 .calendar .body .selected .bg {
-  opacity: 0.05;
+  opacity: 0.2;
   transition: 0.5s ease-in;
 }
 
