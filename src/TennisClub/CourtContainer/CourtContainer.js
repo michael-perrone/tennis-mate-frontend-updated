@@ -3,6 +3,7 @@ import styles from "./CourtContainer.module.css";
 import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
 import CheckBookingModal from "./CheckBookingModal/CheckBookingModal";
+import TryingToBookModal from "./TryingToBookModal/TryingToBookModal";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class CourtContainer extends React.Component {
       bookingError: "",
       booking: false,
       showBookingModalState: false,
-      objectToModal: {}
+      objectToModal: {},
+      tryingToBookModalState: false,
+      bookingToSend: null
     };
   }
 
@@ -74,87 +77,12 @@ class CourtContainer extends React.Component {
   };
 
   bookCourtArray = () => {
-    if (this.state.bookingArray.length === 1) {
-      const courtIdsArray = [];
-      this.state.bookingArray.forEach(element => {
-        courtIdsArray.push(element.courtId);
-      });
-      const bookingToSend = {
-        timeStart: this.state.bookingArray[0].timeStart,
-        timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-          .endTime,
-        courtIds: courtIdsArray,
-        minutes: this.state.bookingArray.length * 30,
-        clubName: this.props.clubName,
-        date: this.props.date
-      };
+    if (this.state.bookingToSend !== null) {
       axios
-        .post("http://localhost:8080/api/courtBooked", bookingToSend)
+        .post("http://localhost:8080/api/courtBooked", this.state.bookingToSend)
         .then(response => {
           console.log(response);
         });
-      this.setState({ booking: true });
-    } else if (this.state.bookingArray.length > 0) {
-      let resultsArray = [];
-      let sortedArray = this.state.bookingArray.slice();
-      for (let i = 0; i < sortedArray.length - 1; i++) {
-        if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
-          resultsArray.push(sortedArray[i]);
-        }
-      }
-      let otherResultsArray = [];
-      let otherSortedArray = this.state.bookingArray.slice();
-      for (let x = 0; x < sortedArray.length - 1; x++) {
-        if (
-          otherSortedArray[x + 1].courtId - 1 !=
-          otherSortedArray[x].courtId
-        ) {
-          otherResultsArray.push(otherSortedArray[x].courtId);
-          // console.log("got it");
-        }
-      }
-
-      if (resultsArray.length > 0) {
-        console.log("cant click same one twice");
-        this.setState({
-          bookingError: "You cannot select the same time slot twice"
-        });
-      }
-      if (otherResultsArray.length > 0) {
-        console.log("have to be in order");
-        this.setState({
-          bookingError:
-            "You cannot select courts that are not connected in time slots"
-        });
-      }
-
-      if (resultsArray.length === 0 && otherResultsArray.length === 0) {
-        console.log("good");
-        console.log(this.state.bookingArray);
-        const courtIdsArray = [];
-        this.state.bookingArray.forEach(element => {
-          courtIdsArray.push(element.courtId);
-        });
-
-        const bookingToSend = {
-          timeStart: this.state.bookingArray[0].timeStart,
-          timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-            .endTime,
-          courtIds: courtIdsArray,
-          minutes: this.state.bookingArray.length * 30,
-          clubName: this.props.clubName,
-          date: this.props.date
-        };
-        axios
-          .post("http://localhost:8080/api/courtBooked", bookingToSend)
-          .then(response => {
-            console.log(response);
-          });
-        this.setState({ booking: true });
-      }
-    } else {
-      console.log("Yeah no");
-      this.setState({ bookingError: "Please choose your courts" });
     }
   };
 
@@ -268,14 +196,98 @@ class CourtContainer extends React.Component {
     return courtTimeNumber;
   }
 
+  showTryingToBookModal = () => {
+    if (this.state.bookingArray.length === 1) {
+      const courtIdsArray = [];
+      this.state.bookingArray.forEach(element => {
+        courtIdsArray.push(element.courtId);
+      });
+      const bookingToSend = {
+        timeStart: this.state.bookingArray[0].timeStart,
+        timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+          .endTime,
+        courtIds: courtIdsArray,
+        minutes: this.state.bookingArray.length * 30,
+        clubName: this.props.clubName,
+        date: this.props.date
+      };
+      this.setState({ bookingToSend });
+    }
+    if (this.state.bookingArray.length > 0) {
+      let resultsArray = [];
+      let sortedArray = this.state.bookingArray.slice();
+      for (let i = 0; i < sortedArray.length - 1; i++) {
+        if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
+          resultsArray.push(sortedArray[i]);
+        }
+      }
+      let otherResultsArray = [];
+      let otherSortedArray = this.state.bookingArray.slice();
+      for (let x = 0; x < sortedArray.length - 1; x++) {
+        if (
+          otherSortedArray[x + 1].courtId - 1 !=
+          otherSortedArray[x].courtId
+        ) {
+          otherResultsArray.push(otherSortedArray[x].courtId);
+          // console.log("got it");
+        }
+      }
+      if (resultsArray.length > 0) {
+        console.log("cant click same one twice");
+        this.setState({
+          bookingError: "You cannot select the same time slot twice"
+        });
+      }
+      if (otherResultsArray.length > 0) {
+        console.log("have to be in order");
+        this.setState({
+          bookingError:
+            "You cannot select courts that are not connected in time slots"
+        });
+      }
+
+      if (resultsArray.length === 0 && otherResultsArray.length === 0) {
+        const courtIdsArray = [];
+        this.state.bookingArray.forEach(element => {
+          courtIdsArray.push(element.courtId);
+        });
+
+        const bookingToSend = {
+          timeStart: this.state.bookingArray[0].timeStart,
+          timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+            .endTime,
+          courtIds: courtIdsArray,
+          minutes: this.state.bookingArray.length * 30,
+          clubName: this.props.clubName,
+          date: this.props.date
+        };
+        this.setState({ bookingToSend });
+      }
+      this.setState(prevState => {
+        return { tryingToBookModalState: !prevState.tryingToBookModalState };
+      });
+    }
+  };
+
   render() {
+    console.log(this.state.bookingToSend);
     console.log("inside render court container");
     return (
       <div>
         {this.state.showBookingModalState && (
           <CheckBookingModal objectToModal={this.state.objectToModal} />
         )}
-        <button style={{ marginLeft: "400px" }} onClick={this.bookCourtArray}>
+        {this.state.tryingToBookModalState && (
+          <TryingToBookModal
+            booking={this.state.bookingToSend}
+            cancelModal={this.showTryingToBookModal}
+            bookCourt={this.bookCourtArray}
+          />
+        )}
+        <button
+          style={{ marginLeft: "400px" }}
+          onClick={this.showTryingToBookModal}
+        >
           Book Court
         </button>
         <div id={styles.courtContainer}>

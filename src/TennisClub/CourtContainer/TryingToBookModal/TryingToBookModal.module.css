@@ -1,0 +1,12 @@
+#tryingToBookModal {
+  left: 200px;
+  height: 400px;
+  background-color: white;
+  border: 3px solid black;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
