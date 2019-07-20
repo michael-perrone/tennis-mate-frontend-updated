@@ -269,6 +269,10 @@ class CourtContainer extends React.Component {
     }
   };
 
+  cancelBooking = () => {
+    this.setState({ tryingToBookModalState: false });
+  };
+
   render() {
     console.log(this.state.bookingToSend);
     console.log("inside render court container");
@@ -280,7 +284,7 @@ class CourtContainer extends React.Component {
         {this.state.tryingToBookModalState && (
           <TryingToBookModal
             booking={this.state.bookingToSend}
-            cancelModal={this.showTryingToBookModal}
+            cancelBooking={this.cancelBooking}
             bookCourt={this.bookCourtArray}
           />
         )}
