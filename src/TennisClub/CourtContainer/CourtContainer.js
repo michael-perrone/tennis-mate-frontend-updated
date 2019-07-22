@@ -33,8 +33,6 @@ class CourtContainer extends React.Component {
           element.clubName === this.props.clubName &&
           this.props.date === element.date
         ) {
-          console.log(element.date);
-          console.log(this.props.date);
           clubsMatchArray.push(element);
         }
       });
@@ -51,8 +49,6 @@ class CourtContainer extends React.Component {
             element.clubName === this.props.clubName &&
             this.props.date === element.date
           ) {
-            console.log(element.date);
-            console.log(this.props.date);
             clubsMatchArray.push(element);
           }
         });
@@ -67,7 +63,6 @@ class CourtContainer extends React.Component {
 
   courtArray = (param, secretFunction) => {
     const newArray = [...this.state.bookingArray, param];
-    console.log(param);
     const sortedStateArray = newArray.sort(function(a, b) {
       return a.courtId - b.courtId;
     });

@@ -15,7 +15,6 @@ class CourtSlot extends React.Component {
   click = courtId => {};
 
   render() {
-    console.log("hi");
     return (
       <div
         id={
