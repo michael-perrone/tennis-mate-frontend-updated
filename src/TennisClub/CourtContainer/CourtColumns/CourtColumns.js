@@ -174,6 +174,16 @@ class CourtColumns extends React.Component {
     return checkingVar;
   };
 
+  beingBooked = courtId => {
+    let beingBooked = false;
+    this.props.bookingArray.forEach(element => {
+      if (element.courtId === courtId) {
+        beingBooked = true;
+      }
+    });
+    return beingBooked;
+  };
+
   render() {
     return (
       <div>
@@ -182,6 +192,9 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                beingBooked={this.beingBooked(
+                  `${this.props.courtNumber.toString() + index.toString()}`
+                )}
                 getModalObject={this.props.getModalObject}
                 isLast={this.borderDivEnd(
                   `${this.props.courtNumber.toString() + index.toString()}`

@@ -12,14 +12,10 @@ class CourtSlot extends React.Component {
     };
   }
 
-  click = () => {
-    this.setState(prevState => {
-      return { booking: !prevState.booking };
-    });
-  };
+  click = courtId => {};
 
   render() {
-    console.log(this.props.isLast);
+    console.log("hi");
     return (
       <div
         id={
@@ -47,7 +43,7 @@ class CourtSlot extends React.Component {
             <p>Check Booking</p>
           </div>
         )}
-        {!this.props.booked && !this.state.booking && (
+        {!this.props.booked && !this.props.beingBooked && (
           <div
             style={{
               height: "100%",
@@ -71,7 +67,7 @@ class CourtSlot extends React.Component {
             <p id={styles.time}>{this.props.timeStart}</p>
           </div>
         )}
-        {!this.props.booked && this.state.booking && (
+        {!this.props.booked && this.props.beingBooked && (
           <div
             style={{
               height: "100%",
@@ -81,17 +77,6 @@ class CourtSlot extends React.Component {
               justifyContent: "center",
               backgroundColor: "green"
             }}
-            onClick={() =>
-              this.props.getCourt(
-                {
-                  courtId: this.props.courtId,
-                  timeStart: this.props.timeStart,
-                  endTime: this.props.timeEnd,
-                  clubName: this.props.clubName
-                },
-                this.click
-              )
-            }
           >
             <p id={styles.time}>Selected: {this.props.timeStart}</p>
           </div>

@@ -271,6 +271,7 @@ class CourtContainer extends React.Component {
 
   cancelBooking = () => {
     this.setState({ tryingToBookModalState: false });
+    this.setState({ bookingArray: [] });
   };
 
   render() {
@@ -294,10 +295,12 @@ class CourtContainer extends React.Component {
         >
           Book Court
         </button>
+        <button onClick={this.cancelBooking}>Cancel Booking</button>
         <div id={styles.courtContainer}>
           {this.courtNumbersToCourtColumns().map(element => {
             return (
               <CourtColumns
+                bookingArray={this.state.bookingArray}
                 getModalObject={this.showBookingModal}
                 getCourt={this.courtArray}
                 clubName={this.props.clubName}
