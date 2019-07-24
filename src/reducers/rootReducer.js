@@ -1,9 +1,10 @@
 import { INSTRUCTOR_REGISTER } from "../actions/actions";
 import { ADMIN_ENTERED } from "../actions/actions";
+import alert from "./alert";
 
 import { combineReducers } from "redux";
 
-// export default combineReducers({})
+export default combineReducers({ alert });
 
 const initialState = {
   instructorRegister: false,

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import axios from "axios";
+import { setAlert } from "../../../actions/types";
 import { connect } from "react-redux";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 
@@ -33,6 +34,8 @@ class UserRegisterForm extends React.Component {
 
   registerUser(event) {
     event.preventDefault();
+    if (this.state.createPassword !== this.state.passwordConfirm) {
+    }
     axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
       .then(response => {
@@ -303,4 +306,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(UserRegisterForm);
+export default connect(
+  mapStateToProps,
+  { setAlert }
+)(UserRegisterForm);
