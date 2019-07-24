@@ -26,7 +26,6 @@ class InstructorRegisterForm extends React.Component {
   }
 
   getInstructorInput(event) {
-    console.log(this.state.gender);
     const newInstructorStateObject = { ...this.state.instructor };
     newInstructorStateObject[event.target.name] = event.target.value;
     console.log(newInstructorStateObject);

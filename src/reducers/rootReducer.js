@@ -1,6 +1,10 @@
 import { INSTRUCTOR_REGISTER } from "../actions/actions";
 import { ADMIN_ENTERED } from "../actions/actions";
 
+import { combineReducers } from "redux";
+
+// export default combineReducers({})
+
 const initialState = {
   instructorRegister: false,
   adminEntered: false
