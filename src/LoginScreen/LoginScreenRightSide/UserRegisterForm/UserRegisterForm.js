@@ -34,9 +34,13 @@ class UserRegisterForm extends React.Component {
 
   registerUser(event) {
     event.preventDefault();
-    if (this.state.createPassword !== this.state.passwordConfirm) {
+    if (this.state.user.createPassword !== this.state.user.passwordConfirm) {
+      this.props.setAlert("Passwords do not match", "danger");
     }
-    axios
+    if (this.state.user.createPassword !== this.state.user.phoneNumber) {
+      this.props.setAlert("not good", "success");
+    }
+    /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
       .then(response => {
         console.log(response);
@@ -44,9 +48,11 @@ class UserRegisterForm extends React.Component {
       .catch(error => {
         console.log(error);
       });
+  } */
   }
-
   render() {
+    console.log(this.state.createPassword);
+    console.log(this.state.passwordConfirm);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
