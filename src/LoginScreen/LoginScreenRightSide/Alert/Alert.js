@@ -7,21 +7,23 @@ class Alert extends React.Component {
     console.log(this.props.alerts);
     return (
       <div id={styles.alertContainer}>
-        {this.props.alerts.map(element => {
-          if (element.alertType === "danger") {
-            return (
-              <p key={element.id} id={styles.danger}>
-                {element.msg}
-              </p>
-            );
-          } else {
-            return (
-              <p key={element.id} id={styles.success}>
-                {element.msg}
-              </p>
-            );
-          }
-        })}
+        <div id={styles.alertSubContainer}>
+          {this.props.alerts.map(element => {
+            if (element.alertType === "danger") {
+              return (
+                <p key={element.id} id={styles.danger}>
+                  {element.msg}
+                </p>
+              );
+            } else {
+              return (
+                <p key={element.id} id={styles.success}>
+                  {element.msg}
+                </p>
+              );
+            }
+          })}
+        </div>
       </div>
     );
   }

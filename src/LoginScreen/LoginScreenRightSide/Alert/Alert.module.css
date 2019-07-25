@@ -2,16 +2,20 @@
   height: 200px;
   width: 550px;
   background-color: rgb(197, 197, 197);
-
   font-size: 28px;
   border-radius: 20px;
   left: 40px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   position: relative;
   bottom: 50px;
   box-shadow: 2px 2px 20px white;
+}
+
+#alertSubContainer {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
 }
 
 #danger {
