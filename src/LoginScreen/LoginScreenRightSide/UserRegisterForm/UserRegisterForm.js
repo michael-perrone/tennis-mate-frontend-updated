@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
-import axios from "axios";
-import Alert from "../Alert/Alert";
 import { setAlert } from "../../../actions/types";
 import { connect } from "react-redux";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
@@ -35,11 +33,11 @@ class UserRegisterForm extends React.Component {
 
   registerUser(event) {
     event.preventDefault();
+    if (this.state.user.email === "") {
+      this.props.setAlert("Please make sure to enter a valid email", "danger");
+    }
     if (this.state.user.createPassword !== this.state.user.passwordConfirm) {
       this.props.setAlert("Passwords do not match", "danger");
-    }
-    if (this.state.user.createPassword !== this.state.user.phoneNumber) {
-      this.props.setAlert("not good", "success");
     }
     /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
@@ -300,7 +298,6 @@ class UserRegisterForm extends React.Component {
           </form>
           <InstructorSignup />
         </div>
-        <Alert />
       </div>
     );
   }
