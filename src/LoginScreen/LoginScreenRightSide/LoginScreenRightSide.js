@@ -15,12 +15,8 @@ class LoginScreenRightSide extends React.Component {
         <InstructorRegisterForm />
 
         {this.props.instructorRegister && <InstructorNotes />}
-        {!this.props.instructorRegister && this.props.alerts.length === 0 && (
-          <ClubSignUpButton />
-        )}
-        {!this.props.instructorRegister && this.props.alerts.length > 0 && (
-          <Alert />
-        )}
+        {!this.props.instructorRegister && this.props.alert.msg && <Alert />}
+        {!this.props.instructorRegister && <ClubSignUpButton />}
       </div>
     );
   }
@@ -28,7 +24,7 @@ class LoginScreenRightSide extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    alerts: state.alert,
+    alert: state.alert,
     instructorRegister: state.instructorRegister
   };
 };

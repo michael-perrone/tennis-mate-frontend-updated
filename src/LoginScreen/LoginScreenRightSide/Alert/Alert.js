@@ -4,26 +4,15 @@ import { connect } from "react-redux";
 
 class Alert extends React.Component {
   render() {
-    let num = `${this.props.alerts.length * 55}px`;
-
+    console.log(this.props.alert.alertType);
     return (
-      <div id={styles.alertContainer} style={{ height: num }}>
-        <div id={styles.alertSubContainer}>
-          {this.props.alerts.map(element => {
-            if (element.alertType === "danger") {
-              return (
-                <p key={element.id} id={styles.danger}>
-                  {element.msg}
-                </p>
-              );
-            } else {
-              return (
-                <p key={element.id} id={styles.success}>
-                  {element.msg}
-                </p>
-              );
-            }
-          })}
+      <div id={styles.alertContainer} style={{ height: "55px" }}>
+        <div>
+          {this.props.alert.alertType === "danger" && (
+            <p key={Math.random()} id={styles.danger}>
+              {this.props.alert.msg}
+            </p>
+          )}
         </div>
       </div>
     );
@@ -32,7 +21,7 @@ class Alert extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    alerts: state.alert
+    alert: state.alert
   };
 };
 

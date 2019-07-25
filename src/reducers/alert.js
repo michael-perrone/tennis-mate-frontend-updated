@@ -1,18 +1,19 @@
 import { SET_ALERT, REMOVE_ALERT } from "../actions/actions";
 
-const initialState = [];
+const initialState = {};
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_ALERT:
-      const found = state.find(element => {
-        return element.msg === action.payload.msg;
-      });
-      if (found) {
+      if (state.msg === action.payload.msg) {
         return state;
+      } else if (state.msg !== undefined && action.payload.msg === undefined) {
+        return {};
       } else {
-        return [...state, action.payload];
+        console.log(action.payload);
+        return action.payload;
       }
+
     case REMOVE_ALERT:
       return state.filter(alert => {
         return alert.id !== action.payload;

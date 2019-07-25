@@ -12,24 +12,11 @@
   box-shadow: 2px 2px 30px red;
 }
 
-#alertSubContainer {
-  height: 90%;
-  align-self: center;
-  width: 90%;
-  position: relative;
-  left: 15px;
-  flex-direction: column;
-  display: flex;
-}
-
 #danger {
   width: 100%;
   position: relative;
   padding-left: 5px;
   padding-top: 5px;
   color: red;
-}
-
-#success {
-  color: green;
+  padding-bottom: 8px;
 }

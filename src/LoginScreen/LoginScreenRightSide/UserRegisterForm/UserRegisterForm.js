@@ -35,9 +35,12 @@ class UserRegisterForm extends React.Component {
     event.preventDefault();
     if (this.state.user.email === "") {
       this.props.setAlert("Please make sure to enter a valid email", "danger");
-    }
-    if (this.state.user.createPassword !== this.state.user.passwordConfirm) {
+    } else if (
+      this.state.user.createPassword !== this.state.user.passwordConfirm
+    ) {
       this.props.setAlert("Passwords do not match", "danger");
+    } else {
+      this.props.setAlert(undefined);
     }
     /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
