@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 
 class Alert extends React.Component {
   render() {
-    console.log(this.props.alerts);
+    let num = `${this.props.alerts.length * 55}px`;
+
     return (
-      <div id={styles.alertContainer}>
+      <div id={styles.alertContainer} style={{ height: num }}>
         <div id={styles.alertSubContainer}>
           {this.props.alerts.map(element => {
             if (element.alertType === "danger") {
