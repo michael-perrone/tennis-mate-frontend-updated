@@ -9,9 +9,7 @@ class Alert extends React.Component {
       <div id={styles.alertContainer} style={{ height: "55px" }}>
         <div>
           {this.props.alert.alertType === "danger" && (
-            <p key={Math.random()} id={styles.danger}>
-              {this.props.alert.msg}
-            </p>
+            <p id={styles.danger}>{this.props.alert.msg}</p>
           )}
         </div>
       </div>

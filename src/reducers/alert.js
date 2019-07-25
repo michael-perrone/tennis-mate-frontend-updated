@@ -10,7 +10,6 @@ export default function(state = initialState, action) {
       } else if (state.msg !== undefined && action.payload.msg === undefined) {
         return {};
       } else {
-        console.log(action.payload);
         return action.payload;
       }
 

@@ -317,7 +317,7 @@ class InstructorRegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    instructorRegister: state.instructorRegister
+    instructorRegister: state.booleanReducers.instructorRegister
   };
 };
 

@@ -5,6 +5,7 @@ import { INSTRUCTOR_REGISTER } from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {
   render() {
+    console.log(this.props.instructorRegister);
     return (
       <div id={styles.instructorSignupContainer}>
         <p

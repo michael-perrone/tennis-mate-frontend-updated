@@ -42,6 +42,7 @@ class UserRegisterForm extends React.Component {
     } else {
       this.props.setAlert(undefined);
     }
+    this.mike();
     /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
       .then(response => {
@@ -52,6 +53,10 @@ class UserRegisterForm extends React.Component {
       });
   } */
   }
+
+  mike = () => {
+    console.log(this.props.instructorRegister);
+  };
   render() {
     let className = "";
     if (this.props.instructorRegister) {
@@ -308,7 +313,7 @@ class UserRegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    instructorRegister: state.instructorRegister
+    instructorRegister: state.booleanReducers.instructorRegister
   };
 };
 
