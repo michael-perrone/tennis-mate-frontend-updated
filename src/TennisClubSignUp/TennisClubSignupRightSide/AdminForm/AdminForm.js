@@ -132,7 +132,7 @@ class AdminForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    adminEntered: state.adminEntered
+    adminEntered: state.booleanReducers.adminEntered
   };
 };
 
