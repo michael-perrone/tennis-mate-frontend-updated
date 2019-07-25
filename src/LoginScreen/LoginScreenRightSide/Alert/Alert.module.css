@@ -1,0 +1,15 @@
+#alertContainer {
+  height: 200px;
+  width: 350px;
+  background-color: black;
+  border: 2px solid white;
+  font-size: 28px;
+}
+
+#danger {
+  color: red;
+}
+
+#success {
+  color: green;
+}

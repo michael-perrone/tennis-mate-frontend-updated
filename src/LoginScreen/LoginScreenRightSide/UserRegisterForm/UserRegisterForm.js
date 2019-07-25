@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import axios from "axios";
+import Alert from "../Alert/Alert";
 import { setAlert } from "../../../actions/types";
 import { connect } from "react-redux";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
@@ -51,8 +52,6 @@ class UserRegisterForm extends React.Component {
   } */
   }
   render() {
-    console.log(this.state.createPassword);
-    console.log(this.state.passwordConfirm);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -301,6 +300,7 @@ class UserRegisterForm extends React.Component {
           </form>
           <InstructorSignup />
         </div>
+        <Alert />
       </div>
     );
   }
