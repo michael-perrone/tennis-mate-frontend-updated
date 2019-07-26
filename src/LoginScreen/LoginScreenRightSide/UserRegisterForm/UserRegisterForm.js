@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
-import { setAlert } from "../../../actions/types";
 import { connect } from "react-redux";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 
@@ -10,6 +9,7 @@ class UserRegisterForm extends React.Component {
     this.registerUser = this.registerUser.bind(this);
     this.getUserInput = this.getUserInput.bind(this);
     this.hoverOver = this.hoverOver.bind(this);
+    this.setDirty = this.setDirty.bind(this);
     this.state = {
       user: {
         firstName: "",
@@ -21,9 +21,35 @@ class UserRegisterForm extends React.Component {
         age: "",
         gender: ""
       },
-      hoveredOver: false
+      hoveredOver: false,
+      dirty: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        phoneNumber: false,
+        createPassword: false,
+        passwordConfirm: false,
+        age: false,
+        gender: false
+      }
     };
+    this.setDirty = this.setDirty.bind(this);
   }
+
+  setDirty(event) {
+    const newObject = { ...this.state.dirty };
+    console.log(event.target.value);
+
+    if (event.target.value !== "") {
+      newObject[event.name] = true;
+    }
+    this.setState({ dirty: newObject });
+  }
+
+  validateEmail = email => {
+    let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
 
   hoverOver() {
     this.setState({ hoveredOver: true });
@@ -32,7 +58,7 @@ class UserRegisterForm extends React.Component {
   getUserInput(event) {
     const newUserStateObject = { ...this.state.user };
     newUserStateObject[event.target.name] = event.target.value;
-    console.log(newUserStateObject);
+    console.log(this.validateEmail(newUserStateObject.firstName));
     this.setState({ user: newUserStateObject });
   }
 
@@ -47,7 +73,7 @@ class UserRegisterForm extends React.Component {
     } else {
       this.props.setAlert(undefined);
     }
-    this.mike();
+
     /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
       .then(response => {
@@ -90,9 +116,8 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
-                minLength={2}
-                maxLength={22}
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
                 name="firstName"
@@ -344,7 +369,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { setAlert }
-)(UserRegisterForm);
+export default connect(mapStateToProps)(UserRegisterForm);

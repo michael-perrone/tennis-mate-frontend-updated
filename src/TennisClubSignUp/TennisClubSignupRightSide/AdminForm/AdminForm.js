@@ -29,13 +29,6 @@ class AdminForm extends React.Component {
     this.getAdminInput = this.getAdminInput.bind(this);
   }
 
-  tellIfTouched(event) {
-    console.log(event.target);
-    const newStateObject = { ...this.state.touched };
-    newStateObject[event.target.name] = true;
-    console.log(newStateObject);
-  }
-
   getAdminInput(event) {
     const newStateObject = { ...this.state.admin };
     newStateObject[event.target.name] = event.target.value;
