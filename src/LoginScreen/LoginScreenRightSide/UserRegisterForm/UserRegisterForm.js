@@ -40,12 +40,14 @@ class UserRegisterForm extends React.Component {
   setDirty(event) {
     console.log(event.target.name);
     const newObject = { ...this.state.dirty };
-    console.log(event.target.value);
-    if (event.target.value !== "") {
-      newObject[event.target.name] = true;
-    }
+    newObject[event.target.name] = true;
     this.setState({ dirty: newObject });
   }
+
+  validatePhone = phone => {
+    let newRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return newRe.test(phone);
+  };
 
   validateEmail = email => {
     let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -65,15 +67,6 @@ class UserRegisterForm extends React.Component {
 
   registerUser(event) {
     event.preventDefault();
-    if (this.state.user.email === "") {
-      this.props.setAlert("Please make sure to enter a valid email", "danger");
-    } else if (
-      this.state.user.createPassword !== this.state.user.passwordConfirm
-    ) {
-      this.props.setAlert("Passwords do not match", "danger");
-    } else {
-      this.props.setAlert(undefined);
-    }
 
     /*  axios
       .post("http://localhost:8080/api/usersSignup", this.state.user)
@@ -87,8 +80,7 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.dirty);
-    console.log(this.validateEmail(this.state.user.email));
+    console.log(this.state.dirty.lastName);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -121,6 +113,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
@@ -131,9 +124,14 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.state.dirty.firstName === true &&
+              this.state.user.firstName === "" && (
+                <Alert alert={"Field cannot be blank"} top={64} left={332} />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.lastName}
@@ -144,6 +142,10 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.state.dirty.lastName === true &&
+              this.state.user.lastName === "" && (
+                <Alert alert={"Field cannot be blank"} top={138} left={332} />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
@@ -160,11 +162,12 @@ class UserRegisterForm extends React.Component {
             </div>
             {this.validateEmail(this.state.user.email) === false &&
               this.state.dirty.email === true && (
-                <Alert alert={"This Email is not valid"} />
+                <Alert top={214} left={332} alert={"This Email is not valid"} />
               )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.phoneNumber}
@@ -175,9 +178,14 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.validatePhone(this.state.user.phoneNumber) === false &&
+              this.state.dirty.phoneNumber === true && (
+                <Alert top={286} left={332} alert={"This Phone is not valid"} />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.createPassword}
@@ -191,6 +199,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.passwordConfirm}
