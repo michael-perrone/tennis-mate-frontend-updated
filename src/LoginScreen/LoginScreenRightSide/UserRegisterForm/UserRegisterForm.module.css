@@ -8,11 +8,14 @@
   flex-direction: column;
   align-items: center;
   background-color: transparent;
+  transition-duration: 2s;
 }
 
 #form {
+  transition-duration: 2s;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 #registerP {
@@ -20,6 +23,7 @@
   font-size: 52px;
   margin-bottom: 10px;
   font-family: "Indie Flower", cursive;
+  transition-duration: 1s;
 }
 
 #userSignUpButton {

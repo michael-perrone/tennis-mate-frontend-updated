@@ -9,7 +9,7 @@ class UserRegisterForm extends React.Component {
     super(props);
     this.registerUser = this.registerUser.bind(this);
     this.getUserInput = this.getUserInput.bind(this);
-
+    this.hoverOver = this.hoverOver.bind(this);
     this.state = {
       user: {
         firstName: "",
@@ -20,8 +20,13 @@ class UserRegisterForm extends React.Component {
         passwordConfirm: "",
         age: "",
         gender: ""
-      }
+      },
+      hoveredOver: false
     };
+  }
+
+  hoverOver() {
+    this.setState({ hoveredOver: true });
   }
 
   getUserInput(event) {
@@ -54,9 +59,6 @@ class UserRegisterForm extends React.Component {
   } */
   }
 
-  mike = () => {
-    console.log(this.props.instructorRegister);
-  };
   render() {
     let className = "";
     if (this.props.instructorRegister) {
@@ -67,12 +69,30 @@ class UserRegisterForm extends React.Component {
 
     return (
       <div className={styles.registerFormContainer} id={className}>
-        <p id={styles.registerP}>Register for Tennis Mate</p>
-        <div id={styles.registerForm}>
-          <form id={styles.form}>
+        <p
+          style={{ opacity: this.state.hoveredOver ? "0" : 1 }}
+          id={styles.registerP}
+        >
+          Register for Tennis Mate
+        </p>
+
+        <div
+          id={styles.registerForm}
+          style={{
+            height: this.state.hoveredOver ? "640px" : "500px",
+            marginTop: this.state.hoveredOver ? "-100px" : 0
+          }}
+        >
+          <form
+            id={styles.form}
+            style={{ height: this.state.hoveredOver ? "640px" : "500px" }}
+          >
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
+                onFocus={this.hoverOver}
+                minLength={2}
+                maxLength={22}
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
                 name="firstName"
@@ -85,6 +105,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
+                onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.lastName}
                 name="lastName"
@@ -97,6 +118,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
+                onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.email}
                 name="email"
@@ -109,6 +131,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
+                onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.phoneNumber}
                 name="phoneNumber"
@@ -121,6 +144,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
+                onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.createPassword}
                 name="createPassword"
@@ -133,6 +157,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
+                onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.passwordConfirm}
                 name="passwordConfirm"
@@ -147,6 +172,7 @@ class UserRegisterForm extends React.Component {
                 <label className={styles.selectorLabels}>Age:</label>
                 <div>
                   <select
+                    onFocus={this.hoverOver}
                     id={styles.selecter}
                     value={this.state.user.age}
                     onChange={this.getUserInput}
@@ -286,6 +312,7 @@ class UserRegisterForm extends React.Component {
                 <div>
                   {" "}
                   <select
+                    onFocus={this.hoverOver}
                     style={{ width: "100px" }}
                     id={styles.selecter}
                     value={this.state.gender}

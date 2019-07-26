@@ -14,9 +14,26 @@ class AdminForm extends React.Component {
         phoneNumber: "",
         createPassword: "",
         passwordConfirm: ""
+      },
+      touched: {
+        tennisClub: false,
+        firstName: false,
+        lastName: false,
+        email: false,
+        phoneNumber: false,
+        createPassword: false,
+        passwordConfirm: false
       }
     };
+    this.tellIfTouched = this.tellIfTouched.bind(this);
     this.getAdminInput = this.getAdminInput.bind(this);
+  }
+
+  tellIfTouched(event) {
+    console.log(event.target);
+    const newStateObject = { ...this.state.touched };
+    newStateObject[event.target.name] = true;
+    console.log(newStateObject);
   }
 
   getAdminInput(event) {
@@ -37,6 +54,7 @@ class AdminForm extends React.Component {
           <div style={{ marginTop: "14px" }} className={styles.divWidthControl}>
             <label className={styles.labels}>Tennis Club:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.tennisClub}
               name="tennisClub"
@@ -49,6 +67,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>First Name:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.firstName}
               name="firstName"
@@ -61,6 +80,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Last Name:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.lastName}
               name="lastName"
@@ -73,6 +93,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Email Address:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.email}
               name="email"
@@ -85,6 +106,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Phone Number:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.phoneNumber}
               name="phoneNumber"
@@ -97,6 +119,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Create Password:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.createPassword}
               name="createPassword"
@@ -109,6 +132,7 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Password Confirm:</label>
             <input
+              onFocus={this.tellIfTouched}
               onChange={this.getAdminInput}
               value={this.state.admin.passwordConfirm}
               name="passwordConfirm"
