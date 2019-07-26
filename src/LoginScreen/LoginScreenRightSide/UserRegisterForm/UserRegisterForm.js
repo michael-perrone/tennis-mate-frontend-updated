@@ -32,7 +32,8 @@ class UserRegisterForm extends React.Component {
         passwordConfirm: false,
         age: false,
         gender: false
-      }
+      },
+      showOptionals: false
     };
     this.setDirty = this.setDirty.bind(this);
   }
@@ -65,6 +66,10 @@ class UserRegisterForm extends React.Component {
     this.setState({ user: newUserStateObject });
   }
 
+  showOptionals = () => {
+    this.setState({ showOptionals: !this.state.showOptionals });
+  };
+
   registerUser(event) {
     event.preventDefault();
 
@@ -80,7 +85,6 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.dirty.lastName);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -98,6 +102,8 @@ class UserRegisterForm extends React.Component {
         </p>
 
         <div
+          onMouseEnter={this.showOptionals}
+          onMouseLeave={this.showOptionals}
           id={styles.registerForm}
           style={{
             height: this.state.hoveredOver ? "640px" : "500px",
@@ -180,12 +186,12 @@ class UserRegisterForm extends React.Component {
             </div>
             {this.validatePhone(this.state.user.phoneNumber) === false &&
               this.state.dirty.phoneNumber === true && (
-                <Alert top={286} left={332} alert={"This Phone is not valid"} />
+                <Alert top={288} left={332} alert={"This Phone is not valid"} />
               )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
-                onBlur={this.setDirty}
+                onKeyDown={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.createPassword}
@@ -196,10 +202,18 @@ class UserRegisterForm extends React.Component {
                 type="password"
               />
             </div>
+            {this.state.dirty.createPassword === true &&
+              this.state.user.createPassword.length < 7 && (
+                <Alert
+                  alert={"Password must be eight characters"}
+                  top={364}
+                  left={364}
+                />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
-                onBlur={this.setDirty}
+                onKeyDown={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.passwordConfirm}
@@ -210,6 +224,11 @@ class UserRegisterForm extends React.Component {
                 type="password"
               />
             </div>
+            {this.state.dirty.passwordConfirm === true &&
+              this.state.user.passwordConfirm !==
+                this.state.user.createPassword && (
+                <Alert alert={"Passwords do not match"} top={440} left={328} />
+              )}
             <div id={styles.ageGenderDiv}>
               <div className={styles.mediaAgeGenderDiv}>
                 <label className={styles.selectorLabels}>Age:</label>
@@ -344,8 +363,17 @@ class UserRegisterForm extends React.Component {
                     <option>118</option>
                     <option>119</option>
                   </select>
+                  {this.state.showOptionals && (
+                    <Alert
+                      alert={"Optional"}
+                      color={"lightgreen"}
+                      top={56}
+                      left={-16}
+                    />
+                  )}
                 </div>
               </div>
+
               <div
                 style={{ marginLeft: "15px" }}
                 className={styles.mediaAgeGenderDiv}
@@ -368,6 +396,14 @@ class UserRegisterForm extends React.Component {
                     <option>Other</option>
                   </select>
                 </div>
+                {this.state.showOptionals && (
+                  <Alert
+                    alert={"Optional"}
+                    color={"lightgreen"}
+                    top={56}
+                    left={265}
+                  />
+                )}
               </div>
             </div>
             <button onClick={this.registerUser} id={styles.userSignUpButton}>
