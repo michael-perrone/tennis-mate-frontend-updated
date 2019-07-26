@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import { connect } from "react-redux";
+import Alert from "../../../Alert/Alert";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 
 class UserRegisterForm extends React.Component {
@@ -37,11 +38,11 @@ class UserRegisterForm extends React.Component {
   }
 
   setDirty(event) {
+    console.log(event.target.name);
     const newObject = { ...this.state.dirty };
     console.log(event.target.value);
-
     if (event.target.value !== "") {
-      newObject[event.name] = true;
+      newObject[event.target.name] = true;
     }
     this.setState({ dirty: newObject });
   }
@@ -86,6 +87,8 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.dirty);
+    console.log(this.validateEmail(this.state.user.email));
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -106,7 +109,9 @@ class UserRegisterForm extends React.Component {
           id={styles.registerForm}
           style={{
             height: this.state.hoveredOver ? "640px" : "500px",
-            marginTop: this.state.hoveredOver ? "-100px" : 0
+            transform: this.state.hoveredOver
+              ? "translateY(-100px)"
+              : "translateY(0px)"
           }}
         >
           <form
@@ -116,7 +121,6 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
-                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
@@ -143,6 +147,7 @@ class UserRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
+                onBlur={this.setDirty}
                 onFocus={this.hoverOver}
                 onChange={this.getUserInput}
                 value={this.state.user.email}
@@ -153,6 +158,10 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.validateEmail(this.state.user.email) === false &&
+              this.state.dirty.email === true && (
+                <Alert alert={"This Email is not valid"} />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
