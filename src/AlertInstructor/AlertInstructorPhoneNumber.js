@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserPhoneNumber.module.css";
+import styles from "./AlertInstructorPhoneNumber.module.css";
 
-class AlertUserPhoneNumber extends React.Component {
+class AlertInstructorPhoneNumber extends React.Component {
   render() {
     return (
       <div id={styles.alertContainer}>
@@ -11,4 +11,4 @@ class AlertUserPhoneNumber extends React.Component {
   }
 }
 
-export default AlertUserPhoneNumber;
+export default AlertInstructorPhoneNumber;

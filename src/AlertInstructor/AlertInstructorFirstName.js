@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserFirstName.module.css";
+import styles from "./AlertInstructorFirstName.module.css";
 
-class AlertUserFirstName extends React.Component {
+class AlertInstructorFirstName extends React.Component {
   render() {
     return (
       <div
@@ -18,4 +18,4 @@ class AlertUserFirstName extends React.Component {
   }
 }
 
-export default AlertUserFirstName;
+export default AlertInstructorFirstName;

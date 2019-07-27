@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserEmail.module.css";
+import styles from "./AlertInstructorEmail.module.css";
 
-class ALertUserEmail extends React.Component {
+class AlertInstructorEmail extends React.Component {
   render() {
     return (
       <div id={styles.alertContainer}>
@@ -11,4 +11,4 @@ class ALertUserEmail extends React.Component {
   }
 }
 
-export default ALertUserEmail;
+export default AlertInstructorEmail;

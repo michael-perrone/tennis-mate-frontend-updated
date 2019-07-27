@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserPasswordConfirm.module.css";
+import styles from "./AlertInstructorPasswordConfirm.module.css";
 
-class AlertPasswordConfirm extends React.Component {
+class AlertInstructorPasswordConfirm extends React.Component {
   render() {
     return (
       <div id={styles.alertContainer}>
@@ -11,4 +11,4 @@ class AlertPasswordConfirm extends React.Component {
   }
 }
 
-export default AlertPasswordConfirm;
+export default AlertInstructorPasswordConfirm;

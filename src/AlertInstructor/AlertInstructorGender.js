@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserGender.module.css";
+import styles from "./AlertInstructorGender.module.css";
 
-class AlertUserGender extends React.Component {
+class AlertInstructorGender extends React.Component {
   render() {
     return (
       <div id={styles.alertContainer}>
@@ -11,4 +11,4 @@ class AlertUserGender extends React.Component {
   }
 }
 
-export default AlertUserGender;
+export default AlertInstructorGender;

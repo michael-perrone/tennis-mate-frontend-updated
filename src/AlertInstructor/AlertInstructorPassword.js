@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./AlertUserPassword.module.css";
+import styles from "./AlertInstructorPassword.module.css";
 
-class AlertUserPassword extends React.Component {
+class AlertInstructorPassword extends React.Component {
   render() {
     return (
       <div id={styles.alertContainer}>
@@ -11,4 +11,4 @@ class AlertUserPassword extends React.Component {
   }
 }
 
-export default AlertUserPassword;
+export default AlertInstructorPassword;
