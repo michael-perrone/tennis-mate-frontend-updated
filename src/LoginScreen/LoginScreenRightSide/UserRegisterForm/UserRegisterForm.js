@@ -142,13 +142,7 @@ class UserRegisterForm extends React.Component {
               />
             </div>
             {this.state.dirty.firstName === true &&
-              this.state.user.firstName === "" && (
-                <AlertUserFirstName
-                  alert={"Field cannot be blank"}
-                  top={64}
-                  left={332}
-                />
-              )}
+              this.state.user.firstName === "" && <AlertUserFirstName />}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
