@@ -1,0 +1,13 @@
+#alertContainer {
+  background-color: transparent;
+  border-radius: 6px;
+  height: 20px;
+  width: 250px;
+  color: red;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 210px;
+  left: 340px;
+  font-size: 18px;
+}
