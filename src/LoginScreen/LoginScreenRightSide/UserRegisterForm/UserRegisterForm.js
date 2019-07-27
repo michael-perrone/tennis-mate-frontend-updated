@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import { connect } from "react-redux";
-import Alert from "../../../Alert/Alert";
+import AlertUserFirstName from "../../../Alert/AlertUserFirstName";
+import AlertUserLastName from "../../../Alert/AlertUserLastName";
+import AlertUserEmail from "../../../Alert/AlertUserEmail";
+import AlertUserPhoneNumber from "../../../Alert/AlertUserPhoneNumber";
+import AlertUserPassword from "../../../Alert/AlertUserPassword";
+import AlertUserPasswordConfirm from "../../../Alert/AlertUserPasswordConfirm";
+import AlertUserAge from "../../../Alert/AlertUserAge";
+import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 
 class UserRegisterForm extends React.Component {
@@ -9,7 +16,7 @@ class UserRegisterForm extends React.Component {
     super(props);
     this.registerUser = this.registerUser.bind(this);
     this.getUserInput = this.getUserInput.bind(this);
-    this.hoverOver = this.hoverOver.bind(this);
+    this.signingUp = this.signingUp.bind(this);
     this.setDirty = this.setDirty.bind(this);
     this.state = {
       user: {
@@ -22,7 +29,7 @@ class UserRegisterForm extends React.Component {
         age: "",
         gender: ""
       },
-      hoveredOver: false,
+      signingUpState: false,
       dirty: {
         firstName: false,
         lastName: false,
@@ -55,8 +62,8 @@ class UserRegisterForm extends React.Component {
     return re.test(email);
   };
 
-  hoverOver() {
-    this.setState({ hoveredOver: true });
+  signingUp() {
+    this.setState({ signingUpState: true });
   }
 
   getUserInput(event) {
@@ -67,7 +74,11 @@ class UserRegisterForm extends React.Component {
   }
 
   showOptionals = () => {
-    this.setState({ showOptionals: !this.state.showOptionals });
+    this.setState({ showOptionals: true });
+  };
+
+  hideOptionals = () => {
+    this.setState({ showOptionals: false });
   };
 
   registerUser(event) {
@@ -95,7 +106,7 @@ class UserRegisterForm extends React.Component {
     return (
       <div className={styles.registerFormContainer} id={className}>
         <p
-          style={{ opacity: this.state.hoveredOver ? "0" : 1 }}
+          style={{ opacity: this.state.signingUpState ? "0" : 1 }}
           id={styles.registerP}
         >
           Register for Tennis Mate
@@ -103,24 +114,24 @@ class UserRegisterForm extends React.Component {
 
         <div
           onMouseEnter={this.showOptionals}
-          onMouseLeave={this.showOptionals}
+          onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
           style={{
-            height: this.state.hoveredOver ? "640px" : "500px",
-            transform: this.state.hoveredOver
+            height: this.state.signingUpState ? "640px" : "500px",
+            transform: this.state.signingUpState
               ? "translateY(-100px)"
               : "translateY(0px)"
           }}
         >
           <form
             id={styles.form}
-            style={{ height: this.state.hoveredOver ? "640px" : "500px" }}
+            style={{ height: this.state.signingUpState ? "640px" : "500px" }}
           >
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
                 onBlur={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
                 name="firstName"
@@ -132,13 +143,17 @@ class UserRegisterForm extends React.Component {
             </div>
             {this.state.dirty.firstName === true &&
               this.state.user.firstName === "" && (
-                <Alert alert={"Field cannot be blank"} top={64} left={332} />
+                <AlertUserFirstName
+                  alert={"Field cannot be blank"}
+                  top={64}
+                  left={332}
+                />
               )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
                 onBlur={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.lastName}
                 name="lastName"
@@ -149,14 +164,12 @@ class UserRegisterForm extends React.Component {
               />
             </div>
             {this.state.dirty.lastName === true &&
-              this.state.user.lastName === "" && (
-                <Alert alert={"Field cannot be blank"} top={138} left={332} />
-              )}
+              this.state.user.lastName === "" && <AlertUserLastName />}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
                 onBlur={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.email}
                 name="email"
@@ -167,14 +180,12 @@ class UserRegisterForm extends React.Component {
               />
             </div>
             {this.validateEmail(this.state.user.email) === false &&
-              this.state.dirty.email === true && (
-                <Alert top={214} left={332} alert={"This Email is not valid"} />
-              )}
+              this.state.dirty.email === true && <AlertUserEmail />}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
                 onBlur={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.phoneNumber}
                 name="phoneNumber"
@@ -185,14 +196,12 @@ class UserRegisterForm extends React.Component {
               />
             </div>
             {this.validatePhone(this.state.user.phoneNumber) === false &&
-              this.state.dirty.phoneNumber === true && (
-                <Alert top={288} left={332} alert={"This Phone is not valid"} />
-              )}
+              this.state.dirty.phoneNumber === true && <AlertUserPhoneNumber />}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
                 onKeyDown={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.createPassword}
                 name="createPassword"
@@ -204,17 +213,13 @@ class UserRegisterForm extends React.Component {
             </div>
             {this.state.dirty.createPassword === true &&
               this.state.user.createPassword.length < 7 && (
-                <Alert
-                  alert={"Password must be eight characters"}
-                  top={364}
-                  left={364}
-                />
+                <AlertUserPassword />
               )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
                 onKeyDown={this.setDirty}
-                onFocus={this.hoverOver}
+                onFocus={this.signingUp}
                 onChange={this.getUserInput}
                 value={this.state.user.passwordConfirm}
                 name="passwordConfirm"
@@ -226,15 +231,13 @@ class UserRegisterForm extends React.Component {
             </div>
             {this.state.dirty.passwordConfirm === true &&
               this.state.user.passwordConfirm !==
-                this.state.user.createPassword && (
-                <Alert alert={"Passwords do not match"} top={440} left={328} />
-              )}
+                this.state.user.createPassword && <AlertUserPasswordConfirm />}
             <div id={styles.ageGenderDiv}>
               <div className={styles.mediaAgeGenderDiv}>
                 <label className={styles.selectorLabels}>Age:</label>
                 <div>
                   <select
-                    onFocus={this.hoverOver}
+                    onFocus={this.signingUp}
                     id={styles.selecter}
                     value={this.state.user.age}
                     onChange={this.getUserInput}
@@ -363,14 +366,7 @@ class UserRegisterForm extends React.Component {
                     <option>118</option>
                     <option>119</option>
                   </select>
-                  {this.state.showOptionals && (
-                    <Alert
-                      alert={"Optional"}
-                      color={"lightgreen"}
-                      top={56}
-                      left={-16}
-                    />
-                  )}
+                  {this.state.showOptionals && <AlertUserAge />}
                 </div>
               </div>
 
@@ -383,7 +379,7 @@ class UserRegisterForm extends React.Component {
                 <div>
                   {" "}
                   <select
-                    onFocus={this.hoverOver}
+                    onFocus={this.signingUp}
                     style={{ width: "100px" }}
                     id={styles.selecter}
                     value={this.state.gender}
@@ -396,14 +392,7 @@ class UserRegisterForm extends React.Component {
                     <option>Other</option>
                   </select>
                 </div>
-                {this.state.showOptionals && (
-                  <Alert
-                    alert={"Optional"}
-                    color={"lightgreen"}
-                    top={56}
-                    left={265}
-                  />
-                )}
+                {this.state.showOptionals && <AlertUserGender />}
               </div>
             </div>
             <button onClick={this.registerUser} id={styles.userSignUpButton}>

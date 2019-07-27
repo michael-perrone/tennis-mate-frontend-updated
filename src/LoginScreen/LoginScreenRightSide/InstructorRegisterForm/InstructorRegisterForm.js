@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import Alert from "../../../Alert/AlertUserFirstName";
 import styles from "./InstructorRegisterForm.module.css";
 import { INSTRUCTOR_REGISTER } from "../../../actions/actions";
 
@@ -21,8 +22,28 @@ class InstructorRegisterForm extends React.Component {
         tennisClub: "",
         age: "",
         gender: ""
-      }
+      },
+      signingUpState: false,
+      dirty: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        phoneNumber: false,
+        createPassword: false,
+        passwordConfirm: false,
+        age: false,
+        gender: false
+      },
+      showOptionals: false
     };
+    this.setDirty = this.setDirty.bind(this);
+  }
+
+  setDirty(event) {
+    console.log(event.target.name);
+    const newObject = { ...this.state.dirty };
+    newObject[event.target.name] = true;
+    this.setState({ dirty: newObject });
   }
 
   getInstructorInput(event) {
@@ -33,9 +54,24 @@ class InstructorRegisterForm extends React.Component {
     this.setState({ instructor: newInstructorStateObject });
   }
 
+  validatePhone = phone => {
+    let newRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return newRe.test(phone);
+  };
+
+  validateEmail = email => {
+    let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
   registerInstructor(event) {
     event.preventDefault();
-    axios
+  }
+
+  showOptionals = () => {
+    this.setState({ showOptionals: !this.state.showOptionals });
+  };
+  /*  axios
       .post("http://localhost:8080/api/instructorSignup", this.state.instructor)
       .then(response => {
         console.log(response);
@@ -43,7 +79,7 @@ class InstructorRegisterForm extends React.Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  } */
   render() {
     let id = "";
     if (this.props.instructorRegister) {
