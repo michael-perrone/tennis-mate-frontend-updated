@@ -139,6 +139,10 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.state.dirty.firstName === true &&
+              this.state.instructor.firstName === "" && (
+                <AlertInstructorFirstName />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
@@ -153,6 +157,10 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.state.dirty.lastName === true &&
+              this.state.instructor.lastName === "" && (
+                <AlertInstructorLastName />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
@@ -167,6 +175,8 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.validateEmail(this.state.instructor.email) === false &&
+              this.state.dirty.email === true && <AlertInstructorEmail />}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
@@ -181,6 +191,10 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.validatePhone(this.state.instructor.phoneNumber) === false &&
+              this.state.dirty.phoneNumber === true && (
+                <AlertInstructorPhoneNumber />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
@@ -195,6 +209,10 @@ class InstructorRegisterForm extends React.Component {
                 type="password"
               />
             </div>
+            {this.state.dirty.createPassword === true &&
+              this.state.instructor.createPassword.length < 7 && (
+                <AlertInstructorPassword />
+              )}
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
@@ -209,6 +227,11 @@ class InstructorRegisterForm extends React.Component {
                 type="password"
               />
             </div>
+            {this.state.dirty.passwordConfirm === true &&
+              this.state.instructor.passwordConfirm !==
+                this.state.user.createPassword && (
+                <AlertInstructorPasswordConfirm />
+              )}
             <div>
               <label className={styles.labels}>Current Employer:</label>
               <input
@@ -222,6 +245,7 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
+            {this.state.showOptionals && <AlertInstructorAge />}
             <div id={styles.ageGenderDiv}>
               <div className={styles.mediaAgeGenderDiv}>
                 <label className={styles.selectorLabels}>Age:</label>
@@ -380,6 +404,7 @@ class InstructorRegisterForm extends React.Component {
                     <option>Other</option>
                   </select>
                 </div>
+                {this.state.showOptionals && <AlertInstructorGender />}
               </div>
             </div>
             <button
