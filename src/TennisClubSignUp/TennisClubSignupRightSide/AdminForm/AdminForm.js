@@ -14,18 +14,8 @@ class AdminForm extends React.Component {
         phoneNumber: "",
         createPassword: "",
         passwordConfirm: ""
-      },
-      touched: {
-        tennisClub: false,
-        firstName: false,
-        lastName: false,
-        email: false,
-        phoneNumber: false,
-        createPassword: false,
-        passwordConfirm: false
       }
     };
-    this.tellIfTouched = this.tellIfTouched.bind(this);
     this.getAdminInput = this.getAdminInput.bind(this);
   }
 

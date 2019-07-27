@@ -1,6 +1,8 @@
 #form {
   display: flex;
   flex-direction: column;
+  transition-duration: 2s;
+  justify-content: space-around;
 }
 
 #registerP {
@@ -55,6 +57,8 @@
 }
 
 .registerForm {
+  left: 40px;
+  transition-duration: 2s;
   height: 530px;
   width: 680px;
   border: 2px solid yellowgreen;

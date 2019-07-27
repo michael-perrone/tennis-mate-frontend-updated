@@ -229,7 +229,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             {this.state.dirty.passwordConfirm === true &&
               this.state.instructor.passwordConfirm !==
-                this.state.user.createPassword && (
+                this.state.instructor.createPassword && (
                 <AlertInstructorPasswordConfirm />
               )}
             <div>
@@ -245,7 +245,7 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
             </div>
-            {this.state.showOptionals && <AlertInstructorAge />}
+
             <div id={styles.ageGenderDiv}>
               <div className={styles.mediaAgeGenderDiv}>
                 <label className={styles.selectorLabels}>Age:</label>
@@ -380,6 +380,7 @@ class InstructorRegisterForm extends React.Component {
                     <option>118</option>
                     <option>119</option>
                   </select>
+                  {this.state.showOptionals && <AlertInstructorAge />}
                 </div>
               </div>
               <div
