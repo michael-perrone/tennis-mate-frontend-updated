@@ -227,7 +227,6 @@ class InstructorRegisterForm extends React.Component {
                 <label className={styles.selectorLabels}>Age:</label>
                 <div>
                   <select
-                    onBlur={this.setDirty}
                     onFocus={this.signingUp}
                     id={styles.selecter}
                     value={this.state.instructor.age}
