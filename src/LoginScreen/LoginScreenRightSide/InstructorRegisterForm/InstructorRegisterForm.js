@@ -1,7 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import Alert from "../../../Alert/AlertUserFirstName";
+import AlertInstructorFirstName from "../../../AlertInstructor/AlertInstructorFirstName";
+import AlertInstructorLastName from "../../../AlertInstructor/AlertInstructorLastName";
+import AlertInstructorEmail from "../../../AlertInstructor/AlertInstructorEmail";
+import AlertInstructorPhoneNumber from "../../../AlertInstructor/AlertInstructorPhoneNumber";
+import AlertInstructorPassword from "../../../AlertInstructor/AlertInstructorPassword";
+import AlertInstructorPasswordConfirm from "../../../AlertInstructor/AlertInstructorPasswordConfirm";
+import AlertInstructorAge from "../../../AlertInstructor/AlertInstructorAge";
+import AlertInstructorGender from "../../../AlertInstructor/AlertInstructorGender";
 import styles from "./InstructorRegisterForm.module.css";
 import { INSTRUCTOR_REGISTER } from "../../../actions/actions";
 
@@ -10,6 +17,7 @@ class InstructorRegisterForm extends React.Component {
     super(props);
     this.registerInstructor = this.registerInstructor.bind(this);
     this.getInstructorInput = this.getInstructorInput.bind(this);
+    this.signingUp = this.signingUp.bind(this);
 
     this.state = {
       instructor: {
@@ -32,12 +40,17 @@ class InstructorRegisterForm extends React.Component {
         createPassword: false,
         passwordConfirm: false,
         age: false,
-        gender: false
+        gender: false,
+        tennisClub: false
       },
       showOptionals: false
     };
     this.setDirty = this.setDirty.bind(this);
   }
+
+  hideOptionals = () => {
+    this.setState({ showOptionals: false });
+  };
 
   setDirty(event) {
     console.log(event.target.name);
@@ -68,6 +81,10 @@ class InstructorRegisterForm extends React.Component {
     event.preventDefault();
   }
 
+  signingUp() {
+    this.setState({ signingUpState: true });
+  }
+
   showOptionals = () => {
     this.setState({ showOptionals: !this.state.showOptionals });
   };
@@ -87,12 +104,32 @@ class InstructorRegisterForm extends React.Component {
     }
     return (
       <div className={styles.registerFormContainer} id={id}>
-        <p id={styles.registerP}>Register as an Instructor</p>
-        <div className={styles.registerForm}>
-          <form id={styles.form}>
+        <p
+          style={{ opacity: this.state.signingUpState ? "0" : 1 }}
+          id={styles.registerP}
+        >
+          Register as an Instructor
+        </p>
+        <div
+          onMouseEnter={this.showOptionals}
+          onMouseLeave={this.hideOptionals}
+          className={styles.registerForm}
+          style={{
+            height: this.state.signingUpState ? "680px" : "540px",
+            transform: this.state.signingUpState
+              ? "translateY(-100px)"
+              : "translateY(0px)"
+          }}
+        >
+          <form
+            id={styles.form}
+            style={{ height: this.state.signingUpState ? "680px" : "540px" }}
+          >
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
               <input
+                onBlur={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.firstName}
                 name="firstName"
@@ -105,6 +142,8 @@ class InstructorRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Last Name:</label>
               <input
+                onBlur={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.lastName}
                 name="lastName"
@@ -117,6 +156,8 @@ class InstructorRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Email Address:</label>
               <input
+                onBlur={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.email}
                 name="email"
@@ -129,6 +170,8 @@ class InstructorRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
+                onBlur={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.phoneNumber}
                 name="phoneNumber"
@@ -141,6 +184,8 @@ class InstructorRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Create Password:</label>
               <input
+                onKeyDown={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.createPassword}
                 name="createPassword"
@@ -153,6 +198,8 @@ class InstructorRegisterForm extends React.Component {
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
+                onKeyDown={this.setDirty}
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.passwordConfirm}
                 name="passwordConfirm"
@@ -165,6 +212,7 @@ class InstructorRegisterForm extends React.Component {
             <div>
               <label className={styles.labels}>Current Employer:</label>
               <input
+                onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.tennisClub}
                 name="tennisClub"
@@ -179,6 +227,8 @@ class InstructorRegisterForm extends React.Component {
                 <label className={styles.selectorLabels}>Age:</label>
                 <div>
                   <select
+                    onBlur={this.setDirty}
+                    onFocus={this.signingUp}
                     id={styles.selecter}
                     value={this.state.instructor.age}
                     onChange={this.getInstructorInput}
@@ -318,6 +368,7 @@ class InstructorRegisterForm extends React.Component {
                 <div>
                   {" "}
                   <select
+                    onFocus={this.signingUp}
                     style={{ width: "100px" }}
                     id={styles.selecter}
                     value={this.state.gender}

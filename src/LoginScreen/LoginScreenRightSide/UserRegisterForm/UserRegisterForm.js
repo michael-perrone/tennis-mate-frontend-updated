@@ -17,7 +17,6 @@ class UserRegisterForm extends React.Component {
     this.registerUser = this.registerUser.bind(this);
     this.getUserInput = this.getUserInput.bind(this);
     this.signingUp = this.signingUp.bind(this);
-    this.setDirty = this.setDirty.bind(this);
     this.state = {
       user: {
         firstName: "",
