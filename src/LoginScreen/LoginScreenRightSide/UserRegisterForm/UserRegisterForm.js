@@ -12,6 +12,7 @@ import AlertUserAge from "../../../Alert/AlertUserAge";
 import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 import { registered } from "../../../actions/authActions";
+import decoder from "jwt-decode";
 
 class UserRegisterForm extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class UserRegisterForm extends React.Component {
     this.getUserInput = this.getUserInput.bind(this);
     this.signingUp = this.signingUp.bind(this);
     this.state = {
+      token: "",
       user: {
         firstName: "",
         lastName: "",
@@ -98,7 +100,9 @@ class UserRegisterForm extends React.Component {
       axios
         .post("http://localhost:8080/api/usersSignup", this.state.user)
         .then(response => {
-          console.log(response);
+          console.log(response.data);
+          this.props.registered(response.data);
+          this.setState({ token: decoder(response.data.token) });
         })
         .catch(error => {
           console.log(error);
@@ -107,6 +111,7 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
+    console.log(this.props.authenticated);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -269,8 +274,6 @@ class UserRegisterForm extends React.Component {
                     <option>18</option>
                     <option>19</option>
                     <option>20</option>
-                    <option>20</option>
-                    <option>20</option>
                     <option>21</option>
                     <option>22</option>
                     <option>23</option>
@@ -380,9 +383,7 @@ class UserRegisterForm extends React.Component {
                 className={styles.mediaAgeGenderDiv}
               >
                 <label className={styles.selectorLabels}>Gender:</label>
-
                 <div>
-                  {" "}
                   <select
                     onFocus={this.signingUp}
                     style={{ width: "100px" }}
@@ -413,7 +414,9 @@ class UserRegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    instructorRegister: state.booleanReducers.instructorRegister
+    instructorRegister: state.booleanReducers.instructorRegister,
+    token: state.authReducer.token,
+    authenticated: state.authReducer.isAuthenticated
   };
 };
 

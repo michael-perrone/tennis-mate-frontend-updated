@@ -11,6 +11,7 @@ export default function(state = initalState, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
+      console.log("hi");
       return {
         ...state,
         ...action.payload,
