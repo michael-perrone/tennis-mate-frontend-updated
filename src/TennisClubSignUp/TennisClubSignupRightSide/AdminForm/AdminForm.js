@@ -1,5 +1,11 @@
 import React from "react";
 import styles from "./AdminForm.module.css";
+import AlertAdminFirstName from "../../../AlertAdmin/AlertAdminFirstName";
+import AlertAdminLastName from "../../../AlertAdmin/AlertAdminLastName";
+import AlertAdminEmail from "../../../AlertAdmin/AlertAdminEmail";
+import AlertAdminPhoneNumber from "../../../AlertAdmin/AlertAdminPhoneNumber";
+import AlertAdminPassword from "../../../AlertAdmin/AlertAdminPassword";
+import AlertAdminPasswordConfirm from "../../../AlertAdmin/AlertAdminPasswordConfirm";
 import { connect } from "react-redux";
 
 class AdminForm extends React.Component {
@@ -114,6 +120,8 @@ class AdminForm extends React.Component {
               type="text"
             />
           </div>
+          {this.state.dirty.firstName === true &&
+            this.state.admin.firstName === "" && <AlertAdminFirstName />}
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Last Name:</label>
             <input
@@ -128,6 +136,8 @@ class AdminForm extends React.Component {
               type="text"
             />
           </div>
+          {this.state.dirty.lastName === true &&
+            this.state.admin.lastName === "" && <AlertAdminLastName />}
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Email Address:</label>
             <input
@@ -142,6 +152,8 @@ class AdminForm extends React.Component {
               type="text"
             />
           </div>
+          {this.validateEmail(this.state.admin.email) === false &&
+            this.state.dirty.email === true && <AlertAdminEmail />}
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Phone Number:</label>
             <input
@@ -156,6 +168,8 @@ class AdminForm extends React.Component {
               type="text"
             />
           </div>
+          {this.validatePhone(this.state.admin.phoneNumber) === false &&
+            this.state.dirty.phoneNumber === true && <AlertAdminPhoneNumber />}
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Create Password:</label>
             <input
@@ -170,6 +184,10 @@ class AdminForm extends React.Component {
               type="password"
             />
           </div>
+          {this.state.dirty.createPassword === true &&
+            this.state.admin.createPassword.length < 7 && (
+              <AlertAdminPassword />
+            )}
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Password Confirm:</label>
             <input
@@ -184,6 +202,9 @@ class AdminForm extends React.Component {
               type="password"
             />
           </div>
+          {this.state.dirty.passwordConfirm === true &&
+            this.state.admin.passwordConfirm !==
+              this.state.admin.createPassword && <AlertAdminPasswordConfirm />}
           <button
             onClick={this.props.getAdminInfo(this.state.admin)}
             id={styles.registerButton}
