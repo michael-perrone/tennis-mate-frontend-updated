@@ -86,26 +86,9 @@ class AdminForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
           style={{
-            height: this.state.signingUpState ? "640px" : "500px",
-            transform: this.state.signingUpState
-              ? "translateY(-100px)"
-              : "translateY(0px)"
+            height: this.state.signingUpState ? "580px" : "500px"
           }}
         >
-          <div style={{ marginTop: "14px" }} className={styles.divWidthControl}>
-            <label className={styles.labels}>Tennis Club:</label>
-            <input
-              onBlur={this.setDirty}
-              onFocus={this.signingUp}
-              onChange={this.getAdminInput}
-              value={this.state.admin.tennisClub}
-              name="tennisClub"
-              placeholder="Tennis Club Name"
-              id={styles.input1}
-              className={styles.inputs}
-              type="text"
-            />
-          </div>
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>First Name:</label>
             <input
@@ -205,6 +188,19 @@ class AdminForm extends React.Component {
           {this.state.dirty.passwordConfirm === true &&
             this.state.admin.passwordConfirm !==
               this.state.admin.createPassword && <AlertAdminPasswordConfirm />}
+          <div style={{ marginTop: "14px" }} className={styles.divWidthControl}>
+            <label className={styles.labels}>Tennis Club Name:</label>
+            <input
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
+              onChange={this.getAdminInput}
+              value={this.state.admin.tennisClub}
+              name="tennisClub"
+              placeholder="Tennis Club Name"
+              className={styles.inputs}
+              type="text"
+            />
+          </div>
           <button
             onClick={this.props.getAdminInfo(this.state.admin)}
             id={styles.registerButton}
