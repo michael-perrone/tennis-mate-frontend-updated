@@ -85,9 +85,6 @@ class AdminForm extends React.Component {
           onMouseEnter={this.showOptionals}
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
-          style={{
-            height: this.state.signingUpState ? "580px" : "500px"
-          }}
         >
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>First Name:</label>
