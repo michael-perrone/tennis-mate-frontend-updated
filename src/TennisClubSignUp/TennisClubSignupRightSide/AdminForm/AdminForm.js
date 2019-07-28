@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 class AdminForm extends React.Component {
   constructor(props) {
     super(props);
+    this.signingUp = this.signingUp.bind(this);
+    this.setDirty = this.setDirty.bind(this);
     this.state = {
       admin: {
         tennisClub: "",
@@ -14,9 +16,49 @@ class AdminForm extends React.Component {
         phoneNumber: "",
         createPassword: "",
         passwordConfirm: ""
-      }
+      },
+      signingUpState: false,
+      dirty: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        phoneNumber: false,
+        createPassword: false,
+        passwordConfirm: false,
+        tennisClub: false
+      },
+      showOptionals: false
     };
     this.getAdminInput = this.getAdminInput.bind(this);
+  }
+
+  setDirty(event) {
+    console.log(event.target.name);
+    const newObject = { ...this.state.dirty };
+    newObject[event.target.name] = true;
+    this.setState({ dirty: newObject });
+  }
+
+  validatePhone = phone => {
+    let newRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return newRe.test(phone);
+  };
+
+  showOptionals = () => {
+    this.setState({ showOptionals: true });
+  };
+
+  hideOptionals = () => {
+    this.setState({ showOptionals: false });
+  };
+
+  validateEmail = email => {
+    let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  signingUp() {
+    this.setState({ signingUpState: true });
   }
 
   getAdminInput(event) {
@@ -33,11 +75,22 @@ class AdminForm extends React.Component {
       <div className={styles.subContainerRight} id={animationSubRight}>
         <p id={styles.registerP}>Admin Register</p>
 
-        <form id={styles.registerForm}>
+        <form
+          onMouseEnter={this.showOptionals}
+          onMouseLeave={this.hideOptionals}
+          id={styles.registerForm}
+          style={{
+            height: this.state.signingUpState ? "640px" : "500px",
+            transform: this.state.signingUpState
+              ? "translateY(-100px)"
+              : "translateY(0px)"
+          }}
+        >
           <div style={{ marginTop: "14px" }} className={styles.divWidthControl}>
             <label className={styles.labels}>Tennis Club:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.tennisClub}
               name="tennisClub"
@@ -50,7 +103,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>First Name:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.firstName}
               name="firstName"
@@ -63,7 +117,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Last Name:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.lastName}
               name="lastName"
@@ -76,7 +131,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Email Address:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.email}
               name="email"
@@ -89,7 +145,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Phone Number:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.phoneNumber}
               name="phoneNumber"
@@ -102,7 +159,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Create Password:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.createPassword}
               name="createPassword"
@@ -115,7 +173,8 @@ class AdminForm extends React.Component {
           <div className={styles.divWidthControl}>
             <label className={styles.labels}>Password Confirm:</label>
             <input
-              onFocus={this.tellIfTouched}
+              onBlur={this.setDirty}
+              onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.passwordConfirm}
               name="passwordConfirm"
