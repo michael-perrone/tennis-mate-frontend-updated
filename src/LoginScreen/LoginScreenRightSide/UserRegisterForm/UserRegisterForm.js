@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
+import axios from "axios";
 import { connect } from "react-redux";
 import AlertUserFirstName from "../../../Alert/AlertUserFirstName";
 import AlertUserLastName from "../../../Alert/AlertUserLastName";
@@ -10,6 +11,7 @@ import AlertUserPasswordConfirm from "../../../Alert/AlertUserPasswordConfirm";
 import AlertUserAge from "../../../Alert/AlertUserAge";
 import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
+import { registered } from "../../../actions/authActions";
 
 class UserRegisterForm extends React.Component {
   constructor(props) {
@@ -39,7 +41,8 @@ class UserRegisterForm extends React.Component {
         age: false,
         gender: false
       },
-      showOptionals: false
+      showOptionals: false,
+      loggingInError: false
     };
     this.setDirty = this.setDirty.bind(this);
   }
@@ -82,16 +85,25 @@ class UserRegisterForm extends React.Component {
 
   registerUser(event) {
     event.preventDefault();
-
-    /*  axios
-      .post("http://localhost:8080/api/usersSignup", this.state.user)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  } */
+    if (
+      this.state.user.firstName == "" ||
+      this.state.user.lastName == "" ||
+      this.state.user.email == "" ||
+      this.state.user.createPassword.length < 7 ||
+      this.state.user.passwordConfirm !== this.state.user.createPassword ||
+      this.state.user.phoneNumber == ""
+    ) {
+      this.setState({ loggingInError: true });
+    } else {
+      axios
+        .post("http://localhost:8080/api/usersSignup", this.state.user)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   render() {
@@ -405,4 +417,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(UserRegisterForm);
+export default connect(
+  mapStateToProps,
+  { registered }
+)(UserRegisterForm);
