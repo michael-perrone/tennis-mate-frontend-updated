@@ -143,7 +143,10 @@ class UserRegisterForm extends React.Component {
             id={styles.form}
             style={{ height: this.state.signingUpState ? "580px" : "450px" }}
           >
-            <div className={styles.divWidthControl}>
+            <div
+              style={{ position: "relative" }}
+              className={styles.divWidthControl}
+            >
               <label className={styles.labels}>First Name:</label>
               <input
                 onBlur={this.setDirty}
