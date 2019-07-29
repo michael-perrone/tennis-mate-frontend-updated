@@ -6,11 +6,16 @@ class ClubSignUp extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/registerTennisClub">
-          <button id={styles.signUpClubButton}>
-            Register Your Tennis Club
-          </button>
-        </Link>
+        <div>
+          <Link to="/clubs">hellllllo</Link>
+        </div>
+        <div>
+          <Link to="/registerTennisClub">
+            <button id={styles.signUpClubButton}>
+              Register Your Tennis Club
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

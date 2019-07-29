@@ -24,7 +24,7 @@ class TryingToBookModal extends React.Component {
     console.log(this.props);
     return (
       <div id={styles.tryingToBookModal}>
-        <p>Court Being Booked By: </p>
+        <p>Court Being Booked By: {this.props.booking.bookedBy} </p>
         <p>Start Time: {this.props.booking.timeStart}</p>
         <p>End Time: {this.props.booking.timeEnd}</p>
         <p>Time Amount: {howLong}</p>

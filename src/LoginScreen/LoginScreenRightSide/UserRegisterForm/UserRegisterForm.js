@@ -111,6 +111,8 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.token);
+    console.log(this.props.user);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
@@ -415,7 +417,6 @@ const mapStateToProps = state => {
   return {
     user: state.authReducer.user,
     instructorRegister: state.booleanReducers.instructorRegister,
-    token: state.authReducer.token,
     authenticated: state.authReducer.isAuthenticated
   };
 };

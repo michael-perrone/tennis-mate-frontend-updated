@@ -4,6 +4,7 @@ import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
 import CheckBookingModal from "./CheckBookingModal/CheckBookingModal";
 import TryingToBookModal from "./TryingToBookModal/TryingToBookModal";
+import decoder from "jwt-decode";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class CourtContainer extends React.Component {
     this.courtNumbersToCourtColumns = this.courtNumbersToCourtColumns.bind(
       this
     );
-
+    // objectToModal
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
     this.state = {
       bookedCourts: [],
@@ -21,11 +22,14 @@ class CourtContainer extends React.Component {
       showBookingModalState: false,
       objectToModal: {},
       tryingToBookModalState: false,
-      bookingToSend: null
+      bookingToSend: null,
+      token: ""
     };
   }
 
   componentDidMount() {
+    const token = decoder(localStorage.getItem("token"));
+    this.setState({ token: token });
     axios.get("http://localhost:8080/api/courtBooked").then(response => {
       let clubsMatchArray = [];
       response.data.bookings.forEach(element => {
@@ -198,6 +202,9 @@ class CourtContainer extends React.Component {
         courtIdsArray.push(element.courtId);
       });
       const bookingToSend = {
+        bookedBy: `${this.state.token.user.userNameFirst} ${
+          this.state.token.user.userNameLast
+        }`,
         timeStart: this.state.bookingArray[0].timeStart,
         timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
           .endTime,
@@ -248,6 +255,9 @@ class CourtContainer extends React.Component {
         });
 
         const bookingToSend = {
+          bookedBy: `${this.state.token.user.userNameFirst} ${
+            this.state.token.user.userNameLast
+          }`,
           timeStart: this.state.bookingArray[0].timeStart,
           timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
             .endTime,
