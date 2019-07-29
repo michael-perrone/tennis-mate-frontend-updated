@@ -12,8 +12,6 @@ class CourtSlot extends React.Component {
     };
   }
 
-  click = courtId => {};
-
   render() {
     return (
       <div
@@ -51,17 +49,12 @@ class CourtSlot extends React.Component {
               alignItems: "center",
               justifyContent: "center"
             }}
-            onClick={() =>
-              this.props.getCourt(
-                {
-                  courtId: this.props.courtId,
-                  timeStart: this.props.timeStart,
-                  endTime: this.props.timeEnd,
-                  clubName: this.props.clubName
-                },
-                this.click
-              )
-            }
+            onClick={this.props.getCourt({
+              courtId: this.props.courtId,
+              timeStart: this.props.timeStart,
+              endTime: this.props.timeEnd,
+              clubName: this.props.clubName
+            })}
           >
             <p id={styles.time}>{this.props.timeStart}</p>
           </div>

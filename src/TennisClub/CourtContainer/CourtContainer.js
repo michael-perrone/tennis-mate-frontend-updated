@@ -65,14 +65,18 @@ class CourtContainer extends React.Component {
     this.setState({ objectToModal, showBookingModalState: true });
   };
 
-  courtArray = (param, secretFunction) => {
+  cancelBookingModal = () => {
+    this.setState({ showBookingModalState: false });
+  };
+
+  courtArray = param => () => {
+    this.setState({ showBookingModalState: false });
     const newArray = [...this.state.bookingArray, param];
     const sortedStateArray = newArray.sort(function(a, b) {
       return a.courtId - b.courtId;
     });
 
     this.setState({ bookingArray: sortedStateArray });
-    secretFunction();
   };
 
   bookCourtArray = () => {
@@ -280,12 +284,13 @@ class CourtContainer extends React.Component {
   };
 
   render() {
-    console.log(this.state.bookingToSend);
-    console.log("inside render court container");
     return (
       <div>
         {this.state.showBookingModalState && (
-          <CheckBookingModal objectToModal={this.state.objectToModal} />
+          <CheckBookingModal
+            cancel={this.cancelBookingModal}
+            objectToModal={this.state.objectToModal}
+          />
         )}
         {this.state.tryingToBookModalState && (
           <TryingToBookModal
@@ -305,6 +310,7 @@ class CourtContainer extends React.Component {
           {this.courtNumbersToCourtColumns().map(element => {
             return (
               <CourtColumns
+                cancelModal={this.cancelBookingModal}
                 bookingArray={this.state.bookingArray}
                 getModalObject={this.showBookingModal}
                 getCourt={this.courtArray}

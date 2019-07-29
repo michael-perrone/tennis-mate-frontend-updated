@@ -192,6 +192,7 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                cancelModal={this.props.cancelModal}
                 beingBooked={this.beingBooked(
                   `${this.props.courtNumber.toString() + index.toString()}`
                 )}
