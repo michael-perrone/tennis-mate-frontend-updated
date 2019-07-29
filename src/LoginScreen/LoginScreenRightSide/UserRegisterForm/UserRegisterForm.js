@@ -112,7 +112,6 @@ class UserRegisterForm extends React.Component {
 
   render() {
     console.log(this.state.token);
-    console.log(this.props.user);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;

@@ -259,9 +259,7 @@ class CourtContainer extends React.Component {
         });
 
         const bookingToSend = {
-          bookedBy: `${this.state.token.user.userNameFirst} ${
-            this.state.token.user.userNameLast
-          }`,
+          bookedBy: this.state.token.user.userName,
           timeStart: this.state.bookingArray[0].timeStart,
           timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
             .endTime,
@@ -284,6 +282,7 @@ class CourtContainer extends React.Component {
   };
 
   render() {
+    console.log(this.state.token);
     return (
       <div>
         {this.state.showBookingModalState && (
