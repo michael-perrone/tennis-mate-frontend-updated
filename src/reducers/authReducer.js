@@ -1,4 +1,5 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL } from "../actions/actions";
+import { REGISTER, REGISTER_FAILED } from "../actions/actions";
+import decoder from "jwt-decode";
 
 const initalState = {
   token: localStorage.getItem("token"),
@@ -9,16 +10,20 @@ const initalState = {
 
 export default function(state = initalState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case REGISTER:
       localStorage.setItem("token", action.payload.token);
+      const token = decoder(state.token);
+
+      console.log(token);
       console.log("hi");
       return {
         ...state,
         ...action.payload,
+        user: token.user.username,
         isAuthenticated: true,
-        loading: false
+        loading: true
       };
-    case REGISTER_FAIL:
+    case REGISTER_FAILED:
       localStorage.removeItem("token");
       return {
         ...state,

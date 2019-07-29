@@ -1,8 +1,8 @@
-import { REGISTER_SUCCESS, REGISTER_FAILURE } from "./actions";
+import { REGISTER } from "./actions";
 
 export const registered = data => dispatch => {
   dispatch({
-    type: REGISTER_SUCCESS,
+    type: REGISTER,
     payload: data
   });
 };
