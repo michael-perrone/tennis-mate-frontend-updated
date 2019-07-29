@@ -88,12 +88,12 @@ class UserRegisterForm extends React.Component {
   registerUser(event) {
     event.preventDefault();
     if (
-      this.state.user.firstName == "" ||
-      this.state.user.lastName == "" ||
-      this.state.user.email == "" ||
+      this.state.user.firstName === "" ||
+      this.state.user.lastName === "" ||
+      this.state.user.email === "" ||
       this.state.user.createPassword.length < 7 ||
       this.state.user.passwordConfirm !== this.state.user.createPassword ||
-      this.state.user.phoneNumber == ""
+      this.state.user.phoneNumber === ""
     ) {
       this.setState({ loggingInError: true });
     } else {
@@ -133,7 +133,7 @@ class UserRegisterForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
           style={{
-            height: this.state.signingUpState ? "640px" : "500px",
+            height: this.state.signingUpState ? "580px" : "450px",
             transform: this.state.signingUpState
               ? "translateY(-100px)"
               : "translateY(0px)"
@@ -141,7 +141,7 @@ class UserRegisterForm extends React.Component {
         >
           <form
             id={styles.form}
-            style={{ height: this.state.signingUpState ? "640px" : "500px" }}
+            style={{ height: this.state.signingUpState ? "580px" : "450px" }}
           >
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>

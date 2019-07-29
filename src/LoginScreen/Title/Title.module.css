@@ -15,12 +15,12 @@
 }
 
 #title {
-  font-size: 112px;
+  font-size: 96px;
   font-weight: bold;
   position: relative;
   margin: 0;
   position: relative;
-  left: 150px;
+  left: 100px;
 
   font-family: "Permanent Marker", cursive;
 }
@@ -28,7 +28,7 @@
 #tennisBall {
   position: relative;
   top: 45px;
-  left: 95px;
+  left: 55px;
   animation-name: tennisBallBounce;
   animation-duration: 2s;
   animation-timing-function: linear;
@@ -74,16 +74,12 @@
     text-align: center;
   }
   #tennisBall {
-    top: -55px;
-    left: -44px;
+    display: none;
   }
 }
 
 @media (max-width: 700px) and (min-width: 0px) {
   #title {
     font-size: 52px;
-  }
-  #tennisBall {
-    display: none;
   }
 }
