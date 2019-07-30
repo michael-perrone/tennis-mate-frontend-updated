@@ -14,28 +14,10 @@
   transform: translateX(0px);
   transition-delay: 1s;
 }
-.labels {
-  font-family: "Stylish", sans-serif;
-  font-size: 30px;
-  margin-left: 40px;
-}
-.inputs {
-  height: 36px;
-  width: 300px;
-  position: relative;
-  background-color: transparent;
-  border-radius: 6px;
-  top: -6px;
-  font-size: 20px;
-  padding-left: 7px;
-  margin-left: 15px;
-  outline: none;
-}
 
 #registerP {
   font-size: 52px;
   position: relative;
-
   font-family: "Stylish", sans-serif;
 }
 
@@ -65,38 +47,6 @@
   right: 40px;
 }
 
-.divWidthControl {
-  margin-top: 8px;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-}
-
-#input2 {
-  width: 348px;
-}
-
-#input1 {
-  width: 400px;
-}
-
-#input12 {
-  width: 200px;
-}
-
-#input15 {
-  width: 400px;
-  margin-left: 26px;
-}
-
-#ml26 {
-  margin-left: 26px;
-}
-
-#ml8 {
-  margin-left: 8px;
-}
-
 @media (max-width: 1587px) and (min-width: 1400px) {
   .subContainerLeft {
     margin-left: 80px;
@@ -116,36 +66,6 @@
     width: 90%;
   }
 
-  .labels {
-    display: none;
-  }
-  .inputs {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input15 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input1 {
-    width: 90%;
-    margin-left: 0px;
-  }
-
-  #input12 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input2 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #ml26 {
-    margin-left: 0px;
-  }
-  #ml8 {
-    margin-left: 0px;
-  }
   #registerButton {
     width: 58%;
     font-size: 16px;

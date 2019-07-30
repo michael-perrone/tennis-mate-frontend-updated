@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./TennisClubForm.module.css";
+import otherStyles from "../../../LoginScreen/LoginScreenRightSide/UserRegisterForm/UserRegisterForm.module.css";
 import { ADMIN_ENTERED } from "../../../actions/actions";
 import { connect } from "react-redux";
 import GoBackToAdmin from "./GoBackToAdmin/GoBackToAdmin";
@@ -41,82 +42,119 @@ class TennisClubForm extends React.Component {
       <div className={styles.subContainerLeft} id={animationContainerLeft}>
         <p id={styles.registerP}>Tennis Club Info Register</p>
         <form id={styles.registerForm}>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Address:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Address:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubAddress}
               name="clubAddress"
               placeholder="Street Address"
-              id={styles.input1}
-              className={styles.inputs}
+              id={otherStyles.input1}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Club City:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Club City:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubCity}
               name="clubCity"
               placeholder="City"
-              id={styles.input15}
-              className={styles.inputs}
+              id={otherStyles.input1}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Club State:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Club State:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubState}
               name="clubState"
               placeholder="State"
-              id={styles.input2}
-              className={styles.inputs}
+              id={otherStyles.input2}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Club Zip:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Club Zip:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubZip}
               name="clubZip"
               placeholder="Zip Code"
-              id={styles.ml26}
-              className={styles.inputs}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
 
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Website URL:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Website URL:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.clubWebsite}
               name="clubWebsite"
               placeholder="WebSite URL"
-              id={styles.ml8}
-              className={styles.inputs}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Phone Number:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Phone Number:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               value={this.state.tennisClub.phoneNumber}
               name="phoneNumber"
               placeholder="Phone Number"
-              id={styles.input2}
-              className={styles.inputs}
+              id={otherStyles.input2}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Time Club Opens:</label>
+          <div
+            style={{ marginTop: "2px" }}
+            className={otherStyles.divWidthControl}
+          >
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Number of Courts:
+            </label>
+            <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
+              onChange={this.getTennisClubInput}
+              value={this.state.tennisClub.numberCourts}
+              name="numberCourts"
+              placeholder="Number of Courts"
+              id={otherStyles.input12}
+              className={otherStyles.inputs}
+              type="text"
+            />
+          </div>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Time Club Opens:
+            </label>
             <select
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               name="clubOpenTimeNumber"
               value={this.state.tennisClub.clubOpenTimeNumber}
@@ -148,6 +186,7 @@ class TennisClubForm extends React.Component {
               <option>11:30</option>
             </select>
             <select
+              style={{ color: "black", border: "3px ridge #dededc" }}
               name="clubOpenTimeAMPM"
               value={this.state.tennisClub.clubOpenTimeAMPM}
               onChange={this.getTennisClubInput}
@@ -157,9 +196,12 @@ class TennisClubForm extends React.Component {
               <option>PM</option>
             </select>
           </div>
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Time Club Closes:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Time Club Closes:
+            </label>
             <select
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               name="clubCloseTimeNumber"
               value={this.state.tennisClub.clubCloseTimeNumber}
@@ -191,6 +233,7 @@ class TennisClubForm extends React.Component {
               <option>11:30</option>
             </select>
             <select
+              style={{ color: "black", border: "3px ridge #dededc" }}
               name="clubCloseTimeAMPM"
               value={this.state.tennisClub.clubCloseTimeAMPM}
               onChange={this.getTennisClubInput}
@@ -200,18 +243,7 @@ class TennisClubForm extends React.Component {
               <option>PM</option>
             </select>
           </div>
-          <div style={{ marginTop: "2px" }} className={styles.divWidthControl}>
-            <label className={styles.labels}>Number of Courts:</label>
-            <input
-              onChange={this.getTennisClubInput}
-              value={this.state.tennisClub.numberCourts}
-              name="numberCourts"
-              placeholder="Number of Courts"
-              id={styles.input12}
-              className={styles.inputs}
-              type="text"
-            />
-          </div>
+
           <button
             onClick={this.props.getTennisClubInfo(this.state.tennisClub)}
             id={styles.registerButton}
