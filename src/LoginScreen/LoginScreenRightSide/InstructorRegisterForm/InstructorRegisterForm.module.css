@@ -5,34 +5,6 @@
   justify-content: space-around;
 }
 
-#registerP {
-  color: yellowgreen;
-  font-size: 52px;
-  font-family: "Indie Flower", cursive;
-  margin-bottom: 10px;
-}
-
-#instructorSignUpButton {
-  height: 42px;
-  width: 96px;
-  border-radius: 20px;
-  font-size: 16px;
-  border: none;
-  color: black;
-  align-self: flex-end;
-  position: relative;
-  top: -58px;
-  right: 34px;
-  color: black;
-  font-weight: bold;
-  letter-spacing: 1.2px;
-  background-color: yellowgreen;
-}
-
-.mediaAgeGenderDiv {
-  margin-top: 12px;
-}
-
 .registerFormContainer {
   display: flex;
   flex-direction: column;
@@ -73,88 +45,6 @@
   box-shadow: 2px 2px 40px yellowgreen;
 }
 
-.labels {
-  color: yellowgreen;
-  font-family: "Stylish", sans-serif;
-  font-size: 36px;
-  margin-left: 20px;
-}
-
-#selecter {
-  height: 40px;
-  width: 60px;
-  font-size: 20px;
-  margin-left: 10px;
-  position: relative;
-  top: -4px;
-}
-
-.inputs {
-  color: white;
-  height: 36px;
-  width: 300px;
-  position: relative;
-  background-color: transparent;
-  border-radius: 6px;
-  border: 2px solid yellowgreen;
-  top: -6px;
-  font-size: 20px;
-  padding-left: 12px;
-  margin-left: 15px;
-  outline: none;
-}
-
-.selectorLabels {
-  color: yellowgreen;
-  font-family: "Stylish", sans-serif;
-  font-size: 36px;
-  margin-left: 20px;
-}
-
-.divWidthControl {
-  margin-top: 8px;
-}
-
-#input2 {
-  width: 352px;
-}
-
-#input25 {
-  width: 352px;
-  margin-left: 7px;
-}
-
-#input1 {
-  width: 400px;
-}
-
-#input15 {
-  width: 400px;
-  margin-left: 19px;
-}
-
-#ml26 {
-  margin-left: 26px;
-}
-
-#ml8 {
-  margin-left: 8px;
-}
-
-#ageGenderDiv {
-  position: relative;
-  width: 628px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-@media (min-width: 700px) {
-  .mediaAgeGenderDiv {
-    display: flex;
-    flex-direction: row;
-  }
-}
-
 @media (max-width: 1400px) and (min-width: 0px) {
   .registerFormContainer {
     width: 100%;
@@ -167,70 +57,5 @@
     width: 355px;
     display: flex;
     align-items: center;
-  }
-
-  #headBack {
-    font-size: 28px;
-    margin-top: 20px;
-  }
-  .labels {
-    display: none;
-  }
-
-  #input1 {
-    width: 300px;
-  }
-  #input15 {
-    width: 300px;
-    margin-left: 0px;
-  }
-
-  #input2 {
-    width: 300px;
-  }
-
-  #ml26 {
-    margin-left: 0px;
-  }
-  #ml8 {
-    margin-left: 0px;
-  }
-
-  .inputs {
-    width: 300px;
-    margin-left: 0px;
-    margin-bottom: 8px;
-  }
-
-  #registerP {
-    font-size: 28px;
-  }
-
-  .selectorLabels {
-    margin-left: 8px;
-    position: relative;
-    top: -8px;
-  }
-  #instructorSignUpButton {
-    height: 40px;
-    width: 96px;
-    border-radius: 6px;
-    font-size: 16px;
-    top: -44px;
-    right: -8px;
-  }
-
-  .divWidthControl {
-    width: 300px;
-    margin-top: 12px;
-  }
-  #form {
-    width: 310px;
-    position: relative;
-    top: 20px;
-  }
-
-  #ageGenderDiv {
-    width: 240px;
   }
 }

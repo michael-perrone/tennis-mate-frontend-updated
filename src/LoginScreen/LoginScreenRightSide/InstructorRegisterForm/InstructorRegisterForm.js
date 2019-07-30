@@ -106,8 +106,12 @@ class InstructorRegisterForm extends React.Component {
     return (
       <div className={styles.registerFormContainer} id={id}>
         <p
-          style={{ opacity: this.state.signingUpState ? "0" : 1 }}
-          id={styles.registerP}
+          style={{
+            opacity: this.state.signingUpState ? "0" : 1,
+            position: "relative",
+            left: "40px"
+          }}
+          id={otherStyles.registerP}
         >
           Register as an Instructor
         </p>
