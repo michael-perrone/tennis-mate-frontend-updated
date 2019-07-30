@@ -8,6 +8,7 @@ import AlertInstructorPhoneNumber from "../../../AlertInstructor/AlertInstructor
 import AlertInstructorPassword from "../../../AlertInstructor/AlertInstructorPassword";
 import AlertInstructorPasswordConfirm from "../../../AlertInstructor/AlertInstructorPasswordConfirm";
 import AlertInstructorAge from "../../../AlertInstructor/AlertInstructorAge";
+import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
 import AlertInstructorGender from "../../../AlertInstructor/AlertInstructorGender";
 import styles from "./InstructorRegisterForm.module.css";
 import { INSTRUCTOR_REGISTER } from "../../../actions/actions";
@@ -125,17 +126,23 @@ class InstructorRegisterForm extends React.Component {
             id={styles.form}
             style={{ height: this.state.signingUpState ? "610px" : "510px" }}
           >
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>First Name:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen" }}
+                className={otherStyles.labels}
+              >
+                First Name:
+              </label>
               <input
+                style={{ border: "2px solid yellowgreen" }}
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.firstName}
                 name="firstName"
                 placeholder="First Name"
-                id={styles.input1}
-                className={styles.inputs}
+                id={otherStyles.input1}
+                className={otherStyles.inputs}
                 type="text"
               />
             </div>
@@ -143,17 +150,25 @@ class InstructorRegisterForm extends React.Component {
               this.state.instructor.firstName === "" && (
                 <AlertInstructorFirstName />
               )}
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Last Name:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen", letterSpacing: "0.6px" }}
+                className={otherStyles.labels}
+              >
+                Last Name:
+              </label>
               <input
+                style={{
+                  border: "2px solid yellowgreen"
+                }}
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.lastName}
                 name="lastName"
                 placeholder="Last Name"
-                id={styles.input15}
-                className={styles.inputs}
+                id={otherStyles.input1}
+                className={otherStyles.inputs}
                 type="text"
               />
             </div>
@@ -161,33 +176,47 @@ class InstructorRegisterForm extends React.Component {
               this.state.instructor.lastName === "" && (
                 <AlertInstructorLastName />
               )}
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Email Address:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen", letterSpacing: "0.6px" }}
+                className={otherStyles.labels}
+              >
+                Email Address:
+              </label>
               <input
+                style={{
+                  border: "2px solid yellowgreen"
+                }}
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.email}
                 name="email"
                 placeholder="Email Address"
-                id={styles.input2}
-                className={styles.inputs}
+                id={otherStyles.input2}
+                className={otherStyles.inputs}
                 type="text"
               />
             </div>
             {this.validateEmail(this.state.instructor.email) === false &&
               this.state.dirty.email === true && <AlertInstructorEmail />}
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Phone Number:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen" }}
+                className={otherStyles.labels}
+              >
+                Phone Number:
+              </label>
               <input
+                style={{ border: "2px solid yellowgreen" }}
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.phoneNumber}
                 name="phoneNumber"
                 placeholder="Phone Number"
-                id={styles.input25}
-                className={styles.inputs}
+                id={otherStyles.input2}
+                className={otherStyles.inputs}
                 type="text"
               />
             </div>
@@ -195,17 +224,23 @@ class InstructorRegisterForm extends React.Component {
               this.state.dirty.phoneNumber === true && (
                 <AlertInstructorPhoneNumber />
               )}
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Create Password:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen", letterSpacing: "1.4px" }}
+                className={otherStyles.labels}
+              >
+                Create Password:
+              </label>
               <input
+                style={{ border: "2px solid yellowgreen" }}
                 onKeyDown={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.createPassword}
                 name="createPassword"
                 placeholder="Create Password"
-                id={styles.ml26}
-                className={styles.inputs}
+                id={otherStyles.ml4}
+                className={otherStyles.inputs}
                 type="password"
               />
             </div>
@@ -213,17 +248,23 @@ class InstructorRegisterForm extends React.Component {
               this.state.instructor.createPassword.length < 7 && (
                 <AlertInstructorPassword />
               )}
-            <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Password Confirm:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen" }}
+                className={otherStyles.labels}
+              >
+                Password Confirm:
+              </label>
               <input
+                style={{ border: "2px solid yellowgreen" }}
                 onKeyDown={this.setDirty}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.passwordConfirm}
                 name="passwordConfirm"
                 placeholder="Password Confirm"
-                id={styles.ml8}
-                className={styles.inputs}
+                id={otherStyles.ml8}
+                className={otherStyles.inputs}
                 type="password"
               />
             </div>
@@ -232,27 +273,40 @@ class InstructorRegisterForm extends React.Component {
                 this.state.instructor.createPassword && (
                 <AlertInstructorPasswordConfirm />
               )}
-            <div>
-              <label className={styles.labels}>Current Employer:</label>
+            <div className={otherStyles.divWidthControl}>
+              <label
+                style={{ color: "yellowgreen", letterSpacing: "0.4px" }}
+                className={otherStyles.labels}
+              >
+                Current Employer:
+              </label>
               <input
+                style={{
+                  border: "2px solid yellowgreen"
+                }}
                 onFocus={this.signingUp}
                 onChange={this.getInstructorInput}
                 value={this.state.instructor.tennisClub}
                 name="tennisClub"
                 placeholder="Tennis Club Name"
-                id={styles.ml8}
-                className={styles.inputs}
+                id={otherStyles.ml8}
+                className={otherStyles.inputs}
                 type="text"
               />
             </div>
 
-            <div id={styles.ageGenderDiv}>
-              <div className={styles.mediaAgeGenderDiv}>
-                <label className={styles.selectorLabels}>Age:</label>
+            <div id={otherStyles.ageGenderDiv}>
+              <div className={otherStyles.mediaAgeGenderDiv}>
+                <label
+                  style={{ color: "yellowgreen" }}
+                  className={otherStyles.selectorLabels}
+                >
+                  Age:
+                </label>
                 <div>
                   <select
                     onFocus={this.signingUp}
-                    id={styles.selecter}
+                    id={otherStyles.selecter}
                     value={this.state.instructor.age}
                     onChange={this.getInstructorInput}
                     name="age"
@@ -385,16 +439,21 @@ class InstructorRegisterForm extends React.Component {
               </div>
               <div
                 style={{ marginLeft: "15px" }}
-                className={styles.mediaAgeGenderDiv}
+                className={otherStyles.mediaAgeGenderDiv}
               >
-                <label className={styles.selectorLabels}>Gender:</label>
+                <label
+                  style={{ color: "yellowgreen" }}
+                  className={otherStyles.selectorLabels}
+                >
+                  Gender:
+                </label>
 
                 <div>
                   {" "}
                   <select
                     onFocus={this.signingUp}
                     style={{ width: "100px" }}
-                    id={styles.selecter}
+                    id={otherStyles.selecter}
                     value={this.state.gender}
                     onChange={this.getInstructorInput}
                     name="gender"
@@ -409,8 +468,12 @@ class InstructorRegisterForm extends React.Component {
               </div>
             </div>
             <button
+              style={{
+                backgroundColor: "yellowgreen",
+                top: this.state.signingUpState ? "-63px" : "-50px"
+              }}
               onClick={this.registerInstructor}
-              id={styles.instructorSignUpButton}
+              id={otherStyles.signUpButton}
             >
               Sign Up
             </button>

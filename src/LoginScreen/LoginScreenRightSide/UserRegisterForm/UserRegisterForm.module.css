@@ -25,7 +25,7 @@
   transition-duration: 1s;
 }
 
-#userSignUpButton {
+#signUpButton {
   height: 42px;
   width: 96px;
   border-radius: 20px;
@@ -35,7 +35,7 @@
   align-self: flex-end;
   position: relative;
   top: -60px;
-  right: 24px;
+  right: 28px;
   color: black;
   background-color: white;
   letter-spacing: 1.4px;
@@ -63,6 +63,10 @@
 
 #animator2 {
   transition-delay: 1.2s;
+}
+
+#ml12 {
+  margin-left: 11px;
 }
 
 .labels {
@@ -109,16 +113,11 @@
 
 #input2 {
   width: 348px;
-  margin-left: 14px;
-}
-
-#input25 {
-  width: 348px;
-  margin-left: 6px;
+  margin-left: 10px;
 }
 
 #input1 {
-  width: 400px;
+  width: 403px;
 }
 
 #input15 {
@@ -126,12 +125,8 @@
   margin-left: 14px;
 }
 
-#ml26 {
-  margin-left: 26px;
-}
-
-#ml8 {
-  margin-left: 4px;
+#ml4 {
+  margin-left: 8px;
   width: 300px;
 }
 

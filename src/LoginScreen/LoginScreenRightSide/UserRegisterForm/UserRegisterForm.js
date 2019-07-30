@@ -407,7 +407,7 @@ class UserRegisterForm extends React.Component {
             <button
               style={{ top: this.state.signingUpState ? "-63px" : "-50px" }}
               onClick={this.registerUser}
-              id={styles.userSignUpButton}
+              id={styles.signUpButton}
             >
               Sign Up
             </button>
