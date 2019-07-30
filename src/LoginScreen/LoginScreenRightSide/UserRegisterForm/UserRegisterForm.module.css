@@ -65,10 +65,6 @@
   transition-delay: 1.2s;
 }
 
-#ml12 {
-  margin-left: 11px;
-}
-
 .labels {
   color: white;
   font-family: "Stylish", sans-serif;
@@ -120,16 +116,6 @@
   width: 403px;
 }
 
-#input15 {
-  width: 400px;
-  margin-left: 14px;
-}
-
-#ml4 {
-  margin-left: 8px;
-  width: 300px;
-}
-
 #ageGenderDiv {
   position: relative;
   width: 628px;
@@ -164,20 +150,9 @@
   #input1 {
     width: 300px;
   }
-  #input15 {
-    width: 300px;
-    margin-left: 0px;
-  }
 
   #input2 {
     width: 300px;
-  }
-
-  #ml26 {
-    margin-left: 0px;
-  }
-  #ml8 {
-    margin-left: 0px;
   }
 
   .inputs {

@@ -109,7 +109,8 @@ class InstructorRegisterForm extends React.Component {
           style={{
             opacity: this.state.signingUpState ? "0" : 1,
             position: "relative",
-            left: "40px"
+            left: "40px",
+            color: "yellowgreen"
           }}
           id={otherStyles.registerP}
         >

@@ -163,7 +163,12 @@ class UserRegisterForm extends React.Component {
             {this.state.dirty.firstName === true &&
               this.state.user.firstName === "" && <AlertUserFirstName />}
             <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Last Name:</label>
+              <label
+                style={{ letterSpacing: "0.5px" }}
+                className={styles.labels}
+              >
+                Last Name:
+              </label>
               <input
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
@@ -171,7 +176,7 @@ class UserRegisterForm extends React.Component {
                 value={this.state.user.lastName}
                 name="lastName"
                 placeholder="Last Name"
-                id={styles.input15}
+                id={styles.input1}
                 className={styles.inputs}
                 type="text"
               />
@@ -179,7 +184,12 @@ class UserRegisterForm extends React.Component {
             {this.state.dirty.lastName === true &&
               this.state.user.lastName === "" && <AlertUserLastName />}
             <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Email Address:</label>
+              <label
+                style={{ letterSpacing: "0.5px" }}
+                className={styles.labels}
+              >
+                Email Address:
+              </label>
               <input
                 onBlur={this.setDirty}
                 onFocus={this.signingUp}
@@ -203,7 +213,7 @@ class UserRegisterForm extends React.Component {
                 value={this.state.user.phoneNumber}
                 name="phoneNumber"
                 placeholder="Phone Number"
-                id={styles.input25}
+                id={styles.input2}
                 className={styles.inputs}
                 type="text"
               />
@@ -211,7 +221,12 @@ class UserRegisterForm extends React.Component {
             {this.validatePhone(this.state.user.phoneNumber) === false &&
               this.state.dirty.phoneNumber === true && <AlertUserPhoneNumber />}
             <div className={styles.divWidthControl}>
-              <label className={styles.labels}>Create Password:</label>
+              <label
+                style={{ letterSpacing: "1.4px" }}
+                className={styles.labels}
+              >
+                Create Password:
+              </label>
               <input
                 onKeyDown={this.setDirty}
                 onFocus={this.signingUp}
@@ -219,7 +234,7 @@ class UserRegisterForm extends React.Component {
                 value={this.state.user.createPassword}
                 name="createPassword"
                 placeholder="Create Password"
-                id={styles.ml26}
+                id={styles.ml8}
                 className={styles.inputs}
                 type="password"
               />
