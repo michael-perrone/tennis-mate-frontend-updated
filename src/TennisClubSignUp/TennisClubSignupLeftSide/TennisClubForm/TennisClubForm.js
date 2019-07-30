@@ -167,10 +167,14 @@ class TennisClubForm extends React.Component {
             />
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label
+              style={{ letterSpacing: "1px", color: "black" }}
+              className={otherStyles.labels}
+            >
               Time Club Opens:
             </label>
             <select
+              id={styles.timeSelectors}
               style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               name="clubOpenTimeNumber"
@@ -202,7 +206,11 @@ class TennisClubForm extends React.Component {
               <option>11:00</option>
               <option>11:30</option>
             </select>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              AM/PM:
+            </label>
             <select
+              id={styles.AMPM}
               style={{ color: "black", border: "3px ridge #dededc" }}
               name="clubOpenTimeAMPM"
               value={this.state.tennisClub.clubOpenTimeAMPM}
@@ -214,10 +222,14 @@ class TennisClubForm extends React.Component {
             </select>
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label
+              style={{ letterSpacing: "0.8px", color: "black" }}
+              className={otherStyles.labels}
+            >
               Time Club Closes:
             </label>
             <select
+              id={styles.timeSelectors}
               style={{ color: "black", border: "3px ridge #dededc" }}
               onChange={this.getTennisClubInput}
               name="clubCloseTimeNumber"
@@ -249,7 +261,11 @@ class TennisClubForm extends React.Component {
               <option>11:00</option>
               <option>11:30</option>
             </select>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              AM/PM:
+            </label>
             <select
+              id={styles.AMPM}
               style={{ color: "black", border: "3px ridge #dededc" }}
               name="clubCloseTimeAMPM"
               value={this.state.tennisClub.clubCloseTimeAMPM}

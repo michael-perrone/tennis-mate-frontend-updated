@@ -10,9 +10,25 @@
   margin-top: 50px;
 }
 
+#timeSelectors {
+  height: 40px;
+  width: 100px;
+  position: relative;
+  top: -8px;
+  left: 7px;
+}
+
 #animationSubContainerLeft {
   transform: translateX(0px);
   transition-delay: 1s;
+}
+
+#AMPM {
+  height: 40px;
+  position: relative;
+  top: -8px;
+
+  width: 70px;
 }
 
 #input3 {
@@ -36,6 +52,10 @@
   align-items: flex-start;
   background-color: transparent;
   justify-content: space-around;
+}
+
+#input3 {
+  width: 281px;
 }
 
 #registerButton {
