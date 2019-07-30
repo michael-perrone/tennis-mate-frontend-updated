@@ -73,27 +73,6 @@
   justify-content: center;
 }
 
-#input2 {
-  width: 348px;
-}
-
-#input1 {
-  width: 400px;
-}
-
-#input15 {
-  width: 400px;
-  margin-left: 26px;
-}
-
-#ml26 {
-  margin-left: 26px;
-}
-
-#ml8 {
-  margin-left: 8px;
-}
-
 @media (max-width: 1587px) and (min-width: 1400px) {
   .subContainerRight {
     margin-right: 80px;
@@ -112,36 +91,9 @@
   #registerForm {
     width: 90%;
   }
-  .labels {
-    display: none;
-  }
-  .inputs {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input15 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input1 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #input2 {
-    width: 90%;
-    margin-left: 0px;
-  }
-  #ml26 {
-    margin-left: 0px;
-  }
-  #ml8 {
-    margin-left: 0px;
-  }
+
   #registerButton {
     width: 90%;
     font-size: 22px;
-  }
-  #registerP {
-    font-size: 44px;
   }
 }

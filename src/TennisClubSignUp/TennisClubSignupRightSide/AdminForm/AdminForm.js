@@ -6,6 +6,7 @@ import AlertAdminEmail from "../../../AlertAdmin/AlertAdminEmail";
 import AlertAdminPhoneNumber from "../../../AlertAdmin/AlertAdminPhoneNumber";
 import AlertAdminPassword from "../../../AlertAdmin/AlertAdminPassword";
 import AlertAdminPasswordConfirm from "../../../AlertAdmin/AlertAdminPasswordConfirm";
+import otherStyles from "../../../LoginScreen/LoginScreenRightSide/UserRegisterForm/UserRegisterForm.module.css";
 import { connect } from "react-redux";
 
 class AdminForm extends React.Component {
@@ -86,81 +87,104 @@ class AdminForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
         >
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>First Name:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              First Name:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dededc" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.firstName}
               name="firstName"
               placeholder="First Name"
-              id={styles.input1}
-              className={styles.inputs}
+              id={otherStyles.input1}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
           {this.state.dirty.firstName === true &&
             this.state.admin.firstName === "" && <AlertAdminFirstName />}
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Last Name:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label
+              style={{ letterSpacing: "0.6px", color: "black" }}
+              className={otherStyles.labels}
+            >
+              Last Name:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.lastName}
               name="lastName"
               placeholder="Last Name"
-              id={styles.input15}
-              className={styles.inputs}
+              id={otherStyles.input1}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
           {this.state.dirty.lastName === true &&
             this.state.admin.lastName === "" && <AlertAdminLastName />}
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Email Address:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label
+              style={{ letterSpacing: "0.3px", color: "black" }}
+              className={otherStyles.labels}
+            >
+              Email Address:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.email}
               name="email"
               placeholder="Email Address"
-              id={styles.input2}
-              className={styles.inputs}
+              id={otherStyles.input2}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
           {this.validateEmail(this.state.admin.email) === false &&
             this.state.dirty.email === true && <AlertAdminEmail />}
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Phone Number:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Phone Number:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.phoneNumber}
               name="phoneNumber"
               placeholder="Phone Number"
-              id={styles.input2}
-              className={styles.inputs}
+              id={otherStyles.input2}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
           {this.validatePhone(this.state.admin.phoneNumber) === false &&
             this.state.dirty.phoneNumber === true && <AlertAdminPhoneNumber />}
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Create Password:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label
+              style={{ letterSpacing: "1.3px", color: "black" }}
+              className={otherStyles.labels}
+            >
+              Create Password:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.createPassword}
               name="createPassword"
               placeholder="Create Password"
-              id={styles.ml26}
-              className={styles.inputs}
+              className={otherStyles.inputs}
               type="password"
             />
           </div>
@@ -168,33 +192,41 @@ class AdminForm extends React.Component {
             this.state.admin.createPassword.length < 7 && (
               <AlertAdminPassword />
             )}
-          <div className={styles.divWidthControl}>
-            <label className={styles.labels}>Password Confirm:</label>
+          <div className={otherStyles.divWidthControl}>
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Password Confirm:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.passwordConfirm}
               name="passwordConfirm"
               placeholder="Password Confirm"
-              id={styles.ml8}
-              className={styles.inputs}
+              className={otherStyles.inputs}
               type="password"
             />
           </div>
           {this.state.dirty.passwordConfirm === true &&
             this.state.admin.passwordConfirm !==
               this.state.admin.createPassword && <AlertAdminPasswordConfirm />}
-          <div style={{ marginTop: "14px" }} className={styles.divWidthControl}>
-            <label className={styles.labels}>Tennis Club Name:</label>
+          <div
+            style={{ marginTop: "14px" }}
+            className={otherStyles.divWidthControl}
+          >
+            <label style={{ color: "black" }} className={otherStyles.labels}>
+              Tennis Club Name:
+            </label>
             <input
+              style={{ color: "black", border: "3px ridge #dedecd" }}
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
               value={this.state.admin.tennisClub}
               name="tennisClub"
               placeholder="Tennis Club Name"
-              className={styles.inputs}
+              className={otherStyles.inputs}
               type="text"
             />
           </div>
