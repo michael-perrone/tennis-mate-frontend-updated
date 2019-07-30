@@ -15,6 +15,10 @@
   transition-delay: 1s;
 }
 
+#input3 {
+  width: 280 px;
+}
+
 #registerP {
   font-size: 52px;
   position: relative;

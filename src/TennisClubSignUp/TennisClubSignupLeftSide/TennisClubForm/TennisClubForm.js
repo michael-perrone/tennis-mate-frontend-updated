@@ -43,8 +43,11 @@ class TennisClubForm extends React.Component {
         <p id={styles.registerP}>Tennis Club Info Register</p>
         <form id={styles.registerForm}>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
-              Address:
+            <label
+              style={{ letterSpacing: "2.1px", color: "black" }}
+              className={otherStyles.labels}
+            >
+              Club Street:
             </label>
             <input
               style={{ color: "black", border: "3px ridge #dededc" }}
@@ -52,13 +55,16 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.clubAddress}
               name="clubAddress"
               placeholder="Street Address"
-              id={otherStyles.input1}
+              id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
             />
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label
+              style={{ letterSpacing: "5.2px", color: "black" }}
+              className={otherStyles.labels}
+            >
               Club City:
             </label>
             <input
@@ -67,13 +73,16 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.clubCity}
               name="clubCity"
               placeholder="City"
-              id={otherStyles.input1}
+              id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
             />
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label
+              style={{ letterSpacing: "3.2px", color: "black" }}
+              className={otherStyles.labels}
+            >
               Club State:
             </label>
             <input
@@ -89,7 +98,7 @@ class TennisClubForm extends React.Component {
           </div>
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
-              Club Zip:
+              Club Zipcode:
             </label>
             <input
               style={{ color: "black", border: "3px ridge #dededc" }}
@@ -97,13 +106,17 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.clubZip}
               name="clubZip"
               placeholder="Zip Code"
+              id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
             />
           </div>
 
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label
+              style={{ letterSpacing: "0.15px", color: "black" }}
+              className={otherStyles.labels}
+            >
               Website URL:
             </label>
             <input
@@ -112,13 +125,17 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.clubWebsite}
               name="clubWebsite"
               placeholder="WebSite URL"
+              id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
             />
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label style={{ color: "black" }} className={otherStyles.labels}>
-              Phone Number:
+            <label
+              style={{ letterSpacing: "2.2px", color: "black" }}
+              className={otherStyles.labels}
+            >
+              Club Telephone:
             </label>
             <input
               style={{ color: "black", border: "3px ridge #dededc" }}
@@ -126,7 +143,7 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.phoneNumber}
               name="phoneNumber"
               placeholder="Phone Number"
-              id={otherStyles.input2}
+              id={styles.input3}
               className={otherStyles.inputs}
               type="text"
             />
@@ -144,7 +161,7 @@ class TennisClubForm extends React.Component {
               value={this.state.tennisClub.numberCourts}
               name="numberCourts"
               placeholder="Number of Courts"
-              id={otherStyles.input12}
+              id={styles.input3}
               className={otherStyles.inputs}
               type="text"
             />
