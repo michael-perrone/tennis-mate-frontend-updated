@@ -203,7 +203,7 @@ class UserRegisterForm extends React.Component {
                 value={this.state.user.phoneNumber}
                 name="phoneNumber"
                 placeholder="Phone Number"
-                id={styles.input2}
+                id={styles.input25}
                 className={styles.inputs}
                 type="text"
               />
@@ -404,7 +404,11 @@ class UserRegisterForm extends React.Component {
                 {this.state.showOptionals && <AlertUserGender />}
               </div>
             </div>
-            <button onClick={this.registerUser} id={styles.userSignUpButton}>
+            <button
+              style={{ top: this.state.signingUpState ? "-63px" : "-50px" }}
+              onClick={this.registerUser}
+              id={styles.userSignUpButton}
+            >
               Sign Up
             </button>
           </form>

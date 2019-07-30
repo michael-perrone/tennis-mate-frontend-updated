@@ -115,7 +115,7 @@ class InstructorRegisterForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           className={styles.registerForm}
           style={{
-            height: this.state.signingUpState ? "680px" : "540px",
+            height: this.state.signingUpState ? "630px" : "510px",
             transform: this.state.signingUpState
               ? "translateY(-100px)"
               : "translateY(0px)"
@@ -123,7 +123,7 @@ class InstructorRegisterForm extends React.Component {
         >
           <form
             id={styles.form}
-            style={{ height: this.state.signingUpState ? "680px" : "540px" }}
+            style={{ height: this.state.signingUpState ? "610px" : "510px" }}
           >
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>First Name:</label>
@@ -186,7 +186,7 @@ class InstructorRegisterForm extends React.Component {
                 value={this.state.instructor.phoneNumber}
                 name="phoneNumber"
                 placeholder="Phone Number"
-                id={styles.input2}
+                id={styles.input25}
                 className={styles.inputs}
                 type="text"
               />
