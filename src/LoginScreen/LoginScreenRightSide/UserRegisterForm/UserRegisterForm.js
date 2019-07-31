@@ -13,6 +13,7 @@ import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
 import { registered } from "../../../actions/authActions";
 import decoder from "jwt-decode";
+import { withRouter } from "react-router-dom";
 
 class UserRegisterForm extends React.Component {
   constructor(props) {
@@ -111,6 +112,7 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     console.log(this.state.token);
     let className = "";
     if (this.props.instructorRegister) {
@@ -442,7 +444,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { registered }
-)(UserRegisterForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { registered }
+  )(UserRegisterForm)
+);

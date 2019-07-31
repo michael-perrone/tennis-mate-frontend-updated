@@ -5,7 +5,7 @@ import { Route, Redirect } from "react-router-dom";
 import TennisClubSignup from "./TennisClubSignUp/TennisClubSignup";
 import TennisClub from "./TennisClub/TennisClub";
 import TennisClubsList from "./TennisClubsList/TennisClubsList";
-import UserProfile from "./UserProfile/UserProfile";
+import UserHome from "./UserHome/UserHome";
 import decoder from "jwt-decode";
 
 class App extends React.Component {
@@ -32,10 +32,12 @@ class App extends React.Component {
           render={() => {
             if (this.state.token !== "") {
               return <Redirect to={`/user/${this.state.token.user.id}`} />;
+            } else {
+              return <Route path="/" exact component={LoginScreen} />;
             }
           }}
         />
-        <Route path="/user/:id" exact component={UserProfile} />
+        <Route path="/user/:id" exact component={UserHome} />
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />

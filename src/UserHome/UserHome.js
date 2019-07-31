@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
-import CreateProfilePage from "./CreateProfilePage/CreateProfilePage";
 
-class UserProfile extends React.Component {
+class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +18,7 @@ class UserProfile extends React.Component {
       })
       .then(response => {
         this.setState({
-          firstName: response.data.firstName,
-          profileCreated: response.data.profileCreated
+          firstName: response.data.firstName
         });
       });
   }
@@ -28,12 +26,10 @@ class UserProfile extends React.Component {
   render() {
     return (
       <div>
-        {this.state.profileCreated === false && (
-          <CreateProfilePage name={this.state.firstName} />
-        )}
+        <p>hi</p>
       </div>
     );
   }
 }
 
-export default UserProfile;
+export default UserHome;
