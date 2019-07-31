@@ -16,26 +16,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("token")) {
-      const token = decoder(localStorage.getItem("token"));
-      this.setState({ token });
-    }
     if (localStorage.getItem("token") === null) {
       this.props.history.push("/");
     }
   }
 
   render() {
-    console.log(localStorage.getItem("token"));
+    let token = "";
+    if (localStorage.getItem("token")) {
+      token = decoder(localStorage.getItem("token"));
+    }
+    console.log(token);
     return (
       <Switch>
-        <Route
-          path="/user/:id"
-          exact
-          component={
-            localStorage.getItem("token") !== null ? UserHome : LoginScreen
-          }
-        />
+        {token && (
+          <Route path={`/user/${token.user.id}`} exact component={UserHome} />
+        )}
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
@@ -43,8 +39,8 @@ class App extends React.Component {
           exact
           path="/"
           render={() => {
-            if (this.state.token !== "") {
-              return <Redirect to={`/user/${this.state.token.user.id}`} />;
+            if (token) {
+              return <Redirect to={`/user/${token.user.id}`} />;
             } else {
               return <Route exact path="/" component={LoginScreen} />;
             }
@@ -54,7 +50,7 @@ class App extends React.Component {
           from="*"
           to={
             localStorage.getItem("token") !== null
-              ? `/user/${this.state.token.user.id}`
+              ? `/user/${token.user.id}`
               : `/`
           }
         />

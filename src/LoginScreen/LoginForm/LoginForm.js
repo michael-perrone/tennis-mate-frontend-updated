@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./LoginForm.module.css";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import decoder from "jwt-decode";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -8,7 +10,8 @@ class LoginForm extends React.Component {
     this.state = {
       personLoggingIn: {
         email: "",
-        password: ""
+        password: "",
+        token: ""
       }
     };
     this.getLoginInfo = this.getLoginInfo.bind(this);
@@ -28,6 +31,8 @@ class LoginForm extends React.Component {
       .post("http://localhost:8080/api/auth/login", this.state.personLoggingIn)
       .then(response => {
         localStorage.setItem("token", response.data.token);
+        const token = decoder(response.data.token);
+        this.props.history.push(`/user/${token.user.id}`);
       })
       .catch(error => {
         console.log(error);
@@ -35,6 +40,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.token);
     return (
       <div id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
@@ -55,7 +61,11 @@ class LoginForm extends React.Component {
               name="password"
               value={this.state.personLoggingIn.password}
             />
-            <button id={styles.loginButton} onClick={this.sendLoginInfo}>
+            <button
+              id={styles.loginButton}
+              onClick={this.sendLoginInfo}
+              to={"/"}
+            >
               Login
             </button>
           </form>
@@ -65,4 +75,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
