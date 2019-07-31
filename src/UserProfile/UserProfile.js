@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
-import decoder from "jwt-decode";
+import CreateProfilePage from "./CreateProfilePage/CreateProfilePage";
 
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       usersName: "",
-      profileCreated: false
+      profileCreated: false,
+      firstName: ""
     };
   }
   componentDidMount() {
@@ -17,14 +18,19 @@ class UserProfile extends React.Component {
         headers: { "x-auth-token": token }
       })
       .then(response => {
-        console.log(response);
+        this.setState({
+          firstName: response.data.firstName,
+          profileCreated: response.data.profileCreated
+        });
       });
   }
 
   render() {
     return (
       <div>
-        <p>Hey </p>
+        {this.state.profileCreated === false && (
+          <CreateProfilePage name={this.state.firstName} />
+        )}
       </div>
     );
   }
