@@ -44,7 +44,7 @@ class TennisClubForm extends React.Component {
         <form id={styles.registerForm}>
           <div className={otherStyles.divWidthControl}>
             <label
-              style={{ letterSpacing: "2.1px", color: "black" }}
+              style={{ letterSpacing: "1.9px", color: "black" }}
               className={otherStyles.labels}
             >
               Club Street:
