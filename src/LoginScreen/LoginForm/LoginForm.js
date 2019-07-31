@@ -30,9 +30,14 @@ class LoginForm extends React.Component {
     axios
       .post("http://localhost:8080/api/auth/login", this.state.personLoggingIn)
       .then(response => {
-        localStorage.setItem("token", response.data.token);
         const token = decoder(response.data.token);
-        this.props.history.push(`/user/${token.user.id}`);
+        if (token.instructor) {
+          localStorage.setItem("instructorToken", response.data.token);
+          this.props.history.push(`/instructor/${token.instructor.id}`);
+        } else if (token.user) {
+          localStorage.setItem("token", response.data.token);
+          this.props.history.push(`/user/${token.user.id}`);
+        }
       })
       .catch(error => {
         console.log(error);

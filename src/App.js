@@ -6,6 +6,7 @@ import TennisClub from "./TennisClub/TennisClub";
 import TennisClubsList from "./TennisClubsList/TennisClubsList";
 import UserHome from "./UserHome/UserHome";
 import decoder from "jwt-decode";
+import InstructorHome from "./InstructorHome/InstructorHome";
 
 class App extends React.Component {
   constructor(props) {
@@ -22,15 +23,26 @@ class App extends React.Component {
   }
 
   render() {
-    let token = "";
+    let token = false;
+    let instructorToken = false;
+
     if (localStorage.getItem("token")) {
       token = decoder(localStorage.getItem("token"));
+    } else if (localStorage.getItem("instructorToken")) {
+      instructorToken = decoder(localStorage.getItem("instructorToken"));
     }
-    console.log(token);
+
     return (
       <Switch>
-        {token && (
+        {token.user && (
           <Route path={`/user/${token.user.id}`} exact component={UserHome} />
+        )}
+        {instructorToken.instructor && (
+          <Route
+            path={`/instructor/${instructorToken.instructor.id}`}
+            exact
+            component={InstructorHome}
+          />
         )}
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
@@ -46,14 +58,26 @@ class App extends React.Component {
             }
           }}
         />
-        <Redirect
-          from="*"
-          to={
-            localStorage.getItem("token") !== null
-              ? `/user/${token.user.id}`
-              : `/`
-          }
-        />
+        {token.user && (
+          <Redirect
+            from="*"
+            to={
+              localStorage.getItem("token") !== null
+                ? `/user/${token.user.id}`
+                : `/`
+            }
+          />
+        )}
+        {instructorToken && (
+          <Redirect
+            from="*"
+            to={
+              localStorage.getItem("instructorToken") !== null
+                ? `/instructor/${instructorToken.instructor.id}`
+                : `/`
+            }
+          />
+        )}
       </Switch>
     );
   }

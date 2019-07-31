@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 import AlertInstructorFirstName from "../../../AlertInstructor/AlertInstructorFirstName";
 import AlertInstructorLastName from "../../../AlertInstructor/AlertInstructorLastName";
 import AlertInstructorEmail from "../../../AlertInstructor/AlertInstructorEmail";
@@ -12,6 +13,7 @@ import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
 import AlertInstructorGender from "../../../AlertInstructor/AlertInstructorGender";
 import styles from "./InstructorRegisterForm.module.css";
 import { INSTRUCTOR_REGISTER } from "../../../actions/actions";
+import decoder from "jwt-decode";
 
 class InstructorRegisterForm extends React.Component {
   constructor(props) {
@@ -80,6 +82,16 @@ class InstructorRegisterForm extends React.Component {
 
   registerInstructor(event) {
     event.preventDefault();
+    axios
+      .post("http://localhost:8080/api/instructorSignup", this.state.instructor)
+      .then(response => {
+        localStorage.setItem("instructorToken", response.data.token);
+        const decodedToken = decoder(response.data.token);
+        this.props.history.push(`/instructor/${decodedToken.instructor.id}`);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   signingUp() {
@@ -89,15 +101,7 @@ class InstructorRegisterForm extends React.Component {
   showOptionals = () => {
     this.setState({ showOptionals: !this.state.showOptionals });
   };
-  /*  axios
-      .post("http://localhost:8080/api/instructorSignup", this.state.instructor)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  } */
+
   render() {
     let id = "";
     if (this.props.instructorRegister) {
@@ -507,7 +511,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InstructorRegisterForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(InstructorRegisterForm)
+);
