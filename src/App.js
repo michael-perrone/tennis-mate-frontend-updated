@@ -1,7 +1,6 @@
 import React from "react";
 import LoginScreen from "./LoginScreen/LoginScreen";
-import { BrowserRouter } from "react-router-dom";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import TennisClubSignup from "./TennisClubSignUp/TennisClubSignup";
 import TennisClub from "./TennisClub/TennisClub";
 import TennisClubsList from "./TennisClubsList/TennisClubsList";
@@ -16,34 +15,52 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (localStorage.getItem("token")) {
       const token = decoder(localStorage.getItem("token"));
       this.setState({ token });
     }
+    if (localStorage.getItem("token") === null) {
+      this.props.history.push("/");
+    }
   }
 
   render() {
+    console.log(localStorage.getItem("token"));
     return (
-      <BrowserRouter>
+      <Switch>
         <Route
-          path="/"
+          path="/user/:id"
           exact
+          component={
+            localStorage.getItem("token") !== null ? UserHome : LoginScreen
+          }
+        />
+        <Route path="/clubs" exact component={TennisClubsList} />
+        <Route path="/clubs/:clubName" exact component={TennisClub} />
+        <Route path="/registerTennisClub" exact component={TennisClubSignup} />
+        <Route
+          exact
+          path="/"
           render={() => {
             if (this.state.token !== "") {
               return <Redirect to={`/user/${this.state.token.user.id}`} />;
             } else {
-              return <Route path="/" exact component={LoginScreen} />;
+              return <Route exact path="/" component={LoginScreen} />;
             }
           }}
         />
-        <Route path="/user/:id" exact component={UserHome} />
-        <Route path="/clubs" exact component={TennisClubsList} />
-        <Route path="/clubs/:clubName" exact component={TennisClub} />
-        <Route path="/registerTennisClub" exact component={TennisClubSignup} />
-      </BrowserRouter>
+        <Redirect
+          from="*"
+          to={
+            localStorage.getItem("token") !== null
+              ? `/user/${this.state.token.user.id}`
+              : `/`
+          }
+        />
+      </Switch>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -26,7 +26,7 @@ class UserHome extends React.Component {
   render() {
     return (
       <div>
-        <p>hi</p>
+        <p>How do they know i exist</p>
       </div>
     );
   }

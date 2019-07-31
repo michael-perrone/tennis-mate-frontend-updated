@@ -101,9 +101,10 @@ class UserRegisterForm extends React.Component {
       axios
         .post("http://localhost:8080/api/usersSignup", this.state.user)
         .then(response => {
-          console.log(response.data);
-          this.props.registered(response.data);
+          const tokenDecoded = decoder(response.data.token);
+          localStorage.setItem("token", response.data.token);
           this.setState({ token: decoder(response.data.token) });
+          this.props.history.push(`/user/${tokenDecoded.user.id}`);
         })
         .catch(error => {
           console.log(error);
@@ -112,8 +113,6 @@ class UserRegisterForm extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state.token);
     let className = "";
     if (this.props.instructorRegister) {
       className = styles.animator;
