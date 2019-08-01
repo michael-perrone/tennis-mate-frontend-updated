@@ -25,21 +25,22 @@ class App extends React.Component {
   render() {
     let token = false;
     let instructorToken = false;
+    let tokenFound = false;
 
     if (localStorage.getItem("token")) {
       token = decoder(localStorage.getItem("token"));
+      tokenFound = true;
     } else if (localStorage.getItem("instructorToken")) {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
+      tokenFound = true;
     }
-
-    console.log(instructorToken.instructor.id);
 
     return (
       <Switch>
-        {token.user && (
+        {token && (
           <Route path={`/user/${token.user.id}`} exact component={UserHome} />
         )}
-        {instructorToken.instructor.id && (
+        {instructorToken && (
           <Route
             path={`/instructor/${instructorToken.instructor.id}`}
             exact
@@ -60,18 +61,7 @@ class App extends React.Component {
               return (
                 <Redirect to={`/instructor/${instructorToken.instructor.id}`} />
               );
-            } else {
-              return <Route exact path="/" component={LoginScreen} />;
-            }
-          }}
-        />
-
-        <Route
-          exact
-          path="/"
-          render={() => {
-            if (token) {
-              console.log(token.user);
+            } else if (token) {
               return <Redirect to={`/user/${token.user.id}`} />;
             } else {
               return <Route exact path="/" component={LoginScreen} />;
