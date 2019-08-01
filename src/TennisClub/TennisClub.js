@@ -3,13 +3,11 @@ import axios from "axios";
 import styles from "./TennisClub.module.css";
 import CourtContainer from "./CourtContainer/CourtContainer";
 import Calendar from "./Calendar/Calendar";
-import decoder from "jwt-decode";
 
 class TennisClub extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: null,
       club: "",
       showCourts: false,
       dateChosenForCourts: ""
@@ -18,10 +16,6 @@ class TennisClub extends React.Component {
     this.onDateClick = this.onDateClick.bind(this);
   }
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    const decodedToken = decoder(token);
-    console.log(decodedToken);
-    this.setState({ token: decodedToken });
     axios
       .post("http://localhost:8080/api/club", {
         clubName: this.props.match.params.clubName
@@ -35,12 +29,10 @@ class TennisClub extends React.Component {
     return () => {
       this.setState({ showCourts: true });
       this.setState({ dateChosenForCourts: date });
-      console.log(this.state.dateChosenForCourts);
     };
   }
 
   render() {
-    console.log(this.state.token);
     return (
       <div id={styles.mainContainer}>
         <p>{this.state.club.clubName}</p>

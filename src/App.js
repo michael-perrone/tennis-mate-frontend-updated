@@ -35,6 +35,9 @@ class App extends React.Component {
 
     return (
       <Switch>
+        <Route path="/clubs" exact component={TennisClubsList} />
+        <Route path="/clubs/:clubName" exact component={TennisClub} />
+        <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {token && (
           <Route path={`/user/${token.user.id}`} exact component={UserHome} />
         )}
@@ -45,9 +48,6 @@ class App extends React.Component {
             component={InstructorHome}
           />
         )}
-        <Route path="/clubs" exact component={TennisClubsList} />
-        <Route path="/clubs/:clubName" exact component={TennisClub} />
-        <Route path="/registerTennisClub" exact component={TennisClubSignup} />
 
         <Route
           exact
