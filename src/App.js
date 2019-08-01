@@ -23,6 +23,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("rendering");
     let token = false;
     let instructorToken = false;
 
@@ -53,7 +54,6 @@ class App extends React.Component {
           path="/"
           render={() => {
             if (instructorToken) {
-              console.log(instructorToken);
               return (
                 <Redirect to={`/instructor/${instructorToken.instructor.id}`} />
               );
