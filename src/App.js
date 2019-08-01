@@ -32,12 +32,14 @@ class App extends React.Component {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
     }
 
+    console.log(instructorToken.instructor.id);
+
     return (
       <Switch>
         {token.user && (
           <Route path={`/user/${token.user.id}`} exact component={UserHome} />
         )}
-        {instructorToken.instructor && (
+        {instructorToken.instructor.id && (
           <Route
             path={`/instructor/${instructorToken.instructor.id}`}
             exact
@@ -47,39 +49,36 @@ class App extends React.Component {
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
-        {instructorToken && (
-          <Route
-            exact
-            path="/"
-            render={() => {
-              console.log("in render");
-              if (instructorToken) {
-                console.log("in instructorToken");
-                return (
-                  <Redirect
-                    to={`/instructor/${instructorToken.instructor.id}`}
-                  />
-                );
-              } else {
-                return <Route exact path="/" component={LoginScreen} />;
-              }
-            }}
-          />
-        )}
-        {token && (
-          <Route
-            exact
-            path="/"
-            render={() => {
-              if (token) {
-                console.log(token.user);
-                return <Redirect to={`/user/${token.user.id}`} />;
-              } else {
-                return <Route exact path="/" component={LoginScreen} />;
-              }
-            }}
-          />
-        )}
+
+        <Route
+          exact
+          path="/"
+          render={() => {
+            console.log("in render");
+            if (instructorToken) {
+              console.log("in instructorToken");
+              return (
+                <Redirect to={`/instructor/${instructorToken.instructor.id}`} />
+              );
+            } else {
+              return <Route exact path="/" component={LoginScreen} />;
+            }
+          }}
+        />
+
+        <Route
+          exact
+          path="/"
+          render={() => {
+            if (token) {
+              console.log(token.user);
+              return <Redirect to={`/user/${token.user.id}`} />;
+            } else {
+              return <Route exact path="/" component={LoginScreen} />;
+            }
+          }}
+        />
+
         {instructorToken.instructor && (
           <Redirect
             from="*"
