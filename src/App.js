@@ -16,7 +16,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage.getItem("token") === null) {
       this.props.history.push("/");
     }
@@ -25,14 +25,11 @@ class App extends React.Component {
   render() {
     let token = false;
     let instructorToken = false;
-    let tokenFound = false;
 
     if (localStorage.getItem("token")) {
       token = decoder(localStorage.getItem("token"));
-      tokenFound = true;
     } else if (localStorage.getItem("instructorToken")) {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
-      tokenFound = true;
     }
 
     return (
@@ -55,9 +52,8 @@ class App extends React.Component {
           exact
           path="/"
           render={() => {
-            console.log("in render");
             if (instructorToken) {
-              console.log("in instructorToken");
+              console.log(instructorToken);
               return (
                 <Redirect to={`/instructor/${instructorToken.instructor.id}`} />
               );
