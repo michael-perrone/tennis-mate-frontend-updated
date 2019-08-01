@@ -47,33 +47,55 @@ class App extends React.Component {
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
-        <Route
-          exact
-          path="/"
-          render={() => {
-            if (token) {
-              return <Redirect to={`/user/${token.user.id}`} />;
-            } else {
-              return <Route exact path="/" component={LoginScreen} />;
+        {instructorToken && (
+          <Route
+            exact
+            path="/"
+            render={() => {
+              console.log("in render");
+              if (instructorToken) {
+                console.log("in instructorToken");
+                return (
+                  <Redirect
+                    to={`/instructor/${instructorToken.instructor.id}`}
+                  />
+                );
+              } else {
+                return <Route exact path="/" component={LoginScreen} />;
+              }
+            }}
+          />
+        )}
+        {token && (
+          <Route
+            exact
+            path="/"
+            render={() => {
+              if (token) {
+                console.log(token.user);
+                return <Redirect to={`/user/${token.user.id}`} />;
+              } else {
+                return <Route exact path="/" component={LoginScreen} />;
+              }
+            }}
+          />
+        )}
+        {instructorToken.instructor && (
+          <Redirect
+            from="*"
+            to={
+              localStorage.getItem("instructorToken") !== null
+                ? `/instructor/${instructorToken.instructor.id}`
+                : `/`
             }
-          }}
-        />
+          />
+        )}
         {token.user && (
           <Redirect
             from="*"
             to={
               localStorage.getItem("token") !== null
                 ? `/user/${token.user.id}`
-                : `/`
-            }
-          />
-        )}
-        {instructorToken && (
-          <Redirect
-            from="*"
-            to={
-              localStorage.getItem("instructorToken") !== null
-                ? `/instructor/${instructorToken.instructor.id}`
                 : `/`
             }
           />
