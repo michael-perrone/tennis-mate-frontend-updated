@@ -16,11 +16,11 @@ class App extends React.Component {
     };
   }
 
-  componentWillMount() {
+  /* componentWillMount() {
     if (localStorage.getItem("token") === null) {
       this.props.history.push("/");
     }
-  }
+  } */
 
   render() {
     console.log("rendering");
