@@ -24,6 +24,7 @@ class InstructorProfileCreate extends React.Component {
           customers. It makes getting started with someone new much easier.
           Remember, creating a profile is not required, but it is reccomended.
         </p>
+        <form />
       </div>
     );
   }

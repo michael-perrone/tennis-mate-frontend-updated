@@ -31,8 +31,16 @@ class InstructorHome extends React.Component {
     return (
       <div id={styles.instructorHomeContainer}>
         <NavBar />
+        <button
+          style={{ height: `40px`, width: `100px` }}
+          onClick={() => {
+            localStorage.removeItem(`instructorToken`);
+            this.props.history.push(`/`);
+          }}
+        >
+          logout
+        </button>
         {this.state.profileCreated === false && <InstructorProfileCreate />}
-        <p>Hi </p>
       </div>
     );
   }

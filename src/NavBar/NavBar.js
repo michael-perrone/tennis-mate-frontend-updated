@@ -10,7 +10,7 @@ class NavBar extends React.Component {
       instructorToken: ""
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     const instructorToken = decoder(localStorage.getItem("instructorToken"));
     this.setState({ instructorToken });
   }
@@ -18,7 +18,8 @@ class NavBar extends React.Component {
   render() {
     return (
       <div id={styles.navBarContainer}>
-        <Link>{this.state.instructorToken.name}</Link>
+        <p>Tennis Mate</p>
+        <p>{this.state.instructorToken.instructor.instructorName}</p>
       </div>
     );
   }
