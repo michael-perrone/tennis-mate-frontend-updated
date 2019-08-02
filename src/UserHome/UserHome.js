@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 class UserHome extends React.Component {
   constructor(props) {
@@ -26,10 +27,17 @@ class UserHome extends React.Component {
   render() {
     return (
       <div>
+        <button
+          style={{ height: "100px", width: "100px" }}
+          onClick={() => {
+            localStorage.removeItem("token");
+            this.props.history.push("/");
+          }}
+        />
         <p>How do they know i exist</p>
       </div>
     );
   }
 }
 
-export default UserHome;
+export default withRouter(UserHome);

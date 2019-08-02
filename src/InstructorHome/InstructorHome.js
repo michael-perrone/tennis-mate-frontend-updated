@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
+import styles from "./InstructorHome.module.css";
+import InstructorProfileCreate from "./InstructorProfileCreate/InstructorProfileCreate";
 
 class InstructorHome extends React.Component {
   constructor(props) {
@@ -25,16 +28,10 @@ class InstructorHome extends React.Component {
   }
 
   render() {
-    console.log(this.state.profileCreated);
     return (
-      <div>
-        <button
-          style={{ height: "100px", width: "100px" }}
-          onClick={() => {
-            localStorage.removeItem("instructorToken");
-            this.props.history.push("/");
-          }}
-        />
+      <div id={styles.instructorHomeContainer}>
+        <NavBar />
+        {this.state.profileCreated === false && <InstructorProfileCreate />}
         <p>Hi </p>
       </div>
     );

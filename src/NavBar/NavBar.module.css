@@ -1,0 +1,7 @@
+#navBarContainer {
+  display: flex;
+  width: 100vw;
+  height: 80px;
+  border-bottom: 2px solid yellowgreen;
+  background-color: rgb(152, 241, 152);
+}
