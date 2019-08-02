@@ -7,19 +7,50 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructorToken: ""
+      instructorToken: "",
+      showDropDown: false
     };
+
+    this.showDropDownHandler = this.showDropDownHandler.bind(this);
   }
   componentWillMount() {
     const instructorToken = decoder(localStorage.getItem("instructorToken"));
     this.setState({ instructorToken });
   }
 
+  showDropDownHandler() {
+    this.setState(prevState => {
+      return { showDropDown: !prevState.showDropDown };
+    });
+  }
+
   render() {
     return (
       <div id={styles.navBarContainer}>
-        <p>Tennis Mate</p>
-        <p>{this.state.instructorToken.instructor.instructorName}</p>
+        <p id={styles.title}>Tennis Mate</p>
+        <div id={styles.secondContainer}>
+          <Link className={styles.links} to="/clubs">
+            My Club
+          </Link>
+          <Link className={styles.links} to="/schedule">
+            My Schedule
+          </Link>
+          <div style={{ display: "flex" }}>
+            <p style={{ cursor: "pointer" }}>
+              {this.state.instructorToken.instructor.instructorName}
+            </p>{" "}
+            <i
+              style={{
+                position: "relative",
+                left: "3px",
+                top: "5px",
+                cursor: "pointer"
+              }}
+              class="fas fa-caret-down"
+            />
+          </div>
+        </div>
+        <div id={styles.dropDownMenu} />
       </div>
     );
   }

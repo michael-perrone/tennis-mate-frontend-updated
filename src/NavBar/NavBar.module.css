@@ -4,4 +4,35 @@
   height: 80px;
   border-bottom: 2px solid yellowgreen;
   background-color: rgb(152, 241, 152);
+  justify-content: space-between;
+}
+
+#title {
+  font-size: 48px;
+  font-family: "Permanent Marker", cursive;
+  position: relative;
+  left: 80px;
+}
+
+.links {
+  text-decoration: none;
+  color: black;
+}
+
+#secondContainer {
+  display: flex;
+  width: 600px;
+  justify-content: space-between;
+  position: relative;
+  top: 20px;
+  right: 60px;
+  font-size: 32px;
+  font-family: "Indie Flower", cursive;
+}
+
+#dropDownMenu {
+  height: 150px;
+  width: 100px;
+  background-color: black;
+  position: absolute;
 }
