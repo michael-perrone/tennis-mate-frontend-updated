@@ -12,6 +12,7 @@ class NavBar extends React.Component {
     };
 
     this.showDropDownHandler = this.showDropDownHandler.bind(this);
+    this.logoutHandler = this.logoutHandler.bind(this);
   }
   componentWillMount() {
     const instructorToken = decoder(localStorage.getItem("instructorToken"));
@@ -22,6 +23,10 @@ class NavBar extends React.Component {
     this.setState(prevState => {
       return { showDropDown: !prevState.showDropDown };
     });
+  }
+
+  logoutHandler() {
+    localStorage.removeItem("instructorToken");
   }
 
   render() {
@@ -48,7 +53,32 @@ class NavBar extends React.Component {
               }}
               class="fas fa-caret-down"
             />
-            {this.state.showDropDown && <div id={styles.dropDownMenu} />}
+            {this.state.showDropDown && (
+              <div id={styles.dropDownMenu}>
+                <div className={styles.dropDownDiv}>
+                  <Link className={styles.dropDownItem} to="/editProfile">
+                    Edit Profile
+                  </Link>
+                </div>
+                <div className={styles.dropDownDiv}>
+                  <Link className={styles.dropDownItem} to="/settings">
+                    Settings
+                  </Link>
+                </div>
+                <div
+                  style={{ borderBottom: "none" }}
+                  className={styles.dropDownDiv}
+                >
+                  <Link
+                    className={styles.dropDownItem}
+                    onClick={this.logoutHandler}
+                    to="/"
+                  >
+                    Logout
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

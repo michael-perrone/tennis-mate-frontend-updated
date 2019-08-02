@@ -30,8 +30,24 @@
   font-family: "Indie Flower", cursive;
 }
 
+.dropDownDiv {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 45px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid black;
+}
+
+.dropDownItem {
+  margin-right: 15px;
+  text-decoration: none;
+}
+
 #dropDownMenu {
-  top: 40px;
+  font-family: cursive;
+  top: 50px;
   right: -4px;
   border: 2px solid black;
   height: 170px;
@@ -40,8 +56,10 @@
   position: absolute;
   animation-name: dropDownSlide;
   transform-origin: top;
-
   animation-duration: 1.3s;
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes dropDownSlide {
