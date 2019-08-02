@@ -32,7 +32,7 @@ class InstructorHome extends React.Component {
       <div id={styles.instructorHomeContainer}>
         <NavBar />
         <button
-          style={{ height: `40px`, width: `100px` }}
+          style={{ height: `100px`, width: `100px` }}
           onClick={() => {
             localStorage.removeItem(`instructorToken`);
             this.props.history.push(`/`);

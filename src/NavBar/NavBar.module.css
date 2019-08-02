@@ -31,8 +31,25 @@
 }
 
 #dropDownMenu {
-  height: 150px;
-  width: 100px;
-  background-color: black;
+  top: 40px;
+  right: -4px;
+  border: 2px solid black;
+  height: 170px;
+  width: 200px;
+  background-color: white;
   position: absolute;
+  animation-name: dropDownSlide;
+  transform-origin: top;
+
+  animation-duration: 1.3s;
+}
+
+@keyframes dropDownSlide {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
 }

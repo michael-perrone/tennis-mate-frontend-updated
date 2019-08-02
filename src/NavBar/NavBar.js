@@ -35,7 +35,7 @@ class NavBar extends React.Component {
           <Link className={styles.links} to="/schedule">
             My Schedule
           </Link>
-          <div style={{ display: "flex" }}>
+          <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p style={{ cursor: "pointer" }}>
               {this.state.instructorToken.instructor.instructorName}
             </p>{" "}
@@ -48,9 +48,9 @@ class NavBar extends React.Component {
               }}
               class="fas fa-caret-down"
             />
+            {this.state.showDropDown && <div id={styles.dropDownMenu} />}
           </div>
         </div>
-        <div id={styles.dropDownMenu} />
       </div>
     );
   }
