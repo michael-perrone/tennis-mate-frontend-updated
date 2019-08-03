@@ -2,7 +2,7 @@
   display: flex;
   width: 100vw;
   height: 80px;
-  border-bottom: 2px solid yellowgreen;
+  border-bottom: 2px solid rgb(70, 165, 62);
   background-color: rgb(152, 241, 152);
   justify-content: space-between;
 }
@@ -11,7 +11,7 @@
   font-size: 48px;
   font-family: "Permanent Marker", cursive;
   position: relative;
-  left: 80px;
+  left: 120px;
 }
 
 .links {

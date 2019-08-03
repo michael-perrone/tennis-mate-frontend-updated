@@ -31,7 +31,6 @@ class InstructorHome extends React.Component {
     return (
       <div id={styles.instructorHomeContainer}>
         <NavBar />
-
         {this.state.profileCreated === false && <InstructorProfileCreate />}
       </div>
     );
