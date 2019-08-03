@@ -1,6 +1,6 @@
 #formSelectors {
   position: relative;
-  top: 30px;
+  top: 22px;
   font-size: 18px;
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -14,4 +14,10 @@
   padding-left: 4px;
   border-right: 1px solid black;
   padding-right: 4px;
+  cursor: pointer;
+}
+
+#formSelectorsSelected {
+  color: white;
+  background-color: gray;
 }
