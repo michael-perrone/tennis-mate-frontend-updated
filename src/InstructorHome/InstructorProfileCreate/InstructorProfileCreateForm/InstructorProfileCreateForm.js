@@ -60,7 +60,7 @@ class InstructorProfileCreateForm extends React.Component {
   //class
   render() {
     return (
-      <div>
+      <div id={styles.formsContainer}>
         <div id={styles.formSelectors}>
           {this.state.formSelectors.map((element, index) => {
             return (
@@ -79,12 +79,18 @@ class InstructorProfileCreateForm extends React.Component {
             );
           })}
         </div>
+
         <form
           style={{ marginTop: "100px" }}
           id={styles.instructorProfileCreateForm}
         >
           {this.state.showJobExp && (
             <div id={styles.jobExpForm}>
+              <p style={{ marginBottom: "100px", fontSize: "22px" }}>
+                Enter all previous job experiences including the start date, end
+                date, company, and job title. Select current if this is your
+                current employer.
+              </p>
               <div>
                 <label className={styles.labels}>Company Name:</label>
                 <input
@@ -283,54 +289,24 @@ class InstructorProfileCreateForm extends React.Component {
               </div>
             </div>
           )}
-          {this.state.showYearsTeaching && (
-            <div>
-              <p>How many years have you been teaching tennis?</p>
-              <select>
-                <option> </option>
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-                <option>25</option>
-                <option>26</option>
-                <option>27</option>
-                <option>28</option>
-                <option>29</option>
-                <option>30</option>
-                <option>31</option>
-                <option>32</option>
-                <option>33</option>
-                <option>34</option>
-                <option>35</option>
-                <option>36</option>
-                <option>37</option>
-                <option>38</option>
-                <option>39</option>
-                <option>40</option>
-                <option>Over 40</option>
-              </select>
+          {this.state.showCertification && (
+            <div id={styles.certForm}>
+              <p style={{ fontSize: "22px" }}>
+                Enter all the certifications you have earned as an instructor
+                (PTR, USPTA, ATP etc.). If you haven't earned any, you can leave
+                this part of the form blank.
+              </p>
+              <div style={{ marginTop: "50px" }}>
+                <div>
+                  <input placeholder="Certified By" className={styles.inputs} />
+                </div>
+                <div>
+                  <input
+                    placeholder="Certification Date"
+                    className={styles.inputs}
+                  />
+                </div>
+              </div>
             </div>
           )}
         </form>

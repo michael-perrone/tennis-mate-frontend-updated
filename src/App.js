@@ -7,6 +7,7 @@ import TennisClubsList from "./TennisClubsList/TennisClubsList";
 import UserHome from "./UserHome/UserHome";
 import decoder from "jwt-decode";
 import InstructorHome from "./InstructorHome/InstructorHome";
+import InstructorProfileCreate from "./InstructorHome/InstructorProfileCreate/InstructorProfileCreate";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +39,13 @@ class App extends React.Component {
         <Route path="/clubs" exact component={TennisClubsList} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
+        {instructorToken && (
+          <Route
+            path={`/instructor/${instructorToken.instructor.id}/createprofile`}
+            exact
+            component={InstructorProfileCreate}
+          />
+        )}
         {token && (
           <Route path={`/user/${token.user.id}`} exact component={UserHome} />
         )}
