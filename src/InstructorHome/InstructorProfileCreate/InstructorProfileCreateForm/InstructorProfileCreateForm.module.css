@@ -9,6 +9,30 @@
   display: flex;
 }
 
+.inputs {
+  width: 300px;
+  height: 32px;
+  font-size: 22px;
+  border-radius: 6px;
+  border: 2px ridge whitesmoke;
+  padding-left: 10px;
+}
+.selects {
+  width: 80px;
+  height: 38px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+#jobExpForm {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 180px;
+  justify-content: space-between;
+}
+
 .individualSelectors {
   border-left: 1px solid black;
   padding-left: 4px;

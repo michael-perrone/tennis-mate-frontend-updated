@@ -51,7 +51,7 @@ class NavBar extends React.Component {
                 top: "5px",
                 cursor: "pointer"
               }}
-              class="fas fa-caret-down"
+              className="fas fa-caret-down"
             />
             {this.state.showDropDown && (
               <div id={styles.dropDownMenu}>
