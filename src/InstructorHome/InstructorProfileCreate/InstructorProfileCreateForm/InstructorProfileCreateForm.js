@@ -7,13 +7,10 @@ class InstructorProfileCreateForm extends React.Component {
     this.state = {
       formSelectors: [
         { name: "Job Experience", selected: true, completed: false },
-        { name: "Years Teaching", selected: false, completed: false },
-        { name: "Location", selected: false, completed: false },
+
         { name: "Certifications", selected: false, completed: false },
-        { name: "Rankings", selected: false, completed: false },
-        { name: "Player Specialization", selected: false, completed: false },
-        { name: "Lesson Rate", selected: false, completed: false },
-        { name: "Photo", selected: false, completed: false }
+
+        { name: "Other Info", selected: false, completed: false }
       ],
 
       jobExperience: {
@@ -25,13 +22,8 @@ class InstructorProfileCreateForm extends React.Component {
       },
 
       showJobExp: true,
-      showYearsTeaching: false,
-      showLocation: false,
       showCertification: false,
-      showRankings: false,
-      showPlayerSpecialization: false,
-      showLessonRate: false,
-      showPhoto: false
+      showOtherInfo: false
     };
     this.jobExpFormHandler = this.jobExpFormHandler.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
@@ -47,30 +39,15 @@ class InstructorProfileCreateForm extends React.Component {
     this.setState({ formSelectors: newFormSelectors });
     this.setState({
       showJobExp: false,
-      showYearsTeaching: false,
-      showLocation: false,
-      showCertification: false,
-      showRankings: false,
-      showPlayerSpecialization: false,
-      showLessonRate: false,
-      showPhoto: false
+      showOtherInfo: false,
+      showCertification: false
     });
     if (elementName === "Job Experience") {
       this.setState({ showJobExp: true });
-    } else if (elementName === "Years Teaching") {
-      this.setState({ showYearsTeaching: true });
-    } else if (elementName === "Location") {
-      this.setState({ showLocation: true });
     } else if (elementName === "Certifications") {
       this.setState({ showCertification: true });
-    } else if (elementName === "Show Rankings") {
-      this.setState({ showRankings: true });
-    } else if (elementName === "Player Specialization") {
-      this.setState({ showPlayerSpecialization: true });
-    } else if (elementName === "Lesson Rate") {
-      this.setState({ showLessonRate: true });
-    } else if (elementName === "Photo") {
-      this.setState({ showPhoto: true });
+    } else if (elementName === "Other Info") {
+      this.setState({ showOtherInfo: true });
     }
   };
 
