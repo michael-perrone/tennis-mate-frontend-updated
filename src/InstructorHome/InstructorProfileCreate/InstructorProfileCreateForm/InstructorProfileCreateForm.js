@@ -21,8 +21,7 @@ class InstructorProfileCreateForm extends React.Component {
         from: "",
         to: "",
         jobTitle: "",
-        currentYes: "",
-        currentNo: ""
+        current: ""
       },
 
       showJobExp: true,
@@ -109,13 +108,17 @@ class InstructorProfileCreateForm extends React.Component {
         >
           {this.state.showJobExp && (
             <div id={styles.jobExpForm}>
-              <input
-                onChange={this.jobExpFormHandler}
-                className={styles.inputs}
-                value={this.state.jobExperience.clubName}
-                name="clubName"
-              />
               <div>
+                <label className={styles.labels}>Company Name:</label>
+                <input
+                  onChange={this.jobExpFormHandler}
+                  className={styles.inputs}
+                  value={this.state.jobExperience.clubName}
+                  name="clubName"
+                />
+              </div>
+              <div>
+                <label className={styles.labels}>Date Started:</label>
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
@@ -197,6 +200,7 @@ class InstructorProfileCreateForm extends React.Component {
                 </select>
               </div>
               <div>
+                <label className={styles.labels}>Date Ended:</label>
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
@@ -278,20 +282,78 @@ class InstructorProfileCreateForm extends React.Component {
                   <option>December</option>
                 </select>
               </div>
-              <input
-                onChange={this.jobExpFormHandler}
-                className={styles.inputs}
-                value={this.state.jobExperience.jobTitle}
-                name="jobTitle"
-              />
               <div>
-                <input type="radio" value="Yes" name="currentYes" />
-                <label htmlFor="currentYes">Yes</label>
+                <label className={styles.labels}>Job Title:</label>
+                <input
+                  onChange={this.jobExpFormHandler}
+                  className={styles.inputs}
+                  value={this.state.jobExperience.jobTitle}
+                  name="jobTitle"
+                />
               </div>
               <div>
-                <input type="radio" value="No" name="currentNo" />
-                <label htmlFor="currentNo">No</label>
+                <label className={styles.labels}>Current Job?</label>
+                <select
+                  onChange={this.jobExpFormHandler}
+                  value={this.state.jobExperience.current}
+                  className={styles.selects}
+                  name="current"
+                >
+                  <option> </option>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
               </div>
+            </div>
+          )}
+          {this.state.showYearsTeaching && (
+            <div>
+              <p>How many years have you been teaching tennis?</p>
+              <select>
+                <option> </option>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+                <option>25</option>
+                <option>26</option>
+                <option>27</option>
+                <option>28</option>
+                <option>29</option>
+                <option>30</option>
+                <option>31</option>
+                <option>32</option>
+                <option>33</option>
+                <option>34</option>
+                <option>35</option>
+                <option>36</option>
+                <option>37</option>
+                <option>38</option>
+                <option>39</option>
+                <option>40</option>
+                <option>Over 40</option>
+              </select>
             </div>
           )}
         </form>
