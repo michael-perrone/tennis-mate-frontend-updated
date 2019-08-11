@@ -5,14 +5,17 @@ class InstructorProfileCreateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      jobExperienceArray: [],
+      certificationsArray: [],
       formSelectors: [
         { name: "Job Experience", selected: true, completed: false },
-
         { name: "Certifications", selected: false, completed: false },
-
         { name: "Other Info", selected: false, completed: false }
       ],
-
+      certifications: {
+        certifiedBy: "",
+        certificationDate: ""
+      },
       jobExperience: {
         clubName: "",
         from: "",
@@ -20,13 +23,33 @@ class InstructorProfileCreateForm extends React.Component {
         jobTitle: "",
         current: ""
       },
-
+      otherInfo: {
+        previousCurrentRanking: "",
+        location: "",
+        yearsTeaching: "",
+        bio: "",
+        lessonRate: ""
+      },
       showJobExp: true,
       showCertification: false,
       showOtherInfo: false
     };
     this.jobExpFormHandler = this.jobExpFormHandler.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
+    this.otherInfoHandler = this.otherInfoHandler.bind(this);
+    this.certFormHandler = this.certFormHandler.bind(this);
+  }
+
+  otherInfoHandler(event) {
+    const newOtherInfoObject = { ...this.state.otherInfo };
+    newOtherInfoObject[event.target.name] = event.target.value;
+    this.setState({ otherInfo: newOtherInfoObject });
+  }
+
+  certFormHandler(event) {
+    const newCertObject = { ...this.state.certifications };
+    newCertObject[event.target.name] = event.target.value;
+    this.setState({ certifications: newCertObject });
   }
 
   changeSelected = (index, elementName) => () => {
@@ -55,8 +78,9 @@ class InstructorProfileCreateForm extends React.Component {
     const newJobExp = { ...this.state.jobExperience };
     newJobExp[event.target.name] = event.target.value;
     this.setState({ jobExperience: newJobExp });
-    console.log(newJobExp);
   }
+  // margin
+  // font
   //class
   render() {
     return (
@@ -85,8 +109,8 @@ class InstructorProfileCreateForm extends React.Component {
           id={styles.instructorProfileCreateForm}
         >
           {this.state.showJobExp && (
-            <div id={styles.jobExpForm}>
-              <p style={{ marginBottom: "100px", fontSize: "22px" }}>
+            <div className={styles.forms}>
+              <p className={styles.pTags} style={{ marginBottom: "100px" }}>
                 Enter all previous job experiences including the start date, end
                 date, company, and job title. Select current if this is your
                 current employer.
@@ -290,8 +314,8 @@ class InstructorProfileCreateForm extends React.Component {
             </div>
           )}
           {this.state.showCertification && (
-            <div id={styles.certForm}>
-              <p style={{ fontSize: "22px" }}>
+            <div className={styles.forms}>
+              <p className={styles.pTags}>
                 Enter all the certifications you have earned as an instructor
                 (PTR, USPTA, ATP etc.). If you haven't earned any, you can leave
                 this part of the form blank.
@@ -307,6 +331,40 @@ class InstructorProfileCreateForm extends React.Component {
                   />
                 </div>
               </div>
+            </div>
+          )}
+          {this.state.showOtherInfo && (
+            <div className={styles.forms}>
+              <p className={styles.pTags}>
+                There a few more fields you can fill out to finish up creating
+                your profile. Remember, you can come back and change or fill
+                these in later.
+              </p>
+              <input
+                className={styles.inputs}
+                onChange={this.otherInfoHandler}
+                name="yearsTeaching"
+              />
+              <input
+                className={styles.inputs}
+                onChange={this.otherInfoHandler}
+                name="lessonRate"
+              />
+              <input
+                className={styles.inputs}
+                onChange={this.otherInfoHandler}
+                name="previousCurrentRanking"
+              />
+              <input
+                className={styles.inputs}
+                onChange={this.otherInfoHandler}
+                name="location"
+              />
+              <input
+                className={styles.inputs}
+                onChange={this.otherInfoHandler}
+                name="bio"
+              />
             </div>
           )}
         </form>
