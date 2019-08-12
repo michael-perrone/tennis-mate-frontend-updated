@@ -13,6 +13,20 @@
   align-items: center;
 }
 
+#createProfileButton {
+  width: 120px;
+  height: 38px;
+  color: black;
+  background-color: rgb(152, 241, 152);
+  border-radius: 9px;
+  border: 2px solid lightgray;
+  position: relative;
+  left: 190px;
+  font-size: 16px;
+  padding-bottom: 4px;
+  top: 30px;
+}
+
 .inputs {
   width: 470px;
   height: 32px;
@@ -24,6 +38,7 @@
 
 .pTags {
   font-size: 22px;
+  margin-bottom: 100px;
 }
 
 .selects {
@@ -43,7 +58,6 @@
   display: flex;
   flex-direction: column;
   width: 500px;
-
   justify-content: space-between;
 }
 
@@ -56,4 +70,12 @@
 #formSelectorsSelected {
   color: white;
   background-color: gray;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+#jobArrayDiv {
+  position: relative;
+  left: -100px;
+  display: flex;
 }

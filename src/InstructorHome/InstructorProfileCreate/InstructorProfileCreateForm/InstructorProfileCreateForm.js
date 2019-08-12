@@ -18,8 +18,10 @@ class InstructorProfileCreateForm extends React.Component {
       },
       jobExperience: {
         clubName: "",
-        from: "",
-        to: "",
+        fromMonth: "",
+        fromYear: "",
+        toMonth: "",
+        toYear: "",
         jobTitle: "",
         current: ""
       },
@@ -34,10 +36,35 @@ class InstructorProfileCreateForm extends React.Component {
       showCertification: false,
       showOtherInfo: false
     };
+    this.addToJobArray = this.addToJobArray.bind(this);
     this.jobExpFormHandler = this.jobExpFormHandler.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.otherInfoHandler = this.otherInfoHandler.bind(this);
     this.certFormHandler = this.certFormHandler.bind(this);
+    this.submitInfo = this.submitInfo.bind(this);
+  }
+
+  submitInfo() {
+    const bigObjectSending = {
+      jobExperience: {
+        ...this.state.jobExperienceArray
+      },
+      ...this.state.otherInfo,
+      ...this.state.certificationsArray
+    };
+  }
+
+  addToJobArray(event) {
+    event.preventDefault();
+    const newJobExperienceArray = [...this.state.jobExperienceArray];
+    newJobExperienceArray.push(this.state.jobExperience);
+    this.setState({ jobExperienceArray: newJobExperienceArray });
+    const newJobExperience = { ...this.state.jobExperience };
+    const keysArray = Object.keys(this.state.jobExperience);
+    for (let i = 0; i < keysArray.length; i++) {
+      newJobExperience[keysArray[i]] = "";
+    }
+    this.setState({ jobExperience: newJobExperience });
   }
 
   otherInfoHandler(event) {
@@ -79,10 +106,10 @@ class InstructorProfileCreateForm extends React.Component {
     newJobExp[event.target.name] = event.target.value;
     this.setState({ jobExperience: newJobExp });
   }
-  // margin
-  // font
-  //class
+
   render() {
+    console.log(this.state.jobExperience);
+    console.log(this.state.jobExperienceArray);
     return (
       <div id={styles.formsContainer}>
         <div id={styles.formSelectors}>
@@ -103,7 +130,6 @@ class InstructorProfileCreateForm extends React.Component {
             );
           })}
         </div>
-
         <form
           style={{ marginTop: "100px" }}
           id={styles.instructorProfileCreateForm}
@@ -129,10 +155,10 @@ class InstructorProfileCreateForm extends React.Component {
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
-                  value={this.state.jobExperience.from}
-                  name="from"
+                  value={this.state.jobExperience.fromYear}
+                  name="fromYear"
                 >
-                  <option> </option>
+                  <option>Year</option>
                   <option>2019</option>
                   <option>2018</option>
                   <option>2017</option>
@@ -188,10 +214,10 @@ class InstructorProfileCreateForm extends React.Component {
                   onChange={this.jobExpFormHandler}
                   style={{ width: "125px" }}
                   className={styles.selects}
-                  value={this.state.jobExperience.to}
-                  name="to"
+                  value={this.state.jobExperience.fromMonth}
+                  name="fromMonth"
                 >
-                  <option> </option>
+                  <option>Month</option>
                   <option>January</option>
                   <option>February</option>
                   <option>March</option>
@@ -211,10 +237,10 @@ class InstructorProfileCreateForm extends React.Component {
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
-                  value={this.state.jobExperience.to}
-                  name="to"
+                  value={this.state.jobExperience.toYear}
+                  name="toYear"
                 >
-                  <option> </option>
+                  <option>Year</option>
                   <option>2019</option>
                   <option>2018</option>
                   <option>2017</option>
@@ -271,10 +297,10 @@ class InstructorProfileCreateForm extends React.Component {
                   onChange={this.jobExpFormHandler}
                   style={{ width: "110px" }}
                   className={styles.selects}
-                  value={this.state.jobExperience.to}
-                  name="to"
+                  value={this.state.jobExperience.toMonth}
+                  name="toMonth"
                 >
-                  <option> </option>
+                  <option>Month</option>
                   <option>January</option>
                   <option>February</option>
                   <option>March</option>
@@ -311,6 +337,7 @@ class InstructorProfileCreateForm extends React.Component {
                   <option>No</option>
                 </select>
               </div>
+              <button onClick={this.addToJobArray}>add experience</button>
             </div>
           )}
           {this.state.showCertification && (
@@ -341,33 +368,53 @@ class InstructorProfileCreateForm extends React.Component {
                 these in later.
               </p>
               <input
+                placeholder="Years Teaching"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="yearsTeaching"
               />
               <input
+                placeholder="Lesson Rate"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="lessonRate"
               />
               <input
+                placeholder="Rankings"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="previousCurrentRanking"
               />
               <input
+                placeholder="Location"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="location"
               />
               <input
+                placeholder="bio"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="bio"
               />
             </div>
           )}
+          <button onClick={this.submitInfo} id={styles.createProfileButton}>
+            Create Profile
+          </button>
         </form>
+        {this.state.jobExperienceArray.length > 0 && (
+          <div id={styles.jobArrayDiv}>
+            {this.state.jobExperienceArray.map(element => {
+              return (
+                <div key={element.clubName + element.jobTitle}>
+                  <p>{element.clubName}</p>
+                  <p>{element.jobTitle}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
