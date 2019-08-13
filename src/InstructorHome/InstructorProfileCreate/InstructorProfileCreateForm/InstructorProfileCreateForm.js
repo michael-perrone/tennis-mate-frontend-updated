@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import styles from "./InstructorProfileCreateForm.module.css";
 
 class InstructorProfileCreateForm extends React.Component {
@@ -14,7 +15,8 @@ class InstructorProfileCreateForm extends React.Component {
       ],
       certifications: {
         certifiedBy: "",
-        certificationDate: ""
+        certificationDate: "",
+        certificationDescription: ""
       },
       jobExperience: {
         clubName: "",
@@ -37,6 +39,7 @@ class InstructorProfileCreateForm extends React.Component {
       showOtherInfo: false
     };
     this.addToJobArray = this.addToJobArray.bind(this);
+    this.addToCertArray = this.addToCertArray.bind(this);
     this.jobExpFormHandler = this.jobExpFormHandler.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.otherInfoHandler = this.otherInfoHandler.bind(this);
@@ -44,14 +47,22 @@ class InstructorProfileCreateForm extends React.Component {
     this.submitInfo = this.submitInfo.bind(this);
   }
 
-  submitInfo() {
+  submitInfo(event) {
+    event.preventDefault();
     const bigObjectSending = {
-      jobExperience: {
-        ...this.state.jobExperienceArray
-      },
+      certificationsLength: this.state.certificationsArray.length,
+      jobExpLength: this.state.jobExperienceArray.length,
+      jobExperience: { ...this.state.jobExperienceArray },
       ...this.state.otherInfo,
-      ...this.state.certificationsArray
+      certifications: { ...this.state.certificationsArray }
     };
+    axios
+      .post("http://localhost:8080/api/instructorProfile", bigObjectSending, {
+        headers: { "x-auth-token": localStorage.getItem("instructorToken") }
+      })
+      .then(response => {
+        console.log(response);
+      });
   }
 
   addToJobArray(event) {
@@ -65,6 +76,19 @@ class InstructorProfileCreateForm extends React.Component {
       newJobExperience[keysArray[i]] = "";
     }
     this.setState({ jobExperience: newJobExperience });
+  }
+
+  addToCertArray(event) {
+    event.preventDefault();
+    const newCertArray = [...this.state.certificationsArray];
+    newCertArray.push(this.state.certifications);
+    this.setState({ certificationsArray: newCertArray });
+    const newCertObject = { ...this.state.certifications };
+    const keysArray = Object.keys(this.state.certifications);
+    for (let i = 0; i < keysArray.length; i++) {
+      newCertObject[keysArray[i]] = "";
+    }
+    this.setState({ jobExperience: newCertObject });
   }
 
   otherInfoHandler(event) {
@@ -108,8 +132,9 @@ class InstructorProfileCreateForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.certificationsArray);
     console.log(this.state.jobExperience);
-    console.log(this.state.jobExperienceArray);
+    console.log(...this.state.jobExperienceArray);
     return (
       <div id={styles.formsContainer}>
         <div id={styles.formSelectors}>
@@ -349,15 +374,32 @@ class InstructorProfileCreateForm extends React.Component {
               </p>
               <div style={{ marginTop: "50px" }}>
                 <div>
-                  <input placeholder="Certified By" className={styles.inputs} />
-                </div>
-                <div>
                   <input
-                    placeholder="Certification Date"
+                    onChange={this.certFormHandler}
+                    name="certifiedBy"
+                    value={this.state.certifications.certifiedBy}
+                    placeholder="Certified By"
                     className={styles.inputs}
                   />
                 </div>
+                <div>
+                  <input
+                    onChange={this.certFormHandler}
+                    name="certificationDate"
+                    value={this.state.certifications.certificationDate}
+                    placeholder="Certification Date"
+                    className={styles.inputs}
+                  />
+                  <input
+                    onChange={this.certFormHandler}
+                    name="certificationDescription"
+                    value={this.state.certifications.certificationDescription}
+                    className={styles.inputs}
+                    placeholder="Certification Description"
+                  />
+                </div>
               </div>
+              <button onClick={this.addToCertArray}>add to cert array</button>
             </div>
           )}
           {this.state.showOtherInfo && (
@@ -368,30 +410,35 @@ class InstructorProfileCreateForm extends React.Component {
                 these in later.
               </p>
               <input
+                value={this.state.otherInfo.yearsTeaching}
                 placeholder="Years Teaching"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="yearsTeaching"
               />
               <input
+                value={this.state.otherInfo.lessonRate}
                 placeholder="Lesson Rate"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="lessonRate"
               />
               <input
+                value={this.state.otherInfo.previousCurrentRanking}
                 placeholder="Rankings"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="previousCurrentRanking"
               />
               <input
+                value={this.state.otherInfo.location}
                 placeholder="Location"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="location"
               />
               <input
+                value={this.state.otherInfo.bio}
                 placeholder="bio"
                 className={styles.inputs}
                 onChange={this.otherInfoHandler}
@@ -403,7 +450,7 @@ class InstructorProfileCreateForm extends React.Component {
             Create Profile
           </button>
         </form>
-        {this.state.jobExperienceArray.length > 0 && (
+        {this.state.jobExperienceArray.length && this.state.showJobExp > 0 && (
           <div id={styles.jobArrayDiv}>
             {this.state.jobExperienceArray.map(element => {
               return (
@@ -415,6 +462,18 @@ class InstructorProfileCreateForm extends React.Component {
             })}
           </div>
         )}
+        {this.state.certificationsArray.length > 0 &&
+          this.state.showCertification && (
+            <div id={styles.jobArrayDiv}>
+              {this.state.certificationsArray.map((element, index) => {
+                return (
+                  <div key={element.certifiedBy + index}>
+                    <p>{element.certifiedBy}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
       </div>
     );
   }

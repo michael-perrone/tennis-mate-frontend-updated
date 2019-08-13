@@ -41,7 +41,9 @@ class App extends React.Component {
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {instructorToken && (
           <Route
-            path={`/instructor/${instructorToken.instructor.id}/createprofile`}
+            path={`/instructor/${
+              instructorToken.instructor.id
+            }/createeditprofile`}
             exact
             component={InstructorProfileCreate}
           />
