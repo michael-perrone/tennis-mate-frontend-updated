@@ -4,8 +4,15 @@ import { withRouter } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import styles from "./InstructorHome.module.css";
 import decoder from "jwt-decode";
+import InstructorProfile from "./InstructorProfile/InstructorProfile";
 
 class InstructorHome extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      instructorProfile: undefined
+    };
+  }
   componentDidMount() {
     const instructorTokenItems = decoder(
       localStorage.getItem("instructorToken")
@@ -19,8 +26,12 @@ class InstructorHome extends React.Component {
         console.log(response);
         if (response.data.profileCreated === false) {
           this.props.history.push(
-            `/instructor/${instructorTokenItems.instructor.id}/createprofile`
+            `/instructor/${
+              instructorTokenItems.instructor.id
+            }/createeditprofile`
           );
+        } else {
+          this.setState({ instructorProfile: response.data.instructorProfile });
         }
       })
       .catch(error => {
@@ -29,9 +40,13 @@ class InstructorHome extends React.Component {
   }
 
   render() {
+    console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>
         <NavBar />
+        {this.state.instructorProfile !== undefined && (
+          <InstructorProfile instructorProfile={this.state.instructorProfile} />
+        )}
       </div>
     );
   }

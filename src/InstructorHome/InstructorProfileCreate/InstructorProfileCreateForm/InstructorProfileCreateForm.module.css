@@ -13,6 +13,12 @@
   align-items: center;
 }
 
+#text {
+  height: 150px;
+  width: 480px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
 #createProfileButton {
   width: 120px;
   height: 38px;

@@ -56,7 +56,12 @@ class NavBar extends React.Component {
             {this.state.showDropDown && (
               <div id={styles.dropDownMenu}>
                 <div className={styles.dropDownDiv}>
-                  <Link className={styles.dropDownItem} to="/editProfile">
+                  <Link
+                    className={styles.dropDownItem}
+                    to={`/instructor/${
+                      this.state.instructorToken.instructor.id
+                    }/createeditprofile`}
+                  >
                     Edit Profile
                   </Link>
                 </div>

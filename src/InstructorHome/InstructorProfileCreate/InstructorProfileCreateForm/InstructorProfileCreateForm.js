@@ -1,11 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import decoder from "jwt-decode";
 import styles from "./InstructorProfileCreateForm.module.css";
 
 class InstructorProfileCreateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      instructorTokenItems: "",
       jobExperienceArray: [],
       certificationsArray: [],
       formSelectors: [
@@ -47,6 +50,13 @@ class InstructorProfileCreateForm extends React.Component {
     this.submitInfo = this.submitInfo.bind(this);
   }
 
+  componentWillMount() {
+    const instructorTokenItems = decoder(
+      localStorage.getItem("instructorToken")
+    );
+    this.setState({ instructorTokenItems });
+  }
+
   submitInfo(event) {
     event.preventDefault();
     const bigObjectSending = {
@@ -61,7 +71,11 @@ class InstructorProfileCreateForm extends React.Component {
         headers: { "x-auth-token": localStorage.getItem("instructorToken") }
       })
       .then(response => {
-        console.log(response);
+        if (response.status === 200) {
+          this.props.history.push(
+            `/instructor/${this.state.instructorTokenItems.instructor.id}`
+          );
+        }
       });
   }
 
@@ -437,17 +451,20 @@ class InstructorProfileCreateForm extends React.Component {
                 onChange={this.otherInfoHandler}
                 name="location"
               />
-              <input
+              <textarea
+                id={styles.text}
+                maxLength="340"
+                cols="20"
+                rows="40"
                 value={this.state.otherInfo.bio}
                 placeholder="bio"
-                className={styles.inputs}
                 onChange={this.otherInfoHandler}
                 name="bio"
               />
             </div>
           )}
           <button onClick={this.submitInfo} id={styles.createProfileButton}>
-            Create Profile
+            Save Profile
           </button>
         </form>
         {this.state.jobExperienceArray.length && this.state.showJobExp > 0 && (
@@ -479,4 +496,4 @@ class InstructorProfileCreateForm extends React.Component {
   }
 }
 
-export default InstructorProfileCreateForm;
+export default withRouter(InstructorProfileCreateForm);

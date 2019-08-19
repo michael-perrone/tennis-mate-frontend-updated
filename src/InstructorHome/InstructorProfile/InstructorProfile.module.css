@@ -1,0 +1,57 @@
+#image {
+  border: 1px solid black;
+  border-radius: 70%;
+  height: 220px;
+  width: 240px;
+}
+
+#instructorProfileContainer {
+  display: flex;
+}
+
+#imageNameDiv {
+  width: 100%;
+  position: relative;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+#instructorName {
+  font-size: 28px;
+  position: relative;
+  top: 25px;
+  font-family: cursive;
+}
+
+#bottomPartBar {
+  padding-top: 20px;
+  height: 400px;
+  color: darkolivegreen;
+  width: 85%;
+  background-color: white;
+  position: relative;
+  border: 2px solid black;
+  border-radius: 15px;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#instructorProfileLeftBar {
+  width: 360px;
+
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 91vh;
+}
+
+.pTagsInBottomBar {
+  font-size: 20px;
+  margin-top: 30px;
+}
