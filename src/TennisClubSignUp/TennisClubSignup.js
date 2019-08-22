@@ -4,11 +4,11 @@ import TennisClubSignupLeftSide from "./TennisClubSignupLeftSide/TennisClubSignu
 import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSignupRightSide";
 import { ADMIN_ENTERED } from "../actions/actions";
 import { connect } from "react-redux";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import BackDrop from "./BackDrop/BackDrop";
 import DropdownModal from "./DropdownModal/DropdownModal";
-import decoder from 'jwt-decode';
+import decoder from "jwt-decode";
 
 class TennisClubSignup extends React.Component {
   constructor(props) {
@@ -57,10 +57,9 @@ class TennisClubSignup extends React.Component {
     axios
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
-        localStorage.setItem('adminToken', response.data.token)
-        const adminToken = decoder(localStorage.getItem('adminToken'));
-        this.props.history.push(`/admin/${adminToken.admin.adminId}`)
-        
+        localStorage.setItem("adminToken", response.data.token);
+        const adminToken = decoder(localStorage.getItem("adminToken"));
+        this.props.history.push(`/admin/${adminToken.admin.id}`);
       })
       .catch(error => {
         console.log(error);
@@ -109,7 +108,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TennisClubSignup));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TennisClubSignup)
+);

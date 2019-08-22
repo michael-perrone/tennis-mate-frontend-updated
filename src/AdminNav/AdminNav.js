@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./NavBar.module.css";
+import styles from "./AdminNav.module.css";
 import { Link } from "react-router-dom";
 import decoder from "jwt-decode";
 
-class NavBar extends React.Component {
+class AdminNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructorToken: "",
+      adminToken: "",
       showDropDown: false
     };
 
@@ -15,8 +15,8 @@ class NavBar extends React.Component {
     this.logoutHandler = this.logoutHandler.bind(this);
   }
   componentWillMount() {
-    const instructorToken = decoder(localStorage.getItem("instructorToken"));
-    this.setState({ instructorToken });
+    const adminToken = decoder(localStorage.getItem("adminToken"));
+    this.setState({ adminToken });
   }
 
   showDropDownHandler() {
@@ -26,7 +26,7 @@ class NavBar extends React.Component {
   }
 
   logoutHandler() {
-    localStorage.removeItem("instructorToken");
+    localStorage.removeItem("adminToken");
   }
 
   render() {
@@ -42,7 +42,7 @@ class NavBar extends React.Component {
           </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p style={{ cursor: "pointer" }}>
-              {this.state.instructorToken.instructor.instructorName}
+              {this.state.adminToken.admin.adminName}
             </p>{" "}
             <i
               style={{
@@ -59,7 +59,7 @@ class NavBar extends React.Component {
                   <Link
                     className={styles.dropDownItem}
                     to={`/instructor/${
-                      this.state.instructorToken.instructor.id
+                      this.state.adminToken.admin.id
                     }/createeditprofile`}
                   >
                     Edit Profile
@@ -91,4 +91,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default AdminNav;

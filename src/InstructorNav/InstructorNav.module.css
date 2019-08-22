@@ -1,0 +1,73 @@
+#navBarContainer {
+  display: flex;
+  width: 100vw;
+  height: 80px;
+  border-bottom: 2px solid rgb(70, 165, 62);
+  background-color: rgb(152, 241, 152);
+  justify-content: space-between;
+}
+
+#title {
+  font-size: 48px;
+  font-family: "Permanent Marker", cursive;
+  position: relative;
+  left: 120px;
+}
+
+.links {
+  text-decoration: none;
+  color: black;
+}
+
+#secondContainer {
+  display: flex;
+  width: 600px;
+  justify-content: space-between;
+  position: relative;
+  top: 20px;
+  right: 60px;
+  font-size: 32px;
+  font-family: "Indie Flower", cursive;
+}
+
+.dropDownDiv {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 45px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid black;
+}
+
+.dropDownItem {
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+#dropDownMenu {
+  font-family: cursive;
+  top: 50px;
+  right: -4px;
+  border: 2px solid black;
+  height: 170px;
+  width: 200px;
+  background-color: white;
+  position: absolute;
+  animation-name: dropDownSlide;
+  transform-origin: top;
+  animation-duration: 1.3s;
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes dropDownSlide {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}

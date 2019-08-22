@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
+import InstructorNav from "../InstructorNav/InstructorNav";
 import styles from "./InstructorHome.module.css";
 import decoder from "jwt-decode";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
@@ -43,7 +43,7 @@ class InstructorHome extends React.Component {
     console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>
-        <NavBar />
+        <InstructorNav />
         {this.state.instructorProfile !== undefined && (
           <InstructorProfile instructorProfile={this.state.instructorProfile} />
         )}

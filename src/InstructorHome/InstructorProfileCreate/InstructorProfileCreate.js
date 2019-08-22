@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./InstructorProfileCreate.module.css";
 import InstructorProfileCreateForm from "./InstructorProfileCreateForm/InstructorProfileCreateForm";
-import NavBar from "../../NavBar/NavBar";
+import NavBar from "../../InstructorNav/InstructorNav";
 
 class InstructorProfileCreate extends React.Component {
   render() {
