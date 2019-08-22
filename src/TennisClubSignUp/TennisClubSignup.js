@@ -4,6 +4,7 @@ import TennisClubSignupLeftSide from "./TennisClubSignupLeftSide/TennisClubSignu
 import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSignupRightSide";
 import { ADMIN_ENTERED } from "../actions/actions";
 import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom';
 import axios from "axios";
 import BackDrop from "./BackDrop/BackDrop";
 import DropdownModal from "./DropdownModal/DropdownModal";
@@ -55,6 +56,7 @@ class TennisClubSignup extends React.Component {
     axios
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
+        this.props.history.push('')
         console.log(response);
       })
       .catch(error => {
@@ -104,7 +106,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(TennisClubSignup);
+)(TennisClubSignup));

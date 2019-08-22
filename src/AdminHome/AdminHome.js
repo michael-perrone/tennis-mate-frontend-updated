@@ -4,6 +4,7 @@ class AdminHome extends React.Component {
     render(){
         return (
             <div>
+                <p>this is the admin home</p>
             </div>
         )
     }

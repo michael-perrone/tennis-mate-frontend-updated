@@ -27,11 +27,14 @@ class App extends React.Component {
     console.log("rendering");
     let token = false;
     let instructorToken = false;
+    let adminToken = false;
 
     if (localStorage.getItem("token")) {
       token = decoder(localStorage.getItem("token"));
     } else if (localStorage.getItem("instructorToken")) {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
+    } else if (localStorage.getItem('adminToken')) {
+      adminToken = decoder(localStorage.getItem('adminToken'))
     }
 
     return (
