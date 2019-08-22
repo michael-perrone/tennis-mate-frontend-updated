@@ -8,6 +8,7 @@ import {withRouter} from 'react-router-dom';
 import axios from "axios";
 import BackDrop from "./BackDrop/BackDrop";
 import DropdownModal from "./DropdownModal/DropdownModal";
+import decoder from 'jwt-decode';
 
 class TennisClubSignup extends React.Component {
   constructor(props) {
@@ -56,8 +57,10 @@ class TennisClubSignup extends React.Component {
     axios
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
-        this.props.history.push('')
-        console.log(response);
+        localStorage.setItem('adminToken', response.data.token)
+        const adminToken = decoder(localStorage.getItem('adminToken'));
+        this.props.history.push(`/admin/${adminToken.admin.adminId}`)
+        
       })
       .catch(error => {
         console.log(error);

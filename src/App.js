@@ -5,6 +5,7 @@ import TennisClubSignup from "./TennisClubSignUp/TennisClubSignup";
 import TennisClub from "./TennisClub/TennisClub";
 import TennisClubsList from "./TennisClubsList/TennisClubsList";
 import UserHome from "./UserHome/UserHome";
+import AdminHome from './AdminHome/AdminHome';
 import decoder from "jwt-decode";
 import InstructorHome from "./InstructorHome/InstructorHome";
 import InstructorProfileCreate from "./InstructorHome/InstructorProfileCreate/InstructorProfileCreate";
@@ -35,6 +36,7 @@ class App extends React.Component {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
     } else if (localStorage.getItem('adminToken')) {
       adminToken = decoder(localStorage.getItem('adminToken'))
+      console.log(adminToken)
     }
 
     return (
@@ -60,6 +62,10 @@ class App extends React.Component {
             exact
             component={InstructorHome}
           />
+        )}
+
+        {adminToken && (
+          <Route path={`/admin/${adminToken.admin.adminId}`} exact component={AdminHome}/>
         )}
 
         <Route
@@ -94,6 +100,16 @@ class App extends React.Component {
             to={
               localStorage.getItem("token") !== null
                 ? `/user/${token.user.id}`
+                : `/`
+            }
+          />
+        )}
+        {adminToken.admin && (
+          <Redirect
+            from="*"
+            to={
+              localStorage.getItem("adminToken") !== null
+                ? `/admin/${adminToken.admin.id}`
                 : `/`
             }
           />
