@@ -16,7 +16,7 @@ class AdminForm extends React.Component {
     this.setDirty = this.setDirty.bind(this);
     this.state = {
       admin: {
-        tennisClub: "",
+        clubName: "",
         firstName: "",
         lastName: "",
         email: "",
@@ -32,7 +32,7 @@ class AdminForm extends React.Component {
         phoneNumber: false,
         createPassword: false,
         passwordConfirm: false,
-        tennisClub: false
+        clubName: false
       },
       showOptionals: false
     };
@@ -223,8 +223,8 @@ class AdminForm extends React.Component {
               onBlur={this.setDirty}
               onFocus={this.signingUp}
               onChange={this.getAdminInput}
-              value={this.state.admin.tennisClub}
-              name="tennisClub"
+              value={this.state.admin.clubName}
+              name="clubName"
               placeholder="Tennis Club Name"
               className={otherStyles.inputs}
               type="text"

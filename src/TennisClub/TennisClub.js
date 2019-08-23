@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./TennisClub.module.css";
 import CourtContainer from "./CourtContainer/CourtContainer";
 import Calendar from "./Calendar/Calendar";
+import decoder from "jwt-decode";
 
 class TennisClub extends React.Component {
   constructor(props) {
@@ -10,19 +11,33 @@ class TennisClub extends React.Component {
     this.state = {
       club: "",
       showCourts: false,
-      dateChosenForCourts: ""
+      dateChosenForCourts: "",
+      adminClubName: ""
     };
 
     this.onDateClick = this.onDateClick.bind(this);
   }
   componentDidMount() {
-    axios
-      .post("http://localhost:8080/api/club", {
-        clubName: this.props.match.params.clubName
-      })
-      .then(response => {
-        this.setState({ club: response.data.tennisClub });
-      });
+    if (localStorage.getItem("adminToken")) {
+      const admin = decoder(localStorage.getItem("adminToken"));
+      console.log(admin);
+      axios
+        .post("http://localhost:8080/api/club", {
+          clubName: admin.clubName
+        })
+        .then(response => {
+          console.log(response);
+          this.setState({ adminClubName: admin.clubName });
+        });
+    } else {
+      axios
+        .post("http://localhost:8080/api/club", {
+          clubName: this.props.match.params.clubName
+        })
+        .then(response => {
+          this.setState({ club: response.data.tennisClub });
+        });
+    }
   }
 
   onDateClick(date) {
@@ -34,14 +49,23 @@ class TennisClub extends React.Component {
 
   render() {
     return (
-      <div id={styles.mainContainer}>
-        <p>{this.state.club.clubName}</p>
+      <div style={{ marginTop: "200px" }} id={styles.mainContainer}>
+        {localStorage.getItem("adminToken") === undefined ||
+          (localStorage.getItem("adminToken") === null && (
+            <p>{this.state.club.clubName}</p>
+          ))}
+
+        {localStorage.getItem("adminToken") !== undefined &&
+          (localStorage.getItem("adminToken") !== null && (
+            <p>{this.state.adminClubName}</p>
+          ))}
+
         <Calendar
           date={this.state.dateChosenForCourts}
           onDateClick={this.onDateClick}
         />
 
-        {this.state.showCourts && (
+        {/* this.state.showCourts && (
           <CourtContainer
             date={`${this.state.dateChosenForCourts.getMonth() +
               1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
@@ -53,7 +77,7 @@ class TennisClub extends React.Component {
             clubCloseTimeAMPM={this.state.club.clubCloseTimeAMPM}
             numberCourts={this.state.club.numberCourts}
           />
-        )}
+              ) */}
       </div>
     );
   }

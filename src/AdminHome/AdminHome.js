@@ -1,5 +1,6 @@
 import React from "react";
 import AdminNav from "../AdminNav/AdminNav";
+import TennisClub from "../TennisClub/TennisClub";
 
 class AdminHome extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class AdminHome extends React.Component {
     return (
       <div>
         <AdminNav />
-        <p>this is the admin home</p>
+        <TennisClub />
       </div>
     );
   }

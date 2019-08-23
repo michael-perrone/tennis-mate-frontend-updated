@@ -41,15 +41,16 @@ class AdminNav extends React.Component {
             My Schedule
           </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
-            <p style={{ cursor: "pointer" }}>
-              {this.state.adminToken.admin.adminName}
+            <p className={styles.links} style={{ cursor: "pointer" }}>
+              {this.state.adminToken.admin.name}
             </p>{" "}
             <i
               style={{
                 position: "relative",
                 left: "3px",
                 top: "5px",
-                cursor: "pointer"
+                cursor: "pointer",
+                color: "rgb(152, 241, 152)"
               }}
               className="fas fa-caret-down"
             />

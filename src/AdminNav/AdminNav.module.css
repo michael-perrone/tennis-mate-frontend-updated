@@ -2,8 +2,8 @@
   display: flex;
   width: 100vw;
   height: 80px;
-  border-bottom: 2px solid rgb(70, 165, 62);
-  background-color: rgb(152, 241, 152);
+  border-bottom: 2px solid gray;
+  background-color: black;
   justify-content: space-between;
 }
 
@@ -12,11 +12,13 @@
   font-family: "Permanent Marker", cursive;
   position: relative;
   left: 120px;
+  letter-spacing: 1.6px;
+  color: rgb(152, 241, 152);
 }
 
 .links {
   text-decoration: none;
-  color: black;
+  color: rgb(152, 241, 152);
 }
 
 #secondContainer {
@@ -37,19 +39,22 @@
   height: 45px;
   padding-top: 10px;
   padding-bottom: 15px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(152, 241, 152);
+  background-color: black;
 }
 
 .dropDownItem {
   margin-right: 15px;
   text-decoration: none;
+  color: rgb(152, 241, 152);
 }
 
 #dropDownMenu {
   font-family: cursive;
   top: 50px;
   right: -4px;
-  border: 2px solid black;
+  border-top: 2px solid black;
+  border: 2px solid rgb(152, 241, 152);
   height: 170px;
   width: 200px;
   background-color: white;
