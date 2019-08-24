@@ -57,6 +57,7 @@ class TennisClubSignup extends React.Component {
     axios
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
+        console.log(response);
         localStorage.setItem("adminToken", response.data.token);
         const adminToken = decoder(localStorage.getItem("adminToken"));
         this.props.history.push(`/admin/${adminToken.admin.id}`);

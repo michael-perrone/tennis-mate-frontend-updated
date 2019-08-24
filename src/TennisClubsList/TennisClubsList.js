@@ -20,19 +20,21 @@ class TennisClubsList extends React.Component {
   render() {
     return (
       <div id={styles.clubsContainer}>
-        <h1>Clubs in your area!</h1>
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            borderBottom: "2px solid black"
+          }}
+        >
+          <h1 id={styles.clubListHeader}>Clubs in your area!</h1>
+        </div>
         {this.state.tennisClubs.map(element => {
           return (
             <TennisClubInList
+              club={element}
               push={this.props.history.push}
               key={element._id}
-              services={element.services}
-              clubName={element.clubName}
-              address={element.address}
-              city={element.city}
-              zip={element.zip}
-              state={element.state}
-              numberCourts={element.numberCourts}
             />
           );
         })}

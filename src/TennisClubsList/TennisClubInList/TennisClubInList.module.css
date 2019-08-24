@@ -1,6 +1,33 @@
 #tennisClubHolder {
-  padding: 30px 0px;
-  height: 100px;
+  padding-top: 30px;
+  padding-bottom: 5px;
+  height: 400px;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
+  background-color: rgb(199, 255, 199);
+  display: flex;
+}
+
+#clubImage {
+  height: 300px;
+  width: 300px;
+  border-radius: 11px;
+}
+
+#clubName {
+  margin-top: 20px;
+  font-family: "Boogaloo", cursive;
+}
+
+#imageAndTitleHolder {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#viewButton {
+  height: 80px;
+  width: 150px;
+  border-radius: 22px;
 }

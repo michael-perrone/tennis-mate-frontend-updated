@@ -28,8 +28,18 @@ class CourtContainer extends React.Component {
   }
 
   componentDidMount() {
-    const token = decoder(localStorage.getItem("token"));
-    this.setState({ token: token });
+    if (localStorage.getItem("token")) {
+      const token = decoder(localStorage.getItem("token"));
+      this.setState({ token: token });
+    }
+    if (localStorage.getItem("adminToken")) {
+      const adminToken = decoder(localStorage.getItem("adminToken"));
+      this.setState({ token: adminToken });
+    }
+    if (localStorage.getItem("instructorToken")) {
+      const instructorToken = decoder(localStorage.getItem("instructorToken"));
+      this.setState({ token: instructorToken });
+    }
     axios.get("http://localhost:8080/api/courtBooked").then(response => {
       let clubsMatchArray = [];
       response.data.bookings.forEach(element => {
@@ -258,17 +268,45 @@ class CourtContainer extends React.Component {
           courtIdsArray.push(element.courtId);
         });
 
-        const bookingToSend = {
-          bookedBy: this.state.token.user.userName,
-          timeStart: this.state.bookingArray[0].timeStart,
-          timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-            .endTime,
-          courtIds: courtIdsArray,
-          minutes: this.state.bookingArray.length * 30,
-          clubName: this.props.clubName,
-          date: this.props.date
-        };
-        this.setState({ bookingToSend });
+        if (this.state.token.admin) {
+          const bookingToSend = {
+            bookedBy: this.state.token.admin.name,
+            timeStart: this.state.bookingArray[0].timeStart,
+            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+              .endTime,
+            courtIds: courtIdsArray,
+            minutes: this.state.bookingArray.length * 30,
+            clubName: this.props.clubName,
+            date: this.props.date
+          };
+          this.setState({ bookingToSend });
+        }
+        if (this.state.token.user) {
+          const bookingToSend = {
+            bookedBy: this.state.token.user.userName,
+            timeStart: this.state.bookingArray[0].timeStart,
+            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+              .endTime,
+            courtIds: courtIdsArray,
+            minutes: this.state.bookingArray.length * 30,
+            clubName: this.props.clubName,
+            date: this.props.date
+          };
+          this.setState({ bookingToSend });
+        }
+        if (this.state.token.instructor) {
+          const bookingToSend = {
+            bookedBy: this.state.token.instructor.instructorName,
+            timeStart: this.state.bookingArray[0].timeStart,
+            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
+              .endTime,
+            courtIds: courtIdsArray,
+            minutes: this.state.bookingArray.length * 30,
+            clubName: this.props.clubName,
+            date: this.props.date
+          };
+          this.setState({ bookingToSend });
+        }
       }
       this.setState(prevState => {
         return { tryingToBookModalState: !prevState.tryingToBookModalState };

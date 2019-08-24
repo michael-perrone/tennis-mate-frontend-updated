@@ -25,7 +25,6 @@ class App extends React.Component {
   } */
 
   render() {
-    console.log("rendering");
     let token = false;
     let instructorToken = false;
     let adminToken = false;
@@ -36,7 +35,6 @@ class App extends React.Component {
       instructorToken = decoder(localStorage.getItem("instructorToken"));
     } else if (localStorage.getItem("adminToken")) {
       adminToken = decoder(localStorage.getItem("adminToken"));
-      console.log(adminToken);
     }
 
     return (

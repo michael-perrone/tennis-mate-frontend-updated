@@ -20,14 +20,13 @@ class TennisClub extends React.Component {
   componentDidMount() {
     if (localStorage.getItem("adminToken")) {
       const admin = decoder(localStorage.getItem("adminToken"));
-      console.log(admin);
+      console.log(admin.admin.clubName);
       axios
         .post("http://localhost:8080/api/club", {
-          clubName: admin.clubName
+          clubName: admin.admin.clubName
         })
         .then(response => {
-          console.log(response);
-          this.setState({ adminClubName: admin.clubName });
+          this.setState({ club: response.data.tennisClub });
         });
     } else {
       axios
@@ -48,6 +47,7 @@ class TennisClub extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div style={{ marginTop: "200px" }} id={styles.mainContainer}>
         {localStorage.getItem("adminToken") === undefined ||
@@ -65,7 +65,7 @@ class TennisClub extends React.Component {
           onDateClick={this.onDateClick}
         />
 
-        {/* this.state.showCourts && (
+        {this.state.showCourts && (
           <CourtContainer
             date={`${this.state.dateChosenForCourts.getMonth() +
               1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
@@ -77,7 +77,7 @@ class TennisClub extends React.Component {
             clubCloseTimeAMPM={this.state.club.clubCloseTimeAMPM}
             numberCourts={this.state.club.numberCourts}
           />
-              ) */}
+        )}
       </div>
     );
   }
