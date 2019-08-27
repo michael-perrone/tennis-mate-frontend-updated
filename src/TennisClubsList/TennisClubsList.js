@@ -22,12 +22,25 @@ class TennisClubsList extends React.Component {
       <div id={styles.clubsContainer}>
         <div
           style={{
-            width: "100%",
-            textAlign: "center",
-            borderBottom: "2px solid black"
+            width: "75%",
+            alignSelf: "flex-end",
+            textAlign: "center"
           }}
         >
           <h1 id={styles.clubListHeader}>Clubs in your area!</h1>
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            width: "25%",
+            backgroundColor: "white",
+            height: "100vh",
+            left: "0px",
+            borderRight: "3px solid gray"
+          }}
+        >
+          <p>wdwdwd</p>
+          <p>wdwdwd</p>
         </div>
         {this.state.tennisClubs.map(element => {
           return (
