@@ -14,9 +14,11 @@ class InstructorHome extends React.Component {
     };
   }
   componentDidMount() {
+    console.log("hi");
     const instructorTokenItems = decoder(
       localStorage.getItem("instructorToken")
     );
+    console.log(instructorTokenItems);
     const instructorToken = localStorage.getItem("instructorToken");
     axios
       .get("http://localhost:8080/api/instructorProfile/myprofile", {
@@ -26,9 +28,7 @@ class InstructorHome extends React.Component {
         console.log(response);
         if (response.data.profileCreated === false) {
           this.props.history.push(
-            `/instructor/${
-              instructorTokenItems.instructor.id
-            }/createeditprofile`
+            `/instructor/${instructorTokenItems.instructor.id}/createeditprofile`
           );
         } else {
           this.setState({ instructorProfile: response.data.instructorProfile });
@@ -40,6 +40,7 @@ class InstructorHome extends React.Component {
   }
 
   render() {
+    console.log("hi");
     console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>

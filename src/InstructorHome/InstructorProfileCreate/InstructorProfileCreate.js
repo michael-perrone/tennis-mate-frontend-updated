@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./InstructorProfileCreate.module.css";
 import InstructorProfileCreateForm from "./InstructorProfileCreateForm/InstructorProfileCreateForm";
-import NavBar from "../../InstructorNav/InstructorNav";
+import InstructorNav from "../../InstructorNav/InstructorNav";
 
 class InstructorProfileCreate extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <InstructorNav />
         <div id={styles.instructorProfileCreateContainer}>
           <div id={styles.paragraphContainer}>
             <p>

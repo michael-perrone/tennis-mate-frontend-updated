@@ -44,9 +44,7 @@ class App extends React.Component {
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {instructorToken && (
           <Route
-            path={`/instructor/${
-              instructorToken.instructor.id
-            }/createeditprofile`}
+            path={`/instructor/${instructorToken.instructor.id}/createeditprofile`}
             exact
             component={InstructorProfileCreate}
           />
@@ -80,6 +78,8 @@ class App extends React.Component {
               );
             } else if (token) {
               return <Redirect to={`/user/${token.user.id}`} />;
+            } else if (adminToken) {
+              return <Redirect to={`/admin/${adminToken.admin.id}`} />;
             } else {
               return <Route exact path="/" component={LoginScreen} />;
             }

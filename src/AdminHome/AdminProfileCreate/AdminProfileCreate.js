@@ -8,7 +8,11 @@ class AdminProfileCreate extends React.Component {
     };
   }
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <p>Would you like to create your profile?</p>
+      </div>
+    );
   }
 }
 
