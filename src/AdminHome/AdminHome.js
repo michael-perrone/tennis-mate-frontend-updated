@@ -8,7 +8,7 @@ class AdminHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileCreated: ""
+      adminProfileCreated: ""
     };
   }
 
@@ -20,7 +20,7 @@ class AdminHome extends React.Component {
         headers: { "x-auth-token": adminToken }
       })
       .then(response => {
-        console.log(response);
+        this.setState({ adminProfileCreated: response.data.profileCreated });
       })
       .catch(error => {
         console.log(error);
@@ -31,8 +31,9 @@ class AdminHome extends React.Component {
     return (
       <div>
         <AdminNav />
-        <AdminProfileCreate />
-        <TennisClub />
+        {this.state.adminProfileCreated === false && <AdminProfileCreate />}
+        {this.state.adminProfileCreated === true ||
+          (this.state.profileSkipped === true && <TennisClub />)}
       </div>
     );
   }
