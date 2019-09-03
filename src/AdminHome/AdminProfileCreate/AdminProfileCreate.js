@@ -6,7 +6,6 @@ class AdminProfileCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructorName: "",
       showInstructors: true,
       showServices: false,
       showBio: false,
@@ -15,10 +14,19 @@ class AdminProfileCreate extends React.Component {
       nameClicked: "",
       instructorValue: "",
       valueClicked: false,
-      instructorIds: []
+      instructorId: "",
+      instructorIds: [],
+      instructorNames: [],
+      exited: false,
+      stopShowingNames: false
     };
     this.grabInstructorValue = this.grabInstructorValue.bind(this);
     this.instructorsHandler = this.instructorsHandler.bind(this);
+    this.addIdAndName = this.addIdAndName.bind(this);
+    this.cancelName = this.cancelName.bind(this);
+    this.onExit = this.onExit.bind(this);
+    this.unExit = this.unExit.bind(this);
+    this.sendInstructorList = this.sendInstructorList.bind(this);
   }
 
   componentDidMount() {
@@ -34,11 +42,28 @@ class AdminProfileCreate extends React.Component {
         console.log("nugget");
       });
   }
-  grabInstructorValue(name, id) {
+
+  addIdAndName(event) {
+    event.preventDefault();
+    const newIdsArray = [...this.state.instructorIds, this.state.instructorId];
+    this.setState({ instructorIds: newIdsArray });
+    const newInstructorNames = [
+      ...this.state.instructorNames,
+      this.state.nameClicked
+    ];
+    this.setState({ instructorNames: newInstructorNames });
+    this.setState({ instructorName: "" });
+    this.setState({ instructorId: "" });
+    this.setState({ instructorValue: "" });
+    this.setState({ valueClicked: "" });
+    this.setState({ stopShowingNames: true });
+  }
+
+  grabInstructorValue(nameAndClub, id, justName) {
     this.setState({ valueClicked: true });
-    this.setState({ nameClicked: name });
-    const newInstructorIdsArray = [...this.state.instructorIds, id];
-    this.setState({ instructorIds: newInstructorIdsArray });
+    this.setState({ nameClicked: nameAndClub });
+    this.setState({ instructorId: id });
+    this.setState({ instructorName: justName });
   }
 
   instructorsHandler(event) {
@@ -55,6 +80,36 @@ class AdminProfileCreate extends React.Component {
       }
     });
     this.setState({ instructorsMatching: newInstructorMatchingArray });
+  }
+
+  cancelName() {
+    this.setState({ valueClicked: false });
+    this.setState({ instructorId: "" });
+    this.setState({ nameClicked: "" });
+    this.setState({ stopShowingNames: false });
+  }
+
+  onExit() {
+    this.setState({ exited: true });
+  }
+
+  sendInstructorList(event) {
+    event.preventDefault();
+    const objectToSend = {
+      services: this.state.services,
+      instructors: this.state.instructorIds
+    };
+    axios
+      .post("http://localhost:8080/api/clubProfile", objectToSend, {
+        headers: { "x-auth-token": localStorage.getItem("adminToken") }
+      })
+      .then(response => {
+        console.log(response);
+      });
+  }
+
+  unExit() {
+    this.setState({ exited: false });
   }
 
   render() {
@@ -79,7 +134,11 @@ class AdminProfileCreate extends React.Component {
             {this.state.showInstructors === true && (
               <div>
                 <input
-                  onKeyDown={() => this.setState({ valueClicked: false })}
+                  onFocus={this.unExit}
+                  onBlur={() => {
+                    setTimeout(this.onExit, 100);
+                  }}
+                  onKeyDown={this.cancelName}
                   value={
                     !this.state.valueClicked
                       ? this.state.instructorValue
@@ -88,28 +147,53 @@ class AdminProfileCreate extends React.Component {
                   id={styles.instructorsInput}
                   onChange={this.instructorsHandler}
                 />
+                <button onClick={this.addIdAndName} id={styles.addInstructor}>
+                  Add Instructor
+                </button>
                 <div id={styles.instructorsDiv}>
-                  {this.state.instructorsMatching.map(element => {
-                    if (!this.state.valueClicked) {
-                      console.log(element);
-                      return (
-                        <div
-                          onClick={() =>
-                            this.grabInstructorValue(
-                              element.fullName,
-                              element._id
-                            )
-                          }
-                          key={element._id}
-                          id={styles.nameCard}
-                        >
-                          <p>{element.fullName}</p>
-                          <p>{element.tennisClub}</p>
-                        </div>
-                      );
-                    }
-                  })}
+                  {!this.state.exited &&
+                    !this.state.stopShowingNames &&
+                    this.state.instructorsMatching.map(element => {
+                      if (!this.state.valueClicked) {
+                        return (
+                          <div
+                            onClick={() =>
+                              this.grabInstructorValue(
+                                `${element.fullName} - ${element.tennisClub}`,
+                                element._id,
+                                element.fullName
+                              )
+                            }
+                            key={element._id}
+                            id={styles.nameCard}
+                          >
+                            <p>{element.fullName}</p>
+                            <p>{element.tennisClub}</p>
+                          </div>
+                        );
+                      }
+                    })}
                 </div>
+              </div>
+            )}
+            {this.state.instructorNames.length > 0 && (
+              <div id={styles.addedDiv}>
+                {this.state.instructorNames.map((element, index) => {
+                  return (
+                    <div
+                      key={element + index}
+                      className={styles.instructorsAdded}
+                    >
+                      <p>{element}</p>
+                    </div>
+                  );
+                })}
+                <button
+                  onClick={this.sendInstructorList}
+                  id={styles.submitInstructorList}
+                >
+                  Submit Instructor List
+                </button>
               </div>
             )}
           </form>

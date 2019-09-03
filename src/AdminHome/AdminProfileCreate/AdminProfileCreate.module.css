@@ -18,7 +18,9 @@
 }
 
 #nameCard {
-  width: 98%;
+  margin-left: -8px;
+  cursor: pointer;
+  width: 79%;
   padding: 3px;
   border-left: 2px solid gray;
   border-right: 2px solid gray;
@@ -40,21 +42,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 #adminProfileCreateMainDiv {
   display: flex;
 }
 
+#submitInstructorList {
+  height: 40px;
+  width: 160px;
+  border-radius: 18px;
+}
+
 #instructorsInput {
   height: 38px;
-  width: 480px;
-  font-size: 24px;
+  width: 471px;
+  font-size: 20px;
   padding-left: 10px;
   border: 2px solid gray;
   border-radius: 4px;
   border-bottom: 0px;
   box-shadow: 0px 0px 2px black;
+  margin-left: -8px;
+  position: relative;
+  top: 4px;
 }
 
 .formP {
@@ -67,4 +79,23 @@
 
 #nameCard:hover {
   background-color: rgb(210, 220, 223);
+}
+
+#addedDiv {
+  position: absolute;
+  bottom: 10px;
+}
+
+.instructorsAdded {
+}
+
+#addInstructor {
+  margin-left: 18px;
+  box-shadow: 0px 0px 4px black;
+  margin-top: -20px;
+  height: 42px;
+  border-radius: 8px;
+  background-color: white;
+  width: 105px;
+  font-size: 14px;
 }
