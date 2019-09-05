@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./AdminProfileCreate.module.css";
 import axios from "axios";
+import ServicesForm from "./ServicesForm/ServicesForm";
 
 class AdminProfileCreate extends React.Component {
   constructor(props) {
@@ -18,8 +19,11 @@ class AdminProfileCreate extends React.Component {
       instructorIds: [],
       instructorNames: [],
       exited: false,
-      stopShowingNames: false
+      stopShowingNames: false,
+      services: [],
+      showSubmittedMessage: false
     };
+    this.finishInstructors = this.finishInstructors.bind(this);
     this.grabInstructorValue = this.grabInstructorValue.bind(this);
     this.instructorsHandler = this.instructorsHandler.bind(this);
     this.addIdAndName = this.addIdAndName.bind(this);
@@ -27,6 +31,8 @@ class AdminProfileCreate extends React.Component {
     this.onExit = this.onExit.bind(this);
     this.unExit = this.unExit.bind(this);
     this.sendInstructorList = this.sendInstructorList.bind(this);
+    this.showServices = this.showServices.bind(this);
+    this.cancelSubmitInstructors = this.cancelSubmitInstructors.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +47,10 @@ class AdminProfileCreate extends React.Component {
         console.log(error);
         console.log("nugget");
       });
+  }
+
+  cancelSubmitInstructors() {
+    this.setState({ showSubmittedMessage: false });
   }
 
   addIdAndName(event) {
@@ -87,6 +97,7 @@ class AdminProfileCreate extends React.Component {
     this.setState({ instructorId: "" });
     this.setState({ nameClicked: "" });
     this.setState({ stopShowingNames: false });
+    this.setState({ showSubmittedMessage: false });
   }
 
   onExit() {
@@ -105,11 +116,21 @@ class AdminProfileCreate extends React.Component {
       })
       .then(response => {
         console.log(response);
+        this.setState({ showSubmittedMessage: true });
       });
   }
 
   unExit() {
     this.setState({ exited: false });
+  }
+
+  finishInstructors() {
+    this.setState({ showInstructors: false });
+  }
+
+  showServices() {
+    this.setState({ showServices: true });
+    this.setState({ showInstructors: false });
   }
 
   render() {
@@ -122,14 +143,55 @@ class AdminProfileCreate extends React.Component {
           about your club.
         </p>
         <div id={styles.adminProfileFormDiv}>
-          {this.state.showInstructors === true && (
+          {this.state.showSubmittedMessage &&
+            this.state.showServices === false && (
+              <div className={styles.formP}>
+                {" "}
+                <p>
+                  We have saved the instructors who work at your club and have
+                  sent them verification requests. Please check the list below
+                  to make sure you have entered all instructors at your club. If
+                  so, press continue.
+                </p>
+                <button
+                  onClick={this.showServices}
+                  id={styles.continueToServices}
+                >
+                  Continue <i class="fas fa-arrow-right"></i>
+                </button>
+                <button
+                  onClick={this.cancelSubmitInstructors}
+                  style={{ marginLeft: "20px" }}
+                  id={styles.continueToServices}
+                >
+                  Cancel <i class="fas fa-window-close"></i>
+                </button>
+              </div>
+            )}
+          {this.state.showServices && (
             <p className={styles.formP}>
-              First, add the names of the instructors who are currently working
-              at your tennis club. Please keep in mind that if the instructors
-              you are adding have not signed up for our website yet, their names
-              will not show up.
+              You have succesfully entered your instructors. Great! Now select
+              any services that your club has to offer. Remember you can always
+              come back and edit this information later on by visiting your
+              profile page.
             </p>
           )}
+          {this.state.showSubmittedMessage === false &&
+            this.state.showInstructors === true && (
+              <p
+                id={
+                  this.state.showSubmittedMessage === true
+                    ? styles.formPAnimation
+                    : ""
+                }
+                className={styles.formP}
+              >
+                First, add the names of the instructors who are currently
+                working at your tennis club. Please keep in mind that if the
+                instructors you are adding have not signed up for our website
+                yet, their names will not show up.
+              </p>
+            )}
           <form id={styles.adminProfileForm}>
             {this.state.showInstructors === true && (
               <div>
@@ -176,26 +238,28 @@ class AdminProfileCreate extends React.Component {
                 </div>
               </div>
             )}
-            {this.state.instructorNames.length > 0 && (
-              <div id={styles.addedDiv}>
-                {this.state.instructorNames.map((element, index) => {
-                  return (
-                    <div
-                      key={element + index}
-                      className={styles.instructorsAdded}
-                    >
-                      <p>{element}</p>
-                    </div>
-                  );
-                })}
-                <button
-                  onClick={this.sendInstructorList}
-                  id={styles.submitInstructorList}
-                >
-                  Submit Instructor List
-                </button>
-              </div>
-            )}
+            {this.state.instructorNames.length > 0 &&
+              this.state.showInstructors && (
+                <div id={styles.addedDiv}>
+                  {this.state.instructorNames.map((element, index) => {
+                    return (
+                      <div
+                        key={element + index}
+                        className={styles.instructorsAdded}
+                      >
+                        <p>{element}</p>
+                      </div>
+                    );
+                  })}
+                  <button
+                    onClick={this.sendInstructorList}
+                    id={styles.submitInstructorList}
+                  >
+                    Submit Instructor List
+                  </button>
+                </div>
+              )}
+            {this.state.showServices && <ServicesForm />}
           </form>
         </div>
       </div>
