@@ -9,6 +9,7 @@ import AdminHome from "./AdminHome/AdminHome";
 import decoder from "jwt-decode";
 import InstructorHome from "./InstructorHome/InstructorHome";
 import InstructorProfileCreate from "./InstructorHome/InstructorProfileCreate/InstructorProfileCreate";
+import AdminProfileCreate from "./AdminHome/AdminProfileCreate/AdminProfileCreate";
 
 class App extends React.Component {
   constructor(props) {
@@ -47,6 +48,13 @@ class App extends React.Component {
             path={`/instructor/${instructorToken.instructor.id}/createeditprofile`}
             exact
             component={InstructorProfileCreate}
+          />
+        )}
+        {adminToken && (
+          <Route
+            path={`/admin/${adminToken.admin.id}/createeditprofile`}
+            exact
+            component={AdminProfileCreate}
           />
         )}
         {token && (

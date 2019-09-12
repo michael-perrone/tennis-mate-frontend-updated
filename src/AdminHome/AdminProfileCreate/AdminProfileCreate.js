@@ -107,7 +107,6 @@ class AdminProfileCreate extends React.Component {
   sendInstructorList(event) {
     event.preventDefault();
     const objectToSend = {
-      services: this.state.services,
       instructors: this.state.instructorIds
     };
     axios
@@ -157,14 +156,14 @@ class AdminProfileCreate extends React.Component {
                   onClick={this.showServices}
                   id={styles.continueToServices}
                 >
-                  Continue <i class="fas fa-arrow-right"></i>
+                  Continue <i className="fas fa-arrow-right"></i>
                 </button>
                 <button
                   onClick={this.cancelSubmitInstructors}
                   style={{ marginLeft: "20px" }}
                   id={styles.continueToServices}
                 >
-                  Cancel <i class="fas fa-window-close"></i>
+                  Cancel <i className="fas fa-window-close"></i>
                 </button>
               </div>
             )}

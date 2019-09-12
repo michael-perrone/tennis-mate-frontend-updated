@@ -12,7 +12,8 @@ class LoginForm extends React.Component {
         email: "",
         password: "",
         token: ""
-      }
+      },
+      error: ""
     };
     this.getLoginInfo = this.getLoginInfo.bind(this);
     this.sendLoginInfo = this.sendLoginInfo.bind(this);
@@ -30,6 +31,9 @@ class LoginForm extends React.Component {
     axios
       .post("http://localhost:8080/api/auth/login", this.state.personLoggingIn)
       .then(response => {
+        if (response.status === 400) {
+          console.log("EDJIWDIWJDQIWJD");
+        }
         console.log(response);
         const token = decoder(response.data.token);
         console.log(token);
@@ -46,12 +50,21 @@ class LoginForm extends React.Component {
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
+        if (error.response.status === 400) {
+          this.setState({ error: error.response.data.error });
+        }
+        try {
+          let newVar = error;
+          console.log(newVar);
+        } catch (erorr) {
+          console.log(erorr);
+        }
       });
   }
 
   render() {
-    console.log(this.state.token);
+    console.log(this.state.error);
     return (
       <div id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
@@ -59,7 +72,7 @@ class LoginForm extends React.Component {
             <input
               onChange={this.getLoginInfo}
               className={styles.loginInputs}
-              type="email"
+              type="text"
               placeholder="Email"
               name="email"
               value={this.state.personLoggingIn.email}
@@ -79,6 +92,19 @@ class LoginForm extends React.Component {
             >
               Login
             </button>
+            {this.state.error !== "" && (
+              <p
+                style={{
+                  position: "relative",
+                  left: "80px",
+                  top: "20px",
+                  fontSize: "20px",
+                  color: "red"
+                }}
+              >
+                {this.state.error}
+              </p>
+            )}
           </form>
         </div>
       </div>

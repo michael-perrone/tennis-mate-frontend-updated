@@ -14,7 +14,6 @@ class InstructorHome extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("hi");
     const instructorTokenItems = decoder(
       localStorage.getItem("instructorToken")
     );
