@@ -30,6 +30,7 @@ class AdminNav extends React.Component {
   }
 
   render() {
+    console.log(this.state.adminToken);
     return (
       <div id={styles.navBarContainer}>
         <p id={styles.title}>Tennis Mate</p>
@@ -59,9 +60,7 @@ class AdminNav extends React.Component {
                 <div className={styles.dropDownDiv}>
                   <Link
                     className={styles.dropDownItem}
-                    to={`/instructor/${
-                      this.state.adminToken.admin.id
-                    }/createeditprofile`}
+                    to={`/admin/${this.state.adminToken.admin.id}/createeditprofile`}
                   >
                     Edit Profile
                   </Link>

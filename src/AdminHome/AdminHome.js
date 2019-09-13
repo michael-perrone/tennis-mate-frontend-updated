@@ -2,7 +2,7 @@ import React from "react";
 import AdminNav from "../AdminNav/AdminNav";
 import axios from "axios";
 import TennisClub from "../TennisClub/TennisClub";
-import AdminProfileCreate from "./AdminProfileCreate/AdminProfileCreate";
+
 import jwt_decode from "jwt-decode";
 
 class AdminHome extends React.Component {
@@ -24,8 +24,12 @@ class AdminHome extends React.Component {
         headers: { "x-auth-token": adminToken }
       })
       .then(response => {
+        console.log(response);
+        this.setState({ adminProfileCreated: response.data.profileCreated });
         if (response.data.profileCreated === false) {
-          this.props.history.push(`/admin/`);
+          this.props.history.push(
+            `/admin/${decodedAdmin.admin.id}/createeditprofile`
+          );
         }
       })
       .catch(error => {
@@ -35,13 +39,11 @@ class AdminHome extends React.Component {
   }
 
   render() {
-    console.log();
+    console.log(this.state.adminProfileCreated);
     return (
       <div>
         <AdminNav />
-        {this.state.adminProfileCreated === false && <AdminProfileCreate />}
-        {this.state.adminProfileCreated === true ||
-          (this.state.profileSkipped === true && <TennisClub />)}
+        {this.state.adminProfileCreated === true && <TennisClub />}
       </div>
     );
   }

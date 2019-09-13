@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./AdminProfileCreate.module.css";
 import axios from "axios";
 import ServicesForm from "./ServicesForm/ServicesForm";
+import AdminNav from "../../AdminNav/AdminNav";
 
 class AdminProfileCreate extends React.Component {
   constructor(props) {
@@ -20,7 +21,6 @@ class AdminProfileCreate extends React.Component {
       instructorNames: [],
       exited: false,
       stopShowingNames: false,
-      services: [],
       showSubmittedMessage: false
     };
     this.finishInstructors = this.finishInstructors.bind(this);
@@ -134,132 +134,135 @@ class AdminProfileCreate extends React.Component {
 
   render() {
     return (
-      <div id={styles.adminProfileCreateMainDiv}>
-        <p id={styles.introP}>
-          There are a few more things it would be great if you could add about
-          your club. Please add the instructors who work at your club, services
-          offered at your club, and if you would like, a bio for users to read
-          about your club.
-        </p>
-        <div id={styles.adminProfileFormDiv}>
-          {this.state.showSubmittedMessage &&
-            this.state.showServices === false && (
-              <div className={styles.formP}>
-                {" "}
-                <p>
-                  We have saved the instructors who work at your club and have
-                  sent them verification requests. Please check the list below
-                  to make sure you have entered all instructors at your club. If
-                  so, press continue.
-                </p>
-                <button
-                  onClick={this.showServices}
-                  id={styles.continueToServices}
-                >
-                  Continue <i className="fas fa-arrow-right"></i>
-                </button>
-                <button
-                  onClick={this.cancelSubmitInstructors}
-                  style={{ marginLeft: "20px" }}
-                  id={styles.continueToServices}
-                >
-                  Cancel <i className="fas fa-window-close"></i>
-                </button>
-              </div>
-            )}
-          {this.state.showServices && (
-            <p className={styles.formP}>
-              You have succesfully entered your instructors. Great! Now select
-              any services that your club has to offer. Remember you can always
-              come back and edit this information later on by visiting your
-              profile page.
-            </p>
-          )}
-          {this.state.showSubmittedMessage === false &&
-            this.state.showInstructors === true && (
-              <p
-                id={
-                  this.state.showSubmittedMessage === true
-                    ? styles.formPAnimation
-                    : ""
-                }
-                className={styles.formP}
-              >
-                First, add the names of the instructors who are currently
-                working at your tennis club. Please keep in mind that if the
-                instructors you are adding have not signed up for our website
-                yet, their names will not show up.
-              </p>
-            )}
-          <form id={styles.adminProfileForm}>
-            {this.state.showInstructors === true && (
-              <div>
-                <input
-                  onFocus={this.unExit}
-                  onBlur={() => {
-                    setTimeout(this.onExit, 100);
-                  }}
-                  onKeyDown={this.cancelName}
-                  value={
-                    !this.state.valueClicked
-                      ? this.state.instructorValue
-                      : this.state.nameClicked
-                  }
-                  id={styles.instructorsInput}
-                  onChange={this.instructorsHandler}
-                />
-                <button onClick={this.addIdAndName} id={styles.addInstructor}>
-                  Add Instructor
-                </button>
-                <div id={styles.instructorsDiv}>
-                  {!this.state.exited &&
-                    !this.state.stopShowingNames &&
-                    this.state.instructorsMatching.map(element => {
-                      if (!this.state.valueClicked) {
-                        return (
-                          <div
-                            onClick={() =>
-                              this.grabInstructorValue(
-                                `${element.fullName} - ${element.tennisClub}`,
-                                element._id,
-                                element.fullName
-                              )
-                            }
-                            key={element._id}
-                            id={styles.nameCard}
-                          >
-                            <p>{element.fullName}</p>
-                            <p>{element.tennisClub}</p>
-                          </div>
-                        );
-                      }
-                    })}
-                </div>
-              </div>
-            )}
-            {this.state.instructorNames.length > 0 &&
-              this.state.showInstructors && (
-                <div id={styles.addedDiv}>
-                  {this.state.instructorNames.map((element, index) => {
-                    return (
-                      <div
-                        key={element + index}
-                        className={styles.instructorsAdded}
-                      >
-                        <p>{element}</p>
-                      </div>
-                    );
-                  })}
+      <div>
+        <AdminNav />
+        <div id={styles.adminProfileCreateMainDiv}>
+          <p id={styles.introP}>
+            There are a few more things it would be great if you could add about
+            your club. Please add the instructors who work at your club,
+            services offered at your club, and if you would like, a bio for
+            users to read about your club.
+          </p>
+          <div id={styles.adminProfileFormDiv}>
+            {this.state.showSubmittedMessage &&
+              this.state.showServices === false && (
+                <div className={styles.formP}>
+                  {" "}
+                  <p>
+                    We have saved the instructors who work at your club and have
+                    sent them verification requests. Please check the list below
+                    to make sure you have entered all instructors at your club.
+                    If so, press continue.
+                  </p>
                   <button
-                    onClick={this.sendInstructorList}
-                    id={styles.submitInstructorList}
+                    onClick={this.showServices}
+                    id={styles.continueToServices}
                   >
-                    Submit Instructor List
+                    Continue <i className="fas fa-arrow-right"></i>
+                  </button>
+                  <button
+                    onClick={this.cancelSubmitInstructors}
+                    style={{ marginLeft: "20px" }}
+                    id={styles.continueToServices}
+                  >
+                    Cancel <i className="fas fa-window-close"></i>
                   </button>
                 </div>
               )}
-            {this.state.showServices && <ServicesForm />}
-          </form>
+            {this.state.showServices && (
+              <p className={styles.formP}>
+                You have succesfully entered your instructors. Great! Now select
+                any services that your club has to offer. Remember you can
+                always come back and edit this information later on by visiting
+                your profile page.
+              </p>
+            )}
+            {this.state.showSubmittedMessage === false &&
+              this.state.showInstructors === true && (
+                <p
+                  id={
+                    this.state.showSubmittedMessage === true
+                      ? styles.formPAnimation
+                      : ""
+                  }
+                  className={styles.formP}
+                >
+                  First, add the names of the instructors who are currently
+                  working at your tennis club. Please keep in mind that if the
+                  instructors you are adding have not signed up for our website
+                  yet, their names will not show up.
+                </p>
+              )}
+            <form id={styles.adminProfileForm}>
+              {this.state.showInstructors === true && (
+                <div>
+                  <input
+                    onFocus={this.unExit}
+                    onBlur={() => {
+                      setTimeout(this.onExit, 150);
+                    }}
+                    onKeyDown={this.cancelName}
+                    value={
+                      !this.state.valueClicked
+                        ? this.state.instructorValue
+                        : this.state.nameClicked
+                    }
+                    id={styles.instructorsInput}
+                    onChange={this.instructorsHandler}
+                  />
+                  <button onClick={this.addIdAndName} id={styles.addInstructor}>
+                    Add Instructor
+                  </button>
+                  <div id={styles.instructorsDiv}>
+                    {!this.state.exited &&
+                      !this.state.stopShowingNames &&
+                      this.state.instructorsMatching.map(element => {
+                        if (!this.state.valueClicked) {
+                          return (
+                            <div
+                              onClick={() =>
+                                this.grabInstructorValue(
+                                  `${element.fullName} - ${element.tennisClub}`,
+                                  element._id,
+                                  element.fullName
+                                )
+                              }
+                              key={element._id}
+                              id={styles.nameCard}
+                            >
+                              <p>{element.fullName}</p>
+                              <p>{element.tennisClub}</p>
+                            </div>
+                          );
+                        }
+                      })}
+                  </div>
+                </div>
+              )}
+              {this.state.instructorNames.length > 0 &&
+                this.state.showInstructors && (
+                  <div id={styles.addedDiv}>
+                    {this.state.instructorNames.map((element, index) => {
+                      return (
+                        <div
+                          key={element + index}
+                          className={styles.instructorsAdded}
+                        >
+                          <p>{element}</p>
+                        </div>
+                      );
+                    })}
+                    <button
+                      onClick={this.sendInstructorList}
+                      id={styles.submitInstructorList}
+                    >
+                      Submit Instructor List
+                    </button>
+                  </div>
+                )}
+              {this.state.showServices && <ServicesForm />}
+            </form>
+          </div>
         </div>
       </div>
     );
