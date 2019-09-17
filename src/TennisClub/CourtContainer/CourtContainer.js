@@ -216,9 +216,7 @@ class CourtContainer extends React.Component {
         courtIdsArray.push(element.courtId);
       });
       const bookingToSend = {
-        bookedBy: `${this.state.token.user.userNameFirst} ${
-          this.state.token.user.userNameLast
-        }`,
+        bookedBy: `${this.state.token.user.userNameFirst} ${this.state.token.user.userNameLast}`,
         timeStart: this.state.bookingArray[0].timeStart,
         timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
           .endTime,

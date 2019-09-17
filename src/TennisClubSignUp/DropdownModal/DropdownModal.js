@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./DropdownModal.module.css";
 
-
 class DropdownModal extends React.Component {
   render() {
     let showModal = "";
@@ -25,7 +24,7 @@ class DropdownModal extends React.Component {
             </li>
             <li>Admin Email: {this.props.admin.email}</li>
             <li>Admin Phone: {this.props.admin.phoneNumber}</li>
-            <li>Tennis Club: {this.props.admin.tennisClub}</li>
+            <li>Tennis Club: {this.props.admin.clubName}</li>
             <li>Street: {this.props.tennisClub.clubAddress}</li>
             <li>City: {this.props.tennisClub.clubCity}</li>
             <li>State: {this.props.tennisClub.clubState}</li>

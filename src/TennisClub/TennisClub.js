@@ -17,7 +17,7 @@ class TennisClub extends React.Component {
 
     this.onDateClick = this.onDateClick.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage.getItem("adminToken")) {
       const admin = decoder(localStorage.getItem("adminToken"));
       console.log(admin.admin.clubName);

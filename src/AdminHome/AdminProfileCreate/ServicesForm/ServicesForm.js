@@ -11,8 +11,8 @@ class ServicesForm extends React.Component {
         groupClinics: "",
         racquetStringing: "",
         summerProgram: "",
-        gym: "",
-        tournaments: ""
+        tournaments: "",
+        gym: ""
       },
       otherServices: "",
       otherServicesArray: [],
@@ -27,7 +27,6 @@ class ServicesForm extends React.Component {
 
   serviceInputHandler(event) {
     this.setState({ otherServices: event.target.value });
-    console.log(this.state.otherServices);
   }
 
   addServices(event) {
@@ -35,6 +34,7 @@ class ServicesForm extends React.Component {
     const newArray = [...this.state.otherServicesArray];
     newArray.push(this.state.otherServices);
     this.setState({ otherServicesArray: newArray });
+    this.setState({ otherServices: "" });
   }
 
   changeRadios(event) {
@@ -43,18 +43,12 @@ class ServicesForm extends React.Component {
     this.setState({ servicesForm: newStateObject });
   }
 
-  submitServices() {
+  submitServices(event) {
+    event.preventDefault();
     let newServicesArray = [];
     if (this.state.servicesForm.tennisLessons !== "") {
       newServicesArray.push({
         tennisLessons: this.state.servicesForm.tennisLessons
-      });
-    } else {
-      this.setState({ empty: true });
-    }
-    if (this.state.servicesForm.tournaments !== "") {
-      newServicesArray.push({
-        tournaments: this.state.servicesForm.tournaments
       });
     } else {
       this.setState({ empty: true });
@@ -73,11 +67,6 @@ class ServicesForm extends React.Component {
     } else {
       this.setState({ empty: true });
     }
-    if (this.state.servicesForm.gym !== "") {
-      newServicesArray.push({ gym: this.state.servicesForm.gym });
-    } else {
-      this.setState({ empty: true });
-    }
     if (this.state.servicesForm.summerProgram !== "") {
       newServicesArray.push({
         summerProgram: this.state.servicesForm.summerProgram
@@ -85,10 +74,26 @@ class ServicesForm extends React.Component {
     } else {
       this.setState({ empty: true });
     }
+    if (this.state.servicesForm.gym !== "") {
+      newServicesArray.push({ gym: this.state.servicesForm.gym });
+    } else {
+      this.setState({ empty: true });
+    }
+    if (this.state.servicesForm.tournaments !== "") {
+      newServicesArray.push({
+        tournaments: this.state.servicesForm.tournaments
+      });
+    } else {
+      this.setState({ empty: true });
+    }
+
+    console.log(newServicesArray);
+
     const objectToSend = {
       services: newServicesArray,
-      otherServices: this.state.otherServices
+      otherServices: this.state.otherServicesArray
     };
+    console.log(objectToSend);
 
     Axios.post("http://localhost:8080/api/clubProfile", objectToSend, {
       headers: { "x-auth-token": localStorage.getItem("adminToken") }
@@ -227,6 +232,7 @@ class ServicesForm extends React.Component {
           onChange={this.serviceInputHandler}
           id={styles.otherServiceInput}
           placeholder="Other Service"
+          value={this.state.otherServices}
         />
         <button
           onClick={this.addServices}

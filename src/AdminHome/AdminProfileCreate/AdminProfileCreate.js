@@ -3,6 +3,7 @@ import styles from "./AdminProfileCreate.module.css";
 import axios from "axios";
 import ServicesForm from "./ServicesForm/ServicesForm";
 import AdminNav from "../../AdminNav/AdminNav";
+import BioForm from './BioForm/BioForm'
 
 class AdminProfileCreate extends React.Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class AdminProfileCreate extends React.Component {
       stopShowingNames: false,
       showSubmittedMessage: false
     };
+    this.bioTabButton = this.bioTabButton.bind(this);
+    this.instructorsTabButton = this.instructorsTabButton.bind(this);
     this.finishInstructors = this.finishInstructors.bind(this);
     this.grabInstructorValue = this.grabInstructorValue.bind(this);
     this.instructorsHandler = this.instructorsHandler.bind(this);
@@ -32,6 +35,7 @@ class AdminProfileCreate extends React.Component {
     this.unExit = this.unExit.bind(this);
     this.sendInstructorList = this.sendInstructorList.bind(this);
     this.showServices = this.showServices.bind(this);
+    this.servicesTabButton = this.servicesTabButton.bind(this);
     this.cancelSubmitInstructors = this.cancelSubmitInstructors.bind(this);
   }
 
@@ -49,8 +53,27 @@ class AdminProfileCreate extends React.Component {
       });
   }
 
+  instructorsTabButton() {
+    this.setState({ showServices: false });
+    this.setState({ showBio: false });
+    this.setState({ showInstructors: true });
+  }
+
+  bioTabButton() {
+    this.setState({showServices: false})
+    this.setState({showInstructors: false})
+    this.setState({showBio: true})
+  }
+
   cancelSubmitInstructors() {
     this.setState({ showSubmittedMessage: false });
+  }
+
+  servicesTabButton() {
+    this.setState({ showInstructors: false });
+    this.setState({showBio: false})
+    this.setState({ showServices: true });
+    
   }
 
   addIdAndName(event) {
@@ -144,6 +167,27 @@ class AdminProfileCreate extends React.Component {
             users to read about your club.
           </p>
           <div id={styles.adminProfileFormDiv}>
+            <div id={styles.formSelectorDiv}>
+              <p style={{backgroundColor: this.state.showInstructors === true ? "gray" : 'white', color: this.state.showInstructors === true ? "white" : "black"}}
+                onClick={this.instructorsTabButton}
+                className={styles.selector}
+              >
+                Instructors
+              </p>
+              <p
+                style={{backgroundColor: this.state.showServices === true ? "gray" : 'white', color: this.state.showServices === true ? "white" : "black", borderLeft: 0}}
+                onClick={this.servicesTabButton}
+                className={styles.selector}
+              >
+                Services
+              </p>
+              <p
+              onClick={this.bioTabButton}
+              style={{borderLeft: "0", backgroundColor: this.state.showBio === true ? "gray" : 'white', color: this.state.showBio === true ? "white" : "black"}}
+               className={styles.selector}>
+                Bio
+              </p>
+            </div>
             {this.state.showSubmittedMessage &&
               this.state.showServices === false && (
                 <div className={styles.formP}>
@@ -261,6 +305,7 @@ class AdminProfileCreate extends React.Component {
                   </div>
                 )}
               {this.state.showServices && <ServicesForm />}
+              {this.state.showBio && <BioForm/>}
             </form>
           </div>
         </div>

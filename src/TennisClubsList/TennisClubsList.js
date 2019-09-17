@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import TennisClubInList from "./TennisClubInList/TennisClubInList";
 import styles from "./TennisClubsList.module.css";
+import { withRouter } from "react-router-dom";
+import TennisClubSearchBar from "./TennisClubSearchBar/TennisClubSearchBar";
 
 class TennisClubsList extends React.Component {
   constructor() {
@@ -20,15 +22,7 @@ class TennisClubsList extends React.Component {
   render() {
     return (
       <div id={styles.clubsContainer}>
-        <div
-          style={{
-            width: "75%",
-            alignSelf: "flex-end",
-            textAlign: "center"
-          }}
-        >
-          <h1 id={styles.clubListHeader}>Clubs in your area!</h1>
-        </div>
+        <TennisClubSearchBar clubs={this.state.tennisClubs} />
         <div
           style={{
             position: "fixed",
@@ -42,10 +36,12 @@ class TennisClubsList extends React.Component {
           <p>wdwdwd</p>
           <p>wdwdwd</p>
         </div>
+
         {this.state.tennisClubs.map(element => {
           return (
             <TennisClubInList
-              club={element}
+              club={element.clubs}
+              profileInfo={element.profile}
               push={this.props.history.push}
               key={element._id}
             />
@@ -56,4 +52,4 @@ class TennisClubsList extends React.Component {
   }
 }
 
-export default TennisClubsList;
+export default withRouter(TennisClubsList);
