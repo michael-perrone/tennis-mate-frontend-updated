@@ -6,10 +6,9 @@
   color: rgb(152, 241, 152);
   display: flex;
   position: relative;
-  justify-content: space-around;
+  justify-content: space-between;
   left: 4px;
-  align-items: center;
-  border-bottom: 1px solid lightgreen;
+  border-bottom: 1px solid rgb(152, 241, 152);
 }
 
 #logoLeftBar {
@@ -17,7 +16,8 @@
   position: relative;
   font-family: cursive;
   position: relative;
-  left: -4vw;
+  left: 2vw;
+  top: 7px;
 }
 
 #searchBar {
@@ -26,6 +26,25 @@
   background-color: rgb(82, 82, 82);
   font-size: 26px;
   padding-left: 8px;
-  width: 450px;
+  width: 550px;
   color: rgb(152, 241, 152);
+}
+
+#searchPane {
+  width: 120%;
+  position: relative;
+  right: 82px;
+  top: -1px;
+  border-radius: 11px;
+  border: 3px solid black;
+  border-top: 0px;
+  color: black;
+  background-color: white;
+  display: flex;
+  font-size: 18px;
+  height: 90px;
+}
+
+#searchPane:hover {
+  background-color: rgb(229, 237, 240);
 }
