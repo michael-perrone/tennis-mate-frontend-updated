@@ -48,6 +48,8 @@ class TennisClubSearchBar extends React.Component {
         >
           <i
             style={{
+              position: "relative",
+              left: "-100px",
               height: "26px",
               color: "lightgreen",
               fontSize: "26px",

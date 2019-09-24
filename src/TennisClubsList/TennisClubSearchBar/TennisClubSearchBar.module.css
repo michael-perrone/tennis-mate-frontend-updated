@@ -1,13 +1,14 @@
 #searchBarNavContainer {
   height: 70px;
-  width: 102%;
+  width: 100%;
   background-color: black;
   z-index: 200;
   color: rgb(152, 241, 152);
   display: flex;
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   justify-content: space-between;
-  left: 4px;
   border-bottom: 1px solid rgb(152, 241, 152);
 }
 
@@ -21,6 +22,8 @@
 }
 
 #searchBar {
+  position: relative;
+  left: -100px;
   height: 38px;
   border: 2px solid rgb(152, 241, 152);
   background-color: rgb(82, 82, 82);

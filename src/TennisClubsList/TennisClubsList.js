@@ -36,17 +36,18 @@ class TennisClubsList extends React.Component {
           <p>wdwdwd</p>
           <p>wdwdwd</p>
         </div>
-
-        {this.state.tennisClubs.map(element => {
-          return (
-            <TennisClubInList
-              club={element.clubs}
-              profileInfo={element.profile}
-              push={this.props.history.push}
-              key={element._id}
-            />
-          );
-        })}
+        <div style={{ marginTop: "90px" }}>
+          {this.state.tennisClubs.map(element => {
+            return (
+              <TennisClubInList
+                club={element.clubs}
+                profileInfo={element.profile}
+                push={this.props.history.push}
+                key={element._id}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
