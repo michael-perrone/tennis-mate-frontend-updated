@@ -16,7 +16,6 @@ import {
   INSTRUCTOR_WANTS_TO_REGISTER,
   INSTRUCTOR_REGISTER_SUCCESS
 } from "../../../actions/actions";
-import decoder from "jwt-decode";
 
 class InstructorRegisterForm extends React.Component {
   constructor(props) {
@@ -107,6 +106,7 @@ class InstructorRegisterForm extends React.Component {
   };
 
   render() {
+    console.log(this.props.instructor);
     let id = "";
     if (this.props.instructorRegister) {
       id = styles.animation;

@@ -1,22 +1,17 @@
 import React from "react";
 import styles from "./AdminNav.module.css";
 import { Link } from "react-router-dom";
-import decoder from "jwt-decode";
+import { connect } from "react-redux";
+import { ADMIN_LOGOUT } from "../actions/actions";
 
 class AdminNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adminToken: "",
       showDropDown: false
     };
 
     this.showDropDownHandler = this.showDropDownHandler.bind(this);
-    this.logoutHandler = this.logoutHandler.bind(this);
-  }
-  componentWillMount() {
-    const adminToken = decoder(localStorage.getItem("adminToken"));
-    this.setState({ adminToken });
   }
 
   showDropDownHandler() {
@@ -25,12 +20,7 @@ class AdminNav extends React.Component {
     });
   }
 
-  logoutHandler() {
-    localStorage.removeItem("adminToken");
-  }
-
   render() {
-    console.log(this.state.adminToken);
     return (
       <div id={styles.navBarContainer}>
         <p id={styles.title}>Tennis Mate</p>
@@ -43,7 +33,7 @@ class AdminNav extends React.Component {
           </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p className={styles.links} style={{ cursor: "pointer" }}>
-              {this.state.adminToken.admin.name}
+              {this.props.admin.admin.name}
             </p>{" "}
             <i
               style={{
@@ -60,7 +50,7 @@ class AdminNav extends React.Component {
                 <div className={styles.dropDownDiv}>
                   <Link
                     className={styles.dropDownItem}
-                    to={`/admin/${this.state.adminToken.admin.id}/createeditprofile`}
+                    to={`/admin/${this.props.admin.admin.id}/createeditprofile`}
                   >
                     Edit Profile
                   </Link>
@@ -76,7 +66,7 @@ class AdminNav extends React.Component {
                 >
                   <Link
                     className={styles.dropDownItem}
-                    onClick={this.logoutHandler}
+                    onClick={this.props.adminLogout}
                     to="/"
                   >
                     Logout
@@ -91,4 +81,19 @@ class AdminNav extends React.Component {
   }
 }
 
-export default AdminNav;
+const mapStateToProps = state => {
+  return {
+    admin: state.authReducer.admin
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    adminLogout: () => dispatch({ type: ADMIN_LOGOUT })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminNav);

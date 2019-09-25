@@ -2,8 +2,7 @@ import React from "react";
 import AdminNav from "../AdminNav/AdminNav";
 import axios from "axios";
 import TennisClub from "../TennisClub/TennisClub";
-
-import jwt_decode from "jwt-decode";
+import { connect } from "react-redux";
 
 class AdminHome extends React.Component {
   constructor(props) {
@@ -15,20 +14,16 @@ class AdminHome extends React.Component {
   }
 
   componentDidMount() {
-    const adminToken = localStorage.getItem("adminToken");
-    const decodedAdmin = jwt_decode(adminToken);
-    this.setState({ adminToken: decodedAdmin });
-    console.log(adminToken);
     axios
       .get("http://localhost:8080/api/clubprofile/myclub", {
-        headers: { "x-auth-token": adminToken }
+        headers: { "x-auth-token": this.props.adminToken }
       })
       .then(response => {
         console.log(response);
         this.setState({ adminProfileCreated: response.data.profileCreated });
         if (response.data.profileCreated === false) {
           this.props.history.push(
-            `/admin/${decodedAdmin.admin.id}/createeditprofile`
+            `/admin/${this.props.admin.admin.id}/createeditprofile`
           );
         }
       })
@@ -49,4 +44,11 @@ class AdminHome extends React.Component {
   }
 }
 
-export default AdminHome;
+const mapStateToProps = state => {
+  return {
+    admin: state.authReducer.admin,
+    adminToken: state.authReducer.adminToken
+  };
+};
+
+export default connect(mapStateToProps)(AdminHome);

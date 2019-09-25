@@ -2,21 +2,18 @@ import React from "react";
 import styles from "./InstructorNav.module.css";
 import { Link } from "react-router-dom";
 import decoder from "jwt-decode";
+import { connect } from "react-redux";
+import { INSTRUCTOR_LOGOUT } from "../actions/actions";
 
 class InstructorNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructorToken: "",
       showDropDown: false
     };
 
     this.showDropDownHandler = this.showDropDownHandler.bind(this);
-    this.logoutHandler = this.logoutHandler.bind(this);
-  }
-  componentWillMount() {
-    const instructorToken = decoder(localStorage.getItem("instructorToken"));
-    this.setState({ instructorToken });
+    // this.logoutHandler = this.logoutHandler.bind(this);
   }
 
   showDropDownHandler() {
@@ -25,9 +22,9 @@ class InstructorNav extends React.Component {
     });
   }
 
-  logoutHandler() {
+  /*  logoutHandler() {
     localStorage.removeItem("instructorToken");
-  }
+  } */
 
   render() {
     return (
@@ -42,7 +39,7 @@ class InstructorNav extends React.Component {
           </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p style={{ cursor: "pointer" }}>
-              {this.state.instructorToken.instructor.instructorName}
+              {this.props.instructor.instructor.instructorName}
             </p>{" "}
             <i
               style={{
@@ -58,9 +55,7 @@ class InstructorNav extends React.Component {
                 <div className={styles.dropDownDiv}>
                   <Link
                     className={styles.dropDownItem}
-                    to={`/instructor/${
-                      this.state.instructorToken.instructor.id
-                    }/createeditprofile`}
+                    to={`/instructor/${this.props.instructor.instructor.id}/createeditprofile`}
                   >
                     Edit Profile
                   </Link>
@@ -76,7 +71,7 @@ class InstructorNav extends React.Component {
                 >
                   <Link
                     className={styles.dropDownItem}
-                    onClick={this.logoutHandler}
+                    onClick={this.props.instructorLogout}
                     to="/"
                   >
                     Logout
@@ -91,4 +86,20 @@ class InstructorNav extends React.Component {
   }
 }
 
-export default InstructorNav;
+const mapStateToProps = state => {
+  return {
+    instructor: state.authReducer.instructor,
+    instructorToken: state.authReducer.instructorToken
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    instructorLogout: () => dispatch({ type: INSTRUCTOR_LOGOUT })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InstructorNav);

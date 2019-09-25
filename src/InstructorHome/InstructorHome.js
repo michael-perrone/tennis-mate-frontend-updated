@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import InstructorNav from "../InstructorNav/InstructorNav";
 import styles from "./InstructorHome.module.css";
 import decoder from "jwt-decode";
+import { connect } from "react-redux";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
 
 class InstructorHome extends React.Component {
@@ -14,20 +15,20 @@ class InstructorHome extends React.Component {
     };
   }
   componentDidMount() {
-    const instructorTokenItems = decoder(
+    /*  const instructorTokenItems = decoder(
       localStorage.getItem("instructorToken")
     );
-    console.log(instructorTokenItems);
-    const instructorToken = localStorage.getItem("instructorToken");
+    console.log(instructorTokenItems); */
+
     axios
       .get("http://localhost:8080/api/instructorProfile/myprofile", {
-        headers: { "x-auth-token": instructorToken }
+        headers: { "x-auth-token": this.props.instructorToken }
       })
       .then(response => {
         console.log(response);
         if (response.data.profileCreated === false) {
           this.props.history.push(
-            `/instructor/${instructorTokenItems.instructor.id}/createeditprofile`
+            `/instructor/${this.props.instructor.instructor.id}/createeditprofile`
           );
         } else {
           this.setState({ instructorProfile: response.data.instructorProfile });
@@ -52,4 +53,16 @@ class InstructorHome extends React.Component {
   }
 }
 
-export default withRouter(InstructorHome);
+const mapStateToProps = state => {
+  return {
+    instructor: state.authReducer.instructor,
+    instructorToken: state.authReducer.instructorToken
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(InstructorHome)
+);

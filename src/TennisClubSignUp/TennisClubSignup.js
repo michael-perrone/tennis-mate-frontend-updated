@@ -2,7 +2,7 @@ import styles from "./TennisClubSignup.module.css";
 import React from "react";
 import TennisClubSignupLeftSide from "./TennisClubSignupLeftSide/TennisClubSignupLeftSide";
 import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSignupRightSide";
-import { ADMIN_ENTERED } from "../actions/actions";
+import { ADMIN_ENTERED, ADMIN_LOGIN_SUCCESS } from "../actions/actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
@@ -58,9 +58,10 @@ class TennisClubSignup extends React.Component {
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
         console.log(response);
-        localStorage.setItem("adminToken", response.data.token);
-        const adminToken = decoder(localStorage.getItem("adminToken"));
-        this.props.history.push(`/admin/${adminToken.admin.id}`);
+        if (response.status === 200) {
+          this.props.adminLoginSuccess(response.data.token);
+        }
+        this.props.history.push(`/admin/${this.props.admin.admin.id}`);
       })
       .catch(error => {
         console.log(error);
@@ -99,12 +100,20 @@ class TennisClubSignup extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    admin: state.authReducer.admin,
     adminEntered: state.booleanReducers.adminEntered
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    adminLoginSuccess: adminToken =>
+      dispatch({
+        type: ADMIN_LOGIN_SUCCESS,
+        payload: {
+          adminToken
+        }
+      }),
     adminInfoSent: () => dispatch({ type: ADMIN_ENTERED })
   };
 };
