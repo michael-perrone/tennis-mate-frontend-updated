@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { USER_LOGOUT } from "../actions/actions";
 
 class UserHome extends React.Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class UserHome extends React.Component {
       profileCreated: false,
       firstName: ""
     };
+    this.logout = this.logout.bind(this);
   }
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -24,15 +27,17 @@ class UserHome extends React.Component {
       });
   }
 
+  logout() {
+    this.props.userLogout();
+    this.props.history.push("/");
+  }
+
   render() {
     return (
       <div>
         <button
           style={{ height: "100px", width: "100px" }}
-          onClick={() => {
-            localStorage.removeItem("token");
-            this.props.history.push("/");
-          }}
+          onClick={this.logout}
         />
         <p>How do they know i exist</p>
       </div>
@@ -40,4 +45,22 @@ class UserHome extends React.Component {
   }
 }
 
-export default withRouter(UserHome);
+const mapDispatchToProps = dispatch => {
+  return {
+    userLogout: () => dispatch({ type: USER_LOGOUT })
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.authReducer.user,
+    token: state.authReducer.token
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(UserHome)
+);

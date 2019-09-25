@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./InstructorSignup.module.css";
 import { connect } from "react-redux";
-import { INSTRUCTOR_REGISTER } from "../../../../actions/actions";
+import {
+  INSTRUCTOR_WANTS_TO_REGISTER,
+  INSTRUCTOR_REGISTER_SUCCESS
+} from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {
   render() {
@@ -22,7 +25,8 @@ class InstuctorSignup extends React.Component {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    instructorRegisterHandler: () => dispatch({ type: INSTRUCTOR_REGISTER })
+    instructorRegisterHandler: () =>
+      dispatch({ type: INSTRUCTOR_WANTS_TO_REGISTER })
   };
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import axios from "axios";
+
 import { connect } from "react-redux";
 import AlertUserFirstName from "../../../Alert/AlertUserFirstName";
 import AlertUserLastName from "../../../Alert/AlertUserLastName";
@@ -11,9 +12,9 @@ import AlertUserPasswordConfirm from "../../../Alert/AlertUserPasswordConfirm";
 import AlertUserAge from "../../../Alert/AlertUserAge";
 import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
-import { registered } from "../../../actions/authActions";
 import decoder from "jwt-decode";
 import { withRouter } from "react-router-dom";
+import { USER_REGISTER_SUCCESS } from "../../../actions/actions";
 
 class UserRegisterForm extends React.Component {
   constructor(props) {
@@ -101,10 +102,14 @@ class UserRegisterForm extends React.Component {
       axios
         .post("http://localhost:8080/api/usersSignup", this.state.user)
         .then(response => {
-          const tokenDecoded = decoder(response.data.token);
+          console.log(response);
+          /*   const tokenDecoded = decoder(response.data.token);
           localStorage.setItem("token", response.data.token);
-          this.setState({ token: decoder(response.data.token) });
-          this.props.history.push(`/user/${tokenDecoded.user.id}`);
+          this.setState({ token: decoder(response.data.token) }); */
+          if (response.status === 200) {
+            this.props.userRegisterSuccess(response.data.token);
+          }
+          this.props.history.push(`/user/${this.props.user.id}`);
         })
         .catch(error => {
           console.log(error);
@@ -439,13 +444,20 @@ const mapStateToProps = state => {
   return {
     user: state.authReducer.user,
     instructorRegister: state.booleanReducers.instructorRegister,
-    authenticated: state.authReducer.isAuthenticated
+    authenticated: state.authReducer.isUserAuthenticated
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    userRegisterSuccess: token =>
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: { token } })
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { registered }
+    mapDispatchToProps
   )(UserRegisterForm)
 );

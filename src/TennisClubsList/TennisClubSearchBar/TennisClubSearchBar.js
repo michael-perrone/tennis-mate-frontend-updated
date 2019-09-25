@@ -9,10 +9,21 @@ class TennisClubSearchBar extends React.Component {
     this.state = {
       clubSearch: "",
       matchingClubs: [],
-      isSearchBeingUsed: false
+      isSearchBeingUsed: false,
+      signedIn: false
     };
     this.selectPane = this.selectPane.bind(this);
     this.getClubValue = this.getClubValue.bind(this);
+  }
+
+  componentDidMount() {
+    if (
+      localStorage.getItem("adminToken") ||
+      localStorage.getItem("token") ||
+      localStorage.getItem("instructorToken")
+    ) {
+      this.setState({ signedIn: true });
+    }
   }
 
   getClubValue(event) {
@@ -35,6 +46,7 @@ class TennisClubSearchBar extends React.Component {
   }
 
   render() {
+    console.log(this.state.signedIn);
     return (
       <div id={styles.searchBarNavContainer}>
         <p id={styles.logoLeftBar}>Tennis Mate</p>
@@ -49,7 +61,7 @@ class TennisClubSearchBar extends React.Component {
           <i
             style={{
               position: "relative",
-              left: "-100px",
+              left: this.state.signedIn ? "-20px" : "-100px",
               height: "26px",
               color: "lightgreen",
               fontSize: "26px",

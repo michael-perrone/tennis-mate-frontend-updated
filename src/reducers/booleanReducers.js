@@ -1,4 +1,4 @@
-import { INSTRUCTOR_REGISTER } from "../actions/actions";
+import { INSTRUCTOR_WANTS_TO_REGISTER } from "../actions/actions";
 import { ADMIN_ENTERED } from "../actions/actions";
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case INSTRUCTOR_REGISTER:
+    case INSTRUCTOR_WANTS_TO_REGISTER:
       return {
         ...state,
         instructorRegister: !state.instructorRegister

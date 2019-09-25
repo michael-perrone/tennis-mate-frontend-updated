@@ -16,7 +16,11 @@ const DropDown = props => {
         </Link>
       </div>
       <div style={{ borderBottom: "none" }} className={styles.dropDownDiv}>
-        <Link className={styles.dropDownItem} onClick={props.logout} to="/">
+        <Link
+          className={styles.dropDownItem}
+          onClick={props.logout}
+          to="/clubs"
+        >
           Logout
         </Link>
       </div>

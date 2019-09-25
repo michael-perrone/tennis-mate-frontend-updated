@@ -50,16 +50,14 @@ class NameDropDown extends React.Component {
   logout() {
     if (this.state.userToken) {
       localStorage.removeItem("token");
-      this.props.history.push("/");
     }
     if (this.state.adminToken !== "") {
       localStorage.removeItem("adminToken");
-      this.props.history.push("/");
     }
     if (this.state.instructorToken) {
       localStorage.removeItem("instructorToken");
-      this.props.history.push("/");
     }
+    this.setState({ notLoggedIn: true });
   }
 
   render() {

@@ -12,7 +12,10 @@ import AlertInstructorAge from "../../../AlertInstructor/AlertInstructorAge";
 import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
 import AlertInstructorGender from "../../../AlertInstructor/AlertInstructorGender";
 import styles from "./InstructorRegisterForm.module.css";
-import { INSTRUCTOR_REGISTER } from "../../../actions/actions";
+import {
+  INSTRUCTOR_WANTS_TO_REGISTER,
+  INSTRUCTOR_REGISTER_SUCCESS
+} from "../../../actions/actions";
 import decoder from "jwt-decode";
 
 class InstructorRegisterForm extends React.Component {
@@ -85,9 +88,10 @@ class InstructorRegisterForm extends React.Component {
     axios
       .post("http://localhost:8080/api/instructorSignup", this.state.instructor)
       .then(response => {
-        localStorage.setItem("instructorToken", response.data.token);
-        const decodedToken = decoder(response.data.token);
-        this.props.history.push(`/instructor/${decodedToken.instructor.id}`);
+        if (response.status === 200) {
+          this.props.instructorRegisterSuccess(response.data.token);
+          this.props.history.push(`/instructor/${this.props.instructor.id}`);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -501,13 +505,20 @@ class InstructorRegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    instructor: state.authReducer.instructor,
     instructorRegister: state.booleanReducers.instructorRegister
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    instructorRegisterHandler: () => dispatch({ type: INSTRUCTOR_REGISTER })
+    instructorRegisterSuccess: instructorToken =>
+      dispatch({
+        type: INSTRUCTOR_REGISTER_SUCCESS,
+        payload: { instructorToken }
+      }),
+    instructorRegisterHandler: () =>
+      dispatch({ type: INSTRUCTOR_WANTS_TO_REGISTER })
   };
 };
 
