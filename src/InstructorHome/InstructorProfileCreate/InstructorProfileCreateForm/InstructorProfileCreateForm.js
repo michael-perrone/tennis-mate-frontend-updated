@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import decoder from "jwt-decode";
 import styles from "./InstructorProfileCreateForm.module.css";
+import {connect} from 'react-redux';
 
 class InstructorProfileCreateForm extends React.Component {
   constructor(props) {
@@ -50,13 +50,7 @@ class InstructorProfileCreateForm extends React.Component {
     this.submitInfo = this.submitInfo.bind(this);
   }
 
-  componentWillMount() {
-    const instructorTokenItems = decoder(
-      localStorage.getItem("instructorToken")
-    );
-    this.setState({ instructorTokenItems });
-  }
-
+ 
   submitInfo(event) {
     event.preventDefault();
     const bigObjectSending = {
@@ -68,12 +62,12 @@ class InstructorProfileCreateForm extends React.Component {
     };
     axios
       .post("http://localhost:8080/api/instructorProfile", bigObjectSending, {
-        headers: { "x-auth-token": localStorage.getItem("instructorToken") }
+        headers: { "x-auth-token": this.props.instructorToken }
       })
       .then(response => {
         if (response.status === 200) {
           this.props.history.push(
-            `/instructor/${this.state.instructorTokenItems.instructor.id}`
+            `/instructor/${this.props.instructor.instructor.id}`
           );
         }
       });
@@ -146,9 +140,6 @@ class InstructorProfileCreateForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.certificationsArray);
-    console.log(this.state.jobExperience);
-    console.log(...this.state.jobExperienceArray);
     return (
       <div id={styles.formsContainer}>
         <div id={styles.formSelectors}>
@@ -496,4 +487,11 @@ class InstructorProfileCreateForm extends React.Component {
   }
 }
 
-export default withRouter(InstructorProfileCreateForm);
+const mapStateToProps = (state) => {
+  return {
+    instructorToken: state.authReducer.instructorToken,
+    instructor: state.authReducer.instructor
+  }
+}
+
+export default withRouter(connect(mapStateToProps, null)(InstructorProfileCreateForm));
