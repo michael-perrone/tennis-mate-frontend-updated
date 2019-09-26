@@ -231,6 +231,7 @@ class CourtContainer extends React.Component {
       let resultsArray = [];
       let sortedArray = this.state.bookingArray.slice();
       for (let i = 0; i < sortedArray.length - 1; i++) {
+        // eslint-disable-next-line eqeqeq
         if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
           resultsArray.push(sortedArray[i]);
         }
@@ -239,6 +240,7 @@ class CourtContainer extends React.Component {
       let otherSortedArray = this.state.bookingArray.slice();
       for (let x = 0; x < sortedArray.length - 1; x++) {
         if (
+          // eslint-disable-next-line eqeqeq
           otherSortedArray[x + 1].courtId - 1 !=
           otherSortedArray[x].courtId
         ) {

@@ -3,7 +3,6 @@ import styles from "./InstructorSignup.module.css";
 import { connect } from "react-redux";
 import {
   INSTRUCTOR_WANTS_TO_REGISTER,
-  INSTRUCTOR_REGISTER_SUCCESS
 } from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {

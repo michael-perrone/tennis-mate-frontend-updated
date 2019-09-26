@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React from "react";
 import styles from "./AdminForm.module.css";
 import AlertAdminFirstName from "../../../AlertAdmin/AlertAdminFirstName";

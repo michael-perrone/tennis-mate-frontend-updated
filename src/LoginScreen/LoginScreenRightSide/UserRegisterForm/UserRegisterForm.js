@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React from "react";
 import styles from "./UserRegisterForm.module.css";
 import axios from "axios";
@@ -12,7 +13,6 @@ import AlertUserPasswordConfirm from "../../../Alert/AlertUserPasswordConfirm";
 import AlertUserAge from "../../../Alert/AlertUserAge";
 import AlertUserGender from "../../../Alert/AlertUserGender";
 import InstructorSignup from "./InstructorSignup/InstructorSignup";
-import decoder from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import { USER_REGISTER_SUCCESS } from "../../../actions/actions";
 
@@ -59,6 +59,7 @@ class UserRegisterForm extends React.Component {
   }
 
   validatePhone = phone => {
+    // eslint-disable-next-line no-useless-escape
     let newRe = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
     return newRe.test(phone);
   };

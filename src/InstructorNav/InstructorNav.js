@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./InstructorNav.module.css";
 import { Link } from "react-router-dom";
-import decoder from "jwt-decode";
 import { connect } from "react-redux";
 import { INSTRUCTOR_LOGOUT } from "../actions/actions";
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import InstructorNav from "../InstructorNav/InstructorNav";
 import styles from "./InstructorHome.module.css";
-import decoder from "jwt-decode";
+
 import { connect } from "react-redux";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
 

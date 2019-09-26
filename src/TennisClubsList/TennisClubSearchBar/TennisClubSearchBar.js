@@ -91,6 +91,7 @@ class TennisClubSearchBar extends React.Component {
                     id={styles.searchPane}
                   >
                     <img
+                    alt="babe"
                       style={{
                         height: "75px",
                         width: "120px",

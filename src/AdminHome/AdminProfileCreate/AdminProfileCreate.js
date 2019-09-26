@@ -4,6 +4,7 @@ import axios from "axios";
 import ServicesForm from "./ServicesForm/ServicesForm";
 import AdminNav from "../../AdminNav/AdminNav";
 import BioForm from './BioForm/BioForm'
+import {connect} from 'react-redux';
 
 class AdminProfileCreate extends React.Component {
   constructor(props) {
@@ -48,8 +49,7 @@ class AdminProfileCreate extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error);
-        console.log("nugget");
+        console.log(error)
       });
   }
 
@@ -102,7 +102,7 @@ class AdminProfileCreate extends React.Component {
   instructorsHandler(event) {
     this.setState({ instructorValue: event.target.value });
     const newInstructorMatchingArray = [];
-    this.state.instructorPossibilities.map(element => {
+    this.state.instructorPossibilities.forEach(element => {
       if (
         element.fullName
           .toLowerCase()
@@ -114,7 +114,7 @@ class AdminProfileCreate extends React.Component {
     });
     this.setState({ instructorsMatching: newInstructorMatchingArray });
   }
-
+// map
   cancelName() {
     this.setState({ valueClicked: false });
     this.setState({ instructorId: "" });
@@ -134,7 +134,7 @@ class AdminProfileCreate extends React.Component {
     };
     axios
       .post("http://localhost:8080/api/clubProfile", objectToSend, {
-        headers: { "x-auth-token": localStorage.getItem("adminToken") }
+        headers: { "x-auth-token": this.props.adminToken }
       })
       .then(response => {
         console.log(response);
@@ -260,6 +260,7 @@ class AdminProfileCreate extends React.Component {
                   <div id={styles.instructorsDiv}>
                     {!this.state.exited &&
                       !this.state.stopShowingNames &&
+                      // eslint-disable-next-line array-callback-return
                       this.state.instructorsMatching.map(element => {
                         if (!this.state.valueClicked) {
                           return (
@@ -314,4 +315,10 @@ class AdminProfileCreate extends React.Component {
   }
 }
 
-export default AdminProfileCreate;
+const mapStateToProps = (state) => {
+  return {
+    adminToken: state.authReducer.adminToken
+  }
+}
+
+export default connect(mapStateToProps)(AdminProfileCreate);
