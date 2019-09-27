@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TennisClubSearchBar.module.css";
 import { withRouter } from "react-router-dom";
 import NameDropDown from "./NameDropDown/NameDropDown";
+import {connect} from 'react-redux';
 
 class TennisClubSearchBar extends React.Component {
   constructor(props) {
@@ -14,16 +15,6 @@ class TennisClubSearchBar extends React.Component {
     };
     this.selectPane = this.selectPane.bind(this);
     this.getClubValue = this.getClubValue.bind(this);
-  }
-
-  componentDidMount() {
-    if (
-      localStorage.getItem("adminToken") ||
-      localStorage.getItem("token") ||
-      localStorage.getItem("instructorToken")
-    ) {
-      this.setState({ signedIn: true });
-    }
   }
 
   getClubValue(event) {
@@ -61,7 +52,7 @@ class TennisClubSearchBar extends React.Component {
           <i
             style={{
               position: "relative",
-              left: this.state.signedIn ? "-20px" : "-100px",
+              left: !this.props.isAuthenticated ? "-12px" : "-275px",
               height: "26px",
               color: "lightgreen",
               fontSize: "26px",
@@ -73,6 +64,10 @@ class TennisClubSearchBar extends React.Component {
           ></i>
           <div>
             <input
+              style={{
+                position: "relative",
+                left: !this.props.isAuthenticated ? "-14px" : "-277px",
+              }}
               onChange={this.getClubValue}
               value={this.state.clubSearch}
               id={styles.searchBar}
@@ -125,4 +120,10 @@ class TennisClubSearchBar extends React.Component {
   }
 }
 
-export default withRouter(TennisClubSearchBar);
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.authReducer.isAuthenticated
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(TennisClubSearchBar));

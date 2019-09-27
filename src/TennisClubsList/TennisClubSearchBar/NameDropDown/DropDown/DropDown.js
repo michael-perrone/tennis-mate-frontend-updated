@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./DropDown.module.css";
+import {connect} from 'react-redux';
 
 const DropDown = props => {
   return (
@@ -27,5 +28,7 @@ const DropDown = props => {
     </div>
   );
 };
+
+
 
 export default DropDown;

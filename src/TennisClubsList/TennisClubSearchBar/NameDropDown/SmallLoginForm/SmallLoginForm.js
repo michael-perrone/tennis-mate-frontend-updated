@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./SmallLoginForm.module.css";
 import axios from "axios";
 import decoder from "jwt-decode";
+import {connect} from 'react-redux';
+import { ADMIN_LOGIN_SUCCESS, INSTRUCTOR_LOGIN_SUCCESS, USER_LOGIN_SUCCESS } from "../../../../actions/actions";
 
 class SmallLoginForm extends React.Component {
   constructor(props) {
@@ -27,20 +29,17 @@ class SmallLoginForm extends React.Component {
       .then(response => {
         console.log(response);
         let tokenResponse = decoder(response.data.token);
+        console.log(tokenResponse)
         if (tokenResponse.admin) {
-          localStorage.setItem("adminToken", response.data.token);
+          this.props.adminLogin(response.data.token)
         } else if (tokenResponse.instructor) {
-          localStorage.setItem("instructorToken", response.data.token);
+          this.props.instructorLogin(response.data.token)
         } else if (tokenResponse.user) {
-          localStorage.setItem("token", response.data.token);
-        }
-        console.log(tokenResponse);
-        if (response.status === 200) {
-          this.props.didLogIn();
+          this.props.userLogin(response.data.token)
         }
       })
       .catch(error => {
-        console.log("shucks");
+        console.log(error.response);
       });
   }
 
@@ -77,4 +76,18 @@ class SmallLoginForm extends React.Component {
   }
 }
 
-export default SmallLoginForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    userLogin: (token) => dispatch({type: USER_LOGIN_SUCCESS, payload:{token}}),
+    instructorLogin: (instructorToken) => dispatch({type: INSTRUCTOR_LOGIN_SUCCESS, payload: {instructorToken}}),
+    adminLogin: (adminToken) => dispatch({type: ADMIN_LOGIN_SUCCESS, payload: {adminToken}})
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    state
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SmallLoginForm);

@@ -27,6 +27,7 @@ const initalState = {
     ? true
     : false,
   loading: false,
+  isAuthenticated: localStorage.getItem('token') || localStorage.getItem('instructorToken') || localStorage.getItem('adminToken') ? true : false, 
   user: localStorage.getItem("token")
     ? decoder(localStorage.getItem("token"))
     : null,
@@ -44,6 +45,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("instructorToken", action.payload.instructorToken);
       return {
         ...state,
+        isAuthenticated: true,
         isInstructorAuthenticated: true,
         instructorToken: localStorage.getItem("instructorToken"),
         instructor: decoder(localStorage.getItem("instructorToken"))
@@ -52,6 +54,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
+        isAuthenticated: true,
         isUserAuthenticated: true,
         token: localStorage.getItem("token"),
         user: decoder(localStorage.getItem("token"))
@@ -60,6 +63,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("adminToken", action.payload.adminToken);
       return {
         ...state,
+        isAuthenticated: true,
         isAdminAuthenticated: true,
         admin: decoder(localStorage.getItem("adminToken")),
         adminToken: localStorage.getItem("adminToken")
@@ -68,6 +72,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("instructorToken", action.payload.instructorToken);
       return {
         ...state,
+        isAuthenticated: true,
         isInstructorAuthenticated: true,
         instructorToken: localStorage.getItem("instructorToken"),
         instructor: decoder(localStorage.getItem("instructorToken"))
@@ -76,6 +81,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
+        isAuthenticated: true,
         isUserAuthenticated: true,
         token: localStorage.getItem("token"),
         user: decoder(localStorage.getItem("token"))
@@ -84,6 +90,7 @@ export default function(state = initalState, action) {
       localStorage.setItem("adminToken", action.payload.adminToken);
       return {
         ...state,
+        isAuthenticated: true,
         isAdminAuthenticated: true,
         admin: decoder(localStorage.getItem("adminToken")),
         adminToken: localStorage.getItem("adminToken")
@@ -128,6 +135,7 @@ export default function(state = initalState, action) {
       localStorage.removeItem("token");
       return {
         ...state,
+        isAuthenticated: false,
         isUserAuthenticated: false,
         user: null,
         token: null
@@ -136,6 +144,7 @@ export default function(state = initalState, action) {
       localStorage.removeItem("adminToken");
       return {
         ...state,
+        isAuthenticated: false,
         isAdminAuthenticated: false,
         admin: null,
         adminToken: null
@@ -144,9 +153,11 @@ export default function(state = initalState, action) {
       localStorage.removeItem("instructorToken");
       return {
         ...state,
-        isInstructorAuthenticated: false,
-        instructor: null,
-        instructorToken: null
+    
+      isAuthenticated: false,  
+      isInstructorAuthenticated: false,
+      instructor: null,
+      instructorToken: null
       };
 
     /*    case REGISTER:

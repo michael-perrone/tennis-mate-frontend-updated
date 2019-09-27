@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ServicesForm.module.css";
 import Axios from "axios";
+import {connect} from 'react-redux';
 
 class ServicesForm extends React.Component {
   constructor(props) {
@@ -96,7 +97,7 @@ class ServicesForm extends React.Component {
     console.log(objectToSend);
 
     Axios.post("http://localhost:8080/api/clubProfile", objectToSend, {
-      headers: { "x-auth-token": localStorage.getItem("adminToken") }
+      headers: { "x-auth-token": this.props.adminToken }
     });
   }
 
@@ -260,4 +261,10 @@ class ServicesForm extends React.Component {
   }
 }
 
-export default ServicesForm;
+const mapStateToProps = (state) => {
+  return {
+    adminToken: state.authReducer.adminToken
+  }
+}
+
+export default connect(mapStateToProps)(ServicesForm);

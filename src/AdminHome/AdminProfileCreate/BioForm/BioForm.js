@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import {connect} from 'react-redux';
 class BioForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class BioForm extends React.Component {
         "http://localhost:8080/api/clubprofile/",
         { bio: this.state.bio },
         {
-          headers: { "x-auth-token": localStorage.getItem("adminToken") }
+          headers: { "x-auth-token": this.props.adminToken }
         }
       )
       .then(response => {
@@ -70,4 +70,10 @@ class BioForm extends React.Component {
   }
 }
 
-export default BioForm;
+const mapStateToProps = (state) => {
+  return {
+    adminToken: state.authReducer.adminToken
+  }
+}
+
+export default connect(mapStateToProps)(BioForm);

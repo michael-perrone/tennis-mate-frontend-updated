@@ -1,8 +1,10 @@
 import React from "react";
-import decoder from "jwt-decode";
 import SmallLoginForm from "./SmallLoginForm/SmallLoginForm";
 import DropDown from "./DropDown/DropDown";
 import { withRouter } from "react-router-dom";
+import {connect} from 'react-redux';
+import { ADMIN_LOGOUT, INSTRUCTOR_LOGOUT, USER_LOGOUT } from "../../../actions/actions";
+import styles from './NameDropDown.module.css';
 
 class NameDropDown extends React.Component {
   constructor(props) {
@@ -11,76 +13,42 @@ class NameDropDown extends React.Component {
       userToken: "",
       instructorToken: "",
       adminToken: "",
-      notLoggedIn: false
+      showDropDown: false
     };
-    this.logout = this.logout.bind(this);
-    this.didLogIn = this.didLogIn.bind(this);
+      this.showDropDownHandler = this.showDropDownHandler.bind(this);
   }
 
-  didLogIn() {
-    this.setState({ notLoggedIn: false });
-    if (localStorage.getItem("token")) {
-      this.setState({ userToken: decoder(localStorage.getItem("token")) });
-    } else if (localStorage.getItem("instructorToken")) {
-      this.setState({
-        instructorToken: decoder(localStorage.getItem("instructorToken"))
-      });
-    } else if (localStorage.getItem("adminToken")) {
-      this.setState({
-        adminToken: decoder(localStorage.getItem("adminToken"))
-      });
-    }
-  }
-  componentDidMount() {
-    if (localStorage.getItem("token")) {
-      this.setState({ userToken: decoder(localStorage.getItem("token")) });
-    } else if (localStorage.getItem("instructorToken")) {
-      this.setState({
-        instructorToken: decoder(localStorage.getItem("instructorToken"))
-      });
-    } else if (localStorage.getItem("adminToken")) {
-      this.setState({
-        adminToken: decoder(localStorage.getItem("adminToken"))
-      });
-    } else {
-      this.setState({ notLoggedIn: true });
-    }
-  }
-
-  logout() {
-    if (this.state.userToken) {
-      localStorage.removeItem("token");
-    }
-    if (this.state.adminToken !== "") {
-      localStorage.removeItem("adminToken");
-    }
-    if (this.state.instructorToken) {
-      localStorage.removeItem("instructorToken");
-    }
-    this.setState({ notLoggedIn: true });
+  showDropDownHandler(){
+    this.setState(prevState => (
+      {showDropDown: !prevState.showDropDown}
+    ))
   }
 
   render() {
     console.log(this.state);
     return (
       <div>
-        {this.state.notLoggedIn && <SmallLoginForm didLogIn={this.didLogIn} />}
-        {!this.state.notLoggedIn && this.state.userToken !== "" && (
+ 
+        {this.props.adminToken === null && this.props.token === null && this.props.instructorToken === null && <SmallLoginForm didLogIn={this.didLogIn} />}
+        {this.props.admin && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.admin.admin.name}</p>}
+        {this.props.token !== null && (
           <DropDown
-            logout={this.logout}
-            goToRoute={`/user/${this.state.userToken.user.id}/createeditprofile`}
+            logout={this.props.userLogout}
+            goToRoute={`/user/${this.props.user.user.id}/createeditprofile`}
           />
         )}
-        {!this.state.notLoggedIn && this.state.instructorToken !== "" && (
+        {this.props.instructor && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.instructor.instructor.instructorName}</p>}
+        {this.props.instructorToken !== null && (
           <DropDown
-            logout={this.logout}
-            goToRoute={`/instructor/${this.state.instructorToken.instructor.id}/createeditprofile`}
+            logout={this.props.instructorLogout}
+            goToRoute={`/instructor/${this.props.instructor.instructor.id}/createeditprofile`}
           />
         )}
-        {!this.state.notLoggedIn && this.state.adminToken !== "" && (
+        {this.props.user !== null && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.user.user.userName}</p>}
+        {this.props.adminToken !== null && (
           <DropDown
-            logout={this.logout}
-            goToRoute={`/admin/${this.state.adminToken.admin.id}/createeditprofile`}
+            logout={this.adminLogout}
+            goToRoute={`/admin/${this.props.admin.admin.id}/createeditprofile`}
           />
         )}
       </div>
@@ -88,4 +56,23 @@ class NameDropDown extends React.Component {
   }
 }
 
-export default withRouter(NameDropDown);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    adminLogout: () => dispatch({type: ADMIN_LOGOUT}),
+    instructorLogout: () => dispatch({type: INSTRUCTOR_LOGOUT}),
+    userLogout: () => dispatch({type: USER_LOGOUT})
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    instructorToken: state.authReducer.instructorToken,
+    adminToken: state.authReducer.adminToken,
+    token: state.authReducer.token,
+    admin: state.authReducer.admin,
+    instructor: state.authReducer.instructor,
+    user: state.authReducer.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NameDropDown));

@@ -7,7 +7,6 @@ class TennisClub extends React.Component {
   constructor(props) {
     super(props);
     this.state = { instructorsAtClub: [] };
-    this.go = this.go.bind(this);
   }
   componentDidMount() {
     let instructorObject = {};
@@ -23,7 +22,7 @@ class TennisClub extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
   }
 
@@ -34,9 +33,7 @@ class TennisClub extends React.Component {
     return newString;
   };
 
-  go() {
-    this.props.history.push("/");
-  }
+
 
   render() {
     return (
