@@ -4,6 +4,7 @@ import TennisClubInList from "./TennisClubInList/TennisClubInList";
 import styles from "./TennisClubsList.module.css";
 import { withRouter } from "react-router-dom";
 import TennisClubSearchBar from "./TennisClubSearchBar/TennisClubSearchBar";
+import AdvancedSearch from './AdvancedSearch/AdvancedSearch';
 
 class TennisClubsList extends React.Component {
   constructor() {
@@ -23,19 +24,7 @@ class TennisClubsList extends React.Component {
     return (
       <div id={styles.clubsContainer}>
         <TennisClubSearchBar clubs={this.state.tennisClubs} />
-        <div
-          style={{
-            position: "fixed",
-            width: "25%",
-            backgroundColor: "white",
-            height: "100vh",
-            left: "0px",
-            borderRight: "3px solid gray"
-          }}
-        >
-          <p>wdwdwd</p>
-          <p>wdwdwd</p>
-        </div>
+        <AdvancedSearch/>
         <div style={{ marginTop: "90px" }}>
           {this.state.tennisClubs.map(element => {
             return (

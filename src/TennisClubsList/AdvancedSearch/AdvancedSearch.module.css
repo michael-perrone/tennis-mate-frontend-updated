@@ -1,0 +1,8 @@
+#advancedSearchContainer {
+    position: fixed;
+    width: 25;
+    background-color: white;
+    height: 100vh;
+    left: 0px;
+    border-right: 3px solid gray;
+}

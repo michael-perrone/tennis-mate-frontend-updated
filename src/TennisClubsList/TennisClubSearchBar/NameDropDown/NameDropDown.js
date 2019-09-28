@@ -28,24 +28,35 @@ class NameDropDown extends React.Component {
     console.log(this.state);
     return (
       <div>
- 
         {this.props.adminToken === null && this.props.token === null && this.props.instructorToken === null && <SmallLoginForm didLogIn={this.didLogIn} />}
-        {this.props.admin && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.admin.admin.name}</p>}
-        {this.props.token !== null && (
+        {this.props.admin !== null &&
+          <div className={styles.dropDownHeader} onClick={this.showDropDownHandler}>
+             <p>{this.props.admin.admin.name}</p>
+             <i style={{position: 'relative', left: '8px', top: "9px"}}  className="fas fa-caret-down"/>
+          </div>}
+        {this.props.token !== null && this.state.showDropDown && (
           <DropDown
             logout={this.props.userLogout}
             goToRoute={`/user/${this.props.user.user.id}/createeditprofile`}
           />
         )}
-        {this.props.instructor && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.instructor.instructor.instructorName}</p>}
-        {this.props.instructorToken !== null && (
+        {this.props.instructor !== null && <div className={styles.dropDownHeader} onClick={this.showDropDownHandler} >
+           <p >{this.props.instructor.instructor.instructorName}</p>
+           <i style={{position: 'relative', left: '8px', top: "9px"}} className="fas fa-caret-down"/>
+           </div>}
+        {this.props.instructorToken !== null && this.state.showDropDown && (
           <DropDown
             logout={this.props.instructorLogout}
             goToRoute={`/instructor/${this.props.instructor.instructor.id}/createeditprofile`}
           />
         )}
-        {this.props.user !== null && <p className={styles.dropDownHeader} onClick={this.showDropDownHandler}>{this.props.user.user.userName}</p>}
-        {this.props.adminToken !== null && (
+         {this.props.user !== null && 
+         <div className={styles.dropDownHeader} onClick={this.showDropDownHandler}>
+         <p> {this.props.user.user.userName}</p>
+         <i style={{position: 'relative', left: '8px', top: "9px"}}  className="fas fa-caret-down"/>
+        </div>
+         }
+        {this.props.adminToken !== null && this.state.showDropDown && (
           <DropDown
             logout={this.adminLogout}
             goToRoute={`/admin/${this.props.admin.admin.id}/createeditprofile`}

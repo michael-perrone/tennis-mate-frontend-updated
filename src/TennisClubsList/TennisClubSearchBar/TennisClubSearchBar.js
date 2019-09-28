@@ -43,16 +43,16 @@ class TennisClubSearchBar extends React.Component {
         <p id={styles.logoLeftBar}>Tennis Mate</p>
         <div
           style={{
-            position: "relative",
+            position: "absolute",
             display: "flex",
             top: "14px",
-            left: "80px"
+            left: "28%"
           }}
         >
           <i
             style={{
               position: "relative",
-              left: !this.props.isAuthenticated ? "-12px" : "-275px",
+              left: "-10px",
               height: "26px",
               color: "lightgreen",
               fontSize: "26px",
@@ -64,10 +64,7 @@ class TennisClubSearchBar extends React.Component {
           ></i>
           <div>
             <input
-              style={{
-                position: "relative",
-                left: !this.props.isAuthenticated ? "-14px" : "-277px",
-              }}
+              style={{position: "relative", left: "-11px"}}
               onChange={this.getClubValue}
               value={this.state.clubSearch}
               id={styles.searchBar}
