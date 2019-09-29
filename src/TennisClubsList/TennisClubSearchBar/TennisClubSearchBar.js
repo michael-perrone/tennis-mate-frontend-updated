@@ -25,7 +25,7 @@ class TennisClubSearchBar extends React.Component {
 
     const matchesArray = [];
     this.props.clubs.forEach(club => {
-      if (club.clubs.clubName.includes(event.target.value)) {
+      if (club.clubs.clubName.toLowerCase().includes(event.target.value.toLowerCase())) {
         matchesArray.push(club);
       }
     });
@@ -37,7 +37,6 @@ class TennisClubSearchBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.signedIn);
     return (
       <div id={styles.searchBarNavContainer}>
         <p id={styles.logoLeftBar}>Tennis Mate</p>
