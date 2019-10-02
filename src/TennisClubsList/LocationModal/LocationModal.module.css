@@ -1,11 +1,15 @@
 #fullModal {
-    height: 300px;
-    width: 500px;
-    border: 2px solid black;
+    height: 200px;
+    width: 600px;;
     position: absolute;
-    left: 20px;
+    left: 200px;
+    top: 300px;
     z-index: 1000;
     background-color: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 #backDrop {
@@ -13,6 +17,22 @@
     left: 0px;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.651);
+    background-color: rgba(0, 0, 0, 0.851);
     z-index: 999;
+}
+
+.modalButton {
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    border: 3px ridge black;
+}
+
+#noButton {
+
+}
+
+#pInModal {
+    font-size: 20px;
+    padding: 20px;
 }

@@ -14,9 +14,18 @@ class TennisClubsList extends React.Component {
     this.state = {
       tennisClubs: [],
       stateLocation: "",
-      locationGranted: false
+      locationGiven: false,
+      showLocationModal: true,
+      locationDenied: false
     };
     this.getLocation = this.getLocation.bind(this);
+    this.locationDenied = this.locationDenied.bind(this);
+  }
+
+  locationDenied() {
+    console.log('hi')
+    this.setState({showLocationModal: false});
+    this.setState({locationDenied: true})
   }
 
 getLocation() {
@@ -25,6 +34,7 @@ getLocation() {
     });
     try {
       navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({showLocationModal: false})
           console.log("hi")
           axios.get(`http://open.mapquestapi.com/geocoding/v1/reverse?key=${'enLuN7AK1OntX9nEbhnGO5uGqx04OtfP'}&location=${position.coords.latitude},${position.coords.longitude}` ).then(
               function(response) {
@@ -32,7 +42,7 @@ getLocation() {
                   // since im working alone shouldnt be an issue
                   const SLV = response.data.results[0].locations[0].adminArea3;
                   console.log(SLV)
-                  this.setState({locationGranted: true})
+                  
                   
                   if (SLV === "NJ") {
                       this.setState({stateLocation: "New Jersey"})
@@ -182,22 +192,25 @@ getLocation() {
                       this.setState({stateLocation: "Wyoming"})
                   }
               }.bind(this)
-          )          
-      });
+          ) 
+          this.setState({locationGiven: true})         
+          
+        });
     }
     catch(error) {
         console.log(error)
     }
+    
   }
 
   render() {
     return (  
       <div id={styles.clubsContainer}>
-          <LocationModal/>
+          {this.state.showLocationModal === true && <LocationModal getLocation={this.getLocation} locationDenied={this.locationDenied}/>}
         <TennisClubSearchBar clubs={this.state.tennisClubs} />
         <AdvancedSearch/>
         <div style={{ marginTop: "90px" }}>
-          {this.state.locationGranted && this.state.tennisClubs.map(element => {
+          {this.state.locationGiven && this.state.tennisClubs.map(element => {
             if (element.clubs.state === this.state.stateLocation)
             return (
               <TennisClubInList
@@ -209,7 +222,7 @@ getLocation() {
             );
           })}
         </div>
-        {!this.state.locationGranted && <Spinner/>}
+        {!this.state.locationGiven && this.state.locationDenied === false && <Spinner/>}
         
       </div>
     );
