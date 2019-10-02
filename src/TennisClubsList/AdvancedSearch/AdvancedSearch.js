@@ -13,32 +13,21 @@ class AdvancedSearch extends React.Component {
             clubNameSearch: "",
            
         },
-        location: [],
+        stateLocation: "",
         showLocation: false
     }
         this.searchHandler = this.searchHandler.bind(this);
     }
+
+    
     
     searchHandler = (event) => {
         const newSearchObject = {...this.state.searchObject};
         newSearchObject[event.target.name] = event.target.value;
         this.setState({searchObject: newSearchObject});
     }
-
-    clicer = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            axios.get(`http://open.mapquestapi.com/geocoding/v1/reverse?key=${'enLuN7AK1OntX9nEbhnGO5uGqx04OtfP'}&location=${position.coords.latitude},${position.coords.longitude}` ).then(
-                function(response) {
-                    console.log(response)
-                    this.setState({location: response.data.results[0].locations})
-                }.bind(this)
-            )          
-        });
-        this.setState({showLocation:true})
-    }
    
     render() {
-        console.log(this.state.location)
         return (
           <div id={styles.advancedSearchContainer}>
             <p id={styles.searchHeader}>Advanced Search</p>
@@ -66,6 +55,7 @@ class AdvancedSearch extends React.Component {
             <option>Kentucky</option>
             <option>Louisiana</option>
             <option>Maryland</option>
+            <option>Massachusetts</option>
             <option>Maine</option>
             <option>Montana</option>
             <option>Michigan</option>
@@ -99,15 +89,11 @@ class AdvancedSearch extends React.Component {
             
               
             </select>
+
+            <p>{this.state.stateLocation}</p>
             </div> 
-            <p id={styles.helperText}>You can use the box above to find clubs in your area.</p>
-            <button style={{position: 'relative', top: '200px'}} onClick={this.clicer}>click for ur location</button>
-            {this.state.showLocation && this.state.location.map(element => {
-                const newArray = Object.keys(element)
-                return <p style={{position: "relative", top: "100px"}}>
-                    {element[newArray[0]]}
-                </p>
-            })}
+            <p id={styles.helperText}>You can use the box above to find clubs anywhere.</p>
+            
             </div>
         )
     }
