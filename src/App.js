@@ -10,6 +10,8 @@ import decoder from "jwt-decode";
 import InstructorHome from "./InstructorHome/InstructorHome";
 import InstructorProfileCreate from "./InstructorHome/InstructorProfileCreate/InstructorProfileCreate";
 import AdminProfileCreate from "./AdminHome/AdminProfileCreate/AdminProfileCreate";
+import {connect} from 'react-redux';
+import NeedToLoginPage from './NeedToLoginPage/NeedToLoginPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route path="/clubs" exact component={TennisClubsList} />
+        <Route path="/clubs" exact component={this.props.user ? TennisClubsList : NeedToLoginPage} />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {instructorToken && (
@@ -129,4 +131,10 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(App));

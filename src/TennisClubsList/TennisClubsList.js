@@ -28,10 +28,6 @@ class TennisClubsList extends React.Component {
     axios.get("http://localhost:8080/api/clubsList").then(response => {
         this.setState({ tennisClubs: response.data.clubs });
       });
-  }
-
-  componentDidMount() {
-   
       axios.post('http://localhost:8080/api/getUserLocationInfo', {userId: this.props.user.user.id}).then(
           response => {
               console.log(response)

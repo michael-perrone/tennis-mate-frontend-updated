@@ -74,9 +74,14 @@ class LoginForm extends React.Component {
     console.log(this.state)
     
     return (
-      <div id={styles.loginFormContainer}>
+      <div style={{width: this.props.width, background: this.props.background}} id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
-          <form id={styles.forms}>
+          <form style={{borderRadius: this.props.borderRadius,
+             padding: this.props.padding,
+              border: this.props.border,
+               flexDirection: this.props.flexDirection,
+                display: 'flex',
+                alignItems: this.props.alignItems }}>
             <input
               style={{backgroundColor: this.state.errorLoggingIn ? "#ffd9d9" : ""}}
               onChange={this.getLoginInfo}

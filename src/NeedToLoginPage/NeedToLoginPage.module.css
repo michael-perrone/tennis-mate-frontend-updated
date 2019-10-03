@@ -1,0 +1,17 @@
+#loginFormLeftSide {
+    width: 48vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    border-right: 2px solid white;
+}
+
+#registerFormRightSide {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 47vw;
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import SmallLoginForm from "./SmallLoginForm/SmallLoginForm";
 import DropDown from "./DropDown/DropDown";
 import { withRouter } from "react-router-dom";
 import {connect} from 'react-redux';
@@ -28,7 +27,7 @@ class NameDropDown extends React.Component {
     console.log(this.state);
     return (
       <div>
-        {this.props.adminToken === null && this.props.token === null && this.props.instructorToken === null && <SmallLoginForm didLogIn={this.didLogIn} />}
+        
         {this.props.admin !== null &&
           <div className={styles.dropDownHeader} onClick={this.showDropDownHandler}>
              <p>{this.props.admin.admin.name}</p>

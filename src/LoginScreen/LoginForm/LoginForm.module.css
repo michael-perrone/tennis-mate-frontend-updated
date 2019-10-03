@@ -11,13 +11,13 @@
 #loginFormSubContainer {
   left: -30px;
   position: relative;
-  display: flex;
   margin-top: 15px;
 }
 #loginP {
   font-size: 32px;
   font-family: "Stylish", sans-serif;
 }
+
 
 .errorNoAnimation {
   position: absolute;
