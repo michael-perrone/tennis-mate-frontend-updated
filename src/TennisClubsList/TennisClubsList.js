@@ -7,6 +7,7 @@ import TennisClubSearchBar from "./TennisClubSearchBar/TennisClubSearchBar";
 import AdvancedSearch from './AdvancedSearch/AdvancedSearch';
 import Spinner from '../Spinner/Spinner';
 import LocationModal from './LocationModal/LocationModal';
+import {connect} from 'react-redux';
 
 class TennisClubsList extends React.Component {
   constructor() {
@@ -16,16 +17,34 @@ class TennisClubsList extends React.Component {
       stateLocation: "",
       locationGiven: false,
       showLocationModal: true,
-      locationDenied: false
+      locationDenied: false,
+      townLocation: ""
     };
     this.getLocation = this.getLocation.bind(this);
     this.locationDenied = this.locationDenied.bind(this);
   }
 
+  componentDidMount() {
+      axios.post('http://localhost:8080/api/getUserLocationInfo', {userId: this.props.user.user.id}).then(
+          response => {
+              console.log(response)
+          }
+      )
+  }
+
   locationDenied() {
-    console.log('hi')
     this.setState({showLocationModal: false});
-    this.setState({locationDenied: true})
+    this.setState({locationDenied: true});
+    if(this.props.user) {
+        axios.post('http://localhost:8080/api/saveLocation', {user: this.props.user, locationSaved: false}).then(
+            response => {
+                console.log(response)
+            }
+        ).catch(error => {
+            console.log(error)
+        })
+    }
+    
   }
 
 getLocation() {
@@ -40,6 +59,9 @@ getLocation() {
               function(response) {
                   // shortening stateLocationVariable to SLV for if else. definitely not best practice but
                   // since im working alone shouldnt be an issue
+
+                  const CLV = response.data.results[0].locations[0].adminArea5;
+                  console.log(CLV)
                   const SLV = response.data.results[0].locations[0].adminArea3;
                   console.log(SLV)
                   
@@ -191,11 +213,23 @@ getLocation() {
                   else if (SLV === "WY") {
                       this.setState({stateLocation: "Wyoming"})
                   }
+                  this.setState({townLocation: CLV})
+                  console.log(this.state.townLocation, this.state.stateLocation)
+                  axios.post('http://localhost:8080/api/saveLocation', 
+                  {user:this.props.user,
+                  locationSaved: true, stateLocation: this.state.stateLocation, 
+                  townLocation: this.state.townLocation}).then(response => {
+                console.log(response)
+            }
+        ).catch(error => {
+            console.log(error)
+        })
               }.bind(this)
-          ) 
+          )
           this.setState({locationGiven: true})         
-          
+         
         });
+        
     }
     catch(error) {
         console.log(error)
@@ -229,4 +263,12 @@ getLocation() {
   }
 }
 
-export default withRouter(TennisClubsList);
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer.user,
+        admin: state.authReducer.admin,
+        instructor: state.authReducer.instructor
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(TennisClubsList));
