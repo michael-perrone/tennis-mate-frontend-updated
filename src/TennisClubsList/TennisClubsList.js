@@ -16,7 +16,7 @@ class TennisClubsList extends React.Component {
       tennisClubs: [],
       stateLocation: "",
       locationGiven: false,
-      showLocationModal: true,
+      showLocationModal: false,
       locationDenied: false,
       townLocation: ""
     };
@@ -24,10 +24,30 @@ class TennisClubsList extends React.Component {
     this.locationDenied = this.locationDenied.bind(this);
   }
 
+  componentWillMount() {
+    axios.get("http://localhost:8080/api/clubsList").then(response => {
+        this.setState({ tennisClubs: response.data.clubs });
+      });
+  }
+
   componentDidMount() {
+   
       axios.post('http://localhost:8080/api/getUserLocationInfo', {userId: this.props.user.user.id}).then(
           response => {
               console.log(response)
+              if (response.data.locationDenied === true) {
+                this.setState({locationDenied: true})
+                
+              }
+              if (response.data.userLocationSaved === true) {
+                  this.setState({locationGiven: true})
+                  this.setState({stateLocation: response.data.userState})
+                  this.setState({stateTown: response.data.userTown})
+                  
+              }
+              if (!response.data.userLocationSaved && response.data.locationDenied === false) {
+                  this.setState({showLocationModal: true})
+              }
           }
       )
   }
@@ -36,7 +56,7 @@ class TennisClubsList extends React.Component {
     this.setState({showLocationModal: false});
     this.setState({locationDenied: true});
     if(this.props.user) {
-        axios.post('http://localhost:8080/api/saveLocation', {user: this.props.user, locationSaved: false}).then(
+        axios.post('http://localhost:8080/api/saveLocation', {user: this.props.user, locationSaved: false, locationDenied: true}).then(
             response => {
                 console.log(response)
             }
@@ -217,7 +237,8 @@ getLocation() {
                   console.log(this.state.townLocation, this.state.stateLocation)
                   axios.post('http://localhost:8080/api/saveLocation', 
                   {user:this.props.user,
-                  locationSaved: true, stateLocation: this.state.stateLocation, 
+                  locationSaved: true, stateLocation: this.state.stateLocation,
+                  locationDenied: false, 
                   townLocation: this.state.townLocation}).then(response => {
                 console.log(response)
             }
@@ -238,13 +259,15 @@ getLocation() {
   }
 
   render() {
+      console.log(this.state.tennisClubs)
     return (  
       <div id={styles.clubsContainer}>
           {this.state.showLocationModal === true && <LocationModal getLocation={this.getLocation} locationDenied={this.locationDenied}/>}
         <TennisClubSearchBar clubs={this.state.tennisClubs} />
         <AdvancedSearch/>
         <div style={{ marginTop: "90px" }}>
-          {this.state.locationGiven && this.state.tennisClubs.map(element => {
+          {this.state.locationGiven === true && this.state.tennisClubs.map(element => {
+              console.log(element.clubs.state, "hi", this.state.stateLocation)
             if (element.clubs.state === this.state.stateLocation)
             return (
               <TennisClubInList
@@ -256,8 +279,7 @@ getLocation() {
             );
           })}
         </div>
-        {!this.state.locationGiven && this.state.locationDenied === false && <Spinner/>}
-        
+        {!this.state.locationGiven && this.state.locationDenied === false && <Spinner/>} 
       </div>
     );
   }
