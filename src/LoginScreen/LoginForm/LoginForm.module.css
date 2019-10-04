@@ -8,16 +8,17 @@
   display: flex;
   justify-content: center;
 }
+
 #loginFormSubContainer {
   left: -30px;
   position: relative;
   margin-top: 15px;
 }
+
 #loginP {
   font-size: 32px;
   font-family: "Stylish", sans-serif;
 }
-
 
 .errorNoAnimation {
   position: absolute;

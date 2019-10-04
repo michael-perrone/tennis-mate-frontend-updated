@@ -74,7 +74,7 @@ class LoginForm extends React.Component {
     console.log(this.state)
     
     return (
-      <div style={{width: this.props.width, background: this.props.background}} id={styles.loginFormContainer}>
+      <div style={{alignSelf: this.props.alignSelf, paddingBottom: this.props.paddingBottom, borderBottom: this.props.borderBottom, width: this.props.width, background: this.props.background}} id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
           <form style={{borderRadius: this.props.borderRadius,
              padding: this.props.padding,
