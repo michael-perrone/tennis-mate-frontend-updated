@@ -13,10 +13,14 @@
   left: -30px;
   position: relative;
   margin-top: 15px;
+  padding-bottom: 25px;
+  border-bottom: 3px solid black;
 }
 
+border
+
 #loginP {
-  font-size: 32px;
+  font-size: 26px;
   font-family: "Stylish", sans-serif;
 }
 
@@ -40,12 +44,12 @@
 
 
 .loginInputs {
-  height: 35px;
+  height: 22px;
   font-family: "Stylish", sans-serif;
   color: "black";
   padding-left: 8px;
-  width: 240px;
-  font-size: 22px;
+  width: 175px;
+  font-size: 16px;
   margin-left: 13px;
   border-radius: 3px;
   border: 2px solid black;
@@ -53,10 +57,11 @@
 }
 
 #loginButton {
-  height: 40px;
-  width: 80px;
+  height: 28px;
+  width: 55px;
+  padding-bottom: 4px;
   position: relative;
-  font-size: 16px;
+  font-size: 14px;
   background-color: white;
   border: none;
   color: black;
@@ -64,19 +69,17 @@
   border-radius: 18px;
 }
 
-@media (max-width: 1660px) and (min-width: 1400px) {
-  #loginP {
-    display: none;
-  }
+@media (max-width: 1300px) and (min-width: 950px) {
+ 
   #loginFormSubContainer {
-    left: -10px;
+    left: 0px;
   }
   #loginFormContainer {
     width: 45vw;
   }
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
+@media (max-width: 950px) and (min-width: 0px) {
   #loginFormContainer {
     width: 100vw;
     background: none;

@@ -1,17 +1,16 @@
 #instructorSignup {
-  font-size: 30px;
-  position: relative;
-  top: -26px;
+  font-size: 20px;
   color: white;
   cursor: pointer;
-
   border-bottom: 1px solid white;
   padding-top: 4px;
+  position: relative;
+  top: -5px;
 }
 
 @media (max-width: 700px) {
   #instructorSignup {
-    font-size: 22px;
+    font-size: 18px;
     top: 0;
   }
 }

@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1000px) {
   #thanks {
     margin-top: 20px;
   }

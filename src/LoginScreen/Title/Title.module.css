@@ -1,6 +1,6 @@
 #TitleContainer {
-  height: 40vh;
-  width: 60vw;
+  height: 46vh;
+  width: 50vw;
   align-self: flex-end;
   display: flex;
   align-items: center;
@@ -15,19 +15,19 @@
 }
 
 #title {
-  font-size: 96px;
+  font-size: 68px;
   font-weight: bold;
   position: relative;
   margin: 0;
   position: relative;
-  left: 100px;
+  
   font-family: "Permanent Marker", cursive;
 }
 
 #tennisBall {
   position: relative;
-  top: 45px;
-  left: 55px;
+  top: 30px;
+  left: -30px;
   animation-name: tennisBallBounce;
   animation-duration: 2s;
   animation-timing-function: linear;
@@ -44,20 +44,19 @@
   }
 }
 
-@media (max-width: 1500px) and (min-width: 0px) {
+@media (max-width: 950px) and (min-width: 0px) {
   #title {
-    font-size: 96px;
-    left: 100px;
+    left: 120px;
     top: -26px;
   }
 
   #tennisBall {
-    top: 12px;
-    left: 53px;
+    top: -40px;
+    left: 70px;
   }
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
+@media (max-width: 950px) and (min-width: 0px) {
   #TitleContainer {
     justify-content: center;
     left: 0px;
@@ -79,6 +78,6 @@
 
 @media (max-width: 700px) and (min-width: 0px) {
   #title {
-    font-size: 52px;
+    font-size: 36px;
   }
 }

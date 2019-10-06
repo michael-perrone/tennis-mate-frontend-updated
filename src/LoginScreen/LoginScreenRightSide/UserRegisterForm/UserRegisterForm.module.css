@@ -1,5 +1,6 @@
 #registerForm {
-  width: 650px;
+  height: 330px;
+  width: 430px;
   border: 2px solid white;
   border-radius: 22px;
   position: relative;
@@ -10,8 +11,10 @@
   transition-duration: 2s;
 }
 
+
 #form {
   transition-duration: 2s;
+  height: 367px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -19,31 +22,28 @@
 
 #registerP {
   color: white;
-  font-size: 52px;
-  margin-bottom: 10px;
+  font-size: 32px;
+  margin-bottom: 5px;
   font-family: "Indie Flower", cursive;
   transition-duration: 1s;
 }
 
 #signUpButton {
-  height: 42px;
-  width: 96px;
-  border-radius: 20px;
-  font-size: 16px;
+  height: 28px;
+  width: 68px;
+  border-radius: 10px;
+  font-size: 12px;
   border: none;
   color: black;
-  align-self: flex-end;
   position: relative;
-  top: -60px;
-  right: 28px;
-  color: black;
   background-color: white;
   letter-spacing: 1.4px;
   font-weight: bold;
+  left: 18px;
 }
 
-.mediaAgeGenderDiv {
-  margin-top: 12px;
+.divWidthControl{
+  position: relative;
 }
 
 .registerFormContainer {
@@ -53,7 +53,7 @@
   position: relative;
   left: 40px;
   transition-duration: 1.2s;
-  margin-top: 30px;
+  margin-top: 5px;
 }
 
 #animator {
@@ -68,14 +68,16 @@
 .labels {
   color: white;
   font-family: "Stylish", sans-serif;
-  font-size: 36px;
+  font-size: 20px;
   margin-left: 20px;
+  position: relative;
+  top: -5px;
 }
 
 #selecter {
-  height: 40px;
-  width: 60px;
-  font-size: 20px;
+  height: 24px;
+  width: 50px;
+  font-size: 14px;
   margin-left: 10px;
   position: relative;
   top: -4px;
@@ -83,44 +85,58 @@
 
 .inputs {
   color: white;
-  height: 36px;
-  width: 300px;
+  height: 22px;
+  width: 210px;
   position: relative;
   background-color: transparent;
   border-radius: 6px;
   border: 2px solid white;
   top: -6px;
-  font-size: 20px;
+  font-size: 14px;
   padding-left: 12px;
   margin-left: 8px;
   outline: none;
 }
 
+.divWidthControl{
+  margin-top: 3px;
+}
+
+#instructorSignUpAndRegSignUp {
+  margin:8px 0 20px 0;
+  display: flex; 
+  justify-content: space-between;
+  position: relative;
+  width: 310px;
+}
+
 .selectorLabels {
   color: white;
   font-family: "Stylish", sans-serif;
-  font-size: 36px;
+  font-size: 20px;
   margin-left: 20px;
-}
-
-.divWidthControl {
-  margin-top: 8px;
+  position: relative;
+  top: -5px;
 }
 
 #input2 {
-  width: 348px;
+  width: 234px;
   margin-left: 10px;
 }
 
 #input1 {
-  width: 403px;
+  width: 265px;
 }
 
 #ageGenderDiv {
   position: relative;
-  width: 628px;
+  width: 350px;
   display: flex;
   justify-content: flex-start;
+}
+
+#instructorSignUpAndRegSignUp{
+
 }
 
 @media (min-width: 700px) {
@@ -130,15 +146,18 @@
   }
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
+@media (max-width: 1100px) and (min-width: 0px) {
   .registerFormContainer {
     left: 0;
+  }
+  #registerP {
+    margin-top: 30px;
   }
 }
 
 @media (max-width: 700px) and (min-width: 0px) {
   #registerForm {
-    height: 600px;
+    height: 400px;
     width: 355px;
     display: flex;
     align-items: center;
@@ -153,6 +172,7 @@
 
   #input2 {
     width: 300px;
+    margin-left: 0px;
   }
 
   .inputs {
@@ -162,6 +182,7 @@
   }
 
   #registerP {
+
     font-size: 28px;
   }
 
@@ -170,18 +191,17 @@
     position: relative;
     top: -8px;
   }
-  #userSignUpButton {
+  #signUpButton {
     height: 40px;
     width: 96px;
     border-radius: 6px;
     font-size: 16px;
-    top: -44px;
+    top: -40px;
     right: -8px;
   }
 
   .divWidthControl {
     width: 300px;
-    margin-top: 12px;
   }
   #form {
     width: 310px;

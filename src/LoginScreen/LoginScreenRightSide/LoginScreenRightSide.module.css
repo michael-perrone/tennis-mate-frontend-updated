@@ -12,10 +12,10 @@
   flex-direction: column;
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
+@media (max-width: 950px) and (min-width: 0px) {
   #rightSideContainer {
     background: rgba(0, 0, 0, 0.84);
-    height: 1080px;
+    height: 600px;
     width: 100%;
   }
 }

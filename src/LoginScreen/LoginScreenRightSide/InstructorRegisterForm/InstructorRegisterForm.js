@@ -3,15 +3,8 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import AlertInstructorFirstName from "../../../AlertInstructor/AlertInstructorFirstName";
-import AlertInstructorLastName from "../../../AlertInstructor/AlertInstructorLastName";
-import AlertInstructorEmail from "../../../AlertInstructor/AlertInstructorEmail";
-import AlertInstructorPhoneNumber from "../../../AlertInstructor/AlertInstructorPhoneNumber";
-import AlertInstructorPassword from "../../../AlertInstructor/AlertInstructorPassword";
-import AlertInstructorPasswordConfirm from "../../../AlertInstructor/AlertInstructorPasswordConfirm";
-import AlertInstructorAge from "../../../AlertInstructor/AlertInstructorAge";
 import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
-import AlertInstructorGender from "../../../AlertInstructor/AlertInstructorGender";
+
 import styles from "./InstructorRegisterForm.module.css";
 import {
   INSTRUCTOR_WANTS_TO_REGISTER,
@@ -162,7 +155,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             {this.state.dirty.firstName === true &&
               this.state.instructor.firstName === "" && (
-                <AlertInstructorFirstName />
+                <p>holder</p>
               )}
             <div className={otherStyles.divWidthControl}>
               <label
@@ -188,7 +181,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             {this.state.dirty.lastName === true &&
               this.state.instructor.lastName === "" && (
-                <AlertInstructorLastName />
+                <p>holder</p>
               )}
             <div className={otherStyles.divWidthControl}>
               <label
@@ -213,7 +206,7 @@ class InstructorRegisterForm extends React.Component {
               />
             </div>
             {this.validateEmail(this.state.instructor.email) === false &&
-              this.state.dirty.email === true && <AlertInstructorEmail />}
+              this.state.dirty.email === true && <p>holder</p>}
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen" }}
@@ -236,7 +229,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             {this.validatePhone(this.state.instructor.phoneNumber) === false &&
               this.state.dirty.phoneNumber === true && (
-                <AlertInstructorPhoneNumber />
+                <p>holder</p>
               )}
             <div className={otherStyles.divWidthControl}>
               <label
@@ -260,7 +253,7 @@ class InstructorRegisterForm extends React.Component {
             </div>
             {this.state.dirty.createPassword === true &&
               this.state.instructor.createPassword.length < 7 && (
-                <AlertInstructorPassword />
+                <p>holder</p>
               )}
             <div className={otherStyles.divWidthControl}>
               <label
@@ -285,7 +278,7 @@ class InstructorRegisterForm extends React.Component {
             {this.state.dirty.passwordConfirm === true &&
               this.state.instructor.passwordConfirm !==
                 this.state.instructor.createPassword && (
-                <AlertInstructorPasswordConfirm />
+                  <p>holder</p>
               )}
             <div className={otherStyles.divWidthControl}>
               <label
@@ -448,7 +441,7 @@ class InstructorRegisterForm extends React.Component {
                     <option>118</option>
                     <option>119</option>
                   </select>
-                  {this.state.showOptionals && <AlertInstructorAge />}
+                  {this.state.showOptionals && <p>holder</p>}
                 </div>
               </div>
               <div
@@ -478,7 +471,7 @@ class InstructorRegisterForm extends React.Component {
                     <option>Other</option>
                   </select>
                 </div>
-                {this.state.showOptionals && <AlertInstructorGender />}
+                {this.state.showOptionals && <p>holder</p>}
               </div>
             </div>
             <button

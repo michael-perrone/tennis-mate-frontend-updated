@@ -1,12 +1,6 @@
 /* eslint-disable no-useless-escape */
 import React from "react";
 import styles from "./AdminForm.module.css";
-import AlertAdminFirstName from "../../../AlertAdmin/AlertAdminFirstName";
-import AlertAdminLastName from "../../../AlertAdmin/AlertAdminLastName";
-import AlertAdminEmail from "../../../AlertAdmin/AlertAdminEmail";
-import AlertAdminPhoneNumber from "../../../AlertAdmin/AlertAdminPhoneNumber";
-import AlertAdminPassword from "../../../AlertAdmin/AlertAdminPassword";
-import AlertAdminPasswordConfirm from "../../../AlertAdmin/AlertAdminPasswordConfirm";
 import otherStyles from "../../../LoginScreen/LoginScreenRightSide/UserRegisterForm/UserRegisterForm.module.css";
 import { connect } from "react-redux";
 
@@ -106,7 +100,7 @@ class AdminForm extends React.Component {
             />
           </div>
           {this.state.dirty.firstName === true &&
-            this.state.admin.firstName === "" && <AlertAdminFirstName />}
+            this.state.admin.firstName === "" && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "0.6px", color: "black" }}
@@ -128,7 +122,7 @@ class AdminForm extends React.Component {
             />
           </div>
           {this.state.dirty.lastName === true &&
-            this.state.admin.lastName === "" && <AlertAdminLastName />}
+            this.state.admin.lastName === "" && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "0.3px", color: "black" }}
@@ -150,7 +144,7 @@ class AdminForm extends React.Component {
             />
           </div>
           {this.validateEmail(this.state.admin.email) === false &&
-            this.state.dirty.email === true && <AlertAdminEmail />}
+            this.state.dirty.email === true && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
               Phone Number:
@@ -169,7 +163,7 @@ class AdminForm extends React.Component {
             />
           </div>
           {this.validatePhone(this.state.admin.phoneNumber) === false &&
-            this.state.dirty.phoneNumber === true && <AlertAdminPhoneNumber />}
+            this.state.dirty.phoneNumber === true && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "1.3px", color: "black" }}
@@ -191,7 +185,7 @@ class AdminForm extends React.Component {
           </div>
           {this.state.dirty.createPassword === true &&
             this.state.admin.createPassword.length < 7 && (
-              <AlertAdminPassword />
+              <p>holder</p>
             )}
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
@@ -211,7 +205,7 @@ class AdminForm extends React.Component {
           </div>
           {this.state.dirty.passwordConfirm === true &&
             this.state.admin.passwordConfirm !==
-              this.state.admin.createPassword && <AlertAdminPasswordConfirm />}
+              this.state.admin.createPassword && <p>holder</p>}
           <div
             style={{ marginTop: "14px" }}
             className={otherStyles.divWidthControl}
