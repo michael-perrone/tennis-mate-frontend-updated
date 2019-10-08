@@ -75,14 +75,14 @@ class TennisClubSignup extends React.Component {
     }
     return (
       <div id={newContainer} className={styles.container}>
-        <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} />
+        {this.props.adminEntered && <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} /> }
 
-        <TennisClubSignupRightSide
+        {!this.props.adminEntered &&<TennisClubSignupRightSide
           name={this.state.admin.firstName}
           tennisClub={this.state.admin.tennisClub}
           getAdminInfo={this.getAdminInfo}
         />
-
+        }
         {this.state.allInfoReadyToSend && (
           <BackDrop unShowConfirmModal={this.unShowConfirmModal} />
         )}

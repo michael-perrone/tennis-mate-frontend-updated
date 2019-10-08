@@ -1,45 +1,9 @@
 .containerLeft {
   height: 100vh;
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
-  .containerLeft {
-    width: 100%;
-    height: 700px;
-    border-top: 2px solid black;
-  }
-  #newContainerLeft {
-    height: 600px;
-  }
-}
 
-@media (max-width: 1000px) and (min-width: 750px) {
-  .containerLeft {
-    height: 1000px;
-  }
-  #newContainerLeft {
-    height: 600px;
-  }
-}
-
-@media (max-width: 750px) and (min-width: 500px) {
-  .containerLeft {
-    height: 1200px;
-  }
-  #newContainerLeft {
-    height: 600px;
-  }
-}
-
-@media (max-width: 500px) and (min-width: 0px) {
-  .containerLeft {
-    height: 1500px;
-  }
-  #newContainerLeft {
-    height: 700px;
-  }
-}

@@ -18,9 +18,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  position: relative;
 }
 
-#registerP {
+.registerP {
+  margin-top: 10px;
   color: white;
   font-size: 32px;
   margin-bottom: 5px;
@@ -52,17 +54,18 @@
   align-items: center;
   position: relative;
   left: 40px;
-  transition-duration: 1.2s;
-  margin-top: 5px;
+  transition-duration: 0.8s;
+  opacity: 1;
 }
 
 #animator {
   transform: scale(0);
+  opacity: 0;
   transition-delay: 0s;
 }
 
 #animator2 {
-  transition-delay: 1.2s;
+  transition-delay: 0.8s;
 }
 
 .labels {
@@ -135,9 +138,6 @@
   justify-content: flex-start;
 }
 
-#instructorSignUpAndRegSignUp{
-
-}
 
 @media (min-width: 700px) {
   .mediaAgeGenderDiv {
@@ -157,8 +157,8 @@
 
 @media (max-width: 700px) and (min-width: 0px) {
   #registerForm {
-    height: 400px;
-    width: 355px;
+    height: 425px;
+    width: 290px;
     display: flex;
     align-items: center;
   }
@@ -167,22 +167,21 @@
   }
 
   #input1 {
-    width: 300px;
+    width: 240px;
   }
 
   #input2 {
-    width: 300px;
+    width: 240px;
     margin-left: 0px;
   }
 
   .inputs {
-    width: 300px;
+    width: 240px;
     margin-left: 0px;
     margin-bottom: 8px;
   }
 
   #registerP {
-
     font-size: 28px;
   }
 
@@ -191,22 +190,29 @@
     position: relative;
     top: -8px;
   }
+
   #signUpButton {
-    height: 40px;
-    width: 96px;
+    height: 24px;
+    width: 60px;
     border-radius: 6px;
-    font-size: 16px;
-    top: -40px;
-    right: -8px;
+    font-size: 12px;
+    left: 0px;
+
+  }
+
+  #instructorSignUpAndRegSignUp {
+    width: 255px;
+    margin: 12px 0px 20px 0px;
   }
 
   .divWidthControl {
-    width: 300px;
+    width: 290px;
+    display: flex;
+    justify-content: center;
   }
   #form {
-    width: 310px;
-    position: relative;
-    top: 20px;
+    width: 290px;
+
   }
 
   #ageGenderDiv {

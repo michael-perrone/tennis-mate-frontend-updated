@@ -18,15 +18,15 @@
 }
 
 #registerP {
-  font-size: 52px;
+  font-size: 40px;
   position: relative;
   align-self: center;
   font-family: "Stylish", sans-serif;
 }
 
 #registerForm {
-  height: 530px;
-  width: 680px;
+  height: 375px;
+  width: 430px;
   box-shadow: 1px 1px 30px black;
   border-radius: 22px;
   position: relative;

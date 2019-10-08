@@ -1,5 +1,5 @@
 #goBack {
-  position: absolute;
+  position: relative;
   left: 40px;
   height: 45px;
   border: none;
@@ -9,21 +9,6 @@
   padding: 0px 10px;
   height: 50px;
   width: 18%;
-  top: 500px;
 }
 
-@media (max-width: 1400px) and (min-width: 0px) {
-  #goBack {
-    top: 500px;
-    left: 15px;
-    height: 45px;
-    width: 20%;
-  }
-}
 
-@media (max-width: 720px) and (min-width: 0px) {
-  #goBack {
-    top: 508px;
-    height: 36px;
-  }
-}

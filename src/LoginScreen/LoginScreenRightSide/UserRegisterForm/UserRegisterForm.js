@@ -117,7 +117,7 @@ class UserRegisterForm extends React.Component {
     return (
       <div className={styles.registerFormContainer} id={className}>
         <p
-          id={styles.registerP}
+          className={styles.registerP}
         >
           Register for Tennis Mate
         </p>

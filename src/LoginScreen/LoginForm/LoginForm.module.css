@@ -13,11 +13,9 @@
   left: -30px;
   position: relative;
   margin-top: 15px;
-  padding-bottom: 25px;
-  border-bottom: 3px solid black;
+  margin-bottom: 25px;
 }
 
-border
 
 #loginP {
   font-size: 26px;
@@ -59,7 +57,7 @@ border
 #loginButton {
   height: 28px;
   width: 55px;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   position: relative;
   font-size: 14px;
   background-color: white;
@@ -81,7 +79,7 @@ border
 
 @media (max-width: 950px) and (min-width: 0px) {
   #loginFormContainer {
-    width: 100vw;
+    width: 100%;
     background: none;
   }
   #loginP {
@@ -103,11 +101,11 @@ border
 
 @media (max-width: 700px) and (min-width: 0px) {
   .loginInputs {
-    width: 132px;
+    width: 128px;
     font-size: 16px;
   }
   #loginButton {
-    width: 55px;
+    width: 50px;
     border-radius: 6px;
     top: -1px;
     margin-left: 4px;

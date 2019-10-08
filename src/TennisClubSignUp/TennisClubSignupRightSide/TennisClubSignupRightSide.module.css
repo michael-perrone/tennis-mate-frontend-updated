@@ -10,7 +10,7 @@
 #pTag {
   box-shadow: 2px 2px 40px rgb(66, 85, 29);
   padding: 8px;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 36px;
   background-color: rgb(239, 255, 208);
 }
@@ -18,32 +18,4 @@
 #pTagContainer {
   width: 90%;
   margin-bottom: 14px;
-}
-
-@media (max-width: 1400px) and (min-width: 0px) {
-  .containerRight {
-    flex-direction: column-reverse;
-    width: 95vw;
-  }
-  #pTagContainer {
-    margin-top: 30px;
-  }
-}
-
-@media (max-width: 1000px) and (min-width: 750px) {
-  .containerRight {
-    height: 800px;
-  }
-}
-
-@media (max-width: 750px) and (min-width: 500px) {
-  .containerLeft {
-    height: 1000px;
-  }
-}
-
-@media (max-width: 500px) and (min-width: 0px) {
-  .containerLeft {
-    height: 1100px;
-  }
 }

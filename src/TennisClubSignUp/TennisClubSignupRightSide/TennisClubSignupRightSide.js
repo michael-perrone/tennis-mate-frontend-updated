@@ -1,18 +1,13 @@
 import React from "react";
 import styles from "./TennisClubSignupRightSide.module.css";
 import AdminForm from "./AdminForm/AdminForm";
-import RightSidePTags from "./RightSidePTags/RightSidePTags";
 import { connect } from "react-redux";
 
 class TennisClubSignupRightSide extends React.Component {
   render() {
     return (
       <div className={styles.containerRight}>
-        <AdminForm getAdminInfo={this.props.getAdminInfo} />
-        <RightSidePTags
-          name={this.props.name}
-          tennisClub={this.props.tennisClub}
-        />
+       <AdminForm getAdminInfo={this.props.getAdminInfo} />
         {!this.props.adminEntered && (
           <div id={styles.pTagContainer}>
             <p id={styles.pTag}>
@@ -23,6 +18,7 @@ class TennisClubSignupRightSide extends React.Component {
               password you create here to login from the home page. Admins can
               add instructors, change court names, and much more.
             </p>
+            
           </div>
         )}
       </div>

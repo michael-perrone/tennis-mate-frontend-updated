@@ -1,5 +1,4 @@
 import React from "react";
-import LeftSidePTags from "./LeftSidePTags/LeftSidePTags";
 import styles from "./TennisClubSignupLeftSide.module.css";
 import TennisClubForm from "./TennisClubForm/TennisClubForm";
 import { connect } from "react-redux";
@@ -12,9 +11,7 @@ class TennisClubSignupLeftSide extends React.Component {
       newContainerLeft = styles.newContainerLeft;
     }
     return (
-      <div id={newContainerLeft} className={styles.containerLeft}>
-        <LeftSidePTags />
-
+      <div id={styles.newContainerLeft} className={styles.containerLeft}>
         <TennisClubForm
           unEnterAdmin={this.props.unEnterAdmin}
           getTennisClubInfo={this.props.getTennisClubInfo}

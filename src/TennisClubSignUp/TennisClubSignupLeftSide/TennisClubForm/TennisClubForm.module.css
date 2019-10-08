@@ -1,13 +1,11 @@
 .subContainerLeft {
-  height: 900px;
-  width: 80%;
+  height: 600px;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  transform: translateX(-180vw);
+  transform: translate(-700px, 300px);
   transition-duration: 2s;
-  margin-top: 50px;
 }
 
 #timeSelectors {
@@ -27,23 +25,22 @@
   height: 40px;
   position: relative;
   top: -8px;
-
   width: 70px;
 }
 
 #input3 {
-  width: 280 px;
+  width: 280px;
 }
 
 #registerP {
-  font-size: 52px;
+  font-size: 38px;
   position: relative;
   font-family: "Stylish", sans-serif;
 }
 
 #registerForm {
-  height: 550px;
-  width: 680px;
+  height: 440px;
+  width: 500px;
   box-shadow: 1px 1px 30px black;
   border-radius: 22px;
   position: relative;
@@ -60,41 +57,12 @@
 
 #registerButton {
   margin-top: 12px;
-  font-size: 28px;
+  font-size: 18px;
   border-radius: 14px;
   padding: 8px;
-  width: 400px;
+  width: 260px;
   border: none;
   box-shadow: 1px 1px 10px black;
   align-self: flex-end;
-  position: relative;
-  right: 40px;
 }
 
-@media (max-width: 1587px) and (min-width: 1400px) {
-  .subContainerLeft {
-    margin-left: 80px;
-  }
-}
-
-@media (max-width: 1400px) and (min-width: 0px) {
-  .subContainerLeft {
-    width: 95vw;
-    height: 600px;
-    align-items: center;
-  }
-}
-
-@media (max-width: 720px) and (min-width: 0px) {
-  #registerForm {
-    width: 90%;
-  }
-
-  #registerButton {
-    width: 58%;
-    font-size: 16px;
-  }
-  #registerP {
-    font-size: 34px;
-  }
-}
