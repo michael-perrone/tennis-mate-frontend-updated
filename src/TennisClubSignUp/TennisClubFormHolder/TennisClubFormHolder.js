@@ -14,7 +14,7 @@ class TennisClubSignupLeftSide extends React.Component {
     }
     return (
       <div id={styles.newContainerLeft} className={styles.containerLeft}>
-          <p style={{ margin:"30px 0", width: "75%"}} id={adminFormStyles.pTag}>We've got your administrator information and you're almost ready to get started. We just need a little more information about your club. Please fill this information out carefully.</p>
+          <p style={{width: "90%"}} id={adminFormStyles.pTag}>We've got your administrator information and you're almost ready to get started. We just need a little more information about your club. Please fill this information out carefully.</p>
         <TennisClubForm
           unEnterAdmin={this.props.unEnterAdmin}
           getTennisClubInfo={this.props.getTennisClubInfo}

@@ -51,7 +51,7 @@
   align-items: flex-start;
   background-color: transparent;
   justify-content: space-around;
-  margin-bottom: 15px;
+  margin: 18px 0px;
 }
 
 #input3 {
@@ -96,7 +96,7 @@
 }
 
 
-@media(max-width: 600px) and (min-width: 0px) {
+@media(max-width: 700px) and (min-width: 0px) {
   #registerForm {
     width: 290px;
   }
