@@ -1,7 +1,7 @@
 import styles from "./TennisClubSignup.module.css";
 import React from "react";
-import TennisClubSignupLeftSide from "./TennisClubSignupLeftSide/TennisClubSignupLeftSide";
-import TennisClubSignupRightSide from "./TennisClubSignupRightSide/TennisClubSignupRightSide";
+import AdminFormHolder from './AdminFormHolder/AdminFormHolder';
+import TennisClubFormHolder from './TennisClubFormHolder/TennisClubFormHolder';
 import { ADMIN_ENTERED, ADMIN_LOGIN_SUCCESS } from "../actions/actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -75,9 +75,9 @@ class TennisClubSignup extends React.Component {
     }
     return (
       <div id={newContainer} className={styles.container}>
-        {this.props.adminEntered && <TennisClubSignupLeftSide getTennisClubInfo={this.getTennisClubInfo} /> }
+        {this.props.adminEntered && <TennisClubFormHolder getTennisClubInfo={this.getTennisClubInfo} /> }
 
-        {!this.props.adminEntered &&<TennisClubSignupRightSide
+        {!this.props.adminEntered &&<AdminFormHolder
           name={this.state.admin.firstName}
           tennisClub={this.state.admin.tennisClub}
           getAdminInfo={this.getAdminInfo}

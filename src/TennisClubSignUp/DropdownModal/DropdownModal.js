@@ -33,15 +33,11 @@ class DropdownModal extends React.Component {
             <li>Club Phone: {this.props.tennisClub.phoneNumber}</li>
             <li>
               Open Time:{" "}
-              {this.props.tennisClub.clubOpenTimeNumber +
-                " " +
-                this.props.tennisClub.clubOpenTimeAMPM}
+              {this.props.tennisClub.clubOpenTime}
             </li>
             <li>
               Close Time:{" "}
-              {this.props.tennisClub.clubCloseTimeNumber +
-                " " +
-                this.props.tennisClub.clubCloseTimeAMPM}
+              {this.props.tennisClub.clubCloseTime}
             </li>
           </ul>
 

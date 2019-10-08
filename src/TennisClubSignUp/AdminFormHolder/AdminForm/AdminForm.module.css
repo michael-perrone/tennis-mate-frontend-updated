@@ -1,5 +1,4 @@
 .subContainerRight {
-  margin-top: 20px;
   height: 100vh;
   width: 80%;
   transform: translateY(0);
@@ -22,10 +21,11 @@
   position: relative;
   align-self: center;
   font-family: "Stylish", sans-serif;
+  margin-bottom: 10px;
 }
 
 #registerForm {
-  height: 375px;
+  height: 400px;
   width: 430px;
   box-shadow: 1px 1px 30px black;
   border-radius: 22px;
@@ -40,12 +40,14 @@
 
 #registerButton {
   margin-top: 12px;
-  font-size: 28px;
+  font-size: 18px;
   border-radius: 14px;
-  padding: 8px;
-  width: 400px;
+  padding-bottom: 2px;
+  width: 240px;
   border: none;
   box-shadow: 1px 1px 10px black;
+  height: 32px;
+  margin-bottom: 15px;
 }
 
 @media (max-width: 1587px) and (min-width: 1400px) {
@@ -64,11 +66,6 @@
 
 @media (max-width: 670px) and (min-width: 0px) {
   #registerForm {
-    width: 90%;
-  }
-
-  #registerButton {
-    width: 90%;
-    font-size: 22px;
+    width: 290px;
   }
 }

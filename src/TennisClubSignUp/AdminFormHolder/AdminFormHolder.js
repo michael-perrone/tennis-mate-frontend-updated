@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./TennisClubSignupRightSide.module.css";
+import styles from "./AdminFormHolder.module.css";
 import AdminForm from "./AdminForm/AdminForm";
 import { connect } from "react-redux";
 

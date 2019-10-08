@@ -82,7 +82,7 @@ class AdminForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
         >
-          <div className={otherStyles.divWidthControl}>
+          <div style={{marginTop: "15px"}} className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
               First Name:
             </label>
@@ -166,7 +166,7 @@ class AdminForm extends React.Component {
             this.state.dirty.phoneNumber === true && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
-              style={{ letterSpacing: "1.3px", color: "black" }}
+              style={{ letterSpacing: "0.7px", color: "black" }}
               className={otherStyles.labels}
             >
               Create Password:
@@ -207,7 +207,6 @@ class AdminForm extends React.Component {
             this.state.admin.passwordConfirm !==
               this.state.admin.createPassword && <p>holder</p>}
           <div
-            style={{ marginTop: "14px" }}
             className={otherStyles.divWidthControl}
           >
             <label style={{ color: "black" }} className={otherStyles.labels}>
