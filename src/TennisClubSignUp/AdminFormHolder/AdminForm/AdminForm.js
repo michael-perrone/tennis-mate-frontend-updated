@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./AdminForm.module.css";
 import otherStyles from "../../../LoginScreen/LoginScreenRightSide/UserRegisterForm/UserRegisterForm.module.css";
 import { connect } from "react-redux";
+import Alert from '../../../Alert/Alert';
 
 class AdminForm extends React.Component {
   constructor(props) {
@@ -98,9 +99,9 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
+            {this.state.dirty.firstName === true &&
+            this.state.admin.firstName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
           </div>
-          {this.state.dirty.firstName === true &&
-            this.state.admin.firstName === "" && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "0.6px", color: "black" }}
@@ -120,9 +121,9 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
+              {this.state.dirty.lastName === true &&
+            this.state.admin.lastName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
           </div>
-          {this.state.dirty.lastName === true &&
-            this.state.admin.lastName === "" && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "0.3px", color: "black" }}
@@ -142,9 +143,9 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
+            {this.validateEmail(this.state.admin.email) === false &&
+            this.state.dirty.email === true && <Alert alertPhrase={'Please enter a valid email'}/>}
           </div>
-          {this.validateEmail(this.state.admin.email) === false &&
-            this.state.dirty.email === true && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
               Phone Number:
@@ -160,10 +161,10 @@ class AdminForm extends React.Component {
               id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
-            />
+            /> 
+            {this.validatePhone(this.state.admin.phoneNumber) === false &&
+            this.state.dirty.phoneNumber === true && <Alert alertPhrase={"Please enter a valid phone number"}/>}
           </div>
-          {this.validatePhone(this.state.admin.phoneNumber) === false &&
-            this.state.dirty.phoneNumber === true && <p>holder</p>}
           <div className={otherStyles.divWidthControl}>
             <label
               style={{ letterSpacing: "0.7px", color: "black" }}
@@ -182,11 +183,11 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="password"
             />
-          </div>
-          {this.state.dirty.createPassword === true &&
+            {this.state.dirty.createPassword === true &&
             this.state.admin.createPassword.length < 7 && (
-              <p>holder</p>
+              <Alert alertPhrase={'Password must be eight characters'}/>
             )}
+          </div>
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
               Password Confirm:
@@ -202,10 +203,11 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="password"
             />
-          </div>
-          {this.state.dirty.passwordConfirm === true &&
+              {this.state.dirty.passwordConfirm === true &&
             this.state.admin.passwordConfirm !==
-              this.state.admin.createPassword && <p>holder</p>}
+              this.state.admin.createPassword && <Alert alertPhrase={'Passwords must be matching'}/>}
+          </div>
+        
           <div
             className={otherStyles.divWidthControl}
           >
@@ -223,6 +225,7 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
+            {this.state.dirty.clubName === true && this.state.admin.clubName === "" && <Alert alertPhrase={"Please enter your clubs name"}/>}
           </div>
           <button
             onClick={this.props.getAdminInfo(this.state.admin)}

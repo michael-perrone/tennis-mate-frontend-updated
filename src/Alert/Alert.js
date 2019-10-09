@@ -1,13 +1,16 @@
 import React from 'react';
 import styles from './Alert.module.css';
 
-function Alert(props) {
+class Alert extends React.Component {
+render() {
     return (
-            <p style={{top: "22px", right: "5%" }}
+            <p style={{top: this.props.top, right: this.props.right }}
              id={styles.alert}>
-             {props.alertPhrase}
+             {this.props.alertPhrase}
              </p>
     )
 }
+}
+Alert.defaultProps = {top: "22px", right: "5%"}
 
 export default Alert;

@@ -109,11 +109,15 @@
     #timeSelectors {
       width: 98px;
       margin-right: 22px;
+      height: 26px;
+      font-size: 14px;
     }
 
     #numberCourtsSelecter {
       width: 98px;
+      height: 26px;
       margin-right: 17px;
+      font-size: 14px;
     }
 
     #input4 {

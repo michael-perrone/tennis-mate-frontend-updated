@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
-
+import Alert from '../../../Alert/Alert';
 import styles from "./InstructorRegisterForm.module.css";
 import {
   INSTRUCTOR_WANTS_TO_REGISTER,
@@ -138,11 +138,11 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
-            </div>
-            {this.state.dirty.firstName === true &&
+               {this.state.dirty.firstName === true &&
               this.state.instructor.firstName === "" && (
-                <p>holder</p>
+               <Alert alertPhrase={"Field cannot be blank"}/>
               )}
+            </div>
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.3px" }}
@@ -163,11 +163,12 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
-            </div>
-            {this.state.dirty.lastName === true &&
+              {this.state.dirty.lastName === true &&
               this.state.instructor.lastName === "" && (
-                <p>holder</p>
+                <Alert alertPhrase={"Field cannot be blank"}/>
               )}
+            </div>
+            
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.3px" }}
@@ -188,9 +189,10 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
+              {this.validateEmail(this.state.instructor.email) === false &&
+              this.state.dirty.email === true && <Alert alertPhrase={"Please enter a valid email"}/>}
             </div>
-            {this.validateEmail(this.state.instructor.email) === false &&
-              this.state.dirty.email === true && <p>holder</p>}
+            
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen" }}
@@ -209,11 +211,12 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
-            </div>
-            {this.validatePhone(this.state.instructor.phoneNumber) === false &&
+               {this.validatePhone(this.state.instructor.phoneNumber) === false &&
               this.state.dirty.phoneNumber === true && (
-                <p>holder</p>
+                <Alert alertPhrase={"Please enter a valid phone number"}/>
               )}
+            </div>
+           
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.7px" }}
@@ -232,11 +235,11 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="password"
               />
-            </div>
-            {this.state.dirty.createPassword === true &&
+              {this.state.dirty.createPassword === true &&
               this.state.instructor.createPassword.length < 7 && (
-                <p>holder</p>
+                <Alert alertPhrase={"Password must be eight characters long"}/>
               )}
+            </div>
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen" }}
@@ -255,12 +258,12 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="password"
               />
-            </div>
-            {this.state.dirty.passwordConfirm === true &&
+              {this.state.dirty.passwordConfirm === true &&
               this.state.instructor.passwordConfirm !==
                 this.state.instructor.createPassword && (
-                  <p>holder</p>
+                  <Alert alertPhrase={"Passwords must be matching"}/>
               )}
+            </div>
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.3px" }}
