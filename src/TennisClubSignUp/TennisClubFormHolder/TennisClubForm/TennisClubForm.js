@@ -150,7 +150,7 @@ class TennisClubForm extends React.Component {
             style={{ marginTop: "2px" }}
             className={otherStyles.divWidthControl}
           >
-            <label style={{ color: "black" }} className={otherStyles.labels}>
+            <label  id={styles.clubLabels} style={{ color: "black" }} className={otherStyles.labels}>
               Number of Courts:
             </label>
             <select
@@ -266,6 +266,7 @@ class TennisClubForm extends React.Component {
             <label
               style={{ letterSpacing: "0.53px", color: "black" }}
               className={otherStyles.labels}
+              id={styles.clubLabels}
             >
               Time Club Opens:
             </label>
@@ -328,7 +329,7 @@ class TennisClubForm extends React.Component {
             </select>
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label
+            <label  id={styles.clubLabels}
               style={{letterSpacing: ".44px", color: "black" }}
               className={otherStyles.labels}
             >

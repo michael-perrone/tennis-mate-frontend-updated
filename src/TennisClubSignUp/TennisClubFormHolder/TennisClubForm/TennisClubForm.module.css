@@ -51,7 +51,7 @@
   align-items: flex-start;
   background-color: transparent;
   justify-content: space-around;
-  margin: 18px 0px;
+  margin-top: 40px;
 }
 
 #input3 {
@@ -79,6 +79,8 @@
 }
 
 
+
+
 #input4 {
   width: 198px;
 }
@@ -100,4 +102,21 @@
   #registerForm {
     width: 290px;
   }
+    #clubLabels {
+      display: inline;
+    }
+
+    #timeSelectors {
+      width: 98px;
+      margin-right: 22px;
+    }
+
+    #numberCourtsSelecter {
+      width: 98px;
+      margin-right: 17px;
+    }
+
+    #input4 {
+      width: 240px;
+    }
 }

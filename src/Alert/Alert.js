@@ -3,7 +3,7 @@ import styles from './Alert.module.css';
 
 function Alert(props) {
     return (
-            <p style={{top: props.top, left: props.left }}
+            <p style={{top: "22px", right: "5%" }}
              id={styles.alert}>
              {props.alertPhrase}
              </p>

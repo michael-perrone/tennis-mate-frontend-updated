@@ -168,9 +168,10 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="text"
               />
+              {this.state.dirty.lastName === true &&
+              this.state.user.lastName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
             </div>
-            {this.state.dirty.lastName === true &&
-              this.state.user.lastName === "" && <p>holder</p>}
+            
             <div className={styles.divWidthControl}>
               <label
                 style={{ letterSpacing: "0.3px" }}
@@ -189,9 +190,10 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="text"
               />
+               {this.validateEmail(this.state.user.email) === false &&
+              this.state.dirty.email === true && <Alert alertPhrase={"Please enter a valid email address"}/>}
             </div>
-            {this.validateEmail(this.state.user.email) === false &&
-              this.state.dirty.email === true && <p>holder</p>}
+           
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
@@ -205,9 +207,10 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="text"
               />
+              {this.validatePhone(this.state.user.phoneNumber) === false &&
+              this.state.dirty.phoneNumber === true && <Alert alertPhrase={"Please enter a valid phone number"}/>}
             </div>
-            {this.validatePhone(this.state.user.phoneNumber) === false &&
-              this.state.dirty.phoneNumber === true && <p>holder</p>}
+            
             <div className={styles.divWidthControl}>
               <label
                 style={{ letterSpacing: "0.7px" }}
@@ -226,11 +229,12 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="password"
               />
-            </div>
-            {this.state.dirty.createPassword === true &&
+              {this.state.dirty.createPassword === true &&
               this.state.user.createPassword.length < 7 && (
-                <p>holder</p>
+                <Alert alertPhrase={"Password must be longer than eight characters"}/>
               )}
+            </div>
+            
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
@@ -244,10 +248,11 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="password"
               />
-            </div>
-            {this.state.dirty.passwordConfirm === true &&
+               {this.state.dirty.passwordConfirm === true &&
               this.state.user.passwordConfirm !==
-                this.state.user.createPassword && <p>holder</p>}
+                this.state.user.createPassword && <Alert alertPhrase={"Passwords must match"}/>}
+            </div>
+           
           
           </form>
           <div id={styles.instructorSignUpAndRegSignUp}>
