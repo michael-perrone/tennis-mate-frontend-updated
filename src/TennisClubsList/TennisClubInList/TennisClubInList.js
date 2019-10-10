@@ -38,38 +38,76 @@ class TennisClub extends React.Component {
   render() {
     return (
       <div id={styles.tennisClubHolder}>
-        <div id={styles.imageAndTitleHolder}>
+        <div>
+        <p
+            id={styles.clubName}
+          >
+            {this.props.club.clubName}
+          </p>
+          </div>
+          <div id={styles.tennisClubSubHolder}>
+        <div id={styles.imageHolder}>
           <img
             id={styles.clubImage}
             src="http://www.ludlowtennisclub.com/images/480_IMG_0930S.JPG"
             alt="club"
           />
-          <p
+          <div style={{display: 'flex', width: '100%', justifyContent: "space-around"}}>
+         <button
+          className={styles.viewButton}
+          onClick={() =>
+            this.props.push(
+              `/clubs/${this.removeSpaces(this.props.club.clubName)}`
+            )
+          }
+        >
+          <i
             style={{
-              fontSize: "20px",
-              marginTop: "12px"
+  
+              paddingRight: "4px",
+              fontSize: "14px",
+              borderRight: "1px solid black",
+              marginRight: "8px"
             }}
-            id={styles.clubName}
-          >
-            {this.props.club.clubName}
-          </p>
+            className="fas fa-building"
+          />{" "}
+          View Club
+        </button>
+        <button
+          onClick={this.go}
+          style={{ left: "78%", cursor: "pointer" }}
+          className={styles.viewButton}
+        >
+          <i
+            style={{
+              marginLeft: "-3px",
+              paddingRight: "4px",
+              fontSize: "14px",
+              borderRight: "1px solid black",
+              marginRight: "8px"
+            }}
+            className="far fa-check-square"
+          />
+          Subscribe
+        </button>
         </div>
-        <div id={styles.locationDivAndHours}>
+        </div>
+      <div style={{display: 'flex', position: 'relative', top: "36px", width: '100%', justifyContent: 'space-around'}}>
+        <div style={{fontSize: '12px'}}>
           <div
-            className={styles.borderSurrounding}
-            style={{ width: "175px", textAlign: "center" }}
+            className={styles.borderSurroundingDivs}
           >
             <p style={{ marginTop: "3px" }}>{this.props.club.address}</p>
             <p style={{ marginTop: "3px" }}>{this.props.club.city}</p>
             <p style={{ marginTop: "3px" }}>{this.props.club.state}</p>
-            <p style={{ marginTop: "3px", marginBottom: "24px" }}>
+            <p style={{ marginTop: "3px", marginBottom: "18px" }}>
               {this.props.club.zip}
             </p>
             <p>{this.props.club.phoneNumber}</p>
             <a href={`http://${this.props.club.clubWebsite}`}>
               {this.props.club.clubWebsite}
             </a>
-            <p style={{ marginTop: "30px", fontSize: "16px" }}>
+            <p style={{ marginTop: "20px", fontSize: "12px" }}>
               {this.props.club.clubOpenTimeNumber}{" "}
               {this.props.club.clubOpenTimeAMPM}-
               {this.props.club.clubCloseTimeNumber}{" "}
@@ -77,35 +115,22 @@ class TennisClub extends React.Component {
             </p>
           </div>
         </div>
-        <div className={styles.borderSurrounding} id={styles.instructorsDiv}>
-          <p
-            style={{
-              fontSize: "20px",
-              marginBottom: "10px",
-              textAlign: "center",
-              paddingBottom: "5px",
-              borderBottom: "1px solid black"
-            }}
+        <div className={styles.borderSurroundingDivs}>
+          <p id={styles.instructorsP}  
           >
             Instructors
           </p>
           {this.props.profileInfo &&
             this.state.instructorsAtClub.map((element, index) => {
-              return <p key={element + index}>{element.fullName}</p>;
+              return <p className={styles.services} key={element + index}>{element.fullName}</p>;
             })}
           {!this.props.profileInfo && (
             <p>This club has not added their instructors.</p>
           )}
         </div>
-        <div className={styles.borderSurrounding} id={styles.servicesDiv}>
+        <div className={styles.borderSurroundingDivs} id={styles.servicesDiv}>
           <p
-            style={{
-              fontSize: "18px",
-              marginBottom: "10px",
-              textAlign: "center",
-              paddingBottom: "5px",
-              borderBottom: "1px solid black"
-            }}
+        id={styles.instructorsP}
           >
             Services Offered
           </p>
@@ -127,7 +152,7 @@ class TennisClub extends React.Component {
                 newKey = "Tournaments";
               }
               return (
-                <p style={{ marginTop: "2px" }} key={newKey + key}>
+                <p className={styles.services} style={{ marginTop: "2px" }} key={newKey + key}>
                   {newKey}: {element[key]}
                 </p>
               );
@@ -140,43 +165,9 @@ class TennisClub extends React.Component {
             <p>This club has not added the services they provide.</p>
           )}
         </div>
-        <button
-          className={styles.viewButton}
-          onClick={() =>
-            this.props.push(
-              `/clubs/${this.removeSpaces(this.props.club.clubName)}`
-            )
-          }
-        >
-          <i
-            style={{
-              marginLeft: "-6px",
-              paddingRight: "14px",
-              fontSize: "24px",
-              borderRight: "1px solid black",
-              marginRight: "14px"
-            }}
-            className="fas fa-building"
-          />{" "}
-          View Club
-        </button>
-        <button
-          onClick={this.go}
-          style={{ left: "78%", cursor: "pointer" }}
-          className={styles.viewButton}
-        >
-          <i
-            style={{
-              marginLeft: "-10px",
-              paddingRight: "14px",
-              fontSize: "24px",
-              borderRight: "1px solid black",
-              marginRight: "20px"
-            }}
-            className="far fa-check-square"
-          />
-          Subscribe
-        </button>
+        </div>
+      
+        </div>
       </div>
     );
   }

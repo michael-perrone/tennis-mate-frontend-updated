@@ -52,7 +52,7 @@ class NameDropDown extends React.Component {
          {this.props.user !== null && 
          <div className={styles.dropDownHeader} onClick={this.showDropDownHandler}>
          <p> {this.props.user.user.userName}</p>
-         <i style={{position: 'relative', left: '8px', top: "9px"}}  className="fas fa-caret-down"/>
+         <i style={{position: 'relative', left: '4px', top: "8px"}}  className="fas fa-caret-down"/>
         </div>
          }
         {this.props.adminToken !== null && this.state.showDropDown && (

@@ -40,30 +40,15 @@ class TennisClubSearchBar extends React.Component {
     return (
       <div id={styles.searchBarNavContainer}>
         <p id={styles.logoLeftBar}>Tennis Mate</p>
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            top: "14px",
-            left: "28%"
-          }}
+        <div id={styles.searchBarHolder}
         >
           <i
-            style={{
-              position: "relative",
-              left: "-10px",
-              height: "26px",
-              color: "lightgreen",
-              fontSize: "26px",
-              padding: "6px",
-              border: "2px solid rgb(152, 241, 152)",
-              backgroundColor: "rgb(82, 82, 82)"
-            }}
+           id={styles.locationIcon}
             className="fas fa-search-location"
           ></i>
           <div>
             <input
-              style={{position: "relative", left: "-11px"}}
+              
               onChange={this.getClubValue}
               value={this.state.clubSearch}
               id={styles.searchBar}
@@ -84,8 +69,8 @@ class TennisClubSearchBar extends React.Component {
                     <img
                     alt="babe"
                       style={{
-                        height: "75px",
-                        width: "120px",
+                        height: "40px",
+                        width: "70px",
                         borderRadius: "14px",
                         padding: "8px"
                       }}

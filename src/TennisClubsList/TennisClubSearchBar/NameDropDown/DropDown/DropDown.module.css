@@ -1,16 +1,23 @@
 #dropDownMenu {
   font-family: cursive;
-  top: 52px;
-  right: 54px;
+  top: 62px;
+  right: 24px;
   border: 2px solid black;
-  height: 170px;
-  width: 200px;
+  height: 110px;
+  width: 150px;
   background-color: white;
   position: absolute;
   animation-name: dropDownSlide;
   transform-origin: top;
   animation-duration: 1.3s;
-  font-size: 22px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.dropDownDiv {
+  border-bottom: 1px solid black;
+  padding: 5px;
 }
