@@ -1,5 +1,5 @@
 #loginFormLeftSide {
-    width: 48vw;
+    width: 50%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -11,8 +11,8 @@
 
 #tennisBall {
     position: absolute;
-    left: -200px;
-    top: 50px;
+    left: -100px;
+    top: 35px;
     animation-name: ballBouncing;
     animation-duration: 4s;
     animation-timing-function: ease-in-out;
@@ -21,22 +21,22 @@
 
 @keyframes ballBouncing{
     0% {
-        transform: translate(0px, 220px) rotate(0)
+        transform: translate(50px, 150px) rotate(0)
     }
 
    
     25% {
-        transform: translate(300px, 50px) rotate(540deg)
+        transform: translate(220px, 35px) rotate(540deg)
     }
     50% {
-        transform: translate(750px, 220px) rotate(1080deg)
+        transform: translate(500px, 170px) rotate(1080deg)
     }
     75% {
-        transform: translate(300px, 50px) rotate(540deg)
+        transform: translate(220px, 35px) rotate(540deg)
     }
   
     100% {
-        transform: translate(0px, 220px) rotate(0)
+        transform: translate(50px, 150px) rotate(0)
     }
     }
 

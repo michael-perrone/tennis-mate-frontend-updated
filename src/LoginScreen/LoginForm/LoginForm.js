@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
         console.log(error)
         try {
         console.log(error.response);
-        if (error.response.status === 400) {
+        if (error.response.status === 400 || error.response.status === 401) {
           this.setState({errorLoggingIn: true})
           this.setState({ error: error.response.data.error });
         }
@@ -69,10 +69,7 @@ class LoginForm extends React.Component {
         }
       });
   }
-
   render() {
-    console.log(this.state)
-    
     return (
       <div style={{alignSelf: this.props.alignSelf, paddingBottom: this.props.paddingBottom, borderBottom: this.props.borderBottom, width: this.props.width, background: this.props.background}} id={styles.loginFormContainer}>
         <div id={styles.loginFormSubContainer}>
@@ -107,7 +104,6 @@ class LoginForm extends React.Component {
             >
               Login
             </button>
-           
               <p className={styles.errorNoAnimation}
                 id={this.state.errorLoggingIn ? styles.errorAnimation : ""}
               >

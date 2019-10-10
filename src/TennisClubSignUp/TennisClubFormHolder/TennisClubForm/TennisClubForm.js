@@ -37,6 +37,15 @@ class TennisClubForm extends React.Component {
     this.getTennisClubInput = this.getTennisClubInput.bind(this);
     this.setDirty = this.setDirty.bind(this);
     this.validatePhone = this.validatePhone.bind(this);
+    this.colorLightRed = this.colorLightRed.bind(this);
+  }
+
+  colorLightRed(param) {
+    if(this.state.tennisClub[param] === "" && this.state.dirty[param] === true) {
+      return "#ffa6a6"
+    } else {
+      return "white"
+    }
   }
 
   validatePhone = phone => {
@@ -57,7 +66,7 @@ class TennisClubForm extends React.Component {
     console.log(newStateObject);
   }
   render() {
-    console.log(this.validatePhone(this.state.tennisClub.phoneNumber))
+    console.log(this.colorLightRed('numberCourts'))
     let animationContainerLeft = "";
     if (this.props.adminEntered) {
       animationContainerLeft = styles.animationSubContainerLeft;
@@ -189,7 +198,7 @@ class TennisClubForm extends React.Component {
               Number of Courts:
             </label>
             <select
-
+                    style={{backgroundColor: this.colorLightRed("numberCourts")}}
                     id={styles.numberCourtsSelecter}
                     value={this.state.tennisClub.numberCourts}
                     onBlur={this.setDirty}
@@ -298,20 +307,20 @@ class TennisClubForm extends React.Component {
                     <option>99</option>
                     <option>100</option>
                     </select>
-                    {this.state.tennisClub.numberCourts === "" && this.state.dirty.numberCourts === true && <Alert top={"26px"} alertPhrase={"Club number of courts required"}/>}
+                    {this.state.tennisClub.numberCourts === "" && this.state.dirty.numberCourts === true && <Alert right={"20.6%"} top={"3px"} alertPhrase={"Required"}/>}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label
-              style={{ letterSpacing: "0.53px", color: "black", position: "relative", top: "-8px" }}
+              style={{ letterSpacing: "0.53px", color: "black"}}
               className={otherStyles.labels}
-              id={styles.clubLabels}
+              id={styles.clubLabel2}
             >
               Time Club Opens:
             </label>
             <select
               onBlur={this.setDirty}
               id={styles.timeSelectors}
-              style={{ color: "black", border: "3px ridge #dededc", marginTop: "4px" }}
+              style={{backgroundColor: this.colorLightRed("clubOpenTime"),  color: "black", border: "3px ridge #dededc", marginTop: "4px" }}
               onChange={this.getTennisClubInput}
               name="clubOpenTime"
               value={this.state.tennisClub.clubOpenTime}
@@ -366,11 +375,11 @@ class TennisClubForm extends React.Component {
               <option>11:00 PM</option>
               <option>11:30 PM</option>
             </select>
-            {this.state.tennisClub.clubOpenTime === "" && this.state.dirty.clubOpenTime === true && <Alert top={"26px"} alertPhrase={"Please enter club opening time"}/>}
+            {this.state.tennisClub.clubOpenTime === "" && this.state.dirty.clubOpenTime === true && <Alert right={"20%"} top={"4px"} alertPhrase={"Required"}/>}
           </div>
           <div className={otherStyles.divWidthControl}>
-            <label  id={styles.clubLabels}
-              style={{position: "relative", top: "-5px", letterSpacing: ".44px", color: "black" }}
+            <label  id={styles.clubLabel1}
+              style={{ letterSpacing: ".44px", color: "black" }}
               className={otherStyles.labels}
             >
               Time Club Closes:
@@ -378,7 +387,7 @@ class TennisClubForm extends React.Component {
             <select
               onBlur={this.setDirty}
               id={styles.timeSelectors}
-              style={{ color: "black", border: "3px ridge #dededc" }}
+              style={{ color: "black", border: "3px ridge #dededc", backgroundColor: this.colorLightRed("clubCloseTime") }}
               onChange={this.getTennisClubInput}
               name="clubCloseTime"
               value={this.state.tennisClub.clubCloseTime}
@@ -433,7 +442,7 @@ class TennisClubForm extends React.Component {
               <option>11:00 PM</option>
               <option>11:30 PM</option>
             </select>
-            {this.state.tennisClub.clubCloseTime === "" && this.state.dirty.clubCloseTime === true && <Alert alertPhrase={"Please enter club closing time"}/>}
+            {this.state.tennisClub.clubCloseTime === "" && this.state.dirty.clubCloseTime === true && <Alert right={"20%"} top={"0px"} alertPhrase={"Required"}/>}
           </div>
           <div id={styles.buttonGoBackHolder}>
           <GoBackToAdmin unEnterAdmin={this.props.unEnterAdmin} />

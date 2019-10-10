@@ -9,6 +9,16 @@
   
 }
 
+#clubLabel1 {
+  position: relative;
+  top: -8px;
+}
+
+#clubLabel2 {
+  position: relative;
+  top: -8px;
+}
+
 #timeSelectors {
   height: 30px;
   width: 216px;
@@ -104,6 +114,15 @@
   }
     #clubLabels {
       display: inline;
+    }
+    #clubLabel2 {
+      top: -5px;
+      display: inline;
+    }
+
+    #clubLabel1 {
+      display: inline;
+      top: -8px;
     }
 
     #timeSelectors {
