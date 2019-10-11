@@ -166,7 +166,7 @@ class InstructorProfileCreateForm extends React.Component {
         >
           {this.state.showJobExp && (
             <div className={styles.forms}>
-              <p className={styles.pTags} style={{ marginBottom: "100px" }}>
+              <p className={styles.pTags} >
                 Enter all previous job experiences including the start date, end
                 date, company, and job title. Select current if this is your
                 current employer.
@@ -242,7 +242,6 @@ class InstructorProfileCreateForm extends React.Component {
                 </select>
                 <select
                   onChange={this.jobExpFormHandler}
-                  style={{ width: "125px" }}
                   className={styles.selects}
                   value={this.state.jobExperience.fromMonth}
                   name="fromMonth"
@@ -325,7 +324,6 @@ class InstructorProfileCreateForm extends React.Component {
 
                 <select
                   onChange={this.jobExpFormHandler}
-                  style={{ width: "110px" }}
                   className={styles.selects}
                   value={this.state.jobExperience.toMonth}
                   name="toMonth"
@@ -404,7 +402,7 @@ class InstructorProfileCreateForm extends React.Component {
                   />
                 </div>
               </div>
-              <button onClick={this.addToCertArray}>add to cert array</button>
+              <button id={styles.addToCertArray} onClick={this.addToCertArray}>add to cert array</button>
             </div>
           )}
           {this.state.showOtherInfo && (

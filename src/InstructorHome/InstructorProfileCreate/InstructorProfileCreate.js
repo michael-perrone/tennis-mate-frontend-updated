@@ -2,35 +2,18 @@ import React from "react";
 import styles from "./InstructorProfileCreate.module.css";
 import InstructorProfileCreateForm from "./InstructorProfileCreateForm/InstructorProfileCreateForm";
 import InstructorNav from "../../InstructorNav/InstructorNav";
+import {connect} from 'react-redux';
+
 
 class InstructorProfileCreate extends React.Component {
   render() {
+    console.log(this.props.instructor)
     return (
       <React.Fragment>
         <InstructorNav />
         <div id={styles.instructorProfileCreateContainer}>
           <div id={styles.paragraphContainer}>
-            <p>
-              We notice you haven't created a profile before. We recommend all
-              of our instructors create a profile. It creates an easy way for
-              customers at tennis clubs to find an instructor with an experience
-              and coaching ability to their liking.
-            </p>
-            <p>
-              Making a profile is not required for anyone. Check with your club
-              if they want you to make a profile before you decide to skip this
-              step. If you decide you want to make a profile later on or
-              accidentally skip this page, don't worry, you can always create
-              and update your profile later on.
-            </p>
-            <p>
-              Creating your profile is easy, you just need to answer a few
-              questions about yourself and you can upload a photo as well if you
-              would like. Also writing a small bio about yourself can really go
-              a long way with customers. It makes getting started with someone
-              new much easier. Remember, creating a profile is not required, but
-              it is reccomended.
-            </p>
+            <p>Thanks for joining Tennis Mate {this.props.instructor.instructor.instructorName.split(" ", 1)}. You can now finish creating your profile. To the right you can fill out information telling other tennis players a little more about you. You can add information about past jobs, certifications you have obtained, years teaching, pricing and other great things about you. If you devcide to skip making a profile for now, you can always come back to it later.</p>
           </div>
           <InstructorProfileCreateForm />
         </div>
@@ -39,4 +22,10 @@ class InstructorProfileCreate extends React.Component {
   }
 }
 
-export default InstructorProfileCreate;
+const mapStateToProps = state => {
+  return {
+    instructor: state.authReducer.instructor
+  }
+}
+
+export default connect(mapStateToProps)(InstructorProfileCreate);

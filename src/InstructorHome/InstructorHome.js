@@ -15,11 +15,6 @@ class InstructorHome extends React.Component {
     };
   }
   componentDidMount() {
-    /*  const instructorTokenItems = decoder(
-      localStorage.getItem("instructorToken")
-    );
-    console.log(instructorTokenItems); */
-
     axios
       .get("http://localhost:8080/api/instructorProfile/myprofile", {
         headers: { "x-auth-token": this.props.instructorToken }
