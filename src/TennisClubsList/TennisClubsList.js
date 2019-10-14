@@ -262,7 +262,6 @@ getLocation() {
         <div style={{justifyContent: "center", display: 'flex', width: "100%", marginTop: "90px" }}>
           {this.state.locationGiven === true && this.state.tennisClubs.map(element => {
               console.log(element.clubs.state, "hi", this.state.stateLocation)
-            if (element.clubs.state === this.state.stateLocation)
             return (
               <TennisClubInList
                 club={element.clubs}

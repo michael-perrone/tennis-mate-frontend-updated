@@ -1,18 +1,18 @@
 #navBarContainer {
   display: flex;
-  width: 100vw;
-  height: 80px;
+  width: 100%;
+  height: 55px;
   border-bottom: 2px solid gray;
   background-color: black;
   justify-content: space-between;
 }
 
 #title {
-  font-size: 48px;
+  font-size: 32px;
   font-family: "Permanent Marker", cursive;
   position: relative;
-  left: 120px;
-  letter-spacing: 1.6px;
+  left: 80px;
+  top: 7px;
   color: rgb(152, 241, 152);
 }
 
@@ -23,12 +23,12 @@
 
 #secondContainer {
   display: flex;
-  width: 600px;
+  width: 400px;
   justify-content: space-between;
   position: relative;
-  top: 20px;
+  top: 17px;
   right: 60px;
-  font-size: 32px;
+  font-size: 24px;
   font-family: "Indie Flower", cursive;
 }
 
@@ -51,20 +51,21 @@
 
 #dropDownMenu {
   font-family: cursive;
-  top: 50px;
-  right: -4px;
+  top: 38px;
+  right: -20px;
   border-top: 2px solid black;
   border: 2px solid rgb(152, 241, 152);
-  height: 170px;
-  width: 200px;
+  height: 130px;
+  width: 155px;
   background-color: white;
   position: absolute;
   animation-name: dropDownSlide;
   transform-origin: top;
   animation-duration: 1.3s;
-  font-size: 22px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 @keyframes dropDownSlide {

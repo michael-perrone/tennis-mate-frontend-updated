@@ -41,7 +41,7 @@ class BioForm extends React.Component {
           flexDirection: "column"
         }}
       >
-        <p style={{ fontSize: "20px" }}>Please enter a bio about your club.</p>
+        <p style={{ fontSize: "16px" }}>Please enter a bio about your club.</p>
         <textarea
           style={{
             marginTop: "70px",
@@ -50,7 +50,7 @@ class BioForm extends React.Component {
             fontSize: "18px"
           }}
           rows="12"
-          cols="70"
+          cols="40"
           value={this.state.bio}
           onChange={this.getTextAreaInput}
         />
@@ -58,9 +58,9 @@ class BioForm extends React.Component {
           onClick={this.submitBio}
           style={{
             marginTop: "70px",
-            width: "140px",
-            height: "30px",
-            fontSize: "20px"
+            width: "110px",
+            height: "24px",
+            fontSize: "16px"
           }}
         >
           Submit Bio

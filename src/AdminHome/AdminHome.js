@@ -3,6 +3,7 @@ import AdminNav from "../AdminNav/AdminNav";
 import axios from "axios";
 import TennisClub from "../TennisClub/TennisClub";
 import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom'
 
 class AdminHome extends React.Component {
   constructor(props) {
@@ -51,4 +52,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AdminHome);
+export default withRouter(connect(mapStateToProps)(AdminHome));

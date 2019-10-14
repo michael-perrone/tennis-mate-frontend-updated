@@ -161,7 +161,7 @@ class InstructorProfileCreateForm extends React.Component {
           })}
         </div>
         <form
-          style={{ marginTop: "100px" }}
+          style={{ marginTop: "50px" }}
           id={styles.instructorProfileCreateForm}
         >
           {this.state.showJobExp && (
@@ -171,17 +171,19 @@ class InstructorProfileCreateForm extends React.Component {
                 date, company, and job title. Select current if this is your
                 current employer.
               </p>
-              <div>
-                <label className={styles.labels}>Company Name:</label>
+              <div id={styles.pastExpForm}>
+              <div className={styles.formSeparator}>
+                <label className={`${styles.labels}`}>Name of Former Company: </label>
                 <input
+                  style={{width: '157px'}}
                   onChange={this.jobExpFormHandler}
-                  className={styles.inputs}
+                  className={`${styles.inputs} ${styles.ml5}`}
                   value={this.state.jobExperience.clubName}
                   name="clubName"
                 />
               </div>
-              <div>
-                <label className={styles.labels}>Date Started:</label>
+              <div className={styles.formSeparator}>
+                <label className={styles.labels}> Approximate Date Started:</label>
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
@@ -261,8 +263,8 @@ class InstructorProfileCreateForm extends React.Component {
                   <option>December</option>
                 </select>
               </div>
-              <div>
-                <label className={styles.labels}>Date Ended:</label>
+              <div className={styles.formSeparator}>
+                <label style={{letterSpacing: ".2px"}} className={styles.labels}>Approximate Date Ended:</label>
                 <select
                   onChange={this.jobExpFormHandler}
                   className={styles.selects}
@@ -343,18 +345,19 @@ class InstructorProfileCreateForm extends React.Component {
                   <option>December</option>
                 </select>
               </div>
-              <div>
-                <label className={styles.labels}>Job Title:</label>
+              <div className={styles.formSeparator}>
+                <label style={{letterSpacing: "0.5px"}} className={styles.labels}>What was your job title? </label>
                 <input
                   onChange={this.jobExpFormHandler}
-                  className={styles.inputs}
+                  className={`${styles.inputs} ${styles.ml5}`}
                   value={this.state.jobExperience.jobTitle}
                   name="jobTitle"
                 />
               </div>
-              <div>
-                <label className={styles.labels}>Current Job?</label>
+              <div className={styles.formSeparator}>
+                <label style={{letterSpacing: "0.5px"}} className={styles.labels}>Is this your current job?</label>
                 <select
+                  style={{width: "175px"}}
                   onChange={this.jobExpFormHandler}
                   value={this.state.jobExperience.current}
                   className={styles.selects}
@@ -365,18 +368,20 @@ class InstructorProfileCreateForm extends React.Component {
                   <option>No</option>
                 </select>
               </div>
-              <button onClick={this.addToJobArray}>add experience</button>
+              <button id={styles.addExp} onClick={this.addToJobArray}>Add Experience</button>
+            </div>
             </div>
           )}
           {this.state.showCertification && (
             <div className={styles.forms}>
               <p className={styles.pTags}>
                 Enter all the certifications you have earned as an instructor
-                (PTR, USPTA, ATP etc.). If you haven't earned any, you can leave
+                (PTR, USPTA, ATP etc.). First add the name of the organization that certified you, then add the approximate certification date. If you haven't earned any, you can leave
                 this part of the form blank.
               </p>
-              <div style={{ marginTop: "50px" }}>
-                <div>
+              <div id={styles.certForm}>  
+              <div style={{display: 'flex', alignItems: "center", flexDirection: 'column'}}>
+                  <label>Certified By: </label>
                   <input
                     onChange={this.certFormHandler}
                     name="certifiedBy"
@@ -384,25 +389,20 @@ class InstructorProfileCreateForm extends React.Component {
                     placeholder="Certified By"
                     className={styles.inputs}
                   />
-                </div>
-                <div>
+                  </div>
+                  <div style={{display: 'flex', alignItems: 'center', flexDirection: "column"}}>
+                  <label>Certification Date: </label>
                   <input
                     onChange={this.certFormHandler}
                     name="certificationDate"
                     value={this.state.certifications.certificationDate}
                     placeholder="Certification Date"
                     className={styles.inputs}
-                  />
-                  <input
-                    onChange={this.certFormHandler}
-                    name="certificationDescription"
-                    value={this.state.certifications.certificationDescription}
-                    className={styles.inputs}
-                    placeholder="Certification Description"
-                  />
-                </div>
+                  />  
+                  </div>
+                  <button id={styles.addToCertArray} onClick={this.addToCertArray}>Add Certification</button>
               </div>
-              <button id={styles.addToCertArray} onClick={this.addToCertArray}>add to cert array</button>
+              
             </div>
           )}
           {this.state.showOtherInfo && (
@@ -443,8 +443,6 @@ class InstructorProfileCreateForm extends React.Component {
               <textarea
                 id={styles.text}
                 maxLength="340"
-                cols="20"
-                rows="40"
                 value={this.state.otherInfo.bio}
                 placeholder="bio"
                 onChange={this.otherInfoHandler}

@@ -23,7 +23,9 @@ class AdminProfileCreate extends React.Component {
       instructorNames: [],
       exited: false,
       stopShowingNames: false,
-      showSubmittedMessage: false
+      showSubmittedMessage: false,
+      instructorsAlreadyHere: [],
+      entryError: ""
     };
     this.bioTabButton = this.bioTabButton.bind(this);
     this.instructorsTabButton = this.instructorsTabButton.bind(this);
@@ -41,6 +43,15 @@ class AdminProfileCreate extends React.Component {
   }
 
   componentDidMount() {
+    axios.get('http://localhost:8080/api/clubprofile/myclub',
+     {headers: {'x-auth-token': this.props.adminToken}})
+     .then(response => {
+       console.log(response)
+       if (response.data.clubProfile && response.data.clubProfile.instructors.length > 0) {
+         this.setState({instructorsAlreadyHere: response.data.clubProfile.instructors})
+       }
+     })
+
     axios
       .get("http://localhost:8080/api/instructorList")
       .then(response => {
@@ -78,6 +89,7 @@ class AdminProfileCreate extends React.Component {
 
   addIdAndName(event) {
     event.preventDefault();
+    if(this.state.nameClicked !== "") {
     const newIdsArray = [...this.state.instructorIds, this.state.instructorId];
     this.setState({ instructorIds: newIdsArray });
     const newInstructorNames = [
@@ -90,6 +102,10 @@ class AdminProfileCreate extends React.Component {
     this.setState({ instructorValue: "" });
     this.setState({ valueClicked: "" });
     this.setState({ stopShowingNames: true });
+    this.setState({ nameClicked: ""})
+  } else {
+    this.setState({entryError: "Please choose an instructor!"})
+  }
   }
 
   grabInstructorValue(nameAndClub, id, justName) {
@@ -97,6 +113,7 @@ class AdminProfileCreate extends React.Component {
     this.setState({ nameClicked: nameAndClub });
     this.setState({ instructorId: id });
     this.setState({ instructorName: justName });
+    this.setState({entryError: ""})
   }
 
   instructorsHandler(event) {
@@ -160,12 +177,49 @@ class AdminProfileCreate extends React.Component {
       <div>
         <AdminNav />
         <div id={styles.adminProfileCreateMainDiv}>
+          <div style={{width: "340px"}}>
           <p id={styles.introP}>
             There are a few more things it would be great if you could add about
             your club. Please add the instructors who work at your club,
             services offered at your club, and if you would like, a bio for
             users to read about your club.
           </p>
+          {this.state.showSubmittedMessage &&
+              this.state.showServices === false && (
+                <div className={styles.formP}>
+                  {" "}
+                  <p>
+                    We have saved the instructors who work at your club and have
+                    sent them verification requests. Please check the list below
+                    to make sure you have entered all instructors at your club.
+                    If so, press continue.
+                  </p>
+                  </div>
+              )}
+                   {this.state.showSubmittedMessage === false &&
+              this.state.showInstructors === true && (
+                <p
+                  id={
+                    this.state.showSubmittedMessage === true
+                      ? styles.formPAnimation
+                      : ""
+                  }
+                  className={styles.formP}
+                >
+                  You can add or edit the instructors who are currently
+                  working at your tennis club. Please keep in mind that if the
+                  instructors you are adding have not signed up for our website
+                  yet, their names will not show up.
+                </p>
+              )}
+               {this.state.showServices && (
+              <p className={styles.formP}>
+                Select any services that your club has to offer. Remember you can
+                always come back and edit this information later on by visiting
+                your profile page.
+              </p>
+            )}
+              </div>
           <div id={styles.adminProfileFormDiv}>
             <div id={styles.formSelectorDiv}>
               <p style={{backgroundColor: this.state.showInstructors === true ? "gray" : 'white', color: this.state.showInstructors === true ? "white" : "black"}}
@@ -191,13 +245,6 @@ class AdminProfileCreate extends React.Component {
             {this.state.showSubmittedMessage &&
               this.state.showServices === false && (
                 <div className={styles.formP}>
-                  {" "}
-                  <p>
-                    We have saved the instructors who work at your club and have
-                    sent them verification requests. Please check the list below
-                    to make sure you have entered all instructors at your club.
-                    If so, press continue.
-                  </p>
                   <button
                     onClick={this.showServices}
                     id={styles.continueToServices}
@@ -213,33 +260,11 @@ class AdminProfileCreate extends React.Component {
                   </button>
                 </div>
               )}
-            {this.state.showServices && (
-              <p className={styles.formP}>
-                You have succesfully entered your instructors. Great! Now select
-                any services that your club has to offer. Remember you can
-                always come back and edit this information later on by visiting
-                your profile page.
-              </p>
-            )}
-            {this.state.showSubmittedMessage === false &&
-              this.state.showInstructors === true && (
-                <p
-                  id={
-                    this.state.showSubmittedMessage === true
-                      ? styles.formPAnimation
-                      : ""
-                  }
-                  className={styles.formP}
-                >
-                  First, add the names of the instructors who are currently
-                  working at your tennis club. Please keep in mind that if the
-                  instructors you are adding have not signed up for our website
-                  yet, their names will not show up.
-                </p>
-              )}
             <form id={styles.adminProfileForm}>
               {this.state.showInstructors === true && (
-                <div>
+                <div style={{position: "relative"}}>
+                    <p className={styles.hiddenEntryError} id={this.state.entryError !== "" || null ? styles.entryError : ""}>{this.state.entryError}</p>
+                  
                   <input
                     onFocus={this.unExit}
                     onBlur={() => {
@@ -317,6 +342,7 @@ class AdminProfileCreate extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    admin: state.authReducer.admin,
     adminToken: state.authReducer.adminToken
   }
 }

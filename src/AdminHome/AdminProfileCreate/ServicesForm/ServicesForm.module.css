@@ -1,17 +1,18 @@
 .radio {
   position: relative;
-  left: 40px;
+  margin: 5px;
+  top: 2px;
 }
 
 .servicesP {
-  font-size: 18px;
+  font-size: 14px;
   padding: 11px 0px;
 }
 
 #otherServiceInput {
-  width: 480px;
-  height: 35px;
+  width: 300px;
+  height: 28px;
   border-radius: 5px;
   padding-left: 6px;
-  font-size: 18px;
+  font-size: 14px;
 }
