@@ -114,7 +114,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes1"
-          checked={this.state.servicesForm.tennisLessons === "Yes"}
+          checked={this.state.servicesForm.tennisLessons === "Yes" }
         />
         <label htmlFor="Yes1">Yes</label>
         <input
@@ -248,10 +248,10 @@ class ServicesForm extends React.Component {
         <button
           onClick={this.submitServices}
           style={{
-            width: "160px",
-            height: "40px",
+            width: "102px",
+            height: "27px",
             borderRadius: "5px",
-            border: "1px solid black"
+            border: "1px solid black",
           }}
         >
           Submit Services

@@ -107,103 +107,103 @@ class CourtContainer extends React.Component {
     return newCourtsArray;
   }
 
-  convertTimeToCourts(numberTime, timeAMPM) {
+  convertTimeToCourts(numberTime) {
     let courtTimeNumber = null;
-    if (numberTime === "12:00" && timeAMPM === "AM") {
+    if (numberTime === "12:00 AM") {
       courtTimeNumber = 0;
-    } else if (numberTime === "12:30" && timeAMPM === "AM") {
+    } else if (numberTime === "12:30 AM") {
       courtTimeNumber = 1;
-    } else if (numberTime === "1:00" && timeAMPM === "AM") {
+    } else if (numberTime === "1:00 AM") {
       courtTimeNumber = 2;
-    } else if (numberTime === "1:30" && timeAMPM === "AM") {
+    } else if (numberTime === "1:30 AM") {
       courtTimeNumber = 3;
-    } else if (numberTime === "2:00" && timeAMPM === "AM") {
+    } else if (numberTime === "2:00 AM") {
       courtTimeNumber = 4;
-    } else if (numberTime === "2:30" && timeAMPM === "AM") {
+    } else if (numberTime === "2:30 AM") {
       courtTimeNumber = 5;
-    } else if (numberTime === "3:00" && timeAMPM === "AM") {
+    } else if (numberTime === "3:00 AM") {
       courtTimeNumber = 6;
-    } else if (numberTime === "3:30" && timeAMPM === "AM") {
+    } else if (numberTime === "3:30 AM") {
       courtTimeNumber = 7;
-    } else if (numberTime === "4:00" && timeAMPM === "AM") {
+    } else if (numberTime === "4:00 AM") {
       courtTimeNumber = 8;
-    } else if (numberTime === "4:30" && timeAMPM === "AM") {
+    } else if (numberTime === "4:30 AM") {
       courtTimeNumber = 9;
-    } else if (numberTime === "5:00" && timeAMPM === "AM") {
+    } else if (numberTime === "5:00 AM") {
       courtTimeNumber = 10;
-    } else if (numberTime === "5:30" && timeAMPM === "AM") {
+    } else if (numberTime === "5:30 AM") {
       courtTimeNumber = 11;
-    } else if (numberTime === "6:00" && timeAMPM === "AM") {
+    } else if (numberTime === "6:00 AM") {
       courtTimeNumber = 12;
-    } else if (numberTime === "6:30" && timeAMPM === "AM") {
+    } else if (numberTime === "6:30 AM") {
       courtTimeNumber = 13;
-    } else if (numberTime === "7:00" && timeAMPM === "AM") {
+    } else if (numberTime === "7:00 AM") {
       courtTimeNumber = 14;
-    } else if (numberTime === "7:30" && timeAMPM === "AM") {
+    } else if (numberTime === "7:30 AM") {
       courtTimeNumber = 15;
-    } else if (numberTime === "8:00" && timeAMPM === "AM") {
+    } else if (numberTime === "8:00 AM") {
       courtTimeNumber = 16;
-    } else if (numberTime === "8:30" && timeAMPM === "AM") {
+    } else if (numberTime === "8:30 AM") {
       courtTimeNumber = 17;
-    } else if (numberTime === "9:00" && timeAMPM === "AM") {
+    } else if (numberTime === "9:00 AM") {
       courtTimeNumber = 18;
-    } else if (numberTime === "9:30" && timeAMPM === "AM") {
+    } else if (numberTime === "9:30 AM") {
       courtTimeNumber = 19;
-    } else if (numberTime === "10:00" && timeAMPM === "AM") {
+    } else if (numberTime === "10:00 AM") {
       courtTimeNumber = 20;
-    } else if (numberTime === "10:30" && timeAMPM === "AM") {
+    } else if (numberTime === "10:30 AM") {
       courtTimeNumber = 21;
-    } else if (numberTime === "11:00" && timeAMPM === "AM") {
+    } else if (numberTime === "11:00 AM") {
       courtTimeNumber = 22;
-    } else if (numberTime === "11:30" && timeAMPM === "AM") {
+    } else if (numberTime === "11:30 AM") {
       courtTimeNumber = 23;
-    } else if (numberTime === "12:00" && timeAMPM === "PM") {
+    } else if (numberTime === "12:00 PM") {
       courtTimeNumber = 24;
-    } else if (numberTime === "12:30" && timeAMPM === "PM") {
+    } else if (numberTime === "12:30 PM") {
       courtTimeNumber = 25;
-    } else if (numberTime === "1:00" && timeAMPM === "PM") {
+    } else if (numberTime === "1:00 PM") {
       courtTimeNumber = 26;
-    } else if (numberTime === "1:30" && timeAMPM === "PM") {
+    } else if (numberTime === "1:30 PM") {
       courtTimeNumber = 27;
-    } else if (numberTime === "2:00" && timeAMPM === "PM") {
+    } else if (numberTime === "2:00 PM") {
       courtTimeNumber = 28;
-    } else if (numberTime === "2:30" && timeAMPM === "PM") {
+    } else if (numberTime === "2:30 PM") {
       courtTimeNumber = 29;
-    } else if (numberTime === "3:00" && timeAMPM === "PM") {
+    } else if (numberTime === "3:00 PM") {
       courtTimeNumber = 30;
-    } else if (numberTime === "3:30" && timeAMPM === "PM") {
+    } else if (numberTime === "3:30 PM") {
       courtTimeNumber = 31;
-    } else if (numberTime === "4:00" && timeAMPM === "PM") {
+    } else if (numberTime === "4:00 PM") {
       courtTimeNumber = 32;
-    } else if (numberTime === "4:30" && timeAMPM === "PM") {
+    } else if (numberTime === "4:30 PM") {
       courtTimeNumber = 33;
-    } else if (numberTime === "5:00" && timeAMPM === "PM") {
+    } else if (numberTime === "5:00 PM") {
       courtTimeNumber = 34;
-    } else if (numberTime === "5:30" && timeAMPM === "PM") {
+    } else if (numberTime === "5:30 PM") {
       courtTimeNumber = 35;
-    } else if (numberTime === "6:00" && timeAMPM === "PM") {
+    } else if (numberTime === "6:00 PM") {
       courtTimeNumber = 36;
-    } else if (numberTime === "6:30" && timeAMPM === "PM") {
+    } else if (numberTime === "6:30 PM") {
       courtTimeNumber = 37;
-    } else if (numberTime === "7:00" && timeAMPM === "PM") {
+    } else if (numberTime === "7:00 PM") {
       courtTimeNumber = 38;
-    } else if (numberTime === "7:30" && timeAMPM === "PM") {
+    } else if (numberTime === "7:30 PM") {
       courtTimeNumber = 39;
-    } else if (numberTime === "8:00" && timeAMPM === "PM") {
+    } else if (numberTime === "8:00 PM") {
       courtTimeNumber = 40;
-    } else if (numberTime === "8:30" && timeAMPM === "PM") {
+    } else if (numberTime === "8:30 PM") {
       courtTimeNumber = 41;
-    } else if (numberTime === "9:00" && timeAMPM === "PM") {
+    } else if (numberTime === "9:00 PM") {
       courtTimeNumber = 42;
-    } else if (numberTime === "9:30" && timeAMPM === "PM") {
+    } else if (numberTime === "9:30 PM") {
       courtTimeNumber = 43;
-    } else if (numberTime === "10:00" && timeAMPM === "PM") {
+    } else if (numberTime === "10:00 PM") {
       courtTimeNumber = 44;
-    } else if (numberTime === "10:30" && timeAMPM === "PM") {
+    } else if (numberTime === "10:30 PM") {
       courtTimeNumber = 45;
-    } else if (numberTime === "11:00" && timeAMPM === "PM") {
+    } else if (numberTime === "11:00 PM") {
       courtTimeNumber = 46;
-    } else if (numberTime === "11:30" && timeAMPM === "PM") {
+    } else if (numberTime === "11:30 PM") {
       courtTimeNumber = 47;
     }
     return courtTimeNumber;
@@ -354,12 +354,10 @@ class CourtContainer extends React.Component {
                 clubName={this.props.clubName}
                 bookedCourts={this.state.bookedCourts}
                 clubOpenNumber={this.convertTimeToCourts(
-                  this.props.clubOpenTimeNumber,
-                  this.props.clubOpenTimeAMPM
+                  this.props.clubOpenTime
                 )}
                 clubCloseNumber={this.convertTimeToCourts(
-                  this.props.clubCloseTimeNumber,
-                  this.props.clubCloseTimeAMPM
+                  this.props.clubCloseTime
                 )}
                 key={element.courtNumber}
                 courtNumber={element.courtNumber}

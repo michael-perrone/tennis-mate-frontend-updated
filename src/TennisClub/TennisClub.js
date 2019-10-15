@@ -71,10 +71,9 @@ class TennisClub extends React.Component {
               1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
               1900}`}
             clubName={this.state.club.clubName}
-            clubOpenTimeNumber={this.state.club.clubOpenTimeNumber}
-            clubCloseTimeNumber={this.state.club.clubCloseTimeNumber}
-            clubOpenTimeAMPM={this.state.club.clubOpenTimeAMPM}
-            clubCloseTimeAMPM={this.state.club.clubCloseTimeAMPM}
+            clubOpenTime={this.state.club.clubOpenTime}
+            clubCloseTime={this.state.club.clubCloseTime}
+           
             numberCourts={this.state.club.numberCourts}
           />
         )}

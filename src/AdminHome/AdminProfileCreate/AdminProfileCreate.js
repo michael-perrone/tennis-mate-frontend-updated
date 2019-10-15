@@ -25,7 +25,10 @@ class AdminProfileCreate extends React.Component {
       stopShowingNames: false,
       showSubmittedMessage: false,
       instructorsAlreadyHere: [],
-      entryError: ""
+      entryError: "",
+      showCurrentInstructors: false,
+      deletedInstructors: [],
+      servicesComingIn: []
     };
     this.bioTabButton = this.bioTabButton.bind(this);
     this.instructorsTabButton = this.instructorsTabButton.bind(this);
@@ -40,13 +43,19 @@ class AdminProfileCreate extends React.Component {
     this.showServices = this.showServices.bind(this);
     this.servicesTabButton = this.servicesTabButton.bind(this);
     this.cancelSubmitInstructors = this.cancelSubmitInstructors.bind(this);
+    this.carrotRightHandler = this.carrotRightHandler.bind(this);
+    this.carrotLeftHandler = this.carrotLeftHandler.bind(this);
+    this.setSeeInstructors = this.setSeeInstructors.bind(this);
+    this.sendNewInstructors = this.sendNewInstructors.bind(this);
   }
 
   componentDidMount() {
     axios.get('http://localhost:8080/api/clubprofile/myclub',
      {headers: {'x-auth-token': this.props.adminToken}})
      .then(response => {
-       console.log(response)
+       if(response.data.clubProfile && response.data.clubProfile.services.length >  0) {
+         this.setState({servicesComingIn: response.data.clubProfile.services})
+       }
        if (response.data.clubProfile && response.data.clubProfile.instructors.length > 0) {
          this.setState({instructorsAlreadyHere: response.data.clubProfile.instructors})
        }
@@ -172,6 +181,60 @@ class AdminProfileCreate extends React.Component {
     this.setState({ showInstructors: false });
   }
 
+  carrotRightHandler() {
+    if(this.state.showInstructors === true) {
+      this.setState({showInstructors: false})
+      this.setState({showServices: true})
+    }
+    else if (this.state.showServices === true) {
+      this.setState({showServices: false})
+      this.setState({showBio: true})
+    }
+  }
+
+  carrotLeftHandler() {
+    if(this.state.showBio === true) {
+      this.setState({showBio: false})
+      this.setState({showServices: true})
+    }
+    else if (this.state.showServices === true) {
+      this.setState({showServices: false})
+      this.setState({showInstructors: true})
+    }
+  }
+
+  setSeeInstructors(event) {
+    event.preventDefault();
+    this.setState({showCurrentInstructors: true})
+    this.setState({showInstructors: false});
+  }
+
+  deleteInstructor = (id) => () => {
+    const newInstructorsHereArray = [...this.state.instructorsAlreadyHere]
+    const newArrayForDeletions = [...this.state.deletedInstructors];
+    newInstructorsHereArray.forEach(element => {
+      if (element._id === id) {
+        newArrayForDeletions.push(element)
+      }
+    })
+    const filteredArray = newInstructorsHereArray.filter(element => {
+      return element._id !== id}
+       );
+    this.setState({instructorsAlreadyHere: filteredArray})
+    this.setState({deletedInstructors: newArrayForDeletions})
+  }
+
+  sendNewInstructors(event) {
+      event.preventDefault();
+      const newInstructorsSendingArray = [];
+      this.state.instructorsAlreadyHere.forEach(element => {
+        newInstructorsSendingArray.push(element._id)
+      })
+      axios.post('http://localhost:8080/api/clubprofile', {instructors: newInstructorsSendingArray}, {headers: {'x-auth-token': this.props.adminToken}}).then().catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
     return (
       <div>
@@ -222,6 +285,7 @@ class AdminProfileCreate extends React.Component {
               </div>
           <div id={styles.adminProfileFormDiv}>
             <div id={styles.formSelectorDiv}>
+            <i onClick={this.carrotLeftHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', color: this.state.showInstructors === true ?  "lightgray" : "black", left: '-7px'}} className="fas fa-chevron-left"></i>
               <p style={{backgroundColor: this.state.showInstructors === true ? "gray" : 'white', color: this.state.showInstructors === true ? "white" : "black"}}
                 onClick={this.instructorsTabButton}
                 className={styles.selector}
@@ -241,30 +305,12 @@ class AdminProfileCreate extends React.Component {
                className={styles.selector}>
                 Bio
               </p>
+              <i onClick={this.carrotRightHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', left: '7px', color: this.state.showBio === true ? 'lightgray' : "black"}} class="fas fa-chevron-right"></i>
             </div>
-            {this.state.showSubmittedMessage &&
-              this.state.showServices === false && (
-                <div className={styles.formP}>
-                  <button
-                    onClick={this.showServices}
-                    id={styles.continueToServices}
-                  >
-                    Continue <i className="fas fa-arrow-right"></i>
-                  </button>
-                  <button
-                    onClick={this.cancelSubmitInstructors}
-                    style={{ marginLeft: "20px" }}
-                    id={styles.continueToServices}
-                  >
-                    Cancel <i className="fas fa-window-close"></i>
-                  </button>
-                </div>
-              )}
             <form id={styles.adminProfileForm}>
               {this.state.showInstructors === true && (
                 <div style={{position: "relative"}}>
                     <p className={styles.hiddenEntryError} id={this.state.entryError !== "" || null ? styles.entryError : ""}>{this.state.entryError}</p>
-                  
                   <input
                     onFocus={this.unExit}
                     onBlur={() => {
@@ -329,8 +375,22 @@ class AdminProfileCreate extends React.Component {
                       Submit Instructor List
                     </button>
                   </div>
+                )}           
+                {this.state.showCurrentInstructors === true && this.state.showInstructors === false && this.state.showBio === false && this.state.showServices === false &&  (
+                   <div style={{display: 'flex', flexDirection: "column"}}>
+                     <p style={{textDecoration: 'underline', marginBottom: "10px"}}>Instructors currently at your club.</p>
+                     {this.state.instructorsAlreadyHere.map(element => {
+                       return <div style={{display: 'flex', width: '214px', justifyContent: 'space-between', margin: "2px 0px"}} key={element._id}><p>{element.fullName}</p><i onClick={this.deleteInstructor(element._id)} className="far fa-trash-alt" style={{marginLeft: '18px', color: 'red', fontWeight: 'bold'}}></i></div>
+                     })}
+                     {this.state.showCurrentInstructors === true && this.state.showInstructors === false && this.state.deletedInstructors.length > 0 && this.state.deletedInstructors.map(element => {
+                       return <div style={{display: 'flex'}} key={element._id}><p style={{textDecoration: "line-through", color: 'gray'}}>{element.fullName}</p></div>
+                     })}
+                     <button style={{marginTop:"8px"}} disabled={this.state.deletedInstructors.length === 0} onClick={this.sendNewInstructors}>Save Changes</button>
+                   </div>
                 )}
-              {this.state.showServices && <ServicesForm />}
+                  {this.state.showInstructors && this.state.instructorsAlreadyHere.length > 0 && 
+                  <button id={styles.seeCurrentInstructors} onClick={this.setSeeInstructors}>See Current Instructors</button>}
+              {this.state.showServices && <ServicesForm services={this.state.servicesComingIn}/>}
               {this.state.showBio && <BioForm/>}
             </form>
           </div>
