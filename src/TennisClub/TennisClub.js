@@ -12,7 +12,8 @@ class TennisClub extends React.Component {
       club: "",
       showCourts: false,
       dateChosenForCourts: "",
-      adminClubName: ""
+      adminClubName: "",
+      clubProfile: ""
     };
 
     this.onDateClick = this.onDateClick.bind(this);
@@ -26,7 +27,9 @@ class TennisClub extends React.Component {
           clubName: admin.admin.clubName
         })
         .then(response => {
-          this.setState({ club: response.data.tennisClub });
+          console.log(response);
+          this.setState({ club: response.data.tennisClub.club });
+          this.setState({ clubProfile: response.data.tennisClub.profile });
         });
     } else {
       axios
@@ -34,7 +37,8 @@ class TennisClub extends React.Component {
           clubName: this.props.match.params.clubName
         })
         .then(response => {
-          this.setState({ club: response.data.tennisClub });
+          this.setState({ club: response.data.tennisClub.club });
+          this.setState({ clubProfile: response.data.tennisClub.profile });
         });
     }
   }
@@ -49,22 +53,46 @@ class TennisClub extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div style={{ marginTop: "200px" }} id={styles.mainContainer}>
-        {localStorage.getItem("adminToken") === undefined ||
-          (localStorage.getItem("adminToken") === null && (
-            <p>{this.state.club.clubName}</p>
-          ))}
-
-        {localStorage.getItem("adminToken") !== undefined &&
-          (localStorage.getItem("adminToken") !== null && (
-            <p>{this.state.adminClubName}</p>
-          ))}
-
+      <div style={{ width: "100%" }} id={styles.mainContainer}>
+        <div id={styles.topContainer}>
+          <div id={styles.divBehindImage}>
+            <img
+              id={styles.clubImage}
+              alt="tennisClub"
+              src="https://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/the-downtown-club-media-folder/images/facilities/tennis-courts/downtown-club-at-met-houston-tennis-courts-560x310/1781915-2-eng-US/Downtown-Club-at-MET-houston-tennis-courts-560x310_largeimage.jpg"
+            />
+          </div>
+          <p id={styles.largerPTag}>{this.state.club.clubName}</p>
+          <div id={styles.locationDiv}>
+            <div className={styles.subLocationContainer}>
+              <p className={styles.fs18}>{this.state.club.address}</p>
+              <p className={styles.fs18}>{this.state.club.city}</p>
+              <p className={styles.fs18}>{this.state.club.state}</p>
+              <p className={styles.fs18}>{this.state.club.zip}</p>
+            </div>
+            <div className={styles.subLocationContainer}>
+              <p className={styles.f18}>
+                {this.state.club.clubOpenTime} - {this.state.club.clubCloseTime}
+              </p>
+              <a
+                style={{ textDecoration: "none" }}
+                href={`https://${this.state.club.clubWebsite}`}
+                className={styles.f18}
+              >
+                {this.state.club.clubWebsite}
+              </a>
+              <p className={styles.f18}>{this.state.club.phoneNumber}</p>
+              <p>{this.state.club.numberCourts} Tennis Courts</p>
+            </div>
+          </div>
+          <div id={styles.servicesAndEventsContainer}>
+            <div></div>
+          </div>
+        </div>
         <Calendar
           date={this.state.dateChosenForCourts}
           onDateClick={this.onDateClick}
         />
-
         {this.state.showCourts && (
           <CourtContainer
             date={`${this.state.dateChosenForCourts.getMonth() +
@@ -73,7 +101,6 @@ class TennisClub extends React.Component {
             clubName={this.state.club.clubName}
             clubOpenTime={this.state.club.clubOpenTime}
             clubCloseTime={this.state.club.clubCloseTime}
-           
             numberCourts={this.state.club.numberCourts}
           />
         )}

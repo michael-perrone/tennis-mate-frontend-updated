@@ -28,7 +28,8 @@ class AdminProfileCreate extends React.Component {
       entryError: "",
       showCurrentInstructors: false,
       deletedInstructors: [],
-      servicesComingIn: []
+      servicesComingIn: [],
+      bioToPassDown: ""
     };
     this.bioTabButton = this.bioTabButton.bind(this);
     this.instructorsTabButton = this.instructorsTabButton.bind(this);
@@ -58,6 +59,9 @@ class AdminProfileCreate extends React.Component {
        }
        if (response.data.clubProfile && response.data.clubProfile.instructors.length > 0) {
          this.setState({instructorsAlreadyHere: response.data.clubProfile.instructors})
+       }
+       if (response.data.clubProfile && response.data.clubProfile.bio) {
+         this.setState({bioToPassDown: response.data.clubProfile.bio})
        }
      })
 
@@ -155,8 +159,15 @@ class AdminProfileCreate extends React.Component {
 
   sendInstructorList(event) {
     event.preventDefault();
+    let goingToConcatOldInstructorsArray = [];
+    if(this.state.instructorsAlreadyHere.length > 0) {
+    this.state.instructorsAlreadyHere.forEach(element => {
+      goingToConcatOldInstructorsArray.push(element._id)
+    })
+  }
+    let arrayToSend = goingToConcatOldInstructorsArray.concat(this.state.instructorIds)
     const objectToSend = {
-      instructors: this.state.instructorIds
+      instructors: arrayToSend
     };
     axios
       .post("http://localhost:8080/api/clubProfile", objectToSend, {
@@ -217,11 +228,12 @@ class AdminProfileCreate extends React.Component {
         newArrayForDeletions.push(element)
       }
     })
+    this.setState({deletedInstructors: newArrayForDeletions})
     const filteredArray = newInstructorsHereArray.filter(element => {
       return element._id !== id}
        );
     this.setState({instructorsAlreadyHere: filteredArray})
-    this.setState({deletedInstructors: newArrayForDeletions})
+    
   }
 
   sendNewInstructors(event) {
@@ -376,22 +388,25 @@ class AdminProfileCreate extends React.Component {
                     </button>
                   </div>
                 )}           
-                {this.state.showCurrentInstructors === true && this.state.showInstructors === false && this.state.showBio === false && this.state.showServices === false &&  (
-                   <div style={{display: 'flex', flexDirection: "column"}}>
+                {this.state.showInstructors === true &&  (
+                  <div>
+                    {(this.state.deletedInstructors.length > 0 || this.state.instructorsAlreadyHere.length) > 0 && 
+                    <div style={{marginTop: '10px', display: 'flex', flexDirection: "column"}}>
                      <p style={{textDecoration: 'underline', marginBottom: "10px"}}>Instructors currently at your club.</p>
                      {this.state.instructorsAlreadyHere.map(element => {
-                       return <div style={{display: 'flex', width: '214px', justifyContent: 'space-between', margin: "2px 0px"}} key={element._id}><p>{element.fullName}</p><i onClick={this.deleteInstructor(element._id)} className="far fa-trash-alt" style={{marginLeft: '18px', color: 'red', fontWeight: 'bold'}}></i></div>
+                       return <div style={{display: 'flex', width: '214px', justifyContent: 'space-between', margin: "2px 0px"}} key={element._id}>
+                         <p>{element.fullName}</p>
+                       <i onClick={this.deleteInstructor(element._id)} className="far fa-trash-alt" style={{marginLeft: '18px', color: 'red', fontWeight: 'bold'}}></i></div>
                      })}
-                     {this.state.showCurrentInstructors === true && this.state.showInstructors === false && this.state.deletedInstructors.length > 0 && this.state.deletedInstructors.map(element => {
+                     {this.state.deletedInstructors.length > 0 && this.state.deletedInstructors.map(element => {
                        return <div style={{display: 'flex'}} key={element._id}><p style={{textDecoration: "line-through", color: 'gray'}}>{element.fullName}</p></div>
                      })}
                      <button style={{marginTop:"8px"}} disabled={this.state.deletedInstructors.length === 0} onClick={this.sendNewInstructors}>Save Changes</button>
-                   </div>
+                   </div> }
+                    </div> 
                 )}
-                  {this.state.showInstructors && this.state.instructorsAlreadyHere.length > 0 && 
-                  <button id={styles.seeCurrentInstructors} onClick={this.setSeeInstructors}>See Current Instructors</button>}
               {this.state.showServices && <ServicesForm services={this.state.servicesComingIn}/>}
-              {this.state.showBio && <BioForm/>}
+              {this.state.showBio && <BioForm bioComingDown={this.state.bioToPassDown}/>}
             </form>
           </div>
         </div>

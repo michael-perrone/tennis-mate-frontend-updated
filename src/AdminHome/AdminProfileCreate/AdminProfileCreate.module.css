@@ -87,6 +87,10 @@ left: 20%;
   border-radius: 18px;
 }
 
+label {
+  font-size: 12px;
+}
+
 #instructorsInput {
   height: 30px;
   width: 340px;

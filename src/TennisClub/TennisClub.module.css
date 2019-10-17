@@ -1,0 +1,62 @@
+#mainContainer {
+  background-color: rgb(201, 224, 201);
+  height: 100vh;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+#topContainer {
+  display: flex;
+  width: 475px;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#locationDiv {
+  position: relative;
+  top: 80px;
+  height: 190px;
+  background-color: rgb(189, 255, 189);
+  width: 435px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  justify-content: space-around;
+}
+
+.subLocationContainer {
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#largerPTag {
+  position: relative;
+  top: 16px;
+  font-size: 28px;
+  text-shadow: 1px 1px lightgreen;
+}
+
+#clubImage {
+  width: 420px;
+  border-radius: 2px;
+  height: 250px;
+}
+
+#divBehindImage {
+  position: relative;
+  top: 10px;
+  background-color: rgba(0, 0, 0, 0.788);
+  width: 435px;
+  display: flex;
+  justify-content: center;
+  height: 280px;
+  align-items: center;
+  border-radius: 2px;
+}

@@ -5,7 +5,7 @@ class BioForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bio: ""
+      bio: this.props.bioComingDown
     };
     this.submitBio = this.submitBio.bind(this);
     this.getTextAreaInput = this.getTextAreaInput.bind(this);

@@ -26,6 +26,26 @@ class ServicesForm extends React.Component {
     this.serviceInputHandler = this.serviceInputHandler.bind(this);
   }
 
+  componentWillMount() {
+    let newServicesForm = {...this.state.servicesForm}
+    if(this.props.services.length > 0) {
+        let name = [];
+       this.props.services.forEach(element => {
+         name.push(Object.keys(element))
+       })
+        for(let i = 0; i < 6; i++) {
+            if(this.props.services[i][`${name[i]}`] === "Yes") {
+              newServicesForm[`${name[i]}`] = "Yes";            
+          }
+          if (this.props.services[i][`${name[i]}`] === "No") {
+            newServicesForm[`${name[i]}`] = "No"
+          }
+        }
+        console.log(newServicesForm)
+        this.setState({servicesForm: newServicesForm})
+    }
+  }
+
   serviceInputHandler(event) {
     this.setState({ otherServices: event.target.value });
   }
@@ -124,6 +144,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No1"
+          checked={this.state.servicesForm.tennisLessons === "No"}
         />
         <label htmlFor="No1">No</label>
         <p className={styles.servicesP}>Does your club offer Group Clinics?</p>
@@ -134,6 +155,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes2"
+          checked={this.state.servicesForm.groupClinics === "Yes" }
         />
         <label htmlFor="Yes2">Yes</label>
         <input
@@ -143,6 +165,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No2"
+          checked={this.state.servicesForm.groupClinics === "No"}
         />
         <label htmlFor="No2">No</label>
         <p className={styles.servicesP}>
@@ -155,6 +178,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes3"
+          checked={this.state.servicesForm.racquetStringing === "Yes" }
         />
         <label htmlFor="Yes3">Yes</label>
         <input
@@ -164,6 +188,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No3"
+          checked={this.state.servicesForm.racquetStringing === "No"}
         />
         <label htmlFor="No3">No</label>
         <p className={styles.servicesP}>
@@ -176,6 +201,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes4"
+          checked={this.state.servicesForm.summerProgram === "Yes" }
         />
         <label htmlFor="Yes4">Yes</label>
         <input
@@ -185,6 +211,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No4"
+          checked={this.state.servicesForm.summerProgram === "No"}
         />
         <label htmlFor="No4">No</label>
         <p className={styles.servicesP}>Does your club have a Gym?</p>
@@ -195,6 +222,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes5"
+          checked={this.state.servicesForm.gym === "Yes" }
         />
         <label htmlFor="Yes5">Yes</label>
         <input
@@ -204,6 +232,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No5"
+          checked={this.state.servicesForm.gym === "No"}
         />
         <label htmlFor="No5">No</label>
         <p className={styles.servicesP}>Does your club offer tournaments?</p>
@@ -214,6 +243,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="Yes"
           id="Yes6"
+          checked={this.state.servicesForm.tournaments === "Yes" }
         />
         <label htmlFor="Yes6">Yes</label>
         <input
@@ -223,6 +253,7 @@ class ServicesForm extends React.Component {
           type="radio"
           value="No"
           id="No6"
+          checked={this.state.servicesForm.tournaments === "No"}
         />
         <label htmlFor="No6">No</label>
         <p style={{ borderBottom: "none" }} className={styles.servicesP}>

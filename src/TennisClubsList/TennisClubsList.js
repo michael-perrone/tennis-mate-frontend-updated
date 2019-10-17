@@ -259,7 +259,7 @@ getLocation() {
       <div id={styles.clubsContainer}>
           {this.state.showLocationModal === true && <LocationModal getLocation={this.getLocation} locationDenied={this.locationDenied}/>}
         <TennisClubSearchBar clubs={this.state.tennisClubs} />
-        <div style={{justifyContent: "center", display: 'flex', width: "100%", marginTop: "90px" }}>
+        <div style={{justifyContent: "center", display: 'flex', width: "100%", marginTop: "90px", flexDirection: 'column' }}>
           {this.state.locationGiven === true && this.state.tennisClubs.map(element => {
               console.log(element.clubs.state, "hi", this.state.stateLocation)
             return (

@@ -42,7 +42,37 @@ class Calendar extends React.Component {
       );
     }
 
-    return <div className="days row">{days}</div>;
+    return (
+      <div style={{ display: "flex" }}>
+        <p className="dayInHeader">Sun</p>
+        <p className="dayInHeader">Mon</p>
+        <p
+          className="dayInHeader"
+        >
+          Tue
+        </p>
+        <p
+          className="dayInHeader"
+        >
+          Wed
+        </p>
+        <p
+          className="dayInHeader"
+        >
+          Thu
+        </p>
+        <p
+          className="dayInHeader"
+        >
+          Fri
+        </p>
+        <p
+          className="dayInHeader"
+        >
+          Sat
+        </p>
+      </div>
+    );
   }
 
   renderCells() {
@@ -63,7 +93,6 @@ class Calendar extends React.Component {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         const cloneDay = day;
-
         days.push(
           <div
             className={`col cell ${
