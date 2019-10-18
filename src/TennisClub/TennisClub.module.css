@@ -1,31 +1,60 @@
 #mainContainer {
-  background-color: rgb(201, 224, 201);
+  background-color: rgb(164, 248, 164);
   height: 100vh;
+  display: flex;
+}
+
+.eventDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 160px;
+  font-size: 14px;
 }
 
 .fs18 {
   font-size: 18px;
 }
 
-#topContainer {
+.subContainer {
   display: flex;
   width: 475px;
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-#locationDiv {
+.smallGreenDiv {
   position: relative;
-  top: 80px;
-  height: 190px;
   background-color: rgb(189, 255, 189);
-  width: 435px;
+  border-left: 8px solid black;
+  border-right: 8px solid black;
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+  margin: 10px;
+  width: 405px;
+  height: 250px;
   display: flex;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 2px;
   justify-content: space-around;
+}
+
+.flexWrapDiv {
+  display: flex;
+  height: 230px;
+  width: 345px;
+  margin-top: 70px;
+  flex-direction: column;
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.divHoldingItem {
+  height: 35px;
+  font-size: 14px;
+  margin-right: 11px;
 }
 
 .subLocationContainer {
@@ -33,30 +62,36 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
-#largerPTag {
-  position: relative;
-  top: 16px;
-  font-size: 28px;
-  text-shadow: 1px 1px lightgreen;
+.eventDateSubDiv {
+  display: flex;
+  margin-bottom: 7px;
+}
+
+#addEventInput {
+  height: 18px;
+  width: 230px;
+  font-size: 14px;
+  padding-left: 8px;
+  margin-left: 4px;
+}
+
+.largerPTag {
+  position: absolute;
+  color: lightgreen;
+  text-align: center;
+  width: 100%;
+  font-size: 24px;
+  text-shadow: 2px 2px black;
+  top: 0px;
+  background-color: black;
+  padding: 5px 0px;
 }
 
 #clubImage {
-  width: 420px;
+  width: 405px;
   border-radius: 2px;
   height: 250px;
-}
-
-#divBehindImage {
-  position: relative;
-  top: 10px;
-  background-color: rgba(0, 0, 0, 0.788);
-  width: 435px;
-  display: flex;
-  justify-content: center;
-  height: 280px;
-  align-items: center;
-  border-radius: 2px;
 }
