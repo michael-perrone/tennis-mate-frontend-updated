@@ -185,6 +185,7 @@ class CourtColumns extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <p style={{ textAlign: "center" }}>Court: {this.props.courtNumber}</p>

@@ -12,7 +12,7 @@ class TennisClub extends React.Component {
     this.state = {
       club: "",
       showCourts: false,
-      dateChosenForCourts: "",
+      dateChosenForCourts: new Date(),
       adminClubName: "",
       clubProfile: "",
       instructors: [],
@@ -22,8 +22,11 @@ class TennisClub extends React.Component {
       eventDescriptionState: "",
       timeStartState: "",
       timeEndState: "",
-      events: []
+      events: [],
+      showEventDetailBox: false,
+      indexNumber: ""
     };
+    this.getIndexNumber = this.getIndexNumber.bind(this);
     this.timeStartHandler = this.timeStartHandler.bind(this);
     this.timeEndHandler = this.timeEndHandler.bind(this);
     this.eventDescriptionHandler = this.eventDescriptionHandler.bind(this);
@@ -32,6 +35,7 @@ class TennisClub extends React.Component {
     this.addEventStateShow = this.addEventStateShow.bind(this);
     this.onDateClick = this.onDateClick.bind(this);
     this.addEventHandler = this.addEventHandler.bind(this);
+    this.showEventDetailHandler = this.showEventDetailHandler.bind(this);
   }
   componentWillMount() {
     if (localStorage.getItem("adminToken")) {
@@ -58,6 +62,20 @@ class TennisClub extends React.Component {
           this.setState({ club: response.data.tennisClub.club });
         });
     }
+  }
+
+  getIndexNumber(index) {
+    this.setState(prevState => {
+      return { showEventDetailBox: true };
+    });
+    this.setState({ indexNumber: index });
+    console.log(index);
+  }
+
+  showEventDetailHandler() {
+    this.setState(prevState => {
+      return { showEventDetailBox: !prevState.showEventDetailBox };
+    });
   }
 
   timeEndHandler(event) {
@@ -100,8 +118,8 @@ class TennisClub extends React.Component {
 
   onDateClick(date) {
     return () => {
-      this.setState({ showCourts: true });
       this.setState({ dateChosenForCourts: date });
+      this.setState({ showCourts: true });
     };
   }
 
@@ -114,7 +132,7 @@ class TennisClub extends React.Component {
   }
 
   render() {
-    console.log(this.state.clubProfile);
+    console.log(this.state.dateChosenForCourts);
     console.log(this.state);
     return (
       <div>
@@ -165,8 +183,6 @@ class TennisClub extends React.Component {
                   this.state.clubProfile.services.map((element, index) => {
                     let keyArray = Object.keys(element);
                     let service = "";
-                    console.log(element);
-                    console.log(keyArray);
                     if (element[keyArray[0]] === "Yes") {
                       if (keyArray[0] === "tennisLessons") {
                         service = "Private Tennis Lessons";
@@ -218,26 +234,76 @@ class TennisClub extends React.Component {
               className={styles.smallGreenDiv}
             >
               <p className={styles.largerPTag}>Events Coming Up</p>
-              {this.state.addEventState === false && this.state.events !== "" && (
-                <div style={{ marginTop: "40px" }}>
-                  {this.state.events.map((element, index) => {
-                    if (index < 6) {
-                      return (
-                        <div
-                          style={{
-                            height: `${150 / this.state.events.length}px`
-                          }}
-                          className={styles.eventDiv}
-                        >
-                          <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                            {element.name}
-                          </p>
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              )}
+              {this.state.addEventState === false &&
+                this.state.events.length !== 0 && (
+                  <div style={{ position: "relative", marginTop: "40px" }}>
+                    {this.state.events.map((element, index) => {
+                      if (index < 6) {
+                        console.log(element);
+                        return (
+                          <div
+                            style={{
+                              height: `${150 / this.state.events.length}px`
+                            }}
+                            className={styles.eventDiv}
+                          >
+                            <div
+                              style={{
+                                width: "250px",
+                                position: "relative",
+                                height: "21px"
+                              }}
+                            >
+                              {this.state.indexNumber === index &&
+                              this.state.showEventDetailBox === true ? (
+                                <div className={styles.eventDetailBox}>
+                                  <p
+                                    onClick={() =>
+                                      this.setState({
+                                        showEventDetailBox: false
+                                      })
+                                    }
+                                    style={{
+                                      color: "white",
+                                      border: "2px solid white",
+                                      width: "10px",
+                                      position: "relative",
+                                      left: "260px",
+                                      padding: "4x",
+                                      cursor: "pointer"
+                                    }}
+                                  >
+                                    X
+                                  </p>
+                                  <p
+                                    style={{
+                                      width: "200px",
+                                      marginLeft: "70px"
+                                    }}
+                                  >
+                                    {element.description}
+                                  </p>
+                                </div>
+                              ) : null}
+                              <p
+                                onClick={() => {
+                                  this.getIndexNumber(index);
+                                }}
+                                style={{
+                                  height: "20px",
+                                  fontWeight: "bold",
+                                  fontSize: "16px"
+                                }}
+                              >
+                                {element.name}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
+                )}
               {this.props.admin && this.state.addEventState === false && (
                 <button onClick={this.addEventStateShow}>Add an Event</button>
               )}
@@ -445,13 +511,16 @@ class TennisClub extends React.Component {
             </div>
           </div>
         </div>
-
-        <Calendar
-          date={this.state.dateChosenForCourts}
-          onDateClick={this.onDateClick}
-        />
-        {this.state.showCourts && (
+        <div>
+          <div id={styles.courtsShowingHeader}>
+            <p>{this.state.club.clubName}</p>
+            <Calendar
+              date={this.state.dateChosenForCourts}
+              onDateClick={this.onDateClick}
+            />
+          </div>
           <CourtContainer
+            numberCourts={this.state.club.numberCourts}
             date={`${this.state.dateChosenForCourts.getMonth() +
               1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
               1900}`}
@@ -460,7 +529,7 @@ class TennisClub extends React.Component {
             clubCloseTime={this.state.club.clubCloseTime}
             numberCourts={this.state.club.numberCourts}
           />
-        )}
+        </div>
       </div>
     );
   }

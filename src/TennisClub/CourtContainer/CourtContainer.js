@@ -320,7 +320,7 @@ class CourtContainer extends React.Component {
   };
 
   render() {
-    console.log(this.state.token);
+    console.log(this.props);
     return (
       <div>
         {this.state.showBookingModalState && (

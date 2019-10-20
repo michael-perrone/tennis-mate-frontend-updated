@@ -1,5 +1,5 @@
 #mainContainer {
-  background-color: rgb(164, 248, 164);
+  background-color: rgb(215, 255, 215);
   height: 100vh;
   display: flex;
 }
@@ -7,8 +7,15 @@
 .eventDiv {
   display: flex;
   justify-content: space-around;
-  width: 160px;
+  width: 360px;
   font-size: 14px;
+  position: relative;
+}
+
+#courtsShowingHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .fs18 {
@@ -21,7 +28,20 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#showCourtsButton {
+  position: fixed;
+  bottom: 10px;
+  z-index: 999;
+  left: 43%;
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  background-color: white;
+  box-shadow: 0px 0px 10px black;
+  border: none;
 }
 
 .smallGreenDiv {
@@ -33,11 +53,23 @@
   border-bottom: 4px solid black;
   margin: 10px;
   width: 405px;
-  height: 250px;
+  height: 240px;
   display: flex;
   align-items: center;
   border-radius: 2px;
   justify-content: space-around;
+}
+
+.eventDetailBox {
+  height: 320px;
+  position: absolute;
+  width: 370px;
+  background-color: rgba(0, 0, 0, 0.9);
+  clip-path: polygon(50% 0, 84% 0, 84% 57%, 100% 95%, 79% 59%, 14% 59%, 14% 0);
+  z-index: 100;
+  top: -290px;
+  left: -368px;
+  color: white;
 }
 
 .flexWrapDiv {
@@ -93,5 +125,5 @@
 #clubImage {
   width: 405px;
   border-radius: 2px;
-  height: 250px;
+  height: 240px;
 }
