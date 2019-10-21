@@ -28,7 +28,7 @@
   border-bottom: 1px solid #ff9999;
 }
 
-#courtSlotNotBooked:nth-child(2n) {
+#courtSlotNotBooked:nth-child(4n) {
   border-bottom: 2px solid black;
 }
 
