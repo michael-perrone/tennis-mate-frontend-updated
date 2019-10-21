@@ -4,6 +4,7 @@ import styles from "./TennisClub.module.css";
 import CourtContainer from "./CourtContainer/CourtContainer";
 import Calendar from "./Calendar/Calendar";
 import decoder from "jwt-decode";
+import AdminBooking from "./BookingHelpers/AdminBooking/AdminBooking";
 import { connect } from "react-redux";
 
 class TennisClub extends React.Component {
@@ -132,8 +133,6 @@ class TennisClub extends React.Component {
   }
 
   render() {
-    console.log(this.state.dateChosenForCourts);
-    console.log(this.state);
     return (
       <div>
         <div style={{ width: "100%" }} id={styles.mainContainer}>
@@ -228,7 +227,6 @@ class TennisClub extends React.Component {
                   })}
               </div>
             </div>
-
             <div
               style={{ flexDirection: "column" }}
               className={styles.smallGreenDiv}
@@ -494,7 +492,7 @@ class TennisClub extends React.Component {
             <div className={styles.smallGreenDiv}>
               <p className={styles.largerPTag}>Tennis Instructors</p>
               <div className={styles.flexWrapDiv}>
-                {this.state.instructors &&
+                {this &&
                   this.state.instructors.map(element => {
                     return (
                       <div
@@ -513,11 +511,27 @@ class TennisClub extends React.Component {
         </div>
         <div>
           <div id={styles.courtsShowingHeader}>
-            <p>{this.state.club.clubName}</p>
             <Calendar
               date={this.state.dateChosenForCourts}
               onDateClick={this.onDateClick}
             />
+            <AdminBooking instructors={this.state.instructors} />
+            <div
+              style={{
+                width: "30%",
+                display: "flex",
+                flexDirection: "column"
+              }}
+            >
+              <p id={styles.courtBookingPTag}>Court Booking</p>
+              <p id={styles.bookingInstructions}>
+                Atlanta's frustrations showed in a third-quarter fight between
+                running back Devonta Freeman and Donald that led to Freeman's
+                ejection. The two locked up after Ryan's pass off Mohamed Sanu's
+                hands was intercepted by Cory Littleton deep in Atlanta
+                territory with the Rams leading 20-3
+              </p>
+            </div>
           </div>
           <CourtContainer
             numberCourts={this.state.club.numberCourts}

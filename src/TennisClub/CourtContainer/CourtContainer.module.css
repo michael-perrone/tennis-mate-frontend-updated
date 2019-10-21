@@ -1,3 +1,25 @@
 #courtContainer {
+  margin-top: 30px;
+  justify-content: center;
   display: flex;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+#courtButtonDiv {
+  position: absolute;
+  right: 10%;
+  top: -100px;
+}
+
+.courtButton {
+  width: 120px;
+  height: 28px;
+  padding: 6px;
+  padding-bottom: 24px;
+  border-radius: 6px;
+  margin-left: 10px;
+  background-color: lightgreen;
+  border: 2px ridge black;
+  color: black;
 }

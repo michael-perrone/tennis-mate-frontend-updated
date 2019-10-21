@@ -1,8 +1,8 @@
 #courtColumn {
-  border-top: 3px solid black;
-  border-bottom: 3px solid black;
-  border-left: 6px double black;
-  border-right: 6px double black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 3px double black;
+  border-right: 3px double black;
   width: 200px;
   height: 200vh;
   display: flex;

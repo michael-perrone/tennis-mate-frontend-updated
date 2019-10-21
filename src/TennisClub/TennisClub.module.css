@@ -12,10 +12,20 @@
   position: relative;
 }
 
+#courtBookingPTag {
+  font-size: 32px;
+  align-self: center;
+  margin-bottom: 12px;
+}
+
 #courtsShowingHeader {
   width: 100%;
+  padding-top: 20px;
+  border-top: 2px solid black;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
 }
 
 .fs18 {
@@ -42,6 +52,10 @@
   background-color: white;
   box-shadow: 0px 0px 10px black;
   border: none;
+}
+
+#bookingInstructions {
+  width: 100%;
 }
 
 .smallGreenDiv {

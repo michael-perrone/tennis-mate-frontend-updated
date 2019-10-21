@@ -189,7 +189,10 @@ class CourtColumns extends React.Component {
     return (
       <div>
         <p style={{ textAlign: "center" }}>Court: {this.props.courtNumber}</p>
-        <div id={styles.courtColumn}>
+        <div
+          id={styles.courtColumn}
+          style={{ width: `${91 / this.props.numberCourts}vw` }}
+        >
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot

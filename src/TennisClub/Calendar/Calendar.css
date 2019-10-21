@@ -39,7 +39,7 @@
 header {
   display: block;
   width: 100%;
-  padding: 1.75em 0;
+  padding: 0.75em 0;
   border-bottom: 1px solid var(--border-color);
   background: var(--neutral-color);
 }
@@ -102,8 +102,6 @@ header #logo .icon {
 /* Calendar */
 
 .calendar {
-  left: 100px;
-
   display: block;
   position: relative;
   width: 280px;
@@ -116,7 +114,7 @@ header #logo .icon {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 115%;
-  padding: 1.5em 0;
+  padding: 0.2em 0;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -141,7 +139,7 @@ header #logo .icon {
 
 .calendar .body .cell {
   position: relative;
-  height: 3em;
+  height: 2em;
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;
@@ -191,7 +189,7 @@ header #logo .icon {
   line-height: 1;
   color: var(--main-color);
   opacity: 0;
-  font-size: 3em;
+  font-size: 2.2em;
   position: absolute;
   transition: 0.25s ease-out;
   letter-spacing: -0.07em;

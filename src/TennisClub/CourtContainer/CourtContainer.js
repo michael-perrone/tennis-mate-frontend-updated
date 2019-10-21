@@ -336,17 +336,23 @@ class CourtContainer extends React.Component {
             bookCourt={this.bookCourtArray}
           />
         )}
-        <button
-          style={{ marginLeft: "400px" }}
-          onClick={this.showTryingToBookModal}
-        >
-          Book Court
-        </button>
-        <button onClick={this.cancelBooking}>Cancel Booking</button>
         <div id={styles.courtContainer}>
+          <div id={styles.courtButtonDiv}>
+            <button
+              className={styles.courtButton}
+              onClick={this.showTryingToBookModal}
+            >
+              Book Court
+            </button>
+            <button className={styles.courtButton} onClick={this.cancelBooking}>
+              Cancel Booking
+            </button>
+          </div>
+
           {this.courtNumbersToCourtColumns().map(element => {
             return (
               <CourtColumns
+                numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
                 bookingArray={this.state.bookingArray}
                 getModalObject={this.showBookingModal}
