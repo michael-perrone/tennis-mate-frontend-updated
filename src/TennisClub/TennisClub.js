@@ -516,22 +516,6 @@ class TennisClub extends React.Component {
               onDateClick={this.onDateClick}
             />
             <AdminBooking instructors={this.state.instructors} />
-            <div
-              style={{
-                width: "30%",
-                display: "flex",
-                flexDirection: "column"
-              }}
-            >
-              <p id={styles.courtBookingPTag}>Court Booking</p>
-              <p id={styles.bookingInstructions}>
-                Atlanta's frustrations showed in a third-quarter fight between
-                running back Devonta Freeman and Donald that led to Freeman's
-                ejection. The two locked up after Ryan's pass off Mohamed Sanu's
-                hands was intercepted by Cory Littleton deep in Atlanta
-                territory with the Rams leading 20-3
-              </p>
-            </div>
           </div>
           <CourtContainer
             numberCourts={this.state.club.numberCourts}

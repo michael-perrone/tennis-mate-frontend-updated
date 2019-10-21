@@ -5,6 +5,7 @@ import CourtColumns from "./CourtColumns/CourtColumns";
 import CheckBookingModal from "./CheckBookingModal/CheckBookingModal";
 import TryingToBookModal from "./TryingToBookModal/TryingToBookModal";
 import decoder from "jwt-decode";
+import BookingIntro from "./BookingIntro/BookingIntro";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -336,8 +337,13 @@ class CourtContainer extends React.Component {
             bookCourt={this.bookCourtArray}
           />
         )}
-        <div id={styles.courtContainer}>
-          <div id={styles.courtButtonDiv}>
+        <div id={styles.bookingIntroDiv}>
+          <BookingIntro
+            openTime={this.props.clubOpenTime}
+            closeTime={this.props.clubCloseTime}
+            clubName={this.props.clubName}
+          />
+          <div style={{ marginTop: "15px" }}>
             <button
               className={styles.courtButton}
               onClick={this.showTryingToBookModal}
@@ -348,7 +354,8 @@ class CourtContainer extends React.Component {
               Cancel Booking
             </button>
           </div>
-
+        </div>
+        <div id={styles.courtContainer}>
           {this.courtNumbersToCourtColumns().map(element => {
             return (
               <CourtColumns

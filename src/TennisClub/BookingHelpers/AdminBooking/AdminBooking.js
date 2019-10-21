@@ -1,25 +1,110 @@
 import React from "react";
 import styles from "./AdminBooking.module.css";
+import { connect } from "react-redux";
+import {
+  BOOKING_TYPE,
+  TIME_SELECTED,
+  INSTRUCTOR_CHOSEN
+} from "../../../actions/actions";
 
-class InstructorAdminBooking extends React.Component {
+class AdminBooking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructorSelected: ""
+      instructorSelected: "",
+      timeChosen: "",
+      bookingType: ""
+    };
+    this.selectInstructorWithClick = this.selectInstructorWithClick.bind(this);
+    this.selectTime = this.selectTime.bind(this);
+  }
+
+  selectInstructorWithClick(instructorSelected) {
+    return () => {
+      this.setState({ instructorSelected });
+      this.props.getInstructorChosen(instructorSelected);
     };
   }
 
-  selectInstructorWithClick(instructorClickingOn) {
-    this.setState({ instructorSelected: instructorClickingOn });
+  selectTime(timeChosen) {
+    return () => {
+      this.setState({ timeChosen });
+      this.props.getTimeChosen(timeChosen);
+    };
+  }
+
+  selectBookingType(bookingType) {
+    return () => {
+      this.setState({ bookingType });
+      this.props.getBookingType(bookingType);
+    };
   }
 
   render() {
     return (
-      <div>
-        <div id={styles.instructorHolder}>
-          <div id={styles.instructorHolderSubContainer}>
+      <div id={styles.bookingHolder}>
+        <div className={styles.bookingHolderContainer}>
+          <p style={{ marginBottom: "-8px" }}>Choose Instructor</p>
+          <div className={styles.bookingHolderSubContainer}>
             {this.props.instructors.map(element => {
-              return <p id={styles.instructorPTag}>{element.fullName}</p>;
+              return (
+                <p
+                  style={{
+                    backgroundColor:
+                      this.state.instructorSelected._id === element._id
+                        ? "navy"
+                        : "",
+                    color:
+                      this.state.instructorSelected._id === element._id
+                        ? "white"
+                        : ""
+                  }}
+                  onClick={this.selectInstructorWithClick(element)}
+                  className={styles.itemPTag}
+                >
+                  {element.fullName}
+                </p>
+              );
+            })}
+          </div>
+        </div>
+        <div className={styles.bookingHolderContainer}>
+          <p style={{ marginBottom: "-8px" }}>Choose Time Amount</p>
+          <div className={styles.bookingHolderSubContainer}>
+            {this.props.times.map(element => {
+              return (
+                <p
+                  style={{
+                    backgroundColor:
+                      this.state.timeChosen === element ? "navy" : "",
+                    color: this.state.timeChosen === element ? "white" : ""
+                  }}
+                  onClick={this.selectTime(element)}
+                  className={styles.itemPTag}
+                >
+                  {element}
+                </p>
+              );
+            })}
+          </div>
+        </div>
+        <div className={styles.bookingHolderContainer}>
+          <p style={{ marginBottom: "-8px" }}>Choose Booking Type</p>
+          <div className={styles.bookingHolderSubContainer}>
+            {this.props.bookingTypes.map(element => {
+              return (
+                <p
+                  style={{
+                    backgroundColor:
+                      this.state.bookingType === element ? "navy" : "",
+                    color: this.state.bookingType === element ? "white" : ""
+                  }}
+                  onClick={this.selectBookingType(element)}
+                  className={styles.itemPTag}
+                >
+                  {element}
+                </p>
+              );
             })}
           </div>
         </div>
@@ -28,4 +113,51 @@ class InstructorAdminBooking extends React.Component {
   }
 }
 
-export default InstructorAdminBooking;
+AdminBooking.defaultProps = {
+  times: [
+    "30 Minutes",
+    "1 Hour",
+    "1 Hour 30 Minutes",
+    "2 Hours",
+    "2 Hours 30 Minutes",
+    "3 Hours",
+    "3 Hours 30 Minutes",
+    "4 Hours",
+    "4 Hours 30 Minutes",
+    "5 Hours"
+  ],
+  bookingTypes: [
+    "Group Clinic",
+    "Group Lesson",
+    "Private Clinic",
+    "Private Lesson",
+    "Court Time",
+    "Employee Court Time",
+    "Birthday Party",
+    "Other"
+  ]
+};
+
+const mapStateToProps = state => {
+  return {
+    bookingType: state.bookingInfoReducer.bookingType,
+    instructorChosen: state.bookingInfoReducer.instructorChosen,
+    timeChosen: state.bookingInfoReducer.timeSelected
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getBookingType: bookingType =>
+      dispatch({ type: BOOKING_TYPE, payload: { bookingType } }),
+    getTimeChosen: timeChosen =>
+      dispatch({ type: TIME_SELECTED, payload: { timeSelected: timeChosen } }),
+    getInstructorChosen: instructorChosen =>
+      dispatch({ type: INSTRUCTOR_CHOSEN, payload: { instructorChosen } })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminBooking);
