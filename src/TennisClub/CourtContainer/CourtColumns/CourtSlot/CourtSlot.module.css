@@ -9,6 +9,10 @@
   background-color: #ebedf0;
 }
 
+#beingBooked {
+  background-color: lightgreen;
+}
+
 #bookingInfo {
   height: 100%;
   width: 100%;

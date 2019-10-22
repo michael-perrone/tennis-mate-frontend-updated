@@ -49,7 +49,7 @@ class CourtSlot extends React.Component {
               alignItems: "center",
               justifyContent: "center"
             }}
-            onClick={this.props.getCourt({
+            onMouseOver={this.props.getCourt({
               courtId: this.props.courtId,
               timeStart: this.props.timeStart,
               endTime: this.props.timeEnd,
@@ -62,15 +62,10 @@ class CourtSlot extends React.Component {
         {!this.props.booked && this.props.beingBooked && (
           <div
             style={{
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "green"
+              backgroundColor: "lightgreen"
             }}
           >
-            <p id={styles.time}>Selected: {this.props.timeStart}</p>
+            <p id={styles.time}>{this.props.timeStart}</p>
           </div>
         )}
       </div>

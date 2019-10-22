@@ -29,7 +29,7 @@ class CourtContainer extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage.getItem("token")) {
       const token = decoder(localStorage.getItem("token"));
       this.setState({ token: token });
@@ -73,8 +73,6 @@ class CourtContainer extends React.Component {
     }
   }
 
-  hi = () => {};
-
   showBookingModal = objectToModal => () => {
     this.setState({ objectToModal, showBookingModalState: true });
   };
@@ -83,9 +81,38 @@ class CourtContainer extends React.Component {
     this.setState({ showBookingModalState: false });
   };
 
-  courtArray = param => () => {
+  courtArray = (topOfArray, courtsToLoopOver, courtToHelpRestoreId) => {
+    console.log(topOfArray);
     // this.setState({ showBookingModalState: false });
-    const newArray = [...this.state.bookingArray, param];
+    let numToAdd = "";
+    if (this.props.timeChosen.timeSelected === "30 Minutes") {
+      numToAdd = 1;
+    } else if (this.props.timeChosen.timeSelected === "1 Hour") {
+      numToAdd = 3;
+    } else if (this.props.timeChosen.timeSelected === "1 Hour 30 Minutes") {
+      numToAdd = 5;
+    } else if (this.props.timeChosen.timeSelected === "2 Hours") {
+      numToAdd = 7;
+    } else if (this.props.timeChosen.timeSelected === "2 Hours 30 Minutes") {
+      numToAdd = 9;
+    } else if (this.props.timeChosen.timeSelected === "3 Hours") {
+      numToAdd = 11;
+    }
+
+    let indexAfterIdRemoval = topOfArray.courtId.substring(1);
+    console.log(indexAfterIdRemoval);
+    const newArray = [];
+    for (
+      let i = parseInt(indexAfterIdRemoval);
+      i <= parseInt(indexAfterIdRemoval) + numToAdd;
+      i++
+    ) {
+      newArray.push({
+        court: courtsToLoopOver[i],
+        courtId: courtToHelpRestoreId.toString() + i.toString()
+      });
+    }
+
     const sortedStateArray = newArray.sort(function(a, b) {
       return a.courtId - b.courtId;
     });
@@ -225,7 +252,7 @@ class CourtContainer extends React.Component {
         timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
           .endTime,
         courtIds: courtIdsArray,
-        minutes: this.state.bookingArray.length * 30,
+        minutes: this.state.bookingArray.length * 15,
         clubName: this.props.clubName,
         date: this.props.date
       };
@@ -279,7 +306,7 @@ class CourtContainer extends React.Component {
             timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
               .endTime,
             courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 30,
+            minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
             date: this.props.date
           };
@@ -292,7 +319,7 @@ class CourtContainer extends React.Component {
             timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
               .endTime,
             courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 30,
+            minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
             date: this.props.date
           };
@@ -305,7 +332,7 @@ class CourtContainer extends React.Component {
             timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
               .endTime,
             courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 30,
+            minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
             date: this.props.date
           };
@@ -324,7 +351,6 @@ class CourtContainer extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.state.showBookingModalState && (
@@ -359,9 +385,10 @@ class CourtContainer extends React.Component {
           </div>
         </div>
         <div id={styles.courtContainer}>
-          {this.courtNumbersToCourtColumns().map(element => {
+          {this.courtNumbersToCourtColumns().map((element, index) => {
             return (
               <CourtColumns
+                courtNumber={index}
                 numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
                 bookingArray={this.state.bookingArray}

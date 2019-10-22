@@ -280,8 +280,15 @@ class CourtColumns extends React.Component {
     return beingBooked;
   };
 
+  getCourts = court => () => {
+    this.props.getCourt(
+      court,
+      this.state.courtsInColumn,
+      this.props.courtNumber
+    );
+  };
+
   render() {
-    console.log(this.props);
     return (
       <div>
         <p style={{ textAlign: "center" }}>Court: {this.props.courtNumber}</p>
@@ -306,7 +313,7 @@ class CourtColumns extends React.Component {
                 bookingInfo={this.sendBookingInfo(
                   `${this.props.courtNumber.toString() + index.toString()}`
                 )}
-                getCourt={this.props.getCourt}
+                getCourt={this.getCourts}
                 clubName={this.props.clubName}
                 courtNumber={this.props.courtNumber}
                 timeStart={element.timeStart}
