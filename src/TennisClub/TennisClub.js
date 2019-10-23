@@ -237,7 +237,6 @@ class TennisClub extends React.Component {
                   <div style={{ position: "relative", marginTop: "40px" }}>
                     {this.state.events.map((element, index) => {
                       if (index < 6) {
-                        console.log(element);
                         return (
                           <div
                             style={{

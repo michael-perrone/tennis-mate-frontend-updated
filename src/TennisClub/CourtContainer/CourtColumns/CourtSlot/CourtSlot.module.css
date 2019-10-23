@@ -9,10 +9,6 @@
   background-color: #ebedf0;
 }
 
-#beingBooked {
-  background-color: lightgreen;
-}
-
 #bookingInfo {
   height: 100%;
   width: 100%;
@@ -33,7 +29,7 @@
 }
 
 #courtSlotNotBooked:nth-child(4n) {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
 }
 
 #time {

@@ -17,6 +17,8 @@ class CourtContainer extends React.Component {
     // objectToModal
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
     this.state = {
+      firstSlotInArray: {},
+      lastSlotInArray: {},
       bookedCourts: [],
       bookingArray: [],
       bookingError: "",
@@ -82,8 +84,6 @@ class CourtContainer extends React.Component {
   };
 
   courtArray = (topOfArray, courtsToLoopOver, courtToHelpRestoreId) => {
-    console.log(topOfArray);
-    // this.setState({ showBookingModalState: false });
     let numToAdd = "";
     if (this.props.timeChosen.timeSelected === "30 Minutes") {
       numToAdd = 1;
@@ -100,7 +100,6 @@ class CourtContainer extends React.Component {
     }
 
     let indexAfterIdRemoval = topOfArray.courtId.substring(1);
-    console.log(indexAfterIdRemoval);
     const newArray = [];
     for (
       let i = parseInt(indexAfterIdRemoval);
@@ -118,6 +117,10 @@ class CourtContainer extends React.Component {
     });
 
     this.setState({ bookingArray: sortedStateArray });
+    this.setState({ firstSlotInArray: sortedStateArray[0] });
+    this.setState({
+      lastSlotInArray: sortedStateArray[sortedStateArray.length - 1]
+    });
   };
 
   bookCourtArray = () => {
@@ -388,7 +391,6 @@ class CourtContainer extends React.Component {
           {this.courtNumbersToCourtColumns().map((element, index) => {
             return (
               <CourtColumns
-                courtNumber={index}
                 numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
                 bookingArray={this.state.bookingArray}
@@ -404,6 +406,9 @@ class CourtContainer extends React.Component {
                 )}
                 key={element.courtNumber}
                 courtNumber={element.courtNumber}
+                firstSlotInArray={this.state.firstSlotInArray}
+                lastSlotInArray={this.state.lastSlotInArray}
+                date={this.props.date}
               />
             );
           })}

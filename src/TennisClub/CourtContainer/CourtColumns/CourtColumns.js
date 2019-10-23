@@ -254,6 +254,8 @@ class CourtColumns extends React.Component {
     return getLastElement;
   };
 
+  //
+
   checkBooked = courtId => {
     let booked = [];
     let checkingVar = false;
@@ -262,6 +264,7 @@ class CourtColumns extends React.Component {
         booked.push(element);
       });
     });
+
     booked.forEach(element => {
       if (courtId === element) {
         checkingVar = true;
@@ -299,6 +302,10 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                bookingArray={this.props.bookingArray}
+                date={this.props.date}
+                firstSlotInArray={this.props.firstSlotInArray}
+                lastSlotInArray={this.props.lastSlotInArray}
                 cancelModal={this.props.cancelModal}
                 beingBooked={this.beingBooked(
                   `${this.props.courtNumber.toString() + index.toString()}`
