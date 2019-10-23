@@ -234,7 +234,7 @@ class CourtColumns extends React.Component {
   sendBookingInfo = courtId => {
     let objectSending = null;
     this.props.bookedCourts.forEach(element => {
-      if (courtId === element.courtIds[0]) {
+      if (courtId === element.courtIds[element.courtIds.length / 2 - 1]) {
         objectSending = element;
       }
     });

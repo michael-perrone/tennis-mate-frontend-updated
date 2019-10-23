@@ -251,9 +251,8 @@ class CourtContainer extends React.Component {
       });
       const bookingToSend = {
         bookedBy: `${this.state.token.user.userNameFirst} ${this.state.token.user.userNameLast}`,
-        timeStart: this.state.bookingArray[0].timeStart,
-        timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-          .endTime,
+        timeStart: this.state.firstSlotInArray.court.timeStart,
+        timeEnd: this.state.lastSlotInArray.court.timeEnd,
         courtIds: courtIdsArray,
         minutes: this.state.bookingArray.length * 15,
         clubName: this.props.clubName,
@@ -305,9 +304,8 @@ class CourtContainer extends React.Component {
         if (this.state.token.admin) {
           const bookingToSend = {
             bookedBy: this.state.token.admin.name,
-            timeStart: this.state.bookingArray[0].timeStart,
-            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-              .endTime,
+            timeStart: this.state.firstSlotInArray.court.timeStart,
+            timeEnd: this.state.lastSlotInArray.court.timeEnd,
             courtIds: courtIdsArray,
             minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
@@ -318,9 +316,8 @@ class CourtContainer extends React.Component {
         if (this.state.token.user) {
           const bookingToSend = {
             bookedBy: this.state.token.user.userName,
-            timeStart: this.state.bookingArray[0].timeStart,
-            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-              .endTime,
+            timeStart: this.state.firstSlotInArray.court.timeStart,
+            timeEnd: this.state.lastSlotInArray.court.timeEnd,
             courtIds: courtIdsArray,
             minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
@@ -331,9 +328,8 @@ class CourtContainer extends React.Component {
         if (this.state.token.instructor) {
           const bookingToSend = {
             bookedBy: this.state.token.instructor.instructorName,
-            timeStart: this.state.bookingArray[0].timeStart,
-            timeEnd: this.state.bookingArray[this.state.bookingArray.length - 1]
-              .endTime,
+            timeStart: this.state.firstSlotInArray.court.timeStart,
+            timeEnd: this.state.lastSlotInArray.court.endTime,
             courtIds: courtIdsArray,
             minutes: this.state.bookingArray.length * 15,
             clubName: this.props.clubName,
@@ -354,6 +350,7 @@ class CourtContainer extends React.Component {
   };
 
   render() {
+    console.log(this.state.lastSlotInArray);
     return (
       <div>
         {this.state.showBookingModalState && (

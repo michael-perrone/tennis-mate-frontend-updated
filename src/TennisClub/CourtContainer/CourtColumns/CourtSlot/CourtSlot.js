@@ -13,8 +13,10 @@ class CourtSlot extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.booked !== nextProps.booked) {
+      return true;
+    }
     if (this.props.date !== nextProps.date) {
-      console.log(this.props.date, nextProps.date);
       return true;
     }
     if (this.props.beingBooked === nextProps.beingBooked) {
@@ -24,15 +26,6 @@ class CourtSlot extends React.Component {
         this.props.courtId === this.props.lastSlotInArray.courtId ||
         this.props.courtId === this.props.firstSlotInArray.courtId
       ) {
-        console.log(
-          this.props.courtId,
-          "Compared to",
-          nextProps.firstSlotInArray.courtId,
-          nextProps.lastSlotInArray.courtId,
-          this.props.lastSlotInArray.courtId,
-          this.props.firstSlotInArray.courtId
-        );
-        console.log(this.props.date, "compared to", nextProps.date);
         return true;
       } else {
         return false;
@@ -43,6 +36,7 @@ class CourtSlot extends React.Component {
   }
 
   render() {
+    console.log("hi");
     return (
       <div
         style={{
@@ -81,7 +75,7 @@ class CourtSlot extends React.Component {
               width: "100%",
               display: "flex",
               alignItems: "center",
-              zIndex: "300",
+              zIndex: "2",
               justifyContent: "center"
             }}
             onMouseOver={this.props.getCourt({
@@ -111,7 +105,7 @@ class CourtSlot extends React.Component {
                 justifyContent: "center",
                 alignItems: "center",
 
-                zIndex: "300"
+                zIndex: "2"
               }}
               onMouseOver={this.props.getCourt({
                 courtId: this.props.courtId,
@@ -140,7 +134,7 @@ class CourtSlot extends React.Component {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                zIndex: "300"
+                zIndex: "2"
               }}
               onMouseOver={this.props.getCourt({
                 courtId: this.props.courtId,
@@ -168,7 +162,7 @@ class CourtSlot extends React.Component {
                 justifyContent: "center",
                 alignItems: "center",
 
-                zIndex: "300"
+                zIndex: "2"
               }}
               onMouseOver={this.props.getCourt({
                 courtId: this.props.courtId,
@@ -191,7 +185,7 @@ class CourtSlot extends React.Component {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                zIndex: "300"
+                zIndex: "2"
               }}
               onMouseOver={this.props.getCourt({
                 courtId: this.props.courtId,
