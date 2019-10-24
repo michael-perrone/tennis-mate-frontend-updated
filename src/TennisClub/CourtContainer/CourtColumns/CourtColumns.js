@@ -302,6 +302,7 @@ class CourtColumns extends React.Component {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                courtClicked={this.props.courtClicked}
                 bookingArray={this.props.bookingArray}
                 date={this.props.date}
                 firstSlotInArray={this.props.firstSlotInArray}

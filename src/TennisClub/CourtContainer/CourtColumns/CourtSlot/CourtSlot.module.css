@@ -17,6 +17,14 @@
   align-items: flex-end;
 }
 
+#bookedCheckButton {
+  width: 100%;
+  height: 18px;
+  color: black;
+  background-color: lightgray;
+  border: none;
+}
+
 #courtSlotBooked {
   width: 100%;
   flex: 1;

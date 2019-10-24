@@ -16,7 +16,9 @@ class CourtContainer extends React.Component {
     );
     // objectToModal
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
+    this.courtClicked = this.courtClicked.bind(this);
     this.state = {
+      courtsClicked: false,
       firstSlotInArray: {},
       lastSlotInArray: {},
       bookedCourts: [],
@@ -75,6 +77,12 @@ class CourtContainer extends React.Component {
     }
   }
 
+  courtClicked() {
+    this.setState(prevState => {
+      return { courtsClicked: !prevState.courtsClicked };
+    });
+  }
+
   showBookingModal = objectToModal => () => {
     this.setState({ objectToModal, showBookingModalState: true });
   };
@@ -84,43 +92,45 @@ class CourtContainer extends React.Component {
   };
 
   courtArray = (topOfArray, courtsToLoopOver, courtToHelpRestoreId) => {
-    let numToAdd = "";
-    if (this.props.timeChosen.timeSelected === "30 Minutes") {
-      numToAdd = 1;
-    } else if (this.props.timeChosen.timeSelected === "1 Hour") {
-      numToAdd = 3;
-    } else if (this.props.timeChosen.timeSelected === "1 Hour 30 Minutes") {
-      numToAdd = 5;
-    } else if (this.props.timeChosen.timeSelected === "2 Hours") {
-      numToAdd = 7;
-    } else if (this.props.timeChosen.timeSelected === "2 Hours 30 Minutes") {
-      numToAdd = 9;
-    } else if (this.props.timeChosen.timeSelected === "3 Hours") {
-      numToAdd = 11;
-    }
+    if (this.state.courtsClicked === false) {
+      let numToAdd = "";
+      if (this.props.timeChosen.timeSelected === "30 Minutes") {
+        numToAdd = 1;
+      } else if (this.props.timeChosen.timeSelected === "1 Hour") {
+        numToAdd = 3;
+      } else if (this.props.timeChosen.timeSelected === "1 Hour 30 Minutes") {
+        numToAdd = 5;
+      } else if (this.props.timeChosen.timeSelected === "2 Hours") {
+        numToAdd = 7;
+      } else if (this.props.timeChosen.timeSelected === "2 Hours 30 Minutes") {
+        numToAdd = 9;
+      } else if (this.props.timeChosen.timeSelected === "3 Hours") {
+        numToAdd = 11;
+      }
 
-    let indexAfterIdRemoval = topOfArray.courtId.substring(1);
-    const newArray = [];
-    for (
-      let i = parseInt(indexAfterIdRemoval);
-      i <= parseInt(indexAfterIdRemoval) + numToAdd;
-      i++
-    ) {
-      newArray.push({
-        court: courtsToLoopOver[i],
-        courtId: courtToHelpRestoreId.toString() + i.toString()
+      let indexAfterIdRemoval = topOfArray.courtId.substring(1);
+      const newArray = [];
+      for (
+        let i = parseInt(indexAfterIdRemoval);
+        i <= parseInt(indexAfterIdRemoval) + numToAdd;
+        i++
+      ) {
+        newArray.push({
+          court: courtsToLoopOver[i],
+          courtId: courtToHelpRestoreId.toString() + i.toString()
+        });
+      }
+
+      const sortedStateArray = newArray.sort(function(a, b) {
+        return a.courtId - b.courtId;
+      });
+
+      this.setState({ bookingArray: sortedStateArray });
+      this.setState({ firstSlotInArray: sortedStateArray[0] });
+      this.setState({
+        lastSlotInArray: sortedStateArray[sortedStateArray.length - 1]
       });
     }
-
-    const sortedStateArray = newArray.sort(function(a, b) {
-      return a.courtId - b.courtId;
-    });
-
-    this.setState({ bookingArray: sortedStateArray });
-    this.setState({ firstSlotInArray: sortedStateArray[0] });
-    this.setState({
-      lastSlotInArray: sortedStateArray[sortedStateArray.length - 1]
-    });
   };
 
   bookCourtArray = () => {
@@ -244,13 +254,21 @@ class CourtContainer extends React.Component {
   }
 
   showTryingToBookModal = () => {
-    if (this.state.bookingArray.length === 1) {
+    let nameForBooking = "";
+    if (this.props.admin) {
+      nameForBooking = this.props.admin.name.name;
+    } else if (this.props.instructor) {
+      nameForBooking = this.props.instructor.instructor.fullName;
+    } else if (this.props.user) {
+      nameForBooking = this.props.user.user.userName;
+    }
+    if (this.state.bookingArray.length > 1) {
       const courtIdsArray = [];
       this.state.bookingArray.forEach(element => {
         courtIdsArray.push(element.courtId);
       });
       const bookingToSend = {
-        bookedBy: `${this.state.token.user.userNameFirst} ${this.state.token.user.userNameLast}`,
+        bookedBy: nameForBooking,
         timeStart: this.state.firstSlotInArray.court.timeStart,
         timeEnd: this.state.lastSlotInArray.court.timeEnd,
         courtIds: courtIdsArray,
@@ -259,85 +277,7 @@ class CourtContainer extends React.Component {
         date: this.props.date
       };
       this.setState({ bookingToSend });
-    }
-    if (this.state.bookingArray.length > 0) {
-      let resultsArray = [];
-      let sortedArray = this.state.bookingArray.slice();
-      for (let i = 0; i < sortedArray.length - 1; i++) {
-        // eslint-disable-next-line eqeqeq
-        if (sortedArray[i + 1].courtId == sortedArray[i].courtId) {
-          resultsArray.push(sortedArray[i]);
-        }
-      }
-      let otherResultsArray = [];
-      let otherSortedArray = this.state.bookingArray.slice();
-      for (let x = 0; x < sortedArray.length - 1; x++) {
-        if (
-          // eslint-disable-next-line eqeqeq
-          otherSortedArray[x + 1].courtId - 1 !=
-          otherSortedArray[x].courtId
-        ) {
-          otherResultsArray.push(otherSortedArray[x].courtId);
-          // console.log("got it");
-        }
-      }
-      if (resultsArray.length > 0) {
-        console.log("cant click same one twice");
-        this.setState({
-          bookingError: "You cannot select the same time slot twice"
-        });
-      }
-      if (otherResultsArray.length > 0) {
-        console.log("have to be in order");
-        this.setState({
-          bookingError:
-            "You cannot select courts that are not connected in time slots"
-        });
-      }
 
-      if (resultsArray.length === 0 && otherResultsArray.length === 0) {
-        const courtIdsArray = [];
-        this.state.bookingArray.forEach(element => {
-          courtIdsArray.push(element.courtId);
-        });
-
-        if (this.state.token.admin) {
-          const bookingToSend = {
-            bookedBy: this.state.token.admin.name,
-            timeStart: this.state.firstSlotInArray.court.timeStart,
-            timeEnd: this.state.lastSlotInArray.court.timeEnd,
-            courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 15,
-            clubName: this.props.clubName,
-            date: this.props.date
-          };
-          this.setState({ bookingToSend });
-        }
-        if (this.state.token.user) {
-          const bookingToSend = {
-            bookedBy: this.state.token.user.userName,
-            timeStart: this.state.firstSlotInArray.court.timeStart,
-            timeEnd: this.state.lastSlotInArray.court.timeEnd,
-            courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 15,
-            clubName: this.props.clubName,
-            date: this.props.date
-          };
-          this.setState({ bookingToSend });
-        }
-        if (this.state.token.instructor) {
-          const bookingToSend = {
-            bookedBy: this.state.token.instructor.instructorName,
-            timeStart: this.state.firstSlotInArray.court.timeStart,
-            timeEnd: this.state.lastSlotInArray.court.endTime,
-            courtIds: courtIdsArray,
-            minutes: this.state.bookingArray.length * 15,
-            clubName: this.props.clubName,
-            date: this.props.date
-          };
-          this.setState({ bookingToSend });
-        }
-      }
       this.setState(prevState => {
         return { tryingToBookModalState: !prevState.tryingToBookModalState };
       });
@@ -346,11 +286,11 @@ class CourtContainer extends React.Component {
 
   cancelBooking = () => {
     this.setState({ tryingToBookModalState: false });
+    this.setState({ courtsClicked: false });
     this.setState({ bookingArray: [] });
   };
 
   render() {
-    console.log(this.state.lastSlotInArray);
     return (
       <div>
         {this.state.showBookingModalState && (
@@ -388,6 +328,7 @@ class CourtContainer extends React.Component {
           {this.courtNumbersToCourtColumns().map((element, index) => {
             return (
               <CourtColumns
+                courtClicked={this.courtClicked}
                 numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
                 bookingArray={this.state.bookingArray}
@@ -417,6 +358,9 @@ class CourtContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    admin: state.authReducer.admin,
+    instructor: state.authReducer.instructor,
+    user: state.authReducer.user,
     timeChosen: state.bookingInfoReducer.timeSelected
   };
 };

@@ -55,7 +55,7 @@ class CourtSlot extends React.Component {
               borderTop: "none",
               height: "100%",
               width: "100%",
-              borderBottom: "2px solid black"
+              borderBottom: "2px solid #ebedf0"
             }}
           />
         )}
@@ -65,7 +65,7 @@ class CourtSlot extends React.Component {
             onClick={this.props.getModalObject(this.props.bookingInfo)}
             id={styles.bookingInfo}
           >
-            <p>Check Booking</p>
+            <button id={styles.bookedCheckButton}>Booked</button>
           </div>
         )}
         {!this.props.booked && !this.props.beingBooked && (
@@ -78,7 +78,7 @@ class CourtSlot extends React.Component {
               zIndex: "2",
               justifyContent: "center"
             }}
-            onMouseOver={this.props.getCourt({
+            onMouseEnter={this.props.getCourt({
               courtId: this.props.courtId,
               timeStart: this.props.timeStart,
               endTime: this.props.timeEnd,
@@ -107,7 +107,8 @@ class CourtSlot extends React.Component {
 
                 zIndex: "2"
               }}
-              onMouseOver={this.props.getCourt({
+              onClick={this.props.courtClicked}
+              onMouseEnter={this.props.getCourt({
                 courtId: this.props.courtId,
                 timeStart: this.props.timeStart,
                 endTime: this.props.timeEnd,
@@ -123,6 +124,7 @@ class CourtSlot extends React.Component {
           this.props.lastSlotInArray.courtId !==
             this.props.firstSlotInArray.courtId && (
             <div
+              onClick={this.props.courtClicked}
               style={{
                 borderBottom: "1px solid black",
                 borderLeft: "1px solid black",
@@ -136,7 +138,7 @@ class CourtSlot extends React.Component {
                 alignItems: "center",
                 zIndex: "2"
               }}
-              onMouseOver={this.props.getCourt({
+              onMouseEnter={this.props.getCourt({
                 courtId: this.props.courtId,
                 timeStart: this.props.timeStart,
                 endTime: this.props.timeEnd,
@@ -152,6 +154,7 @@ class CourtSlot extends React.Component {
           this.props.courtId !== this.props.lastSlotInArray.courtId &&
           this.props.bookingArray.length > 1 && (
             <div
+              onClick={this.props.courtClicked}
               style={{
                 height: "100%",
                 borderLeft: "1px solid black",
@@ -164,7 +167,7 @@ class CourtSlot extends React.Component {
 
                 zIndex: "2"
               }}
-              onMouseOver={this.props.getCourt({
+              onMouseEnter={this.props.getCourt({
                 courtId: this.props.courtId,
                 timeStart: this.props.timeStart,
                 endTime: this.props.timeEnd,
@@ -187,7 +190,7 @@ class CourtSlot extends React.Component {
                 alignItems: "center",
                 zIndex: "2"
               }}
-              onMouseOver={this.props.getCourt({
+              onMouseEnter={this.props.getCourt({
                 courtId: this.props.courtId,
                 timeStart: this.props.timeStart,
                 endTime: this.props.timeEnd,

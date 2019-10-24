@@ -23,12 +23,22 @@ class TryingToBookModal extends React.Component {
     }
     console.log(this.props);
     return (
-      <div id={styles.tryingToBookModal}>
-        <p>Court Being Booked By: {this.props.booking.bookedBy} </p>
-        <p>Start Time: {this.props.booking.timeStart}</p>
-        <p>End Time: {this.props.booking.timeEnd}</p>
-        <p>Time Amount: {howLong}</p>
-        <button onClick={this.props.cancelBooking}>x</button>
+      <div>
+        <div id={styles.tryingToBookModal}>
+          <p style={{ paddingLeft: "10px" }}>
+            Booked By: {this.props.booking.bookedBy}{" "}
+          </p>
+          <p style={{ paddingLeft: "10px" }}>
+            Start Time: {this.props.booking.timeStart}
+          </p>
+          <p style={{ paddingLeft: "10px" }}>
+            End Time: {this.props.booking.timeEnd}
+          </p>
+          <p style={{ paddingLeft: "10px" }}>Time Amount: {howLong}</p>
+          <button id={styles.cancelButton} onClick={this.props.cancelBooking}>
+            X
+          </button>
+        </div>
         <button onClick={this.props.bookCourt}>Confirm</button>
       </div>
     );
