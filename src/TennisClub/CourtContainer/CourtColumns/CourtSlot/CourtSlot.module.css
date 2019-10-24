@@ -18,11 +18,15 @@
 }
 
 #bookedCheckButton {
-  width: 100%;
+  width: 95%;
   height: 18px;
   color: black;
   background-color: lightgray;
   border: none;
+}
+
+#bookedCheckButton:hover {
+  border: 1px solid black;
 }
 
 #courtSlotBooked {

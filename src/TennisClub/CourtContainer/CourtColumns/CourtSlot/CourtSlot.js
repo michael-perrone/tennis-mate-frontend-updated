@@ -13,6 +13,9 @@ class CourtSlot extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.clicked) {
+      return true;
+    }
     if (this.props.booked !== nextProps.booked) {
       return true;
     }
@@ -35,8 +38,22 @@ class CourtSlot extends React.Component {
     }
   }
 
+  phoneClick = () => {
+    this.setState({ clicked: true });
+    let peacock = true;
+    if (this.props.bookingArray.length === 0 || this.state.clicked || peacock) {
+      this.props.getCourt({
+        courtId: this.props.courtId,
+        timeStart: this.props.timeStart,
+        endTime: this.props.timeEnd,
+        clubName: this.props.clubName
+      })();
+    } else {
+      return;
+    }
+  };
+
   render() {
-    console.log("hi");
     return (
       <div
         style={{
@@ -78,6 +95,7 @@ class CourtSlot extends React.Component {
               zIndex: "2",
               justifyContent: "center"
             }}
+            onClick={this.phoneClick}
             onMouseEnter={this.props.getCourt({
               courtId: this.props.courtId,
               timeStart: this.props.timeStart,

@@ -1,15 +1,16 @@
-#tryingToBookModal {
-  left: 200px;
+.bookingModal {
+  left: 40%;
+  top: 50vh;
   height: 110px;
   background-color: white;
   border: 3px solid black;
-  width: 400px;
+  width: 330px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   z-index: 300;
-  position: absolute;
+  position: fixed;
 }
 
 #cancelButton {
@@ -21,4 +22,10 @@
   justify-content: center;
   top: 0px;
   right: 0px;
+}
+
+#confirmButton {
+  position: absolute;
+  right: 20%;
+  top: 50px;
 }

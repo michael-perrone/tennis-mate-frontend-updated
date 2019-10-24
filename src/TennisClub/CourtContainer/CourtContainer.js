@@ -256,7 +256,7 @@ class CourtContainer extends React.Component {
   showTryingToBookModal = () => {
     let nameForBooking = "";
     if (this.props.admin) {
-      nameForBooking = this.props.admin.name.name;
+      nameForBooking = this.props.admin.admin.name;
     } else if (this.props.instructor) {
       nameForBooking = this.props.instructor.instructor.fullName;
     } else if (this.props.user) {
@@ -291,8 +291,9 @@ class CourtContainer extends React.Component {
   };
 
   render() {
+    console.log(this.props.admin.admin.name);
     return (
-      <div>
+      <div style={{ position: "relative" }}>
         {this.state.showBookingModalState && (
           <CheckBookingModal
             cancel={this.cancelBookingModal}
