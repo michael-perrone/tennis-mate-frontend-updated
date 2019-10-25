@@ -38,17 +38,20 @@ class CourtContainer extends React.Component {
       prevProps.date !== this.props.date ||
       prevProps.clubName !== this.props.clubName
     ) {
+      console.log("HI");
       axios
         .post("http://localhost:8080/api/courtBooked/getcourts", {
           clubName: this.props.clubName
         })
         .then(response => {
+          console.log(response);
           let clubsMatchArray = [];
           response.data.bookings.forEach(element => {
             if (this.props.date === element.date) {
               clubsMatchArray.push(element);
             }
           });
+
           this.setState({ bookedCourts: clubsMatchArray });
         });
     }
@@ -98,15 +101,24 @@ class CourtContainer extends React.Component {
         });
       }
 
-      const sortedStateArray = newArray.sort(function(a, b) {
-        return a.courtId - b.courtId;
+      let bookingIdsArray = [];
+      newArray.forEach(element => {
+        bookingIdsArray.push(element.courtId);
       });
-
-      this.setState({ bookingArray: sortedStateArray });
-      this.setState({ firstSlotInArray: sortedStateArray[0] });
-      this.setState({
-        lastSlotInArray: sortedStateArray[sortedStateArray.length - 1]
+      let bookedIdsArray = [];
+      this.state.bookedCourts.forEach(element => {
+        bookedIdsArray.push(...element.courtIds);
       });
+      const found = bookingIdsArray.some(id => {
+        return bookedIdsArray.includes(id);
+      });
+      if (!found) {
+        this.setState({ bookingArray: newArray });
+        this.setState({ firstSlotInArray: newArray[0] });
+        this.setState({
+          lastSlotInArray: newArray[newArray.length - 1]
+        });
+      }
     }
   };
 
@@ -115,9 +127,18 @@ class CourtContainer extends React.Component {
       axios
         .post("http://localhost:8080/api/courtBooked", this.state.bookingToSend)
         .then(response => {
-          console.log(response);
+          let clubsMatchArray = [];
+          response.data.bookings.forEach(element => {
+            if (this.props.date === element.date) {
+              clubsMatchArray.push(element);
+            }
+          });
+          this.setState({ bookedCourts: clubsMatchArray });
         });
     }
+    this.setState({ bookingArray: [] });
+    this.setState({ tryingToBookModalState: false });
+    this.setState({ courtsClicked: false });
   };
 
   courtNumbersToCourtColumns() {

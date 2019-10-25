@@ -60,8 +60,12 @@ class CourtSlot extends React.Component {
     return (
       <div
         style={{
-          backgroundColor: this.props.beingBooked ? "lightgreen" : "",
-          borderBottom: this.props.beingBooked ? "1px solid lightgreen" : ""
+          backgroundColor:
+            this.props.beingBooked && !this.props.booked ? "lightgreen" : "",
+          borderBottom:
+            this.props.beingBooked && !this.props.booked
+              ? "1px solid lightgreen"
+              : ""
         }}
         id={
           !this.props.booked
