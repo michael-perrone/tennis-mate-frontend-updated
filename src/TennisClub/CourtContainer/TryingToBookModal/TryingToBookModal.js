@@ -23,7 +23,7 @@ class TryingToBookModal extends React.Component {
     }
     console.log(this.props);
     return (
-      <div className={styles.tryingToBookModal}>
+      <div className={styles.bookingModal}>
         <p style={{ paddingLeft: "10px" }}>
           Booked By: {this.props.booking.bookedBy}{" "}
         </p>
@@ -32,6 +32,14 @@ class TryingToBookModal extends React.Component {
         </p>
         <p style={{ paddingLeft: "10px" }}>
           End Time: {this.props.booking.timeEnd}
+        </p>
+        {this.props.booking.instructorName !== "None" && (
+          <p style={{ paddingLeft: "10px" }}>
+            Instructor Name: {this.props.booking.instructorName}
+          </p>
+        )}
+        <p style={{ paddingLeft: "10px" }}>
+          Booking Type: {this.props.booking.bookingType}
         </p>
         <p style={{ paddingLeft: "10px" }}>Time Amount: {howLong}</p>
         <button id={styles.cancelButton} onClick={this.props.cancelBooking}>

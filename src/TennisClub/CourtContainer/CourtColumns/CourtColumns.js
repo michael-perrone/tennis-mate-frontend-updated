@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CourtColumns.module.css";
 import CourtSlot from "./CourtSlot/CourtSlot";
 
-class CourtColumns extends React.Component {
+class CourtColumns extends React.PureComponent {
   constructor(props) {
     super(props);
     this.turnNumberIntoCourts = this.turnNumberIntoCourts.bind(this);

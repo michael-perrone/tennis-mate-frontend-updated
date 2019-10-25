@@ -61,6 +61,8 @@ class TennisClub extends React.Component {
         .then(response => {
           this.setState({ clubProfile: response.data.tennisClub.profile });
           this.setState({ club: response.data.tennisClub.club });
+          this.setState({ instructors: response.data.instructors });
+          this.setState({ events: response.data.tennisClub.profile.events });
         });
     }
   }

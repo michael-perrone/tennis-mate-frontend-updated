@@ -1,7 +1,6 @@
 .bookingModal {
-  left: 40%;
-  top: 50vh;
-  height: 110px;
+  left: 5%;
+  height: 200px;
   background-color: white;
   border: 3px solid black;
   width: 330px;
@@ -9,8 +8,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  z-index: 300;
   position: fixed;
+  z-index: 500;
+  top: 180px;
 }
 
 #cancelButton {

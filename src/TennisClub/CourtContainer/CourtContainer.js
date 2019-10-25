@@ -33,47 +33,24 @@ class CourtContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (localStorage.getItem("token")) {
-      const token = decoder(localStorage.getItem("token"));
-      this.setState({ token: token });
-    }
-    if (localStorage.getItem("adminToken")) {
-      const adminToken = decoder(localStorage.getItem("adminToken"));
-      this.setState({ token: adminToken });
-    }
-    if (localStorage.getItem("instructorToken")) {
-      const instructorToken = decoder(localStorage.getItem("instructorToken"));
-      this.setState({ token: instructorToken });
-    }
-    axios.get("http://localhost:8080/api/courtBooked").then(response => {
-      let clubsMatchArray = [];
-      response.data.bookings.forEach(element => {
-        if (
-          element.clubName === this.props.clubName &&
-          this.props.date === element.date
-        ) {
-          clubsMatchArray.push(element);
-        }
-      });
-      this.setState({ bookedCourts: clubsMatchArray });
-    });
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.date !== this.props.date) {
-      axios.get("http://localhost:8080/api/courtBooked").then(response => {
-        let clubsMatchArray = [];
-        response.data.bookings.forEach(element => {
-          if (
-            element.clubName === this.props.clubName &&
-            this.props.date === element.date
-          ) {
-            clubsMatchArray.push(element);
-          }
+    if (
+      prevProps.date !== this.props.date ||
+      prevProps.clubName !== this.props.clubName
+    ) {
+      axios
+        .post("http://localhost:8080/api/courtBooked/getcourts", {
+          clubName: this.props.clubName
+        })
+        .then(response => {
+          let clubsMatchArray = [];
+          response.data.bookings.forEach(element => {
+            if (this.props.date === element.date) {
+              clubsMatchArray.push(element);
+            }
+          });
+          this.setState({ bookedCourts: clubsMatchArray });
         });
-        this.setState({ bookedCourts: clubsMatchArray });
-      });
     }
   }
 
@@ -255,6 +232,8 @@ class CourtContainer extends React.Component {
 
   showTryingToBookModal = () => {
     let nameForBooking = "";
+    let instructorName = "None";
+    let instructorId;
     if (this.props.admin) {
       nameForBooking = this.props.admin.admin.name;
     } else if (this.props.instructor) {
@@ -262,12 +241,19 @@ class CourtContainer extends React.Component {
     } else if (this.props.user) {
       nameForBooking = this.props.user.user.userName;
     }
+    if (this.props.instructorChosen) {
+      instructorName = this.props.instructorChosen.instructorChosen.fullName;
+      instructorId = this.props.instructorChosen.instructorChosen._id;
+    }
     if (this.state.bookingArray.length > 1) {
       const courtIdsArray = [];
       this.state.bookingArray.forEach(element => {
         courtIdsArray.push(element.courtId);
       });
       const bookingToSend = {
+        bookingType: this.props.bookingType.bookingType,
+        instructorName,
+        instructorId,
         bookedBy: nameForBooking,
         timeStart: this.state.firstSlotInArray.court.timeStart,
         timeEnd: this.state.lastSlotInArray.court.timeEnd,
@@ -291,7 +277,6 @@ class CourtContainer extends React.Component {
   };
 
   render() {
-    console.log(this.props.admin.admin.name);
     return (
       <div style={{ position: "relative" }}>
         {this.state.showBookingModalState && (
@@ -362,7 +347,9 @@ const mapStateToProps = state => {
     admin: state.authReducer.admin,
     instructor: state.authReducer.instructor,
     user: state.authReducer.user,
-    timeChosen: state.bookingInfoReducer.timeSelected
+    timeChosen: state.bookingInfoReducer.timeSelected,
+    bookingType: state.bookingInfoReducer.bookingType,
+    instructorChosen: state.bookingInfoReducer.instructorChosen
   };
 };
 

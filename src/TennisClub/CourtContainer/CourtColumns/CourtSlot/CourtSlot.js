@@ -13,6 +13,9 @@ class CourtSlot extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.bookingInfo !== nextProps.bookingInfo) {
+      return true;
+    }
     if (this.state.clicked) {
       return true;
     }
