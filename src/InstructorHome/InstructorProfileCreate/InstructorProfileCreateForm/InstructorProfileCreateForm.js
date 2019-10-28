@@ -47,6 +47,21 @@ class InstructorProfileCreateForm extends React.Component {
     this.otherInfoHandler = this.otherInfoHandler.bind(this);
     this.certFormHandler = this.certFormHandler.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
+    this.skip = this.skip.bind(this);
+  }
+
+  skip() {
+    axios
+      .post(
+        "http://localhost:8080/api/instructorProfile",
+        { hello: "" },
+        {
+          headers: { "x-auth-token": this.props.instructorToken }
+        }
+      )
+      .then(response => {
+        console.log(response);
+      });
   }
 
   submitInfo(event) {
@@ -74,7 +89,15 @@ class InstructorProfileCreateForm extends React.Component {
   addToJobArray(event) {
     event.preventDefault();
     const newJobExperienceArray = [...this.state.jobExperienceArray];
-    newJobExperienceArray.push(this.state.jobExperience);
+    newJobExperienceArray.push({
+      jobTitle: this.state.jobExperience.jobTitle,
+      jobDuration:
+        this.state.jobExperience.toYear - this.state.jobExperience.fromYear ===
+        0
+          ? "Less than 1"
+          : this.state.jobExperience.toYear - this.state.jobExperience.fromYear,
+      clubName: this.state.jobExperience.clubName
+    });
     this.setState({ jobExperienceArray: newJobExperienceArray });
     const newJobExperience = { ...this.state.jobExperience };
     const keysArray = Object.keys(this.state.jobExperience);
@@ -174,7 +197,7 @@ class InstructorProfileCreateForm extends React.Component {
                     Name of Former Company:{" "}
                   </label>
                   <input
-                    style={{ width: "157px" }}
+                    style={{ width: "162px" }}
                     onChange={this.jobExpFormHandler}
                     className={`${styles.inputs} ${styles.ml5}`}
                     value={this.state.jobExperience.clubName}
@@ -382,30 +405,10 @@ class InstructorProfileCreateForm extends React.Component {
                 blank.
               </p>
               <div id={styles.certForm}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column"
-                  }}
-                >
-                  <label>Certified By: </label>
-                  <input
-                    onChange={this.certFormHandler}
-                    name="certifiedBy"
-                    value={this.state.certifications.certifiedBy}
-                    placeholder="Certified By"
-                    className={styles.inputs}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column"
-                  }}
-                >
-                  <label>Certification Date: </label>
+                <div>
+                  <label style={{ fontSize: "13px", marginRight: "4px" }}>
+                    Certification Date:{" "}
+                  </label>
                   <input
                     onChange={this.certFormHandler}
                     name="certificationDate"
@@ -414,8 +417,26 @@ class InstructorProfileCreateForm extends React.Component {
                     className={styles.inputs}
                   />
                 </div>
+                <div>
+                  <label
+                    style={{
+                      fontSize: "13px",
+                      marginRight: "8px"
+                    }}
+                  >
+                    Certified By:{" "}
+                  </label>
+                  <input
+                    style={{ width: "188px" }}
+                    onChange={this.certFormHandler}
+                    name="certifiedBy"
+                    value={this.state.certifications.certifiedBy}
+                    placeholder="Certified By"
+                    className={styles.inputs}
+                  />
+                </div>
                 <button
-                  id={styles.addToCertArray}
+                  style={{ width: "120px", alignSelf: "center" }}
                   onClick={this.addToCertArray}
                 >
                   Add Certification
@@ -461,13 +482,28 @@ class InstructorProfileCreateForm extends React.Component {
               />
             </div>
           )}
-          <button
-            style={{ position: "relative", left: "300px" }}
-            onClick={this.submitInfo}
-            id={styles.createProfileButton}
+          <div
+            style={{
+              display: "flex",
+              marginTop: "20px",
+              justifyContent: "space-around",
+              width: "100"
+            }}
           >
-            Save Profiled dwdwdwdawdwd
-          </button>
+            <button
+              onClick={this.submitInfo}
+              className={styles.createSkipButton}
+            >
+              {" "}
+              Save Profile
+            </button>
+            <button
+              style={{ backgroundColor: "lightgray" }}
+              className={styles.createSkipButton}
+            >
+              Skip For Now
+            </button>
+          </div>
         </form>
 
         {this.state.jobExperienceArray.length > 0 && this.state.showJobExp && (
