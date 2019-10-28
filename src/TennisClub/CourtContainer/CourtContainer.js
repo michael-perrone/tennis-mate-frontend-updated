@@ -29,7 +29,9 @@ class CourtContainer extends React.Component {
       objectToModal: {},
       tryingToBookModalState: false,
       bookingToSend: null,
-      token: ""
+      token: "",
+      bookingSuccess: false,
+      newBooking: {}
     };
   }
 
@@ -127,6 +129,25 @@ class CourtContainer extends React.Component {
       axios
         .post("http://localhost:8080/api/courtBooked", this.state.bookingToSend)
         .then(response => {
+          if (response.status === 200) {
+            if (this.props.instructorChosen) {
+              const objectToSend = {
+                instructorId: this.props.instructorChosen.instructorChosen._id,
+                newBooking: response.data.newBooking._id
+              };
+              axios
+                .post(
+                  "http://localhost:8080/api/instructorCourtsBooked",
+                  objectToSend
+                )
+                .then(response => {
+                  console.log(response);
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            }
+          }
           let clubsMatchArray = [];
           response.data.bookings.forEach(element => {
             if (this.props.date === element.date) {

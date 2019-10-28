@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./InstructorProfile.module.css";
+import BioCertsJobExpHolder from "./BioCertsJobExpHolder/BioCertsJobExpHolder";
 
 class InstructorProfile extends React.Component {
   render() {
@@ -8,25 +9,36 @@ class InstructorProfile extends React.Component {
       <div id={styles.instructorProfileContainer}>
         <div id={styles.instructorProfileLeftBar}>
           <div id={styles.imageNameDiv}>
-            <img
-              id={styles.image}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtBHhvnVl3CNrmaEEBwbL-lVN9j4mMdG64O17aFuwXbTLlhMyn"
-              alt="person"
-            />
+            <div id={styles.imageContainer}>
+              <img
+                id={styles.image}
+                src="http://www.advertisernewssouth.com/binrepository/576x432/0c0/0d0/none/808998/HXXQ/SPORTS_130209965_AR_0_0_AS20130206130209965_MG1049249.jpg"
+                alt="person"
+              />
+            </div>
             <p id={styles.instructorName}>
               {this.props.instructorProfile.instructor.firstName}{" "}
               {this.props.instructorProfile.instructor.lastName}
             </p>
           </div>
           <div id={styles.bottomPartBar}>
-            <p>{this.props.instructorProfile.instructor.tennisClub}</p>
-            <p className={styles.pTagsInBottomBar}>
-              {this.props.instructorProfile.location}
+            <p style={{ fontSize: "16px" }} className={styles.pTagsInBottomBar}>
+              {this.props.instructorProfile.instructor.tennisClub}
             </p>
-            <p style={{ margin: "50px 10px" }}>
-              {this.props.instructorProfile.bio}
+            <p className={styles.pTagsInBottomBar}>
+              Located In {this.props.instructorProfile.location}
+            </p>
+            <p className={styles.pTagsInBottomBar}>
+              {this.props.instructorProfile.yearsTeaching} Years Teaching
+            </p>
+            <p className={styles.pTagsInBottomBar}>Lesson Rate:</p>
+            <p style={{ marginTop: "5px" }}>
+              {this.props.instructorProfile.lessonRate} Dollars Per Hour
             </p>
           </div>
+        </div>
+        <div id={styles.profileContentHolder}>
+          <BioCertsJobExpHolder profile={this.props.instructorProfile} />
         </div>
       </div>
     );

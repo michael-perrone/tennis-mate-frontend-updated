@@ -42,7 +42,7 @@
   border: 2px ridge black;
   padding-left: 10px;
   border-radius: 4px;
-  font-family: 'Times New Roman', Times, serif
+  font-family: "Times New Roman", Times, serif;
 }
 
 .formSeparator {
@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 210px;
+  height: 160px;
   padding: 10px;
   width: 335px;
   border: 2px ridge black;
@@ -77,11 +77,11 @@
   margin-top: 10px;
   border: 2px ridge black;
   width: 270px;
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 210px;
+  height: 140px;
 }
 
 .ml5 {

@@ -203,6 +203,8 @@ class AdminProfileCreate extends React.Component {
     }
   }
 
+  //class
+
   carrotLeftHandler() {
     if(this.state.showBio === true) {
       this.setState({showBio: false})
@@ -317,7 +319,7 @@ class AdminProfileCreate extends React.Component {
                className={styles.selector}>
                 Bio
               </p>
-              <i onClick={this.carrotRightHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', left: '7px', color: this.state.showBio === true ? 'lightgray' : "black"}} class="fas fa-chevron-right"></i>
+              <i onClick={this.carrotRightHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', left: '7px', color: this.state.showBio === true ? 'lightgray' : "black"}} className="fas fa-chevron-right"></i>
             </div>
             <form id={styles.adminProfileForm}>
               {this.state.showInstructors === true && (

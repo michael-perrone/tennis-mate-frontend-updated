@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import styles from "./InstructorProfileCreateForm.module.css";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 class InstructorProfileCreateForm extends React.Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class InstructorProfileCreateForm extends React.Component {
         current: ""
       },
       otherInfo: {
-        previousCurrentRanking: "",
         location: "",
         yearsTeaching: "",
         bio: "",
@@ -50,7 +49,6 @@ class InstructorProfileCreateForm extends React.Component {
     this.submitInfo = this.submitInfo.bind(this);
   }
 
- 
   submitInfo(event) {
     event.preventDefault();
     const bigObjectSending = {
@@ -166,221 +164,231 @@ class InstructorProfileCreateForm extends React.Component {
         >
           {this.state.showJobExp && (
             <div className={styles.forms}>
-              <p className={styles.pTags} >
-                Enter all previous job experiences including the start date, end
-                date, company, and job title. Select current if this is your
-                current employer.
+              <p className={styles.pTags}>
+                Enter all previous tennis instruction experiences including the
+                start date, end date, company, and job title.
               </p>
               <div id={styles.pastExpForm}>
-              <div className={styles.formSeparator}>
-                <label className={`${styles.labels}`}>Name of Former Company: </label>
-                <input
-                  style={{width: '157px'}}
-                  onChange={this.jobExpFormHandler}
-                  className={`${styles.inputs} ${styles.ml5}`}
-                  value={this.state.jobExperience.clubName}
-                  name="clubName"
-                />
-              </div>
-              <div className={styles.formSeparator}>
-                <label className={styles.labels}> Approximate Date Started:</label>
-                <select
-                  onChange={this.jobExpFormHandler}
-                  className={styles.selects}
-                  value={this.state.jobExperience.fromYear}
-                  name="fromYear"
-                >
-                  <option>Year</option>
-                  <option>2019</option>
-                  <option>2018</option>
-                  <option>2017</option>
-                  <option>2016</option>
-                  <option>2015</option>
-                  <option>2014</option>
-                  <option>2013</option>
-                  <option>2012</option>
-                  <option>2011</option>
-                  <option>2010</option>
-                  <option>2009</option>
-                  <option>2008</option>
-                  <option>2007</option>
-                  <option>2006</option>
-                  <option>2005</option>
-                  <option>2004</option>
-                  <option>2003</option>
-                  <option>2002</option>
-                  <option>2001</option>
-                  <option>2000</option>
-                  <option>1999</option>
-                  <option>1998</option>
-                  <option>1997</option>
-                  <option>1996</option>
-                  <option>1995</option>
-                  <option>1994</option>
-                  <option>1993</option>
-                  <option>1992</option>
-                  <option>1991</option>
-                  <option>1990</option>
-                  <option>1989</option>
-                  <option>1988</option>
-                  <option>1987</option>
-                  <option>1986</option>
-                  <option>1985</option>
-                  <option>1984</option>
-                  <option>1983</option>
-                  <option>1982</option>
-                  <option>1981</option>
-                  <option>1980</option>
-                  <option>1979</option>
-                  <option>1978</option>
-                  <option>1977</option>
-                  <option>1976</option>
-                  <option>1975</option>
-                  <option>1974</option>
-                  <option>1973</option>
-                  <option>1972</option>
-                  <option>1971</option>
-                  <option>1970</option>
-                </select>
-                <select
-                  onChange={this.jobExpFormHandler}
-                  className={styles.selects}
-                  value={this.state.jobExperience.fromMonth}
-                  name="fromMonth"
-                >
-                  <option>Month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
-                </select>
-              </div>
-              <div className={styles.formSeparator}>
-                <label style={{letterSpacing: ".2px"}} className={styles.labels}>Approximate Date Ended:</label>
-                <select
-                  onChange={this.jobExpFormHandler}
-                  className={styles.selects}
-                  value={this.state.jobExperience.toYear}
-                  name="toYear"
-                >
-                  <option>Year</option>
-                  <option>2019</option>
-                  <option>2018</option>
-                  <option>2017</option>
-                  <option>2016</option>
-                  <option>2015</option>
-                  <option>2014</option>
-                  <option>2013</option>
-                  <option>2012</option>
-                  <option>2011</option>
-                  <option>2010</option>
-                  <option>2009</option>
-                  <option>2008</option>
-                  <option>2007</option>
-                  <option>2006</option>
-                  <option>2005</option>
-                  <option>2004</option>
-                  <option>2003</option>
-                  <option>2002</option>
-                  <option>2001</option>
-                  <option>2000</option>
-                  <option>1999</option>
-                  <option>1998</option>
-                  <option>1997</option>
-                  <option>1996</option>
-                  <option>1995</option>
-                  <option>1994</option>
-                  <option>1993</option>
-                  <option>1992</option>
-                  <option>1991</option>
-                  <option>1990</option>
-                  <option>1989</option>
-                  <option>1988</option>
-                  <option>1987</option>
-                  <option>1986</option>
-                  <option>1985</option>
-                  <option>1984</option>
-                  <option>1983</option>
-                  <option>1982</option>
-                  <option>1981</option>
-                  <option>1980</option>
-                  <option>1979</option>
-                  <option>1978</option>
-                  <option>1977</option>
-                  <option>1976</option>
-                  <option>1975</option>
-                  <option>1974</option>
-                  <option>1973</option>
-                  <option>1972</option>
-                  <option>1971</option>
-                  <option>1970</option>
-                </select>
+                <div className={styles.formSeparator}>
+                  <label className={`${styles.labels}`}>
+                    Name of Former Company:{" "}
+                  </label>
+                  <input
+                    style={{ width: "157px" }}
+                    onChange={this.jobExpFormHandler}
+                    className={`${styles.inputs} ${styles.ml5}`}
+                    value={this.state.jobExperience.clubName}
+                    name="clubName"
+                  />
+                </div>
+                <div className={styles.formSeparator}>
+                  <label className={styles.labels}>
+                    {" "}
+                    Approximate Date Started:
+                  </label>
+                  <select
+                    onChange={this.jobExpFormHandler}
+                    className={styles.selects}
+                    value={this.state.jobExperience.fromYear}
+                    name="fromYear"
+                  >
+                    <option>Year</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                    <option>2015</option>
+                    <option>2014</option>
+                    <option>2013</option>
+                    <option>2012</option>
+                    <option>2011</option>
+                    <option>2010</option>
+                    <option>2009</option>
+                    <option>2008</option>
+                    <option>2007</option>
+                    <option>2006</option>
+                    <option>2005</option>
+                    <option>2004</option>
+                    <option>2003</option>
+                    <option>2002</option>
+                    <option>2001</option>
+                    <option>2000</option>
+                    <option>1999</option>
+                    <option>1998</option>
+                    <option>1997</option>
+                    <option>1996</option>
+                    <option>1995</option>
+                    <option>1994</option>
+                    <option>1993</option>
+                    <option>1992</option>
+                    <option>1991</option>
+                    <option>1990</option>
+                    <option>1989</option>
+                    <option>1988</option>
+                    <option>1987</option>
+                    <option>1986</option>
+                    <option>1985</option>
+                    <option>1984</option>
+                    <option>1983</option>
+                    <option>1982</option>
+                    <option>1981</option>
+                    <option>1980</option>
+                    <option>1979</option>
+                    <option>1978</option>
+                    <option>1977</option>
+                    <option>1976</option>
+                    <option>1975</option>
+                    <option>1974</option>
+                    <option>1973</option>
+                    <option>1972</option>
+                    <option>1971</option>
+                    <option>1970</option>
+                  </select>
+                  <select
+                    onChange={this.jobExpFormHandler}
+                    className={styles.selects}
+                    value={this.state.jobExperience.fromMonth}
+                    name="fromMonth"
+                  >
+                    <option>Month</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                  </select>
+                </div>
+                <div className={styles.formSeparator}>
+                  <label
+                    style={{ letterSpacing: ".2px" }}
+                    className={styles.labels}
+                  >
+                    Approximate Date Ended:
+                  </label>
+                  <select
+                    onChange={this.jobExpFormHandler}
+                    className={styles.selects}
+                    value={this.state.jobExperience.toYear}
+                    name="toYear"
+                  >
+                    <option>Year</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                    <option>2015</option>
+                    <option>2014</option>
+                    <option>2013</option>
+                    <option>2012</option>
+                    <option>2011</option>
+                    <option>2010</option>
+                    <option>2009</option>
+                    <option>2008</option>
+                    <option>2007</option>
+                    <option>2006</option>
+                    <option>2005</option>
+                    <option>2004</option>
+                    <option>2003</option>
+                    <option>2002</option>
+                    <option>2001</option>
+                    <option>2000</option>
+                    <option>1999</option>
+                    <option>1998</option>
+                    <option>1997</option>
+                    <option>1996</option>
+                    <option>1995</option>
+                    <option>1994</option>
+                    <option>1993</option>
+                    <option>1992</option>
+                    <option>1991</option>
+                    <option>1990</option>
+                    <option>1989</option>
+                    <option>1988</option>
+                    <option>1987</option>
+                    <option>1986</option>
+                    <option>1985</option>
+                    <option>1984</option>
+                    <option>1983</option>
+                    <option>1982</option>
+                    <option>1981</option>
+                    <option>1980</option>
+                    <option>1979</option>
+                    <option>1978</option>
+                    <option>1977</option>
+                    <option>1976</option>
+                    <option>1975</option>
+                    <option>1974</option>
+                    <option>1973</option>
+                    <option>1972</option>
+                    <option>1971</option>
+                    <option>1970</option>
+                  </select>
 
-                <select
-                  onChange={this.jobExpFormHandler}
-                  className={styles.selects}
-                  value={this.state.jobExperience.toMonth}
-                  name="toMonth"
-                >
-                  <option>Month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
-                </select>
+                  <select
+                    onChange={this.jobExpFormHandler}
+                    className={styles.selects}
+                    value={this.state.jobExperience.toMonth}
+                    name="toMonth"
+                  >
+                    <option>Month</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                  </select>
+                </div>
+                <div className={styles.formSeparator}>
+                  <label
+                    style={{ letterSpacing: "0.5px" }}
+                    className={styles.labels}
+                  >
+                    What was your job title?{" "}
+                  </label>
+                  <input
+                    onChange={this.jobExpFormHandler}
+                    className={`${styles.inputs} ${styles.ml5}`}
+                    value={this.state.jobExperience.jobTitle}
+                    name="jobTitle"
+                  />
+                </div>
+                <button id={styles.addExp} onClick={this.addToJobArray}>
+                  Add Experience
+                </button>
               </div>
-              <div className={styles.formSeparator}>
-                <label style={{letterSpacing: "0.5px"}} className={styles.labels}>What was your job title? </label>
-                <input
-                  onChange={this.jobExpFormHandler}
-                  className={`${styles.inputs} ${styles.ml5}`}
-                  value={this.state.jobExperience.jobTitle}
-                  name="jobTitle"
-                />
-              </div>
-              <div className={styles.formSeparator}>
-                <label style={{letterSpacing: "0.5px"}} className={styles.labels}>Is this your current job?</label>
-                <select
-                  style={{width: "175px"}}
-                  onChange={this.jobExpFormHandler}
-                  value={this.state.jobExperience.current}
-                  className={styles.selects}
-                  name="current"
-                >
-                  <option> </option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
-              </div>
-              <button id={styles.addExp} onClick={this.addToJobArray}>Add Experience</button>
-            </div>
             </div>
           )}
           {this.state.showCertification && (
             <div className={styles.forms}>
               <p className={styles.pTags}>
                 Enter all the certifications you have earned as an instructor
-                (PTR, USPTA, ATP etc.). First add the name of the organization that certified you, then add the approximate certification date. If you haven't earned any, you can leave
-                this part of the form blank.
+                (PTR, USPTA, ATP etc.). First add the name of the organization
+                that certified you, then add the approximate certification date.
+                If you haven't earned any, you can leave this part of the form
+                blank.
               </p>
-              <div id={styles.certForm}>  
-              <div style={{display: 'flex', alignItems: "center", flexDirection: 'column'}}>
+              <div id={styles.certForm}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column"
+                  }}
+                >
                   <label>Certified By: </label>
                   <input
                     onChange={this.certFormHandler}
@@ -389,8 +397,14 @@ class InstructorProfileCreateForm extends React.Component {
                     placeholder="Certified By"
                     className={styles.inputs}
                   />
-                  </div>
-                  <div style={{display: 'flex', alignItems: 'center', flexDirection: "column"}}>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column"
+                  }}
+                >
                   <label>Certification Date: </label>
                   <input
                     onChange={this.certFormHandler}
@@ -398,11 +412,15 @@ class InstructorProfileCreateForm extends React.Component {
                     value={this.state.certifications.certificationDate}
                     placeholder="Certification Date"
                     className={styles.inputs}
-                  />  
-                  </div>
-                  <button id={styles.addToCertArray} onClick={this.addToCertArray}>Add Certification</button>
+                  />
+                </div>
+                <button
+                  id={styles.addToCertArray}
+                  onClick={this.addToCertArray}
+                >
+                  Add Certification
+                </button>
               </div>
-              
             </div>
           )}
           {this.state.showOtherInfo && (
@@ -427,13 +445,6 @@ class InstructorProfileCreateForm extends React.Component {
                 name="lessonRate"
               />
               <input
-                value={this.state.otherInfo.previousCurrentRanking}
-                placeholder="Rankings"
-                className={styles.inputs}
-                onChange={this.otherInfoHandler}
-                name="previousCurrentRanking"
-              />
-              <input
                 value={this.state.otherInfo.location}
                 placeholder="Location"
                 className={styles.inputs}
@@ -450,11 +461,16 @@ class InstructorProfileCreateForm extends React.Component {
               />
             </div>
           )}
-          <button onClick={this.submitInfo} id={styles.createProfileButton}>
-            Save Profile
+          <button
+            style={{ position: "relative", left: "300px" }}
+            onClick={this.submitInfo}
+            id={styles.createProfileButton}
+          >
+            Save Profiled dwdwdwdawdwd
           </button>
         </form>
-        {this.state.jobExperienceArray.length && this.state.showJobExp > 0 && (
+
+        {this.state.jobExperienceArray.length > 0 && this.state.showJobExp && (
           <div id={styles.jobArrayDiv}>
             {this.state.jobExperienceArray.map(element => {
               return (
@@ -483,11 +499,16 @@ class InstructorProfileCreateForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     instructorToken: state.authReducer.instructorToken,
     instructor: state.authReducer.instructor
-  }
-}
+  };
+};
 
-export default withRouter(connect(mapStateToProps, null)(InstructorProfileCreateForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(InstructorProfileCreateForm)
+);
