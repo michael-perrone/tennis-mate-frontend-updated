@@ -53,7 +53,7 @@ class AdminNav extends React.Component {
                   </Link>
                 </div>
                 <div className={styles.dropDownDiv}>
-                  <Link className={styles.dropDownItem} to="/settings">
+                  <Link className={styles.dropDownItem} to="/Notifications">
                     Notifications
                   </Link>
                 </div>

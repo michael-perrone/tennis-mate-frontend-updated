@@ -33,9 +33,6 @@ class InstructorNav extends React.Component {
           <Link className={styles.links} to="/clubs">
             My Club
           </Link>
-          <Link className={styles.links} to="/schedule">
-            My Schedule
-          </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p style={{ cursor: "pointer" }}>
               {this.props.instructor.instructor.instructorName}
@@ -60,7 +57,7 @@ class InstructorNav extends React.Component {
                   </Link>
                 </div>
                 <div className={styles.dropDownDiv}>
-                  <Link className={styles.dropDownItem} to="/settings">
+                  <Link className={styles.dropDownItem} to="/notifications">
                     Notifications
                   </Link>
                 </div>
