@@ -20,7 +20,7 @@ function BioCertsJobExp({ profile }) {
               alignItems: "flex-start"
             }}
           >
-            <p style={{ marginLeft: "60px", textDecoration: "underline" }}>
+            <p style={{ marginLeft: "25px", textDecoration: "underline" }}>
               Organization
             </p>
             {profile.jobExperience.map(element => {

@@ -26,6 +26,7 @@ class InstructorNav extends React.Component {
   } */
 
   render() {
+    console.log(this.props.notifications);
     return (
       <div id={styles.navBarContainer}>
         <p id={styles.title}>Tennis Mate</p>
@@ -58,6 +59,19 @@ class InstructorNav extends React.Component {
                 </div>
                 <div className={styles.dropDownDiv}>
                   <Link className={styles.dropDownItem} to="/notifications">
+                    <span
+                      style={{
+                        position: "relative",
+                        left: "-3px",
+                        padding: "0 5px",
+                        backgroundColor: "black",
+                        color: "red",
+                        borderRadius: "30px",
+                        fontSize: "14px"
+                      }}
+                    >
+                      {this.props.notifications.instructor.notificationsNumber}
+                    </span>{" "}
                     Notifications
                   </Link>
                 </div>
