@@ -19,7 +19,6 @@ class InstructorProfileCreateForm extends React.Component {
       certifications: {
         certifiedBy: "",
         certificationDate: "",
-        certificationDescription: ""
       },
       jobExperience: {
         clubName: "",
@@ -67,11 +66,9 @@ class InstructorProfileCreateForm extends React.Component {
   submitInfo(event) {
     event.preventDefault();
     const bigObjectSending = {
-      certificationsLength: this.state.certificationsArray.length,
-      jobExpLength: this.state.jobExperienceArray.length,
-      jobExperience: { ...this.state.jobExperienceArray },
+      jobExperience: this.state.jobExperienceArray,
       ...this.state.otherInfo,
-      certifications: { ...this.state.certificationsArray }
+      certifications: this.state.certificationsArray
     };
     axios
       .post("http://localhost:8080/api/instructorProfile", bigObjectSending, {
@@ -91,11 +88,14 @@ class InstructorProfileCreateForm extends React.Component {
     const newJobExperienceArray = [...this.state.jobExperienceArray];
     newJobExperienceArray.push({
       jobTitle: this.state.jobExperience.jobTitle,
+      tomato: "hi",
       jobDuration:
-        this.state.jobExperience.toYear - this.state.jobExperience.fromYear ===
+        parseInt(this.state.jobExperience.toYear) -
+          parseInt(this.state.jobExperience.fromYear) ===
         0
           ? "Less than 1"
-          : this.state.jobExperience.toYear - this.state.jobExperience.fromYear,
+          : parseInt(this.state.jobExperience.toYear) -
+            parseInt(this.state.jobExperience.fromYear),
       clubName: this.state.jobExperience.clubName
     });
     this.setState({ jobExperienceArray: newJobExperienceArray });
@@ -407,15 +407,66 @@ class InstructorProfileCreateForm extends React.Component {
               <div id={styles.certForm}>
                 <div>
                   <label style={{ fontSize: "13px", marginRight: "4px" }}>
-                    Certification Date:{" "}
+                    Certification Year:{" "}
                   </label>
-                  <input
+                  <select
                     onChange={this.certFormHandler}
                     name="certificationDate"
                     value={this.state.certifications.certificationDate}
-                    placeholder="Certification Date"
-                    className={styles.inputs}
-                  />
+                    className={"hi"}
+                  >
+                    <option>Year</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                    <option>2015</option>
+                    <option>2014</option>
+                    <option>2013</option>
+                    <option>2012</option>
+                    <option>2011</option>
+                    <option>2010</option>
+                    <option>2009</option>
+                    <option>2008</option>
+                    <option>2007</option>
+                    <option>2006</option>
+                    <option>2005</option>
+                    <option>2004</option>
+                    <option>2003</option>
+                    <option>2002</option>
+                    <option>2001</option>
+                    <option>2000</option>
+                    <option>1999</option>
+                    <option>1998</option>
+                    <option>1997</option>
+                    <option>1996</option>
+                    <option>1995</option>
+                    <option>1994</option>
+                    <option>1993</option>
+                    <option>1992</option>
+                    <option>1991</option>
+                    <option>1990</option>
+                    <option>1989</option>
+                    <option>1988</option>
+                    <option>1987</option>
+                    <option>1986</option>
+                    <option>1985</option>
+                    <option>1984</option>
+                    <option>1983</option>
+                    <option>1982</option>
+                    <option>1981</option>
+                    <option>1980</option>
+                    <option>1979</option>
+                    <option>1978</option>
+                    <option>1977</option>
+                    <option>1976</option>
+                    <option>1975</option>
+                    <option>1974</option>
+                    <option>1973</option>
+                    <option>1972</option>
+                    <option>1971</option>
+                    <option>1970</option>
+                  </select>
                 </div>
                 <div>
                   <label
