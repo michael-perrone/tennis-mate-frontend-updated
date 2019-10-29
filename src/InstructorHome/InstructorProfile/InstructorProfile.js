@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./InstructorProfile.module.css";
-import BioCertsJobExpHolder from "./BioCertsJobExpHolder/BioCertsJobExpHolder";
+import BioJobExpHolder from "./BioCertsJobExpHolder/BioJobExpHolder";
+import CertHolder from "./CertHolder/CertHolder";
+import otherstyles from "./BioCertsJobExpHolder/BioCertsJobExp.module.css";
 
 class InstructorProfile extends React.Component {
   render() {
@@ -38,7 +40,13 @@ class InstructorProfile extends React.Component {
           </div>
         </div>
         <div id={styles.profileContentHolder}>
-          <BioCertsJobExpHolder profile={this.props.instructorProfile} />
+          <BioJobExpHolder profile={this.props.instructorProfile} />
+          <div className={otherstyles.row}>
+            <div className={otherstyles.contentHolder}>
+              <p className={otherstyles.pTagHeader}>Future Bookings</p>
+            </div>
+            <CertHolder profile={this.props.instructorProfile} />
+          </div>
         </div>
       </div>
     );

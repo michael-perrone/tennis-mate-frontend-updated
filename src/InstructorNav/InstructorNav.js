@@ -61,7 +61,7 @@ class InstructorNav extends React.Component {
                 </div>
                 <div className={styles.dropDownDiv}>
                   <Link className={styles.dropDownItem} to="/settings">
-                    Settings
+                    Notifications
                   </Link>
                 </div>
                 <div
