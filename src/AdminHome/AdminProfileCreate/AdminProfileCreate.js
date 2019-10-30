@@ -177,6 +177,14 @@ class AdminProfileCreate extends React.Component {
         console.log(response);
         this.setState({ showSubmittedMessage: true });
       });
+      axios.post('http://localhost:8080/api/notifications/instructoraddedtoclubnotification', {tennisClubId: this.props.admin.admin.clubId, instructors: this.state.instructorIds}).then(
+        response => {
+          console.log(response)
+        }
+      )
+      axios.get('http://localhost:8080/api/notifications').then(
+        response=> {console.log(response)}
+      )
   }
 
   unExit() {

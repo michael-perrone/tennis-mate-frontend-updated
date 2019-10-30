@@ -70,7 +70,7 @@ class InstructorNav extends React.Component {
                         fontSize: "14px"
                       }}
                     >
-                      {this.props.notifications.instructor.notificationsNumber}
+                      {this.props.notifications.instructor.notifications.length}
                     </span>{" "}
                     Notifications
                   </Link>
