@@ -6,6 +6,13 @@ import { connect } from "react-redux";
 import axios from 'axios';
 
 class InstructorProfileCreate extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profileCreated: false,
+      instructorProfile: {}
+    }
+  }
 
   componentWillMount() {
     axios
@@ -13,20 +20,22 @@ class InstructorProfileCreate extends React.Component {
       headers: { "x-auth-token": this.props.instructorToken }
     })
     .then(response => {
-      console.log(response)
+      this.setState({profileCreated: response.data.profileCreated})
+      this.setState({instructorProfile: response.data.instructorProfile})
    } ).catch(error => {
       console.log(error)
     })
+   
   }
 
   render() {
     console.log(this.props)
     return (
       <React.Fragment>
-        <InstructorNav />
+        {this.state.profileCreated && <InstructorNav notifications={this.state.instructorProfile}/>}
         <div id={styles.instructorProfileCreateContainer}>
           <div id={styles.paragraphContainer}>
-            <p>
+            {!this.state.profileCreated && <p>
               Thanks for joining Tennis Mate{" "}
               {this.props.instructor.instructor.instructorName.split(" ", 1)}.
               You can now finish creating your profile. To the right you can
@@ -35,7 +44,8 @@ class InstructorProfileCreate extends React.Component {
               you have obtained, years teaching, pricing and other great things
               about you. If you devcide to skip making a profile for now, you
               can always come back to it later.
-            </p>
+            </p> }
+            {this.state.profileCreated && <p>On this page you can edit any of the profile information you have previously entered about yourself. You can also add new jobs that you have started working at or add new ceritificates that you have been awared. You can also change your bio and lesson rate and location. You do not need to update your years teaching, we will do that for you.</p>}
           </div>
           <InstructorProfileCreateForm />
         </div>
