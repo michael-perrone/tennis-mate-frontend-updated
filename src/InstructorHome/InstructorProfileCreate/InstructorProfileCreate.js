@@ -3,9 +3,24 @@ import styles from "./InstructorProfileCreate.module.css";
 import InstructorProfileCreateForm from "./InstructorProfileCreateForm/InstructorProfileCreateForm";
 import InstructorNav from "../../InstructorNav/InstructorNav";
 import { connect } from "react-redux";
+import axios from 'axios';
 
 class InstructorProfileCreate extends React.Component {
+
+  componentWillMount() {
+    axios
+    .get("http://localhost:8080/api/instructorProfile/myprofile", {
+      headers: { "x-auth-token": this.props.instructorToken }
+    })
+    .then(response => {
+      console.log(response)
+   } ).catch(error => {
+      console.log(error)
+    })
+  }
+
   render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <InstructorNav />
@@ -31,7 +46,8 @@ class InstructorProfileCreate extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    instructor: state.authReducer.instructor
+    instructor: state.authReducer.instructor,
+    instructorToken: state.authReducer.instructorToken,
   };
 };
 
