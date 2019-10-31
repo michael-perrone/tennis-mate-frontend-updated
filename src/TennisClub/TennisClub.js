@@ -6,6 +6,7 @@ import Calendar from "./Calendar/Calendar";
 import decoder from "jwt-decode";
 import AdminBooking from "./BookingHelpers/AdminBooking/AdminBooking";
 import { connect } from "react-redux";
+import InstructorNav from "../InstructorNav/InstructorNav";
 
 class TennisClub extends React.Component {
   constructor(props) {
@@ -136,68 +137,90 @@ class TennisClub extends React.Component {
 
   render() {
     return (
-      <div>
-        <div style={{ width: "100%" }} id={styles.mainContainer}>
-          <div className={styles.subContainer}>
-            <div className={styles.smallGreenDiv}>
-              <p className={styles.largerPTag}>{this.state.club.clubName}</p>
-              <img
-                id={styles.clubImage}
-                alt="tennisClub"
-                src="https://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/the-downtown-club-media-folder/images/facilities/tennis-courts/downtown-club-at-met-houston-tennis-courts-560x310/1781915-2-eng-US/Downtown-Club-at-MET-houston-tennis-courts-560x310_largeimage.jpg"
-              />
-            </div>
-
-            <div className={styles.smallGreenDiv}>
-              <p style={{ position: "absolute" }} className={styles.largerPTag}>
-                Location and Contact
-              </p>
-              <div className={styles.subLocationContainer}>
-                <p className={styles.fs18}>{this.state.club.address}</p>
-                <p className={styles.fs18}>{this.state.club.city}</p>
-                <p className={styles.fs18}>{this.state.club.state}</p>
-                <p className={styles.fs18}>{this.state.club.zip}</p>
+      <React.Fragment>
+        {this.props.instructor && <InstructorNav />}
+        <div>
+          <div style={{ width: "100%" }} id={styles.mainContainer}>
+            <div className={styles.subContainer}>
+              <div className={styles.smallGreenDiv}>
+                <p className={styles.largerPTag}>{this.state.club.clubName}</p>
+                <img
+                  id={styles.clubImage}
+                  alt="tennisClub"
+                  src="https://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/the-downtown-club-media-folder/images/facilities/tennis-courts/downtown-club-at-met-houston-tennis-courts-560x310/1781915-2-eng-US/Downtown-Club-at-MET-houston-tennis-courts-560x310_largeimage.jpg"
+                />
               </div>
 
-              <div className={styles.subLocationContainer}>
-                <p className={styles.f18}>
-                  {this.state.club.clubOpenTime} -{" "}
-                  {this.state.club.clubCloseTime}
-                </p>
-                <a
-                  style={{ textDecoration: "none" }}
-                  href={`https://${this.state.club.clubWebsite}`}
-                  className={styles.f18}
+              <div className={styles.smallGreenDiv}>
+                <p
+                  style={{ position: "absolute" }}
+                  className={styles.largerPTag}
                 >
-                  {this.state.club.clubWebsite}
-                </a>
-                <p className={styles.f18}>{this.state.club.phoneNumber}</p>
-                <p>{this.state.club.numberCourts} Tennis Courts</p>
+                  Location and Contact
+                </p>
+                <div className={styles.subLocationContainer}>
+                  <p className={styles.fs18}>{this.state.club.address}</p>
+                  <p className={styles.fs18}>{this.state.club.city}</p>
+                  <p className={styles.fs18}>{this.state.club.state}</p>
+                  <p className={styles.fs18}>{this.state.club.zip}</p>
+                </div>
+
+                <div className={styles.subLocationContainer}>
+                  <p className={styles.f18}>
+                    {this.state.club.clubOpenTime} -{" "}
+                    {this.state.club.clubCloseTime}
+                  </p>
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href={`https://${this.state.club.clubWebsite}`}
+                    className={styles.f18}
+                  >
+                    {this.state.club.clubWebsite}
+                  </a>
+                  <p className={styles.f18}>{this.state.club.phoneNumber}</p>
+                  <p>{this.state.club.numberCourts} Tennis Courts</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.subContainer}>
-            <div className={styles.smallGreenDiv}>
-              <p className={styles.largerPTag}>What We Offer</p>
-              <div className={styles.flexWrapDiv}>
-                {this.state.clubProfile &&
-                  this.state.clubProfile.services.map((element, index) => {
-                    let keyArray = Object.keys(element);
-                    let service = "";
-                    if (element[keyArray[0]] === "Yes") {
-                      if (keyArray[0] === "tennisLessons") {
-                        service = "Private Tennis Lessons";
-                      } else if (keyArray[0] === "groupClinics") {
-                        service = "Fun Group Clinics";
-                      } else if (keyArray[0] === "racquetStringing") {
-                        service = "Racquet Stringing";
-                      } else if (keyArray[0] === "summerProgram") {
-                        service = "Kids Summer Program";
-                      } else if (keyArray[0] === "gym") {
-                        service = "Fitness Center";
-                      } else if (keyArray[0] === "tournaments") {
-                        service = "Competitive Tournaments";
+            <div className={styles.subContainer}>
+              <div className={styles.smallGreenDiv}>
+                <p className={styles.largerPTag}>What We Offer</p>
+                <div className={styles.flexWrapDiv}>
+                  {this.state.clubProfile &&
+                    this.state.clubProfile.services.map((element, index) => {
+                      let keyArray = Object.keys(element);
+                      let service = "";
+                      if (element[keyArray[0]] === "Yes") {
+                        if (keyArray[0] === "tennisLessons") {
+                          service = "Private Tennis Lessons";
+                        } else if (keyArray[0] === "groupClinics") {
+                          service = "Fun Group Clinics";
+                        } else if (keyArray[0] === "racquetStringing") {
+                          service = "Racquet Stringing";
+                        } else if (keyArray[0] === "summerProgram") {
+                          service = "Kids Summer Program";
+                        } else if (keyArray[0] === "gym") {
+                          service = "Fitness Center";
+                        } else if (keyArray[0] === "tournaments") {
+                          service = "Competitive Tournaments";
+                        }
+                        return (
+                          <div
+                            style={{
+                              height: `${400 /
+                                (this.state.clubProfile.services.length +
+                                  this.state.clubProfile.otherServices
+                                    .length)}px`
+                            }}
+                            className={styles.divHoldingItem}
+                          >
+                            <p>{service}</p>
+                          </div>
+                        );
                       }
+                    })}
+                  {this.state.clubProfile &&
+                    this.state.clubProfile.otherServices.map(element => {
                       return (
                         <div
                           style={{
@@ -207,329 +230,314 @@ class TennisClub extends React.Component {
                           }}
                           className={styles.divHoldingItem}
                         >
-                          <p>{service}</p>
+                          <p>{element}</p>
                         </div>
                       );
-                    }
-                  })}
-                {this.state.clubProfile &&
-                  this.state.clubProfile.otherServices.map(element => {
-                    return (
-                      <div
-                        style={{
-                          height: `${400 /
-                            (this.state.clubProfile.services.length +
-                              this.state.clubProfile.otherServices.length)}px`
-                        }}
-                        className={styles.divHoldingItem}
-                      >
-                        <p>{element}</p>
-                      </div>
-                    );
-                  })}
+                    })}
+                </div>
               </div>
-            </div>
-            <div
-              style={{ flexDirection: "column" }}
-              className={styles.smallGreenDiv}
-            >
-              <p className={styles.largerPTag}>Events Coming Up</p>
-              {this.state.addEventState === false &&
-                this.state.events.length !== 0 && (
-                  <div style={{ position: "relative", marginTop: "40px" }}>
-                    {this.state.events.map((element, index) => {
-                      if (index < 6) {
-                        return (
-                          <div
-                            style={{
-                              height: `${150 / this.state.events.length}px`
-                            }}
-                            className={styles.eventDiv}
-                          >
+              <div
+                style={{ flexDirection: "column" }}
+                className={styles.smallGreenDiv}
+              >
+                <p className={styles.largerPTag}>Events Coming Up</p>
+                {this.state.addEventState === false &&
+                  this.state.events.length !== 0 && (
+                    <div style={{ position: "relative", marginTop: "40px" }}>
+                      {this.state.events.map((element, index) => {
+                        if (index < 6) {
+                          return (
                             <div
                               style={{
-                                width: "250px",
-                                position: "relative",
-                                height: "21px"
+                                height: `${150 / this.state.events.length}px`
                               }}
+                              className={styles.eventDiv}
                             >
-                              {this.state.indexNumber === index &&
-                              this.state.showEventDetailBox === true ? (
-                                <div className={styles.eventDetailBox}>
-                                  <p
-                                    onClick={() =>
-                                      this.setState({
-                                        showEventDetailBox: false
-                                      })
-                                    }
-                                    style={{
-                                      color: "white",
-                                      border: "2px solid white",
-                                      width: "10px",
-                                      position: "relative",
-                                      left: "260px",
-                                      padding: "4x",
-                                      cursor: "pointer"
-                                    }}
-                                  >
-                                    X
-                                  </p>
-                                  <p
-                                    style={{
-                                      width: "200px",
-                                      marginLeft: "70px"
-                                    }}
-                                  >
-                                    {element.description}
-                                  </p>
-                                </div>
-                              ) : null}
-                              <p
-                                onClick={() => {
-                                  this.getIndexNumber(index);
-                                }}
+                              <div
                                 style={{
-                                  height: "20px",
-                                  fontWeight: "bold",
-                                  fontSize: "16px"
+                                  width: "250px",
+                                  position: "relative",
+                                  height: "21px"
                                 }}
                               >
-                                {element.name}
-                              </p>
+                                {this.state.indexNumber === index &&
+                                this.state.showEventDetailBox === true ? (
+                                  <div className={styles.eventDetailBox}>
+                                    <p
+                                      onClick={() =>
+                                        this.setState({
+                                          showEventDetailBox: false
+                                        })
+                                      }
+                                      style={{
+                                        color: "white",
+                                        border: "2px solid white",
+                                        width: "10px",
+                                        position: "relative",
+                                        left: "260px",
+                                        padding: "4x",
+                                        cursor: "pointer"
+                                      }}
+                                    >
+                                      X
+                                    </p>
+                                    <p
+                                      style={{
+                                        width: "200px",
+                                        marginLeft: "70px"
+                                      }}
+                                    >
+                                      {element.description}
+                                    </p>
+                                  </div>
+                                ) : null}
+                                <p
+                                  onClick={() => {
+                                    this.getIndexNumber(index);
+                                  }}
+                                  style={{
+                                    height: "20px",
+                                    fontWeight: "bold",
+                                    fontSize: "16px"
+                                  }}
+                                >
+                                  {element.name}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      }
-                    })}
-                  </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  )}
+                {this.props.admin && this.state.addEventState === false && (
+                  <button onClick={this.addEventStateShow}>Add an Event</button>
                 )}
-              {this.props.admin && this.state.addEventState === false && (
-                <button onClick={this.addEventStateShow}>Add an Event</button>
-              )}
-              {this.state.addEventState === true && (
-                <div
-                  style={{
-                    marginTop: "30px",
-                    display: "flex",
-                    flexDirection: "column"
-                  }}
-                >
-                  <div className={styles.eventDateSubDiv}>
-                    <p style={{ letterSpacing: "0.05px", fontSize: "15px" }}>
-                      Name of Event:
-                    </p>
-                    <input
-                      onChange={this.eventNameHandler}
-                      value={this.state.eventNameState}
-                      id={styles.addEventInput}
-                    />
-                  </div>
-                  <div className={styles.eventDateSubDiv}>
-                    <p style={{ letterSpacing: "0.1px" }}>Date of Event:</p>
-                    <input
-                      type="date"
-                      style={{
-                        width: "110px",
-                        height: "18px",
-                        marginLeft: "5px"
-                      }}
-                      onChange={this.dateChoose}
-                      value={this.state.dateForEventString}
-                    />
-                  </div>
-                  <div className={styles.eventDateSubDiv}>
-                    <p style={{ letterSpacing: "0.1px" }}>Start of Event:</p>
-                    <select
-                      onChange={this.timeStartHandler}
-                      value={this.state.timeStartState}
-                      style={{
-                        width: "112px",
-                        height: "18px",
-                        marginLeft: "5px"
-                      }}
-                    >
-                      <option disabled>{}</option>
-                      <option>12:00 AM</option>
-                      <option>12:30 AM</option>
-                      <option>1:00 AM</option>
-                      <option>1:30 AM</option>
-                      <option>2:00 AM</option>
-                      <option>2:30 AM</option>
-                      <option>3:00 AM</option>
-                      <option>3:30 AM</option>
-                      <option>4:00 AM</option>
-                      <option>4:30 AM</option>
-                      <option>5:00 AM</option>
-                      <option>5:30 AM</option>
-                      <option>6:00 AM</option>
-                      <option>6:30 AM</option>
-                      <option>7:00 AM</option>
-                      <option>7:30 AM</option>
-                      <option>8:00 AM</option>
-                      <option>8:30 AM</option>
-                      <option>9:00 AM</option>
-                      <option>9:30 AM</option>
-                      <option>10:00 AM</option>
-                      <option>10:30 AM</option>
-                      <option>11:00 AM</option>
-                      <option>11:30 AM</option>
-                      <option>12:00 PM</option>
-                      <option>12:30 PM</option>
-                      <option>1:00 PM</option>
-                      <option>1:30 PM</option>
-                      <option>2:00 PM</option>
-                      <option>2:30 PM</option>
-                      <option>3:00 PM</option>
-                      <option>3:30 PM</option>
-                      <option>4:00 PM</option>
-                      <option>4:30 PM</option>
-                      <option>5:00 PM</option>
-                      <option>5:30 PM</option>
-                      <option>6:00 PM</option>
-                      <option>6:30 PM</option>
-                      <option>7:00 PM</option>
-                      <option>7:30 PM</option>
-                      <option>8:00 PM</option>
-                      <option>8:30 PM</option>
-                      <option>9:00 PM</option>
-                      <option>9:30 PM</option>
-                      <option>10:00 PM</option>
-                      <option>10:30 PM</option>
-                      <option>11:00 PM</option>
-                      <option>11:30 PM</option>
-                    </select>
-                  </div>
-                  <div className={styles.eventDateSubDiv}>
-                    <p style={{ letterSpacing: "0.5px" }}>End of Event:</p>
-                    <select
-                      onChange={this.timeEndHandler}
-                      value={this.state.timeEndState}
-                      style={{
-                        width: "112px",
-                        height: "18px",
-                        marginLeft: "5px"
-                      }}
-                    >
-                      <option disabled>{}</option>
-                      <option>12:00 AM</option>
-                      <option>12:30 AM</option>
-                      <option>1:00 AM</option>
-                      <option>1:30 AM</option>
-                      <option>2:00 AM</option>
-                      <option>2:30 AM</option>
-                      <option>3:00 AM</option>
-                      <option>3:30 AM</option>
-                      <option>4:00 AM</option>
-                      <option>4:30 AM</option>
-                      <option>5:00 AM</option>
-                      <option>5:30 AM</option>
-                      <option>6:00 AM</option>
-                      <option>6:30 AM</option>
-                      <option>7:00 AM</option>
-                      <option>7:30 AM</option>
-                      <option>8:00 AM</option>
-                      <option>8:30 AM</option>
-                      <option>9:00 AM</option>
-                      <option>9:30 AM</option>
-                      <option>10:00 AM</option>
-                      <option>10:30 AM</option>
-                      <option>11:00 AM</option>
-                      <option>11:30 AM</option>
-                      <option>12:00 PM</option>
-                      <option>12:30 PM</option>
-                      <option>1:00 PM</option>
-                      <option>1:30 PM</option>
-                      <option>2:00 PM</option>
-                      <option>2:30 PM</option>
-                      <option>3:00 PM</option>
-                      <option>3:30 PM</option>
-                      <option>4:00 PM</option>
-                      <option>4:30 PM</option>
-                      <option>5:00 PM</option>
-                      <option>5:30 PM</option>
-                      <option>6:00 PM</option>
-                      <option>6:30 PM</option>
-                      <option>7:00 PM</option>
-                      <option>7:30 PM</option>
-                      <option>8:00 PM</option>
-                      <option>8:30 PM</option>
-                      <option>9:00 PM</option>
-                      <option>9:30 PM</option>
-                      <option>10:00 PM</option>
-                      <option>10:30 PM</option>
-                      <option>11:00 PM</option>
-                      <option>11:30 PM</option>
-                    </select>
-                  </div>
+                {this.state.addEventState === true && (
                   <div
                     style={{
+                      marginTop: "30px",
                       display: "flex",
-                      width: "340px",
-                      justifyContent: "space-between"
+                      flexDirection: "column"
                     }}
                   >
-                    <p>Event Description:</p>
-                    <button
-                      onClick={this.addEventHandler}
-                      style={{ position: "relative", top: "-3px" }}
-                    >
-                      Add Event
-                    </button>
-                  </div>
-                  <textarea
-                    onChange={this.eventDescriptionHandler}
-                    value={this.state.eventDescriptionState}
-                    style={{ height: "68px" }}
-                  ></textarea>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className={styles.subContainer}>
-            <div className={styles.smallGreenDiv}>
-              <p className={styles.largerPTag}>About Us</p>
-              <p style={{ padding: "10px" }}>{this.state.clubProfile.bio}</p>
-            </div>
-            <div className={styles.smallGreenDiv}>
-              <p className={styles.largerPTag}>Tennis Instructors</p>
-              <div className={styles.flexWrapDiv}>
-                {this &&
-                  this.state.instructors.map(element => {
-                    return (
-                      <div
+                    <div className={styles.eventDateSubDiv}>
+                      <p style={{ letterSpacing: "0.05px", fontSize: "15px" }}>
+                        Name of Event:
+                      </p>
+                      <input
+                        onChange={this.eventNameHandler}
+                        value={this.state.eventNameState}
+                        id={styles.addEventInput}
+                      />
+                    </div>
+                    <div className={styles.eventDateSubDiv}>
+                      <p style={{ letterSpacing: "0.1px" }}>Date of Event:</p>
+                      <input
+                        type="date"
                         style={{
-                          height: `${310 / this.state.instructors.length}px`
+                          width: "110px",
+                          height: "18px",
+                          marginLeft: "5px"
                         }}
-                        className={styles.divHoldingItem}
+                        onChange={this.dateChoose}
+                        value={this.state.dateForEventString}
+                      />
+                    </div>
+                    <div className={styles.eventDateSubDiv}>
+                      <p style={{ letterSpacing: "0.1px" }}>Start of Event:</p>
+                      <select
+                        onChange={this.timeStartHandler}
+                        value={this.state.timeStartState}
+                        style={{
+                          width: "112px",
+                          height: "18px",
+                          marginLeft: "5px"
+                        }}
                       >
-                        <p>{element.fullName}</p>
-                      </div>
-                    );
-                  })}
+                        <option disabled>{}</option>
+                        <option>12:00 AM</option>
+                        <option>12:30 AM</option>
+                        <option>1:00 AM</option>
+                        <option>1:30 AM</option>
+                        <option>2:00 AM</option>
+                        <option>2:30 AM</option>
+                        <option>3:00 AM</option>
+                        <option>3:30 AM</option>
+                        <option>4:00 AM</option>
+                        <option>4:30 AM</option>
+                        <option>5:00 AM</option>
+                        <option>5:30 AM</option>
+                        <option>6:00 AM</option>
+                        <option>6:30 AM</option>
+                        <option>7:00 AM</option>
+                        <option>7:30 AM</option>
+                        <option>8:00 AM</option>
+                        <option>8:30 AM</option>
+                        <option>9:00 AM</option>
+                        <option>9:30 AM</option>
+                        <option>10:00 AM</option>
+                        <option>10:30 AM</option>
+                        <option>11:00 AM</option>
+                        <option>11:30 AM</option>
+                        <option>12:00 PM</option>
+                        <option>12:30 PM</option>
+                        <option>1:00 PM</option>
+                        <option>1:30 PM</option>
+                        <option>2:00 PM</option>
+                        <option>2:30 PM</option>
+                        <option>3:00 PM</option>
+                        <option>3:30 PM</option>
+                        <option>4:00 PM</option>
+                        <option>4:30 PM</option>
+                        <option>5:00 PM</option>
+                        <option>5:30 PM</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                        <option>8:30 PM</option>
+                        <option>9:00 PM</option>
+                        <option>9:30 PM</option>
+                        <option>10:00 PM</option>
+                        <option>10:30 PM</option>
+                        <option>11:00 PM</option>
+                        <option>11:30 PM</option>
+                      </select>
+                    </div>
+                    <div className={styles.eventDateSubDiv}>
+                      <p style={{ letterSpacing: "0.5px" }}>End of Event:</p>
+                      <select
+                        onChange={this.timeEndHandler}
+                        value={this.state.timeEndState}
+                        style={{
+                          width: "112px",
+                          height: "18px",
+                          marginLeft: "5px"
+                        }}
+                      >
+                        <option disabled>{}</option>
+                        <option>12:00 AM</option>
+                        <option>12:30 AM</option>
+                        <option>1:00 AM</option>
+                        <option>1:30 AM</option>
+                        <option>2:00 AM</option>
+                        <option>2:30 AM</option>
+                        <option>3:00 AM</option>
+                        <option>3:30 AM</option>
+                        <option>4:00 AM</option>
+                        <option>4:30 AM</option>
+                        <option>5:00 AM</option>
+                        <option>5:30 AM</option>
+                        <option>6:00 AM</option>
+                        <option>6:30 AM</option>
+                        <option>7:00 AM</option>
+                        <option>7:30 AM</option>
+                        <option>8:00 AM</option>
+                        <option>8:30 AM</option>
+                        <option>9:00 AM</option>
+                        <option>9:30 AM</option>
+                        <option>10:00 AM</option>
+                        <option>10:30 AM</option>
+                        <option>11:00 AM</option>
+                        <option>11:30 AM</option>
+                        <option>12:00 PM</option>
+                        <option>12:30 PM</option>
+                        <option>1:00 PM</option>
+                        <option>1:30 PM</option>
+                        <option>2:00 PM</option>
+                        <option>2:30 PM</option>
+                        <option>3:00 PM</option>
+                        <option>3:30 PM</option>
+                        <option>4:00 PM</option>
+                        <option>4:30 PM</option>
+                        <option>5:00 PM</option>
+                        <option>5:30 PM</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                        <option>8:30 PM</option>
+                        <option>9:00 PM</option>
+                        <option>9:30 PM</option>
+                        <option>10:00 PM</option>
+                        <option>10:30 PM</option>
+                        <option>11:00 PM</option>
+                        <option>11:30 PM</option>
+                      </select>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "340px",
+                        justifyContent: "space-between"
+                      }}
+                    >
+                      <p>Event Description:</p>
+                      <button
+                        onClick={this.addEventHandler}
+                        style={{ position: "relative", top: "-3px" }}
+                      >
+                        Add Event
+                      </button>
+                    </div>
+                    <textarea
+                      onChange={this.eventDescriptionHandler}
+                      value={this.state.eventDescriptionState}
+                      style={{ height: "68px" }}
+                    ></textarea>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className={styles.subContainer}>
+              <div className={styles.smallGreenDiv}>
+                <p className={styles.largerPTag}>About Us</p>
+                <p style={{ padding: "10px" }}>{this.state.clubProfile.bio}</p>
+              </div>
+              <div className={styles.smallGreenDiv}>
+                <p className={styles.largerPTag}>Tennis Instructors</p>
+                <div className={styles.flexWrapDiv}>
+                  {this &&
+                    this.state.instructors.map(element => {
+                      return (
+                        <div
+                          style={{
+                            height: `${310 / this.state.instructors.length}px`
+                          }}
+                          className={styles.divHoldingItem}
+                        >
+                          <p>{element.fullName}</p>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div id={styles.courtsShowingHeader}>
-            <Calendar
-              date={this.state.dateChosenForCourts}
-              onDateClick={this.onDateClick}
+          <div>
+            <div id={styles.courtsShowingHeader}>
+              <Calendar
+                date={this.state.dateChosenForCourts}
+                onDateClick={this.onDateClick}
+              />
+              <AdminBooking instructors={this.state.instructors} />
+            </div>
+            <CourtContainer
+              numberCourts={this.state.club.numberCourts}
+              date={`${this.state.dateChosenForCourts.getMonth() +
+                1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
+                1900}`}
+              clubName={this.state.club.clubName}
+              clubOpenTime={this.state.club.clubOpenTime}
+              clubCloseTime={this.state.club.clubCloseTime}
+              numberCourts={this.state.club.numberCourts}
             />
-            <AdminBooking instructors={this.state.instructors} />
           </div>
-          <CourtContainer
-            numberCourts={this.state.club.numberCourts}
-            date={`${this.state.dateChosenForCourts.getMonth() +
-              1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +
-              1900}`}
-            clubName={this.state.club.clubName}
-            clubOpenTime={this.state.club.clubOpenTime}
-            clubCloseTime={this.state.club.clubCloseTime}
-            numberCourts={this.state.club.numberCourts}
-          />
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -537,7 +545,8 @@ class TennisClub extends React.Component {
 const mapStateToProps = state => {
   return {
     admin: state.authReducer.admin,
-    adminToken: state.authReducer.adminToken
+    adminToken: state.authReducer.adminToken,
+    instructor: state.authReducer.instructor
   };
 };
 

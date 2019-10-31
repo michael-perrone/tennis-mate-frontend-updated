@@ -5,19 +5,15 @@ import {
   ADMIN_LOGOUT,
   INSTRUCTOR_LOGIN_SUCCESS,
   INSTRUCTOR_LOGOUT,
-  ADMIN_LOADED,
-  ADMIN_LOADING,
-  USER_LOADED,
-  USER_LOADING,
-  INSTRUCTOR_LOADED,
-  INSTRUCTOR_LOADING,
   USER_REGISTER_SUCCESS,
   ADMIN_REGISTER_SUCCESS,
-  INSTRUCTOR_REGISTER_SUCCESS
+  INSTRUCTOR_REGISTER_SUCCESS,
+  GET_INSTRUCTOR_PROFILE
 } from "../actions/actions";
 import decoder from "jwt-decode";
 
 const initalState = {
+  instructorProfile: {},
   token: localStorage.getItem("token"),
   instructorToken: localStorage.getItem("instructorToken"),
   adminToken: localStorage.getItem("adminToken"),
@@ -27,7 +23,12 @@ const initalState = {
     ? true
     : false,
   loading: false,
-  isAuthenticated: localStorage.getItem('token') || localStorage.getItem('instructorToken') || localStorage.getItem('adminToken') ? true : false, 
+  isAuthenticated:
+    localStorage.getItem("token") ||
+    localStorage.getItem("instructorToken") ||
+    localStorage.getItem("adminToken")
+      ? true
+      : false,
   user: localStorage.getItem("token")
     ? decoder(localStorage.getItem("token"))
     : null,
@@ -95,41 +96,10 @@ export default function(state = initalState, action) {
         admin: decoder(localStorage.getItem("adminToken")),
         adminToken: localStorage.getItem("adminToken")
       };
-    case USER_LOADING:
+    case GET_INSTRUCTOR_PROFILE:
       return {
         ...state,
-        loading: true
-      };
-    case USER_LOADED:
-      return {
-        ...state,
-        isUserAuthenticated: true,
-        loading: false,
-        user: action.payload
-      };
-    case ADMIN_LOADING:
-      return {
-        ...state,
-        loading: true
-      };
-    case ADMIN_LOADED:
-      return {
-        ...state,
-        isAdminAuthenticated: true,
-        loading: false,
-        admin: action.payload
-      };
-    case INSTRUCTOR_LOADING:
-      return {
-        ...state,
-        loading: true
-      };
-    case INSTRUCTOR_LOADED:
-      return {
-        ...state,
-        isInstructorAuthenticated: true,
-        loading: false,
-        instructor: action.payload
+        instructorProfile: action.payload
       };
     case USER_LOGOUT:
       localStorage.removeItem("token");
@@ -153,11 +123,11 @@ export default function(state = initalState, action) {
       localStorage.removeItem("instructorToken");
       return {
         ...state,
-    
-      isAuthenticated: false,  
-      isInstructorAuthenticated: false,
-      instructor: null,
-      instructorToken: null
+        instructorProfile: {},
+        isAuthenticated: false,
+        isInstructorAuthenticated: false,
+        instructor: null,
+        instructorToken: null
       };
 
     /*    case REGISTER:

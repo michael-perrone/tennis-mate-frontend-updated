@@ -31,11 +31,35 @@ class InstructorNav extends React.Component {
       <div id={styles.navBarContainer}>
         <p id={styles.title}>Tennis Mate</p>
         <div id={styles.secondContainer}>
-          <Link className={styles.links} to="/clubs">
-            My Club
-          </Link>
+          {this.props.notifications && (
+            <Link
+              className={styles.links}
+              to={`/clubs/${this.props.notifications.instructor.tennisClub
+                .split(" ")
+                .reduce((accum, element) => accum + element)}`}
+            >
+              My Club
+            </Link>
+          )}
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p style={{ cursor: "pointer" }}>
+              {!this.state.showDropDown && this.props.notifications && (
+                <span
+                  style={{
+                    position: "relative",
+                    left: "-6px",
+                    padding: "0 5px",
+                    boxShadow: "0px 0px 8px red",
+                    color: "red",
+                    borderRadius: "30px",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    fontFamily: "cursive"
+                  }}
+                >
+                  {this.props.notifications.instructor.notifications.length}
+                </span>
+              )}
               {this.props.instructor.instructor.instructorName}
             </p>{" "}
             <i
@@ -64,10 +88,11 @@ class InstructorNav extends React.Component {
                         position: "relative",
                         left: "-3px",
                         padding: "0 5px",
-                        backgroundColor: "black",
+                        boxShadow: "0px 0px 8px red",
                         color: "red",
                         borderRadius: "30px",
-                        fontSize: "14px"
+                        fontSize: "14px",
+                        fontWeight: "bold"
                       }}
                     >
                       {this.props.notifications.instructor.notifications.length}

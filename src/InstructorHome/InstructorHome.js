@@ -6,6 +6,7 @@ import styles from "./InstructorHome.module.css";
 
 import { connect } from "react-redux";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
+import { GET_INSTRUCTOR_PROFILE } from "../actions/actions";
 
 class InstructorHome extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class InstructorHome extends React.Component {
             `/instructor/${this.props.instructor.instructor.id}/createeditprofile`
           );
         } else {
+          this.props.getInstructorProfile(response.data.instructorProfile);
           this.setState({ instructorProfile: response.data.instructorProfile });
         }
       })
@@ -54,9 +56,16 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getInstructorProfile: instructorProfile =>
+      dispatch({ type: GET_INSTRUCTOR_PROFILE, payload: { instructorProfile } })
+  };
+};
+
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
   )(InstructorHome)
 );

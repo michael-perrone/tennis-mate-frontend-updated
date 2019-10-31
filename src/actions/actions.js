@@ -1,4 +1,5 @@
 // pretty much all auth stuff for redux rn, maybe add some more later
+export const GET_INSTRUCTOR_PROFILE = "GET_INSTRUCTOR_PROFILE";
 export const ADMIN_ENTERED = "ADMIN_ENTERED";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const USER_LOADING = "LOADING";
