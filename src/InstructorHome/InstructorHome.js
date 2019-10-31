@@ -12,6 +12,7 @@ class InstructorHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      profileCreated: false,
       instructorProfile: undefined
     };
   }
@@ -23,10 +24,12 @@ class InstructorHome extends React.Component {
       .then(response => {
         console.log(response);
         if (response.data.profileCreated === false) {
+          this.setState({ profileCreated: false });
           this.props.history.push(
             `/instructor/${this.props.instructor.instructor.id}/createeditprofile`
           );
         } else {
+          this.setState({ profileCreated: true });
           this.props.getInstructorProfile(response.data.instructorProfile);
           this.setState({ instructorProfile: response.data.instructorProfile });
         }
@@ -40,7 +43,8 @@ class InstructorHome extends React.Component {
     console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>
-        <InstructorNav />
+        {this.state.profileCreated && <InstructorNav />}
+
         {this.state.instructorProfile !== undefined && (
           <InstructorProfile instructorProfile={this.state.instructorProfile} />
         )}
@@ -51,6 +55,7 @@ class InstructorHome extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showNotifications: state.booleanReducers.showNotifications,
     instructor: state.authReducer.instructor,
     instructorToken: state.authReducer.instructorToken
   };

@@ -15,3 +15,18 @@
   justify-content: space-around;
   margin-left: 10px;
 }
+
+#title {
+  font-size: 34px;
+  font-family: "Permanent Marker", cursive;
+  position: relative;
+  left: 70px;
+  width: 210px;
+}
+
+#fakeNav {
+  height: 48px;
+  width: 100%;
+  background-color: lightgreen;
+  border-bottom: 1px solid gray;
+}

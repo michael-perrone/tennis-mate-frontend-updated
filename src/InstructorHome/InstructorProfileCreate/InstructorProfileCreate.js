@@ -32,8 +32,11 @@ class InstructorProfileCreate extends React.Component {
     console.log(this.props);
     return (
       <React.Fragment>
-        {this.state.profileCreated && (
-          <InstructorNav  />
+        {this.state.profileCreated && <InstructorNav />}
+        {!this.state.profileCreated && (
+          <div id={styles.fakeNav}>
+            <p id={styles.title}>Tennis Mate</p>
+          </div>
         )}
         <div id={styles.instructorProfileCreateContainer}>
           <div id={styles.paragraphContainer}>

@@ -18,7 +18,7 @@ class InstructorProfileCreateForm extends React.Component {
       ],
       certifications: {
         certifiedBy: "",
-        certificationDate: "",
+        certificationDate: ""
       },
       jobExperience: {
         clubName: "",
@@ -46,21 +46,7 @@ class InstructorProfileCreateForm extends React.Component {
     this.otherInfoHandler = this.otherInfoHandler.bind(this);
     this.certFormHandler = this.certFormHandler.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
-    this.skip = this.skip.bind(this);
-  }
-
-  skip() {
-    axios
-      .post(
-        "http://localhost:8080/api/instructorProfile",
-        { hello: "" },
-        {
-          headers: { "x-auth-token": this.props.instructorToken }
-        }
-      )
-      .then(response => {
-        console.log(response);
-      });
+    this.skipProfile = this.skipProfile.bind(this);
   }
 
   submitInfo(event) {
@@ -158,6 +144,27 @@ class InstructorProfileCreateForm extends React.Component {
     const newJobExp = { ...this.state.jobExperience };
     newJobExp[event.target.name] = event.target.value;
     this.setState({ jobExperience: newJobExp });
+  }
+
+  skipProfile(event) {
+    event.preventDefault();
+    axios
+      .post(
+        "http://localhost:8080/api/instructorProfile",
+        {},
+        {
+          headers: {
+            "x-auth-token": this.props.instructorToken
+          }
+        }
+      )
+      .then(response => {
+        if (response.status === 200) {
+          this.props.history.push(
+            `/instructor/${this.props.instructor.instructor.id}`
+          );
+        }
+      });
   }
 
   render() {
@@ -549,6 +556,7 @@ class InstructorProfileCreateForm extends React.Component {
               Save Profile
             </button>
             <button
+              onClick={this.skipProfile}
               style={{ backgroundColor: "lightgray" }}
               className={styles.createSkipButton}
             >

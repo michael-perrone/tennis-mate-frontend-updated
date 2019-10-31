@@ -1,6 +1,6 @@
 import { INSTRUCTOR_WANTS_TO_REGISTER } from "../actions/actions";
 import { ADMIN_ENTERED } from "../actions/actions";
-import {SHOW_NOTIFICATIONS, HIDE_NOTIFICATIONS} from '../actions/actions'
+import { SHOW_NOTIFICATIONS, HIDE_NOTIFICATIONS } from "../actions/actions";
 
 const initialState = {
   instructorRegister: false,
@@ -16,12 +16,18 @@ export default function(state = initialState, action) {
         ...state,
         instructorRegister: !state.instructorRegister
       };
-      case SHOW_NOTIFICATIONS:
-        return {
-          ...state,
-          showNotifications: true,
-          hideNotifications: false,
-        }
+    case SHOW_NOTIFICATIONS:
+      return {
+        ...state,
+        showNotifications: true,
+        hideNotifications: false
+      };
+    case HIDE_NOTIFICATIONS:
+      return {
+        ...state,
+        showNotifications: false,
+        hideNotifications: true
+      };
 
     case ADMIN_ENTERED:
       return {
