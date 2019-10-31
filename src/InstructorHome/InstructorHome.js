@@ -40,7 +40,7 @@ class InstructorHome extends React.Component {
     console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>
-        <InstructorNav notifications={this.state.instructorProfile} />
+        <InstructorNav />
         {this.state.instructorProfile !== undefined && (
           <InstructorProfile instructorProfile={this.state.instructorProfile} />
         )}

@@ -33,7 +33,7 @@ class InstructorProfileCreate extends React.Component {
     return (
       <React.Fragment>
         {this.state.profileCreated && (
-          <InstructorNav notifications={this.state.instructorProfile} />
+          <InstructorNav  />
         )}
         <div id={styles.instructorProfileCreateContainer}>
           <div id={styles.paragraphContainer}>

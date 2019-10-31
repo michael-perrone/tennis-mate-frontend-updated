@@ -101,7 +101,6 @@ class App extends React.Component {
           }}
         />
 
-        <Route exact path="/notifications" component={Notifications} />
 
         {instructorToken.instructor && (
           <Redirect
