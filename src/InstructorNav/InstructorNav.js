@@ -65,7 +65,7 @@ class InstructorNav extends React.Component {
         <div id={styles.navBarContainer}>
           <p id={styles.title}>Tennis Mate</p>
           <div id={styles.secondContainer}>
-            {newVar !== "" && (
+            {newVar !== "" && this.props.instructorProfile.instructor.clubAccepted === true && (
               <Link className={styles.links} to={newVar}>
                 My Club
               </Link>
