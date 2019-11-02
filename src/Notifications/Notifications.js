@@ -12,11 +12,16 @@ class Notification extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <div onClick={this.props.hideNotifications} id={styles.backDrop}></div>
         {this.props.admin && <AdminNotifications />}
-        {this.props.instructor && <InstructorNotifications />}
+        {this.props.instructor && (
+          <InstructorNotifications
+            instructorNotifications={this.props.instructorNotifications}
+          />
+        )}
         {this.props.user && <UserNotifications />}
       </React.Fragment>
     );

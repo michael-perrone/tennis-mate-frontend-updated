@@ -13,6 +13,7 @@ class InstructorNav extends React.Component {
     this.state = {
       showDropDown: false,
       notifications: "",
+      newNotifications: [],
       instructorProfile: {}
     };
 
@@ -29,11 +30,24 @@ class InstructorNav extends React.Component {
         }
       })
       .then(response => {
+        console.log(response);
         this.setState({ instructorProfile: response.data.instructorProfile });
-        this.setState({
-          notifications:
-            response.data.instructorProfile.instructor.notifications
-        });
+      });
+    axios
+      .get("http://localhost:8080/api/notifications/instructornotifications", {
+        headers: { "x-auth-token": this.props.instructorToken }
+      })
+      .then(response => {
+        let newNotifications = [];
+        this.setState({ notifications: response.data.notifications });
+        if (response.data.notifications) {
+          for (let i = 0; i < response.data.notifications.length; i++) {
+            if (response.data.notifications[i].notificationRead === false) {
+              newNotifications.push(response.data.notifications[i]);
+            }
+          }
+        }
+        this.setState({ newNotifications });
       });
   }
 
@@ -54,6 +68,7 @@ class InstructorNav extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     let newVar = "";
     if (this.state.instructorProfile.instructor) {
       newVar = `/clubs/${this.state.instructorProfile.instructor.tennisClub
@@ -65,30 +80,32 @@ class InstructorNav extends React.Component {
         <div id={styles.navBarContainer}>
           <p id={styles.title}>Tennis Mate</p>
           <div id={styles.secondContainer}>
-            {newVar !== "" && this.props.instructorProfile.instructor.clubAccepted === true && (
-              <Link className={styles.links} to={newVar}>
-                My Club
-              </Link>
-            )}
+            {newVar !== "" &&
+              this.state.instructorProfile.instructor.clubAccepted === true && (
+                <Link className={styles.links} to={newVar}>
+                  My Club
+                </Link>
+              )}
             <div style={{ display: "flex" }}>
               <p style={{ cursor: "pointer" }} onClick={this.goToProfileHome}>
-                {!this.state.showDropDown && (
-                  <span
-                    style={{
-                      position: "relative",
-                      left: "-6px",
-                      padding: "0 5px",
-                      boxShadow: "0px 0px 8px red",
-                      color: "red",
-                      borderRadius: "30px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      fontFamily: "cursive"
-                    }}
-                  >
-                    {this.state.notifications.length}
-                  </span>
-                )}
+                {!this.state.showDropDown &&
+                  this.state.newNotifications.length > 0 && (
+                    <span
+                      style={{
+                        position: "relative",
+                        left: "-6px",
+                        padding: "0 5px",
+                        boxShadow: "0px 0px 8px red",
+                        color: "red",
+                        borderRadius: "30px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        fontFamily: "cursive"
+                      }}
+                    >
+                      {this.state.notifications.length}
+                    </span>
+                  )}
                 {this.props.instructor.instructor.instructorName}
               </p>{" "}
               <i
@@ -117,23 +134,24 @@ class InstructorNav extends React.Component {
                     onClick={this.props.showNotifications}
                   >
                     <p className={styles.dropDownItem}>
-                      {this.state.instructorProfile && (
-                        <span
-                          style={{
-                            position: "relative",
-                            left: "-6px",
-                            padding: "0 5px",
-                            boxShadow: "0px 0px 8px red",
-                            color: "red",
-                            borderRadius: "30px",
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            top: "-1px"
-                          }}
-                        >
-                          {this.state.notifications.length}
-                        </span>
-                      )}
+                      {this.state.instructorProfile &&
+                        this.state.newNotifications.length > 0 && (
+                          <span
+                            style={{
+                              position: "relative",
+                              left: "-6px",
+                              padding: "0 5px",
+                              boxShadow: "0px 0px 8px red",
+                              color: "red",
+                              borderRadius: "30px",
+                              fontSize: "14px",
+                              fontWeight: "bold",
+                              top: "-1px"
+                            }}
+                          >
+                            {this.state.notifications.length}
+                          </span>
+                        )}
                       Notifications
                     </p>
                   </div>
@@ -154,7 +172,9 @@ class InstructorNav extends React.Component {
             </div>
           </div>
         </div>
-        {this.props.showNotificationsState && <Notifications />}
+        {this.props.showNotificationsState && (
+          <Notifications instructorNotifications={this.state.notifications} />
+        )}
       </React.Fragment>
     );
   }

@@ -3,11 +3,11 @@ import styles from "../../Notifications.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
 
-const ClubAddedInstructorNotification = props => {
+const ClubAddedInstructorNotification = props => {  
+  console.log(props);
   function getClubName() {
     const clubNameArray = [];
     let newArray = props.notification.notificationMessage.split("");
-    console.log(newArray);
     let a;
     let b;
     let c;
@@ -67,7 +67,8 @@ const ClubAddedInstructorNotification = props => {
     const objectToSend = {
       clubId: props.notification.notificationFromTennisClub,
       clubName: getClubName(),
-      instructorId: props.instructor.instructor.id
+      instructorId: props.instructor.instructor.id,
+      notificationId: props.notification._id
     };
 
     Axios.post(
@@ -125,17 +126,35 @@ const ClubAddedInstructorNotification = props => {
       >
         {props.notification.notificationMessage}
       </p>
-      <div
-        style={{
-          width: "100px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center"
-        }}
-      >
-        <button onClick={accept}>Accept</button>
-        <button onClick={deny}>Deny</button>
-      </div>
+      {!props.notification.answer && (
+        <div
+          style={{
+            width: "100px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center"
+          }}
+        >
+          <button onClick={accept}>Accept</button>
+          <button onClick={deny}>Deny</button>
+        </div>
+      )}
+      {props.notification.answer === "Accepted" && (
+        <p
+          style={{
+            border: "1px solid gray",
+            backgroundColor: "lightgreen",
+            height: "20px",
+            color: "gray",
+            position: "relative",
+            top: "40px",
+            right: "5px",
+            padding: "0px 2px"
+          }}
+        >
+          Accepted
+        </p>
+      )}
     </div>
   );
 };
