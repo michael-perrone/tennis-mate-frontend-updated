@@ -18,10 +18,24 @@ class InstructorProfile extends React.Component {
                 alt="person"
               />
             </div>
-            <p id={styles.instructorName}>
-              {this.props.instructorProfile.instructor.firstName}{" "}
-              {this.props.instructorProfile.instructor.lastName}
-            </p>
+            <div style={{ display: "flex" }}>
+              <p id={styles.instructorName}>
+                {this.props.instructorProfile.instructor.firstName}{" "}
+                {this.props.instructorProfile.instructor.lastName}
+              </p>
+              {this.props.instructorProfile.instructor.clubAccepted ===
+                true && (
+                <i
+                  style={{
+                    fontSize: "18px",
+                    marginLeft: "5px",
+                    position: "relative",
+                    top: "-2px"
+                  }}
+                  className="fas fa-user-check"
+                ></i>
+              )}
+            </div>
           </div>
           <div id={styles.bottomPartBar}>
             <p style={{ fontSize: "16px" }} className={styles.pTagsInBottomBar}>

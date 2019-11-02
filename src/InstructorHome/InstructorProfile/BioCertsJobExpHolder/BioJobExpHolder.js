@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./BioCertsJobExp.module.css";
 
 function BioCertsJobExp({ profile }) {
-  console.log(profile);
   return (
     <div className={styles.row}>
       <div className={styles.contentHolder}>
@@ -18,12 +17,10 @@ function BioCertsJobExp({ profile }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              marginLeft: '10px'
+              marginLeft: "10px"
             }}
           >
-            <p style={{ textDecoration: "underline" }}>
-              Organization
-            </p>
+            <p style={{ textDecoration: "underline" }}>Organization</p>
             {profile.jobExperience.map(element => {
               return <p style={{ marginTop: "7px" }}>{element.clubName}</p>;
             })}

@@ -2,10 +2,12 @@ import React from "react";
 import styles from "../Notifications.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
+import ClubAddedInstructorNotification from "./ClubAddedInstructorNotification/ClubAddedInstructorNotification";
 
 class InstructorNotifications extends React.Component {
   state = {
-    notifications: []
+    notifications: [],
+    notificationIds: []
   };
 
   componentDidMount() {
@@ -17,11 +19,37 @@ class InstructorNotifications extends React.Component {
       })
       .then(response => {
         console.log(response);
+        const notificationIds = [];
+        if (response.data.notifications) {
+          this.setState({ notifications: response.data.notifications });
+          response.data.notifications.forEach(element => {
+            if (element.notificationRead === false) {
+              notificationIds.push(element._id);
+            }
+          });
+          if (notificationIds.length > 0) {
+            axios
+              .post("http://localhost:8080/api/notifications/updateread", {
+                notificationIds: notificationIds
+              })
+              .then(response => {
+                console.log(response);
+              });
+          }
+        }
       });
   }
 
   render() {
-    return <div className={styles.notificationsContainer}></div>;
+    return (
+      <div className={styles.notificationsContainer}>
+        {this.state.notifications.map(element => {
+          if (element.notificationType === "Club Added Instructor") {
+            return <ClubAddedInstructorNotification notification={element} />;
+          }
+        })}
+      </div>
+    );
   }
 }
 

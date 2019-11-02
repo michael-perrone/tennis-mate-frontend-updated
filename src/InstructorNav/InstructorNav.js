@@ -54,13 +54,11 @@ class InstructorNav extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     let newVar = "";
     if (this.state.instructorProfile.instructor) {
       newVar = `/clubs/${this.state.instructorProfile.instructor.tennisClub
         .split(" ")
         .reduce((accum, element) => accum + element)}`;
-      console.log(newVar);
     }
     return (
       <React.Fragment>

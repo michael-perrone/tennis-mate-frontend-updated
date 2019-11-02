@@ -22,7 +22,6 @@ class InstructorHome extends React.Component {
         headers: { "x-auth-token": this.props.instructorToken }
       })
       .then(response => {
-        console.log(response);
         if (response.data.profileCreated === false) {
           this.setState({ profileCreated: false });
           this.props.history.push(
@@ -40,7 +39,6 @@ class InstructorHome extends React.Component {
   }
 
   render() {
-    console.log(this.state.instructorProfile);
     return (
       <div id={styles.instructorHomeContainer}>
         {this.state.profileCreated && <InstructorNav />}
