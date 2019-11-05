@@ -29,7 +29,8 @@ class AdminProfileCreate extends React.Component {
       showCurrentInstructors: false,
       deletedInstructors: [],
       servicesComingIn: [],
-      bioToPassDown: ""
+      bioToPassDown: "",
+      instructorsSubmitted: false
     };
     this.bioTabButton = this.bioTabButton.bind(this);
     this.instructorsTabButton = this.instructorsTabButton.bind(this);
@@ -47,7 +48,7 @@ class AdminProfileCreate extends React.Component {
     this.carrotRightHandler = this.carrotRightHandler.bind(this);
     this.carrotLeftHandler = this.carrotLeftHandler.bind(this);
     this.setSeeInstructors = this.setSeeInstructors.bind(this);
-    this.sendNewInstructors = this.sendNewInstructors.bind(this);
+    this.sendDeletedInstructors = this.sendDeletedInstructors.bind(this);
   }
 
   componentDidMount() {
@@ -116,6 +117,7 @@ class AdminProfileCreate extends React.Component {
     this.setState({ valueClicked: "" });
     this.setState({ stopShowingNames: true });
     this.setState({ nameClicked: ""})
+    this.setState({instructorsSubmitted: false})
   } else {
     this.setState({entryError: "Please choose an instructor!"})
   }
@@ -159,21 +161,25 @@ class AdminProfileCreate extends React.Component {
 
   sendInstructorList(event) {
     event.preventDefault();
-    let goingToConcatOldInstructorsArray = [];
-    if(this.state.instructorsAlreadyHere.length > 0) {
-    this.state.instructorsAlreadyHere.forEach(element => {
-      goingToConcatOldInstructorsArray.push(element._id)
-    })
-  }
-    let arrayToSend = goingToConcatOldInstructorsArray.concat(this.state.instructorIds)
+    let arrayToSend = this.state.instructorIds
     const objectToSend = {
+      tennisClub: this.props.admin.admin.clubId,
       instructors: arrayToSend
     };
     axios
-      .post("http://localhost:8080/api/clubProfile", objectToSend, {
+      .post("http://localhost:8080/api/clubProfile/addInstructorsToClub", objectToSend, {
         headers: { "x-auth-token": this.props.adminToken }
       })
       .then(response => {
+        if (response.status === 200) {
+          this.setState({instructorsSubmitted: true})
+          const mergingWithInstructorsAlreadyHere = [...this.state.instructorsAlreadyHere, ...response.data.instructorsForInstantAdd];
+         
+          const setToFitlerArray = new Set(mergingWithInstructorsAlreadyHere);
+          const filteredArray = [...setToFitlerArray]
+         
+          this.setState({instructorsAlreadyHere: filteredArray})
+        }
         console.log(response);
         this.setState({ showSubmittedMessage: true });
       });
@@ -183,6 +189,8 @@ class AdminProfileCreate extends React.Component {
           console.log(response)
         }
       )
+      this.setState({instructorIds: []})
+      this.setState({instructorNames: []})
   }
 
   unExit() {
@@ -209,7 +217,7 @@ class AdminProfileCreate extends React.Component {
     }
   }
 
-  //class
+  //instructors current
 
   carrotLeftHandler() {
     if(this.state.showBio === true) {
@@ -244,15 +252,24 @@ class AdminProfileCreate extends React.Component {
     
   }
 
-  sendNewInstructors(event) {
+  sendDeletedInstructors(event) {
       event.preventDefault();
       const newInstructorsSendingArray = [];
       this.state.instructorsAlreadyHere.forEach(element => {
         newInstructorsSendingArray.push(element._id)
       })
-      axios.post('http://localhost:8080/api/clubprofile', {instructors: newInstructorsSendingArray}, {headers: {'x-auth-token': this.props.adminToken}}).then().catch(error => {
+      axios.post('http://localhost:8080/api/clubprofile/instructorDeleteFromClub',
+       {instructors: newInstructorsSendingArray, tennisClub: this.props.admin.admin.clubId},
+       {headers: {'x-auth-token': this.props.adminToken}}).then( response => {
+         if (response.status === 200) {
+           this.setState({deletedInstructors: []})
+         }
+       }
+       )
+       .catch(error => {
         console.log(error)
       })
+      //this.sendDeletedInstructors
   }
 
   render() {
@@ -378,7 +395,7 @@ class AdminProfileCreate extends React.Component {
               {this.state.instructorNames.length > 0 &&
                 this.state.showInstructors && (
                   <div id={styles.addedDiv}>
-                    {this.state.instructorNames.map((element, index) => {
+                    {!this.state.instructorsSubmitted &&this.state.instructorNames.map((element, index) => {
                       return (
                         <div
                           key={element + index}
@@ -388,12 +405,17 @@ class AdminProfileCreate extends React.Component {
                         </div>
                       );
                     })}
+                    { !this.state.instructorsSubmitted && 
                     <button
                       onClick={this.sendInstructorList}
                       id={styles.submitInstructorList}
                     >
                       Submit Instructor List
                     </button>
+                    }
+                    {this.state.instructorsSubmitted &&
+                    <p>We have saved your instructors.</p>
+                    }
                   </div>
                 )}           
                 {this.state.showInstructors === true &&  (
@@ -409,7 +431,7 @@ class AdminProfileCreate extends React.Component {
                      {this.state.deletedInstructors.length > 0 && this.state.deletedInstructors.map(element => {
                        return <div style={{display: 'flex'}} key={element._id}><p style={{textDecoration: "line-through", color: 'gray'}}>{element.fullName}</p></div>
                      })}
-                     <button style={{marginTop:"8px"}} disabled={this.state.deletedInstructors.length === 0} onClick={this.sendNewInstructors}>Save Changes</button>
+{/* come back to this*/}<button style={{marginTop:"8px"}} disabled={this.state.deletedInstructors.length === 0} onClick={this.sendDeletedInstructors}>Save Changes</button>
                    </div> }
                     </div> 
                 )}

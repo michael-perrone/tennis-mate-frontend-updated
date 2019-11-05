@@ -103,7 +103,7 @@ class InstructorNav extends React.Component {
                         fontFamily: "cursive"
                       }}
                     >
-                      {this.state.notifications.length}
+                      {this.state.newNotifications.length}
                     </span>
                   )}
                 {this.props.instructor.instructor.instructorName}
@@ -149,7 +149,7 @@ class InstructorNav extends React.Component {
                               top: "-1px"
                             }}
                           >
-                            {this.state.notifications.length}
+                            {this.state.newNotifications.length}
                           </span>
                         )}
                       Notifications
