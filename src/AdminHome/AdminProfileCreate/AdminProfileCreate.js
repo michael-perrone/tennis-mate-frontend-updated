@@ -30,10 +30,11 @@ class AdminProfileCreate extends React.Component {
       deletedInstructors: [],
       servicesComingIn: [],
       bioToPassDown: "",
-      instructorsSubmitted: false
+      instructorsSubmitted: false,
+      invitesPending: []
     };
     this.bioTabButton = this.bioTabButton.bind(this);
-    this.instructorsTabButton = this.instructorsTabButton.bind(this);
+    this.instructinvitesPending = this.instructorsTabButton.bind(this);
     this.finishInstructors = this.finishInstructors.bind(this);
     this.grabInstructorValue = this.grabInstructorValue.bind(this);
     this.instructorsHandler = this.instructorsHandler.bind(this);
@@ -58,8 +59,12 @@ class AdminProfileCreate extends React.Component {
        if(response.data.clubProfile && response.data.clubProfile.services.length >  0) {
          this.setState({servicesComingIn: response.data.clubProfile.services})
        }
-       if (response.data.clubProfile && response.data.clubProfile.instructors.length > 0) {
-         this.setState({instructorsAlreadyHere: response.data.clubProfile.instructors})
+       if (response.data.clubProfile && response.data.clubProfile.instructorsWhoAccepted.length > 0) {
+         this.setState({instructorsAlreadyHere: response.data.clubProfile.instructorsWhoAccepted})
+       }
+
+       if (response.data.clubProfile && response.data.clubProfile.instructorsToSendInvite.length > 0) {
+         this.setState({invitesPending: response.data.clubProfile.instructorsToSendInvite})
        }
        if (response.data.clubProfile && response.data.clubProfile.bio) {
          this.setState({bioToPassDown: response.data.clubProfile.bio})
@@ -173,22 +178,14 @@ class AdminProfileCreate extends React.Component {
       .then(response => {
         if (response.status === 200) {
           this.setState({instructorsSubmitted: true})
-          const mergingWithInstructorsAlreadyHere = [...this.state.instructorsAlreadyHere, ...response.data.instructorsForInstantAdd];
-         
+          const mergingWithInstructorsAlreadyHere = [...this.state.invitesPending, ...response.data.instructorsForInstantAdd];
           const setToFitlerArray = new Set(mergingWithInstructorsAlreadyHere);
           const filteredArray = [...setToFitlerArray]
-         
-          this.setState({instructorsAlreadyHere: filteredArray})
+          this.setState({invitesPending: filteredArray})
         }
         console.log(response);
         this.setState({ showSubmittedMessage: true });
       });
-      axios.post('http://localhost:8080/api/notifications/instructoraddedtoclubnotification', 
-      {tennisClubId: this.props.admin.admin.clubId, instructors: this.state.instructorIds}).then(
-        response => {
-          console.log(response)
-        }
-      )
       this.setState({instructorIds: []})
       this.setState({instructorNames: []})
   }
@@ -259,7 +256,7 @@ class AdminProfileCreate extends React.Component {
         newInstructorsSendingArray.push(element._id)
       })
       axios.post('http://localhost:8080/api/clubprofile/instructorDeleteFromClub',
-       {instructors: newInstructorsSendingArray, tennisClub: this.props.admin.admin.clubId},
+       {instructors: newInstructorsSendingArray, deletedInstructors: this.state.deletedInstructors, tennisClub: this.props.admin.admin.clubId},
        {headers: {'x-auth-token': this.props.adminToken}}).then( response => {
          if (response.status === 200) {
            this.setState({deletedInstructors: []})
@@ -435,6 +432,9 @@ class AdminProfileCreate extends React.Component {
                    </div> }
                     </div> 
                 )}
+                {this.state.invitesPending.length > 0 && <div><p>Pending:</p>{this.state.invitesPending.map(element => {
+                return <p style={{color: 'darkgray'}}>{element.fullName}</p>
+                })}</div>}
               {this.state.showServices && <ServicesForm services={this.state.servicesComingIn}/>}
               {this.state.showBio && <BioForm bioComingDown={this.state.bioToPassDown}/>}
             </form>
