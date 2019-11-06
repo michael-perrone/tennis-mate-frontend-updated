@@ -26,7 +26,7 @@ class ServicesForm extends React.Component {
     this.serviceInputHandler = this.serviceInputHandler.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let newServicesForm = {...this.state.servicesForm}
     if(this.props.services.length > 0) {
         let name = [];

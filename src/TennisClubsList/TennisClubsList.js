@@ -23,7 +23,7 @@ class TennisClubsList extends React.Component {
     this.locationDenied = this.locationDenied.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get("http://localhost:8080/api/clubsList").then(response => {
         this.setState({ tennisClubs: response.data.clubs });
       });

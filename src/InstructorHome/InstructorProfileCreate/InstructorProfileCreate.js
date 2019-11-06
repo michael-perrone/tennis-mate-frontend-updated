@@ -14,7 +14,7 @@ class InstructorProfileCreate extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get("http://localhost:8080/api/instructorProfile/myprofile", {
         headers: { "x-auth-token": this.props.instructorToken }

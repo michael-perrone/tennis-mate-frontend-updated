@@ -22,12 +22,6 @@ class App extends React.Component {
     };
   }
 
-  /* componentWillMount() {
-    if (localStorage.getItem("token") === null) {
-      this.props.history.push("/");
-    }
-  } */
-
   render() {
     let token = false;
     let instructorToken = false;
@@ -100,7 +94,6 @@ class App extends React.Component {
             }
           }}
         />
-
 
         {instructorToken.instructor && (
           <Redirect

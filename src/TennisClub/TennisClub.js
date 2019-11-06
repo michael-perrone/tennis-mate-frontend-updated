@@ -39,7 +39,7 @@ class TennisClub extends React.Component {
     this.addEventHandler = this.addEventHandler.bind(this);
     this.showEventDetailHandler = this.showEventDetailHandler.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     if (localStorage.getItem("adminToken")) {
       const admin = decoder(localStorage.getItem("adminToken"));
       console.log(admin.admin.clubName);

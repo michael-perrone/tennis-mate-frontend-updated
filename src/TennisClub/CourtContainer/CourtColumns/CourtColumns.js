@@ -14,7 +14,7 @@ class CourtColumns extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.turnNumberIntoCourts();
   }
 
