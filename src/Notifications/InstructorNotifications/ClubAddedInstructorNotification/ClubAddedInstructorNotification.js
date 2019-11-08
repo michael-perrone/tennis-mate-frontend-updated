@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styles from "../../Notifications.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 
 const ClubAddedInstructorNotification = props => {
   const [clubAccepted, setClubAccepted] = useState(false);
+  const [clubNameState, setClubNameState] = useState("");
   console.log(props);
   function getClubName() {
     const clubNameArray = [];
@@ -61,13 +63,14 @@ const ClubAddedInstructorNotification = props => {
     } */
     clubNameArray.shift();
     let clubName = clubNameArray.join("");
-    return clubName;
+    setClubNameState(clubName);
   }
 
   function accept() {
+    getClubName()
     const objectToSend = {
       clubId: props.notification.notificationFromTennisClub,
-      clubName: getClubName(),
+      clubName: clubNameState,
       instructorId: props.instructor.instructor.id,
       notificationId: props.notification._id
     };
@@ -157,6 +160,7 @@ const ClubAddedInstructorNotification = props => {
           Accepted
         </p>
       )}
+      <OtherAlert showAlert={clubAccepted ? true : false} alertType={clubAccepted ? "success" : "no-success"} alertMessage={clubAccepted === true ? `You have joined ${clubNameState} as an instructor.` : "You have denied this request."} />
     </div>
   );
 };
