@@ -15,8 +15,8 @@ class BioCertsJobExp extends React.Component {
         <div className={styles.contentHolder}>
           <p className={styles.pTagHeader}>Instructor Experience</p>
           <div style={{ display: "flex", paddingLeft: "5px" }}>
-            {this.props.profile.instructorProfile.jobExperience &&
-              this.props.profile.instructorProfile.jobExperience.length > 0 && (
+            {this.props.profile.jobExperience &&
+              this.props.profile.jobExperience.length > 0 && (
                 <div
                   style={{
                     width: "75%",

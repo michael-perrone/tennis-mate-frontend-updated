@@ -45,8 +45,6 @@ class InstructorHome extends React.Component {
   }
 
   render() {
-    console.log(this.props.match.params.instructorId);
-    console.log(this.props);
     return (
       <div id={styles.instructorHomeContainer}>
         {this.state.profileCreated && <InstructorNav />}
