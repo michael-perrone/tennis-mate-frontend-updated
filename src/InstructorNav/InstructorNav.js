@@ -68,7 +68,6 @@ class InstructorNav extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     let newVar = "";
     if (this.state.instructorProfile.instructor) {
       newVar = `/clubs/${this.state.instructorProfile.instructor.tennisClub
@@ -82,7 +81,11 @@ class InstructorNav extends React.Component {
           <div id={styles.secondContainer}>
             {newVar !== "" &&
               this.state.instructorProfile.instructor.clubAccepted === true && (
-                <Link className={styles.links} to={newVar}>
+                <Link
+                  style={{ marginRight: "30px" }}
+                  className={styles.links}
+                  to={newVar}
+                >
                   My Club
                 </Link>
               )}

@@ -13,6 +13,7 @@ import AdminProfileCreate from "./AdminHome/AdminProfileCreate/AdminProfileCreat
 import { connect } from "react-redux";
 import Notifications from "./Notifications/Notifications";
 import NeedToLoginPage from "./NeedToLoginPage/NeedToLoginPage";
+import InstructorProfile from "./InstructorHome/InstructorProfile/InstructorProfile";
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,11 @@ class App extends React.Component {
           component={this.props.user ? TennisClubsList : NeedToLoginPage}
         />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
+        <Route
+          path="/instructor/:instructorId"
+          exact
+          component={InstructorProfile}
+        />
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {instructorToken && (
           <Route

@@ -22,8 +22,6 @@
 
 #secondContainer {
   display: flex;
-  width: 300px;
-  justify-content: space-between;
   position: relative;
   top: 15px;
   right: 60px;
