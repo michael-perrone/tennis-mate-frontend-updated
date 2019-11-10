@@ -32,6 +32,7 @@ class TennisClubsList extends React.Component {
               console.log(response)
               if (response.data.locationDenied === true) {
                 this.setState({locationDenied: true})
+                this.setState({showLocationModal: true})
                 
               }
               if (response.data.userLocationSaved === true) {
@@ -272,7 +273,6 @@ getLocation() {
             );
           })}
         </div>
-        {!this.state.locationGiven && this.state.locationDenied === false && <Spinner/>} 
       </div>
     );
   }

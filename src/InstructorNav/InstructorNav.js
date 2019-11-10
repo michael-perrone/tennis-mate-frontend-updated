@@ -63,7 +63,7 @@ class InstructorNav extends React.Component {
 
   goToProfileHome() {
     this.props.history.push(
-      `/instructor/${this.props.instructor.instructor._id}`
+      `/instructor/${this.props.instructor.instructor.id}`
     );
   }
 
@@ -74,6 +74,7 @@ class InstructorNav extends React.Component {
         .split(" ")
         .reduce((accum, element) => accum + element)}`;
     }
+    console.log(this.props);
     return (
       <React.Fragment>
         <div id={styles.navBarContainer}>

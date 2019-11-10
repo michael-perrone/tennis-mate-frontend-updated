@@ -1,0 +1,11 @@
+#userHomeContainer {
+  display: flex;
+}
+
+#clubsSubscribedHalf {
+  width: 70%;
+}
+
+#bookingsHalf {
+  width: 30%;
+}

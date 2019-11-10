@@ -44,11 +44,7 @@ class App extends React.Component {
           component={this.props.user ? TennisClubsList : NeedToLoginPage}
         />
         <Route path="/clubs/:clubName" exact component={TennisClub} />
-        <Route
-          path="/instructor/:instructorId"
-          exact
-          component={InstructorProfile}
-        />
+
         <Route path="/registerTennisClub" exact component={TennisClubSignup} />
         {instructorToken && (
           <Route
@@ -82,7 +78,11 @@ class App extends React.Component {
             component={AdminHome}
           />
         )}
-
+        <Route
+          path="/instructor/:instructorId"
+          exact
+          component={InstructorHome}
+        />
         <Route
           exact
           path="/"

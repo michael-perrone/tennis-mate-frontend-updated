@@ -6,17 +6,19 @@ import styles from "./InstructorHome.module.css";
 import { connect } from "react-redux";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
 import { GET_INSTRUCTOR_PROFILE } from "../actions/actions";
+import UserNav from "../UserNav/UserNav";
 
 class InstructorHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       profileCreated: false,
-      instructorProfile: undefined
+      instructorProfile: undefined,
+      isUser: false
     };
   }
   componentDidMount() {
-    if (this.props.instructorToken) {
+    if (this.props.instructor) {
       axios
         .get("http://localhost:8080/api/instructorProfile/myprofile", {
           headers: { "x-auth-token": this.props.instructorToken }
@@ -38,19 +40,44 @@ class InstructorHome extends React.Component {
         .catch(error => {
           console.log(error);
         });
-      if (this.props.userToken) {
-        this.setState({ profileCreated: true });
-      }
+    }
+    if (this.props.user || this.props.admin) {
+      this.setState({ isUser: true });
+      console.log("hi");
+      axios
+        .post("http://localhost:8080/api/getInstructor", {
+          instructorId: this.props.match.params.instructorId
+        })
+        .then(response => {
+          if (response.status === 200) {
+            this.setState({
+              instructorProfile: response.data.instructorProfile
+            });
+          }
+        });
+    }
+    if (this.props.instructorToken) {
+      axios
+        .get("http://localhost:8080/api/getBookings", {
+          headers: { "x-auth-token": this.props.instructorToken }
+        })
+        .then(response => {
+          this.setState({ bookings: response.data.bookings });
+        });
     }
   }
 
   render() {
+    console.log(this.state);
     return (
       <div id={styles.instructorHomeContainer}>
+        {this.state.isUser && <UserNav />}
         {this.state.profileCreated && <InstructorNav />}
-
         {this.state.instructorProfile !== undefined && (
-          <InstructorProfile instructorProfile={this.state.instructorProfile} />
+          <InstructorProfile
+            bookings={this.state.bookings}
+            instructorProfile={this.state.instructorProfile}
+          />
         )}
       </div>
     );
@@ -63,7 +90,9 @@ const mapStateToProps = state => {
     instructor: state.authReducer.instructor,
     instructorToken: state.authReducer.instructorToken,
     userToken: state.authReducer.userToken,
-    adminToken: state.authReducer.adminToken
+    adminToken: state.authReducer.adminToken,
+    admin: state.authReducer.admin,
+    user: state.authReducer.user
   };
 };
 

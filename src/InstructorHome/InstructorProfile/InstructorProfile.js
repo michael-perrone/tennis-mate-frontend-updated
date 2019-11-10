@@ -8,35 +8,12 @@ import { connect } from "react-redux";
 
 const InstructorProfile = props => {
   console.log(props);
-  const [bookings, setBookings] = useState([]);
-  const [instructorProfile, setInstructorProfile] = useState({});
-
-  useEffect(() => {
-    if (props.userToken || props.adminToken) {
-      axios
-        .post("http://localhost:8080/api/getInstructor", {
-          instructorId: props.match.params.instructorId
-        })
-        .then(response => {
-          if (response.status === 200) {
-            setInstructorProfile(response.data.instructorProfile);
-          }
-        });
-    }
-    if (props.instructorToken) {
-      axios
-        .get("http://localhost:8080/api/getBookings", {
-          headers: { "x-auth-token": props.instructorToken }
-        })
-        .then(response => {
-          setBookings(response.data.bookings);
-        });
-    }
-  }, []);
+  //const [bookings, setBookings] = useState([]);
+  //const [instructorProfile, setInstructorProfile] = useState({});
 
   return (
     <div id={styles.instructorProfileContainer}>
-      {instructorProfile.instructor && (
+      {props.instructorProfile && (
         <React.Fragment>
           <div id={styles.instructorProfileLeftBar}>
             <div id={styles.imageNameDiv}>
@@ -49,10 +26,10 @@ const InstructorProfile = props => {
               </div>
               <div style={{ display: "flex" }}>
                 <p id={styles.instructorName}>
-                  {instructorProfile.instructor.firstName}{" "}
-                  {instructorProfile.instructor.lastName}
+                  {props.instructorProfile.instructor.firstName}{" "}
+                  {props.instructorProfile.instructor.lastName}
                 </p>
-                {instructorProfile.instructor.clubAccepted === true && (
+                {props.instructorProfile.instructor.clubAccepted === true && (
                   <i
                     style={{
                       fontSize: "18px",
@@ -70,31 +47,31 @@ const InstructorProfile = props => {
                 style={{ fontSize: "16px" }}
                 className={styles.pTagsInBottomBar}
               >
-                {instructorProfile.instructor.tennisClub}
+                {props.instructorProfile.instructor.tennisClub}
               </p>
               <p className={styles.pTagsInBottomBar}>
-                Located In {instructorProfile.location}
+                Located In {props.instructorProfile.location}
               </p>
               <p className={styles.pTagsInBottomBar}>
-                {instructorProfile.yearsTeaching} Years Teaching
+                {props.instructorProfile.yearsTeaching} Years Teaching
               </p>
               <p className={styles.pTagsInBottomBar}>Lesson Rate:</p>
               <p style={{ marginTop: "5px" }}>
-                {instructorProfile.lessonRate} Dollars Per Hour
+                {props.instructorProfile.lessonRate} Dollars Per Hour
               </p>
             </div>
           </div>
           <div id={styles.profileContentHolder}>
-            <BioJobExpHolder profile={instructorProfile} />
+            <BioJobExpHolder profile={props.instructorProfile} />
             <div className={otherstyles.row}>
               <div className={otherstyles.contentHolder}>
                 <p className={otherstyles.pTagHeader}>Future Bookings</p>
-                {bookings &&
-                  bookings.map(element => {
+                {props.bookings &&
+                  props.bookings.map(element => {
                     return <p>hi</p>;
                   })}
               </div>
-              <CertHolder profile={instructorProfile} />
+              <CertHolder profile={props.instructorProfile} />
             </div>
           </div>
         </React.Fragment>

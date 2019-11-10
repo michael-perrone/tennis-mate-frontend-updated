@@ -4,6 +4,7 @@
   padding: 8px;
   border: 1px solid black;
   border-radius: 2px;
+  z-index: 999;
 }
 
 #otherAlertContainerAnimation {
@@ -18,7 +19,7 @@
     transform: translateX(0px);
   }
   5% {
-      top: 20px;
+    top: 60px;
   }
   20% {
     opacity: 1;
@@ -28,7 +29,8 @@
     opacity: 1;
   }
   100% {
-    transform: translate(-550px ,500px);
+    top: 60px;
+    transform: translate(-550px, 500px);
     opacity: 0;
   }
 }
