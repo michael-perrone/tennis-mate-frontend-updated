@@ -1,21 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserHomeContainer.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+import ClubInsideUserHome from "./ClubInsideUserHome/ClubInsideUserHome";
 
 const UserHomeContainer = props => {
+  const [clubs, setClubs] = useState([]);
+  const [noClubs, setNoClubs] = useState("");
   useEffect(() => {
     Axios.get("http://localhost:8080/api/userClubs", {
       headers: { "x-auth-token": props.userToken }
     }).then(response => {
-      console.log(response);
+      if (response.status === 204) {
+        setNoClubs("You have not subscribed to any clubs yet.");
+      } else if (response.status === 200) {
+        setClubs(response.data.tennisClubs);
+      }
     });
   }, []);
 
   return (
     <div id={styles.userHomeContainer}>
       <div id={styles.clubsSubscribedHalf}>
-        <p>Clubs subscribed to</p>
+        {clubs.length > 0 &&
+          clubs.map(individualClub => {
+            return <ClubInsideUserHome club={individualClub} />;
+          })}
+        {clubs.length < 1 && <p>{noClubs}</p>}
       </div>
       <div id={styles.bookingsHalf}>
         <p>Bookings coming up</p>
