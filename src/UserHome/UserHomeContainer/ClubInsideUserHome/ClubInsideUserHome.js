@@ -3,12 +3,11 @@ import { withRouter } from "react-router-dom";
 import styles from "./ClubInsideUserHome.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
-
-// 5dbfb99ca57629139085336d
-// 5dbfb99ca57629139085336d
+import { BOOK_A_COURT } from "../../../actions/actions";
 
 const ClubInsideUserHome = props => {
   function bookACourt() {
+    props.bookACourt();
     props.history.push(`/clubs/${props.club.clubNameAllLower}`);
   }
 
@@ -28,7 +27,11 @@ const ClubInsideUserHome = props => {
   return (
     <div id={styles.userClubContainer}>
       <div id={styles.leftContainer} className={styles.userSubContainer}>
-        <p>{props.club.clubName}</p>
+        <p
+          style={{ marginTop: "10px", fontFamily: "Josefin Sans, sans-serif" }}
+        >
+          {props.club.clubName}
+        </p>
       </div>
       <div id={styles.rightContainer} className={styles.userSubContainer}>
         <button className={styles.clubButton} onClick={unfollowClub}>
@@ -51,4 +54,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(ClubInsideUserHome));
+const mapDispatchToProps = dispatch => {
+  return {
+    bookACourt: () => dispatch({ type: BOOK_A_COURT })
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ClubInsideUserHome)
+);

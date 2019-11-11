@@ -1,12 +1,17 @@
 import { INSTRUCTOR_WANTS_TO_REGISTER } from "../actions/actions";
 import { ADMIN_ENTERED } from "../actions/actions";
-import { SHOW_NOTIFICATIONS, HIDE_NOTIFICATIONS } from "../actions/actions";
+import {
+  SHOW_NOTIFICATIONS,
+  HIDE_NOTIFICATIONS,
+  BOOK_A_COURT
+} from "../actions/actions";
 
 const initialState = {
   instructorRegister: false,
   adminEntered: false,
   showNotifications: false,
-  hideNotifications: true
+  hideNotifications: true,
+  bookACourt: false
 };
 
 export default function(state = initialState, action) {
@@ -15,6 +20,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         instructorRegister: !state.instructorRegister
+      };
+    case BOOK_A_COURT:
+      return {
+        ...state,
+        bookACourt: true
       };
     case SHOW_NOTIFICATIONS:
       return {

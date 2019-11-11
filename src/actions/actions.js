@@ -1,4 +1,5 @@
 // pretty much all auth stuff for redux rn, maybe add some more later
+export const BOOK_A_COURT = "BOOK_A_COURT";
 export const GET_INSTRUCTOR_PROFILE = "GET_INSTRUCTOR_PROFILE";
 export const HIDE_NOTIFICATIONS = "HIDE_NOTIFICATIONS";
 export const SHOW_NOTIFICATIONS = "SHOW_NOTIFICATIONS";

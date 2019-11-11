@@ -7,6 +7,7 @@ import decoder from "jwt-decode";
 import AdminBooking from "./BookingHelpers/AdminBooking/AdminBooking";
 import { connect } from "react-redux";
 import InstructorNav from "../InstructorNav/InstructorNav";
+import UserNav from "../UserNav/UserNav";
 
 class TennisClub extends React.Component {
   constructor(props) {
@@ -65,6 +66,15 @@ class TennisClub extends React.Component {
           this.setState({ instructors: response.data.instructors });
           this.setState({ events: response.data.tennisClub.profile.events });
         });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.bookACourt &&
+      prevState.instructors.length !== this.state.instructors.length
+    ) {
+      window.scrollTo(0, 700);
     }
   }
 
@@ -136,9 +146,11 @@ class TennisClub extends React.Component {
   }
 
   render() {
+    console.log(this.props.bookACourt);
     return (
       <React.Fragment>
         {this.props.instructor && <InstructorNav />}
+        {this.props.user && <UserNav />}
         <div>
           <div style={{ width: "100%" }} id={styles.mainContainer}>
             <div className={styles.subContainer}>
@@ -546,7 +558,9 @@ const mapStateToProps = state => {
   return {
     admin: state.authReducer.admin,
     adminToken: state.authReducer.adminToken,
-    instructor: state.authReducer.instructor
+    instructor: state.authReducer.instructor,
+    bookACourt: state.booleanReducers.bookACourt,
+    user: state.authReducer.user
   };
 };
 
