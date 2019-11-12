@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./DropDown.module.css";
 
-
 const DropDown = props => {
   return (
-    <div id={styles.dropDownMenu}>
+    <div id={styles.dropDownAnimation} className={styles.dropDownMenu}>
       <div className={styles.dropDownDiv}>
         <Link className={styles.dropDownItem} to={props.goToRoute}>
           Edit Profile
@@ -28,7 +27,5 @@ const DropDown = props => {
     </div>
   );
 };
-
-
 
 export default DropDown;

@@ -8,7 +8,7 @@ import OtherAlert from "../../OtherAlerts/OtherAlerts";
 class TennisClub extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { instructorsAtClub: [], errorArray: [] };
+    this.state = { instructorsAtClub: [], errorArray: [], subscribeHit: false };
     this.subscribeToClub = this.subscribeToClub.bind(this);
   }
   componentDidMount() {
@@ -44,10 +44,9 @@ class TennisClub extends React.Component {
       };
       Axios.post("http://localhost:8080/api/userSubscribe", objectToSend)
         .then(response => {
-          if (response.status === 406) {
-            console.log("hi");
+          if (response.status === 200) {
+            this.setState({ subscribeHit: true });
           }
-          console.log(response);
         })
         .catch(error => {
           const emptyArray = [];
@@ -113,23 +112,41 @@ class TennisClub extends React.Component {
                 />{" "}
                 View Club
               </button>
-              <button
-                onClick={this.subscribeToClub(this.props.club._id)}
-                style={{ left: "78%", cursor: "pointer" }}
-                className={styles.viewButton}
-              >
-                <i
+              {!this.state.subscribeHit && (
+                <button
+                  onClick={this.subscribeToClub(this.props.club._id)}
+                  style={{ left: "78%", cursor: "pointer" }}
+                  className={styles.viewButton}
+                >
+                  <i
+                    style={{
+                      marginLeft: "-3px",
+                      paddingRight: "4px",
+                      fontSize: "14px",
+                      borderRight: "1px solid black",
+                      marginRight: "8px"
+                    }}
+                    className="far fa-check-square"
+                  />
+                  Follow
+                </button>
+              )}
+
+              {this.state.subscribeHit && (
+                <div
                   style={{
-                    marginLeft: "-3px",
-                    paddingRight: "4px",
-                    fontSize: "14px",
-                    borderRight: "1px solid black",
-                    marginRight: "8px"
+                    height: "22px",
+                    width: "80px",
+                    backgroundColor: "lightgreen",
+                    border: "1px solid black",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
                   }}
-                  className="far fa-check-square"
-                />
-                Subscribe
-              </button>
+                >
+                  <p>Subcribed!</p>
+                </div>
+              )}
             </div>
           </div>
           <div

@@ -19,12 +19,21 @@ const UserHomeContainer = props => {
     });
   }, []);
 
+  function setNewClubs(newClubs) {
+    setClubs(newClubs);
+  }
+
   return (
     <div id={styles.userHomeContainer}>
       <div id={styles.clubsSubscribedHalf}>
         {clubs.length > 0 &&
           clubs.map(individualClub => {
-            return <ClubInsideUserHome club={individualClub} />;
+            return (
+              <ClubInsideUserHome
+                setNewClubs={setNewClubs}
+                club={individualClub}
+              />
+            );
           })}
         {clubs.length < 1 && <p>{noClubs}</p>}
       </div>

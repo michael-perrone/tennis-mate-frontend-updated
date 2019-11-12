@@ -16,6 +16,10 @@ const UserNav = props => {
     props.history.push("/clubs");
   }
 
+  function goToUser() {
+    props.history.push("/wdjwkdjawkd");
+  }
+
   return (
     <div id={styles.navBarContainer}>
       <p id={styles.title}>Tennis Mate</p>
@@ -27,7 +31,11 @@ const UserNav = props => {
           View Clubs
         </p>
         <div onClick={showDropDownHandler} style={{ display: "flex" }}>
-          <p className={styles.links} style={{ cursor: "pointer" }}>
+          <p
+            className={styles.links}
+            onClick={goToUser}
+            style={{ cursor: "pointer" }}
+          >
             {props.user.user.userName}
           </p>{" "}
           <i

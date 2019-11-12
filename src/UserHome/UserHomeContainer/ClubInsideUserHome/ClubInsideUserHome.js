@@ -16,21 +16,35 @@ const ClubInsideUserHome = props => {
   }
 
   function unfollowClub() {
+    console.log(props.user.user.id);
     let objectToSend = {
-      clubToUnfollow: props.club._id,
-      userUnfollowing: props.user.user._id
+      tennisClubId: props.club._id,
+      userId: props.user.user.id
     };
     console.log(objectToSend);
-    //Axios.post();
+    Axios.post(
+      "http://localhost:8080/api/userSubscribe/unfollow",
+      objectToSend
+    ).then(response => {
+      if (response.status === 200) {
+        console.log(response.data.tennisClubsAfterFilter);
+        props.setNewClubs(response.data.tennisClubsAfterFilter);
+      }
+    });
   }
+
+  console.log(props);
 
   return (
     <div id={styles.userClubContainer}>
       <div id={styles.leftContainer} className={styles.userSubContainer}>
-        <p
-          style={{ marginTop: "10px", fontFamily: "Josefin Sans, sans-serif" }}
-        >
-          {props.club.clubName}
+        <p className={styles.clubItem}>{props.club.clubName}</p>
+        <p className={styles.clubItem}>{props.club.address}</p>
+        <p className={styles.clubItem}>{props.club.city}</p>
+        <p className={styles.clubItem}>{props.club.state}</p>
+        <p className={styles.clubItem}>{props.club.phoneNumber}</p>
+        <p className={styles.clubItem}>
+          {props.club.clubOpenTime} - {props.club.clubCloseTime}
         </p>
       </div>
       <div id={styles.rightContainer} className={styles.userSubContainer}>
