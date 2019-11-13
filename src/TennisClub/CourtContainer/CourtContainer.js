@@ -73,7 +73,7 @@ class CourtContainer extends React.Component {
     this.setState({ showBookingModalState: false });
   };
 
-  courtArray = (topOfArray, courtsToLoopOver, courtToHelpRestoreId) => {
+  courtArray = (topOfArray, courtsToLoopOver) => {
     if (this.state.courtsClicked === false) {
       let numToAdd = "";
       if (this.props.timeChosen.timeSelected === "30 Minutes") {
@@ -89,17 +89,15 @@ class CourtContainer extends React.Component {
       } else if (this.props.timeChosen.timeSelected === "3 Hours") {
         numToAdd = 11;
       }
-
-      let indexAfterIdRemoval = topOfArray.courtId.substring(1);
       const newArray = [];
       for (
-        let i = parseInt(indexAfterIdRemoval);
-        i <= parseInt(indexAfterIdRemoval) + numToAdd;
+        let i = topOfArray.courtId;
+        i <= topOfArray.courtId + numToAdd;
         i++
       ) {
         newArray.push({
-          court: courtsToLoopOver[i],
-          courtId: courtToHelpRestoreId.toString() + i.toString()
+          court: courtsToLoopOver[i - topOfArray.courtId],
+          courtId: i
         });
       }
 

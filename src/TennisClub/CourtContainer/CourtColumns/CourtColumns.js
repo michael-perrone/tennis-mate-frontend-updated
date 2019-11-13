@@ -286,8 +286,7 @@ class CourtColumns extends React.PureComponent {
   getCourts = court => () => {
     this.props.getCourt(
       court,
-      this.state.courtsInColumn,
-      this.props.courtNumber
+      this.state.courtsInColumn
     );
   };
 
@@ -309,26 +308,21 @@ class CourtColumns extends React.PureComponent {
                 lastSlotInArray={this.props.lastSlotInArray}
                 cancelModal={this.props.cancelModal}
                 beingBooked={this.beingBooked(
-                  `${this.props.courtNumber.toString() + index.toString()}`
+                  this.props.courtNumber * 100 + index
                 )}
                 getModalObject={this.props.getModalObject}
-                isLast={this.borderDivEnd(
-                  `${this.props.courtNumber.toString() + index.toString()}`
-                )}
-                booked={this.checkBooked(
-                  `${this.props.courtNumber.toString() + index.toString()}`
-                )}
+                isLast={this.borderDivEnd(this.props.courtNumber * 100 + index)}
+                booked={this.checkBooked(this.props.courtNumber * 100 + index)}
                 bookingInfo={this.sendBookingInfo(
-                  `${this.props.courtNumber.toString() + index.toString()}`
+                  this.props.courtNumber * 100 + index
                 )}
                 getCourt={this.getCourts}
                 clubName={this.props.clubName}
                 courtNumber={this.props.courtNumber}
                 timeStart={element.timeStart}
                 timeEnd={element.timeEnd}
-                key={`${this.props.courtNumber.toString() + index.toString()}`}
-                courtId={`${this.props.courtNumber.toString() +
-                  index.toString()}`}
+                key={this.props.courtNumber * 100 + index}
+                courtId={this.props.courtNumber * 100 + index}
               />
             );
           })}
