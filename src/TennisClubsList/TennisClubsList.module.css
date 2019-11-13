@@ -1,8 +1,7 @@
 #clubsContainer {
-  height: 100vh;
   width: 98.7vw;
   display: flex;
-  align-items: flex-end;
+  justify-content: space-between;
   flex-direction: column;
 }
 

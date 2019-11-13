@@ -23,7 +23,7 @@ const UserHome = props => {
   }, []);
 
   return (
-    <div>
+    <div style={{ backgroundColor: "rgb(217,217,217)" }}>
       <UserNav />
       <UserHomeContainer />
     </div>

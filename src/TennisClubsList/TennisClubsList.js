@@ -3,9 +3,10 @@ import axios from "axios";
 import TennisClubInList from "./TennisClubInList/TennisClubInList";
 import styles from "./TennisClubsList.module.css";
 import { withRouter } from "react-router-dom";
-import TennisClubSearchBar from "./TennisClubSearchBar/TennisClubSearchBar";
+import UserNav from "../UserNav/UserNav";
 import LocationModal from "./LocationModal/LocationModal";
 import { connect } from "react-redux";
+import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 
 class TennisClubsList extends React.Component {
   constructor() {
@@ -53,6 +54,8 @@ class TennisClubsList extends React.Component {
         }
       });
   }
+
+  advancedSearchFunction() {}
 
   locationDenied() {
     this.setState({ showLocationModal: false });
@@ -237,7 +240,6 @@ class TennisClubsList extends React.Component {
   }
 
   render() {
-    console.log(this.state.tennisClubs);
     return (
       <div id={styles.clubsContainer}>
         {this.state.showLocationModal === true && (
@@ -246,19 +248,19 @@ class TennisClubsList extends React.Component {
             locationDenied={this.locationDenied}
           />
         )}
-        <TennisClubSearchBar clubs={this.state.tennisClubs} />
+        <UserNav />
+        <AdvancedSearch />
         <div
           style={{
             justifyContent: "center",
             display: "flex",
             width: "100%",
-            marginTop: "90px",
-            flexDirection: "column"
+            flexDirection: "column",
+            backgroundColor: "rgb(217,217,217)"
           }}
         >
           {this.state.locationGiven === true &&
             this.state.tennisClubs.map(element => {
-              console.log(element.clubs.state, "hi", this.state.stateLocation);
               return (
                 <TennisClubInList
                   club={element.clubs}
