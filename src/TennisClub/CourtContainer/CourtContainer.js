@@ -110,7 +110,7 @@ class CourtContainer extends React.Component {
         bookedIdsArray.push(...element.courtIds);
       });
       const found = bookingIdsArray.some(id => {
-        return bookedIdsArray.includes(id);
+        return bookedIdsArray.includes(id.toString());
       });
       if (!found) {
         this.setState({ bookingArray: newArray });

@@ -21,16 +21,10 @@ class TennisClubsList extends React.Component {
     };
     this.getLocation = this.getLocation.bind(this);
     this.locationDenied = this.locationDenied.bind(this);
+    this.advancedSearchFunction = this.advancedSearchFunction.bind(this);
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:8080/api/clubsList", {
-        headers: { "x-auth-token": this.props.token }
-      })
-      .then(response => {
-        this.setState({ tennisClubs: response.data.clubs });
-      });
     axios
       .post("http://localhost:8080/api/getUserLocationInfo", {
         userId: this.props.user.user.id
@@ -45,6 +39,14 @@ class TennisClubsList extends React.Component {
           this.setState({ locationGiven: true });
           this.setState({ stateLocation: response.data.userState });
           this.setState({ stateTown: response.data.userTown });
+          axios
+            .get(
+              "http://localhost:8080/api/clubsList/clubsFromCurrentLocation",
+              { headers: { "x-auth-token": this.props.token } }
+            )
+            .then(response => {
+              this.setState({ tennisClubs: response.data.clubsFromLocation });
+            });
         }
         if (
           !response.data.userLocationSaved &&
@@ -55,7 +57,23 @@ class TennisClubsList extends React.Component {
       });
   }
 
-  advancedSearchFunction() {}
+  advancedSearchFunction(city, state, zip) {
+    return () => {
+      const objectToSend = {
+        city,
+        state,
+        zip
+      };
+      axios
+        .post("http://localhost:8080/api/clubsList/clubSearch", objectToSend, {
+          headers: { "x-auth-token": this.props.token }
+        })
+        .then(response => {
+          console.log(response);
+          this.setState({ tennisClubs: response.data.tennisClubsBack });
+        });
+    };
+  }
 
   locationDenied() {
     this.setState({ showLocationModal: false });
@@ -96,9 +114,7 @@ class TennisClubsList extends React.Component {
               // since im working alone shouldnt be an issue
 
               const CLV = response.data.results[0].locations[0].adminArea5;
-              console.log(CLV);
               const SLV = response.data.results[0].locations[0].adminArea3;
-              console.log(SLV);
 
               if (SLV === "NJ") {
                 this.setState({ stateLocation: "New Jersey" });
@@ -249,9 +265,10 @@ class TennisClubsList extends React.Component {
           />
         )}
         <UserNav />
-        <AdvancedSearch />
+        <AdvancedSearch advancedSearchFunction={this.advancedSearchFunction} />
         <div
           style={{
+            height: this.state.tennisClubs.length > 1 ? "" : "100vh",
             justifyContent: "center",
             display: "flex",
             width: "100%",
@@ -259,17 +276,17 @@ class TennisClubsList extends React.Component {
             backgroundColor: "rgb(217,217,217)"
           }}
         >
-          {this.state.locationGiven === true &&
-            this.state.tennisClubs.map(element => {
-              return (
-                <TennisClubInList
-                  club={element.clubs}
-                  profileInfo={element.profile}
-                  push={this.props.history.push}
-                  key={element._id}
-                />
-              );
-            })}
+          {this.state.tennisClubs.map(element => {
+            console.log(element);
+            return (
+              <TennisClubInList
+                club={element.club}
+                profileInfo={element.profile}
+                push={this.props.history.push}
+                key={element._id}
+              />
+            );
+          })}
         </div>
       </div>
     );

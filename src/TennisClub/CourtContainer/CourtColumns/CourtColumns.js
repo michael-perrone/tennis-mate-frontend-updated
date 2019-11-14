@@ -234,7 +234,7 @@ class CourtColumns extends React.PureComponent {
   sendBookingInfo = courtId => {
     let objectSending = null;
     this.props.bookedCourts.forEach(element => {
-      if (courtId === element.courtIds[element.courtIds.length / 2 - 1]) {
+      if (courtId == element.courtIds[element.courtIds.length / 2 - 1]) {
         objectSending = element;
       }
     });
@@ -245,7 +245,7 @@ class CourtColumns extends React.PureComponent {
     let getLastElement = "";
     this.props.bookedCourts.forEach(element => {
       if (
-        courtId === element.courtIds[element.courtIds.length - 1] &&
+        courtId == element.courtIds[element.courtIds.length - 1] &&
         element.courtIds.length > 1
       ) {
         getLastElement = true;
@@ -266,7 +266,7 @@ class CourtColumns extends React.PureComponent {
     });
 
     booked.forEach(element => {
-      if (courtId === element) {
+      if (courtId == element) {
         checkingVar = true;
       }
     });
@@ -276,7 +276,7 @@ class CourtColumns extends React.PureComponent {
   beingBooked = courtId => {
     let beingBooked = false;
     this.props.bookingArray.forEach(element => {
-      if (element.courtId === courtId) {
+      if (element.courtId == courtId) {
         beingBooked = true;
       }
     });
@@ -284,10 +284,7 @@ class CourtColumns extends React.PureComponent {
   };
 
   getCourts = court => () => {
-    this.props.getCourt(
-      court,
-      this.state.courtsInColumn
-    );
+    this.props.getCourt(court, this.state.courtsInColumn);
   };
 
   render() {

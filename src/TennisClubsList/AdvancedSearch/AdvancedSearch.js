@@ -53,7 +53,12 @@ const AdvancedSearch = props => {
           placeholder="Club State"
           className={styles.searchInput}
         />
-        <button id={styles.searchButton}>Search</button>
+        <button
+          onClick={props.advancedSearchFunction(city, state, zip)}
+          id={styles.searchButton}
+        >
+          Search
+        </button>
       </div>
     </div>
   );

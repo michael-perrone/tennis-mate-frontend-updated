@@ -13,24 +13,24 @@ class CourtSlot extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.bookingInfo !== nextProps.bookingInfo) {
+    if (this.props.bookingInfo != nextProps.bookingInfo) {
       return true;
     }
     if (this.state.clicked) {
       return true;
     }
-    if (this.props.booked !== nextProps.booked) {
+    if (this.props.booked != nextProps.booked) {
       return true;
     }
     if (this.props.date !== nextProps.date) {
       return true;
     }
-    if (this.props.beingBooked === nextProps.beingBooked) {
+    if (this.props.beingBooked == nextProps.beingBooked) {
       if (
-        this.props.courtId === nextProps.firstSlotInArray.courtId ||
-        this.props.courtId === nextProps.lastSlotInArray.courtId ||
-        this.props.courtId === this.props.lastSlotInArray.courtId ||
-        this.props.courtId === this.props.firstSlotInArray.courtId
+        this.props.courtId == nextProps.firstSlotInArray.courtId ||
+        this.props.courtId == nextProps.lastSlotInArray.courtId ||
+        this.props.courtId == this.props.lastSlotInArray.courtId ||
+        this.props.courtId == this.props.firstSlotInArray.courtId
       ) {
         return true;
       } else {
@@ -57,7 +57,6 @@ class CourtSlot extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     return (
       <div
         style={{
@@ -116,8 +115,8 @@ class CourtSlot extends React.Component {
         )}
         {!this.props.booked &&
           this.props.beingBooked &&
-          this.props.courtId === this.props.firstSlotInArray.courtId &&
-          this.props.firstSlotInArray.courtId !==
+          this.props.courtId == this.props.firstSlotInArray.courtId &&
+          this.props.firstSlotInArray.courtId !=
             this.props.lastSlotInArray.courtId && (
             <div
               style={{
@@ -146,8 +145,8 @@ class CourtSlot extends React.Component {
           )}
         {!this.props.booked &&
           this.props.beingBooked &&
-          this.props.courtId === this.props.lastSlotInArray.courtId &&
-          this.props.lastSlotInArray.courtId !==
+          this.props.courtId == this.props.lastSlotInArray.courtId &&
+          this.props.lastSlotInArray.courtId !=
             this.props.firstSlotInArray.courtId && (
             <div
               onClick={this.props.courtClicked}
@@ -176,8 +175,8 @@ class CourtSlot extends React.Component {
           )}
         {!this.props.booked &&
           this.props.beingBooked &&
-          this.props.courtId !== this.props.firstSlotInArray.courtId &&
-          this.props.courtId !== this.props.lastSlotInArray.courtId &&
+          this.props.courtId != this.props.firstSlotInArray.courtId &&
+          this.props.courtId != this.props.lastSlotInArray.courtId &&
           this.props.bookingArray.length > 1 && (
             <div
               onClick={this.props.courtClicked}
@@ -201,7 +200,7 @@ class CourtSlot extends React.Component {
               })}
             ></div>
           )}
-        {this.props.firstSlotInArray.courtId ===
+        {this.props.firstSlotInArray.courtId ==
           this.props.lastSlotInArray.courtId &&
           this.props.beingBooked &&
           !this.props.booked && (
