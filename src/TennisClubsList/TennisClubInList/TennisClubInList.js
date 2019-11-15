@@ -65,6 +65,7 @@ class TennisClub extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div id={styles.tennisClubHolder}>
         {this.state.errorArray.map(element => {
@@ -149,32 +150,28 @@ class TennisClub extends React.Component {
               )}
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              position: "relative",
-              top: "36px",
-              width: "100%",
-              justifyContent: "space-around"
-            }}
-          >
+          <div id={styles.clubHolder}>
             <div style={{ fontSize: "12px" }}>
-              <div className={styles.borderSurroundingDivs}>
-                <p style={{ marginTop: "3px" }}>{this.props.club.address}</p>
-                <p style={{ marginTop: "3px" }}>{this.props.club.city}</p>
-                <p style={{ marginTop: "3px" }}>{this.props.club.state}</p>
-                <p style={{ marginTop: "3px", marginBottom: "18px" }}>
+              <div
+                id={styles.increasedWidth}
+                className={styles.borderSurroundingDivs}
+              >
+                <p style={{ marginTop: "5px" }}>{this.props.club.address}</p>
+                <p style={{ marginTop: "5px" }}>{this.props.club.city}</p>
+                <p style={{ marginTop: "5px" }}>{this.props.club.state}</p>
+                <p style={{ marginTop: "5px", marginBottom: "18px" }}>
                   {this.props.club.zip}
                 </p>
                 <p>{this.props.club.phoneNumber}</p>
-                <a href={`http://${this.props.club.clubWebsite}`}>
+                <a
+                  style={{ marginTop: "5px" }}
+                  href={`http://${this.props.club.clubWebsite}`}
+                >
                   {this.props.club.clubWebsite}
                 </a>
                 <p style={{ marginTop: "20px", fontSize: "12px" }}>
-                  {this.props.club.clubOpenTimeNumber}{" "}
-                  {this.props.club.clubOpenTimeAMPM}-
-                  {this.props.club.clubCloseTimeNumber}{" "}
-                  {this.props.club.clubCloseTimeAMPM}
+                  {this.props.club.clubOpenTime} -
+                  {this.props.club.clubCloseTime}{" "}
                 </p>
               </div>
             </div>
@@ -188,8 +185,8 @@ class TennisClub extends React.Component {
                     </p>
                   );
                 })}
-              {!this.props.profileInfo && (
-                <p>This club has not added their instructors.</p>
+              {this.state.instructorsAtClub.length === 0 && (
+                <p style={{ fontSize: "14px" }}>No Instructors Registered</p>
               )}
             </div>
             <div
@@ -228,9 +225,10 @@ class TennisClub extends React.Component {
                 this.props.profileInfo.otherServices.map((element, index) => {
                   return <p key={element}>{element}: Yes</p>;
                 })}
-              {!this.props.profileInfo && (
-                <p>This club has not added the services they provide.</p>
-              )}
+              {this.props.profileInfo.otherServices.length === 0 &&
+                this.props.profileInfo.services.length === 0 && (
+                  <p style={{ fontSize: "14px" }}>No Services Provided</p>
+                )}
             </div>
           </div>
         </div>
