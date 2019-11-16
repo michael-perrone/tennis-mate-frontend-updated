@@ -3,8 +3,8 @@ import styles from "./AdminProfileCreate.module.css";
 import axios from "axios";
 import ServicesForm from "./ServicesForm/ServicesForm";
 import AdminNav from "../../AdminNav/AdminNav";
-import BioForm from './BioForm/BioForm'
-import {connect} from 'react-redux';
+import BioForm from "./BioForm/BioForm";
+import { connect } from "react-redux";
 
 class AdminProfileCreate extends React.Component {
   constructor(props) {
@@ -50,26 +50,45 @@ class AdminProfileCreate extends React.Component {
     this.carrotLeftHandler = this.carrotLeftHandler.bind(this);
     this.setSeeInstructors = this.setSeeInstructors.bind(this);
     this.sendDeletedInstructors = this.sendDeletedInstructors.bind(this);
+    this.instructorsTabButton = this.instructorsTabButton.bind(this);
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/api/clubprofile/myclub',
-     {headers: {'x-auth-token': this.props.adminToken}})
-     .then(response => {
-       if(response.data.clubProfile && response.data.clubProfile.services.length >  0) {
-         this.setState({servicesComingIn: response.data.clubProfile.services})
-       }
-       if (response.data.clubProfile && response.data.clubProfile.instructorsWhoAccepted.length > 0) {
-         this.setState({instructorsAlreadyHere: response.data.clubProfile.instructorsWhoAccepted})
-       }
+    axios
+      .get("http://localhost:8080/api/clubprofile/myclub", {
+        headers: { "x-auth-token": this.props.adminToken }
+      })
+      .then(response => {
+        if (
+          response.data.clubProfile &&
+          response.data.clubProfile.services.length > 0
+        ) {
+          this.setState({
+            servicesComingIn: response.data.clubProfile.services
+          });
+        }
+        if (
+          response.data.clubProfile &&
+          response.data.clubProfile.instructorsWhoAccepted.length > 0
+        ) {
+          this.setState({
+            instructorsAlreadyHere:
+              response.data.clubProfile.instructorsWhoAccepted
+          });
+        }
 
-       if (response.data.clubProfile && response.data.clubProfile.instructorsToSendInvite.length > 0) {
-         this.setState({invitesPending: response.data.clubProfile.instructorsToSendInvite})
-       }
-       if (response.data.clubProfile && response.data.clubProfile.bio) {
-         this.setState({bioToPassDown: response.data.clubProfile.bio})
-       }
-     })
+        if (
+          response.data.clubProfile &&
+          response.data.clubProfile.instructorsToSendInvite.length > 0
+        ) {
+          this.setState({
+            invitesPending: response.data.clubProfile.instructorsToSendInvite
+          });
+        }
+        if (response.data.clubProfile && response.data.clubProfile.bio) {
+          this.setState({ bioToPassDown: response.data.clubProfile.bio });
+        }
+      });
 
     axios
       .get("http://localhost:8080/api/instructorList")
@@ -79,7 +98,7 @@ class AdminProfileCreate extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
       });
   }
 
@@ -90,9 +109,9 @@ class AdminProfileCreate extends React.Component {
   }
 
   bioTabButton() {
-    this.setState({showServices: false})
-    this.setState({showInstructors: false})
-    this.setState({showBio: true})
+    this.setState({ showServices: false });
+    this.setState({ showInstructors: false });
+    this.setState({ showBio: true });
   }
 
   cancelSubmitInstructors() {
@@ -101,31 +120,34 @@ class AdminProfileCreate extends React.Component {
 
   servicesTabButton() {
     this.setState({ showInstructors: false });
-    this.setState({showBio: false})
+    this.setState({ showBio: false });
     this.setState({ showServices: true });
-    
   }
 
   addIdAndName(event) {
     event.preventDefault();
-    if(this.state.nameClicked !== "") {
-    const newIdsArray = [...this.state.instructorIds, this.state.instructorId];
-    this.setState({ instructorIds: newIdsArray });
-    const newInstructorNames = [
-      ...this.state.instructorNames,
-      this.state.nameClicked
-    ];
-    this.setState({ instructorNames: newInstructorNames });
-    this.setState({ instructorName: "" });
-    this.setState({ instructorId: "" });
-    this.setState({ instructorValue: "" });
-    this.setState({ valueClicked: "" });
-    this.setState({ stopShowingNames: true });
-    this.setState({ nameClicked: ""})
-    this.setState({instructorsSubmitted: false})
-  } else {
-    this.setState({entryError: "Please choose an instructor!"})
-  }
+    if (this.state.nameClicked !== "") {
+      const newIdsArray = [
+        ...this.state.instructorIds,
+        this.state.instructorId
+      ];
+      this.setState({ instructorIds: newIdsArray });
+      const newInstructorNames = [
+        ...this.state.instructorNames,
+        this.state.nameClicked
+      ];
+      this.setState({ instructorNames: newInstructorNames });
+      this.setState({ instructorName: "" });
+      this.setState({ instructorId: "" });
+      this.setState({ instructorValue: "" });
+      this.setState({ valueClicked: "" });
+      this.setState({ stopShowingNames: true });
+      this.setState({ nameClicked: "" });
+      this.setState({ instructorsSubmitted: false });
+      this.setState({instructorsMatching: []})
+    } else {
+      this.setState({ entryError: "Please choose an instructor!" });
+    }
   }
 
   grabInstructorValue(nameAndClub, id, justName) {
@@ -133,7 +155,7 @@ class AdminProfileCreate extends React.Component {
     this.setState({ nameClicked: nameAndClub });
     this.setState({ instructorId: id });
     this.setState({ instructorName: justName });
-    this.setState({entryError: ""})
+    this.setState({ entryError: "" });
   }
 
   instructorsHandler(event) {
@@ -151,7 +173,7 @@ class AdminProfileCreate extends React.Component {
     });
     this.setState({ instructorsMatching: newInstructorMatchingArray });
   }
-// map
+  // map
   cancelName() {
     this.setState({ valueClicked: false });
     this.setState({ instructorId: "" });
@@ -166,28 +188,35 @@ class AdminProfileCreate extends React.Component {
 
   sendInstructorList(event) {
     event.preventDefault();
-    let arrayToSend = this.state.instructorIds
+    let arrayToSend = this.state.instructorIds;
     const objectToSend = {
       tennisClub: this.props.admin.admin.clubId,
       instructors: arrayToSend
     };
     axios
-      .post("http://localhost:8080/api/clubProfile/addInstructorsToClub", objectToSend, {
-        headers: { "x-auth-token": this.props.adminToken }
-      })
+      .post(
+        "http://localhost:8080/api/clubProfile/addInstructorsToClub",
+        objectToSend,
+        {
+          headers: { "x-auth-token": this.props.adminToken }
+        }
+      )
       .then(response => {
         if (response.status === 200) {
-          this.setState({instructorsSubmitted: true})
-          const mergingWithInstructorsAlreadyHere = [...this.state.invitesPending, ...response.data.instructorsForInstantAdd];
+          this.setState({ instructorsSubmitted: true });
+          const mergingWithInstructorsAlreadyHere = [
+            ...this.state.invitesPending,
+            ...response.data.instructorsForInstantAdd
+          ];
           const setToFitlerArray = new Set(mergingWithInstructorsAlreadyHere);
-          const filteredArray = [...setToFitlerArray]
-          this.setState({invitesPending: filteredArray})
+          const filteredArray = [...setToFitlerArray];
+          this.setState({ invitesPending: filteredArray });
         }
         console.log(response);
         this.setState({ showSubmittedMessage: true });
       });
-      this.setState({instructorIds: []})
-      this.setState({instructorNames: []})
+    this.setState({ instructorIds: [] });
+    this.setState({ instructorNames: [] });
   }
 
   unExit() {
@@ -204,69 +233,72 @@ class AdminProfileCreate extends React.Component {
   }
 
   carrotRightHandler() {
-    if(this.state.showInstructors === true) {
-      this.setState({showInstructors: false})
-      this.setState({showServices: true})
-    }
-    else if (this.state.showServices === true) {
-      this.setState({showServices: false})
-      this.setState({showBio: true})
+    if (this.state.showInstructors === true) {
+      this.setState({ showInstructors: false });
+      this.setState({ showServices: true });
+    } else if (this.state.showServices === true) {
+      this.setState({ showServices: false });
+      this.setState({ showBio: true });
     }
   }
 
   //instructors current
 
   carrotLeftHandler() {
-    if(this.state.showBio === true) {
-      this.setState({showBio: false})
-      this.setState({showServices: true})
-    }
-    else if (this.state.showServices === true) {
-      this.setState({showServices: false})
-      this.setState({showInstructors: true})
+    if (this.state.showBio === true) {
+      this.setState({ showBio: false });
+      this.setState({ showServices: true });
+    } else if (this.state.showServices === true) {
+      this.setState({ showServices: false });
+      this.setState({ showInstructors: true });
     }
   }
 
   setSeeInstructors(event) {
     event.preventDefault();
-    this.setState({showCurrentInstructors: true})
-    this.setState({showInstructors: false});
+    this.setState({ showCurrentInstructors: true });
+    this.setState({ showInstructors: false });
   }
 
-  deleteInstructor = (id) => () => {
-    const newInstructorsHereArray = [...this.state.instructorsAlreadyHere]
+  deleteInstructor = id => () => {
+    const newInstructorsHereArray = [...this.state.instructorsAlreadyHere];
     const newArrayForDeletions = [...this.state.deletedInstructors];
     newInstructorsHereArray.forEach(element => {
       if (element._id === id) {
-        newArrayForDeletions.push(element)
+        newArrayForDeletions.push(element);
       }
-    })
-    this.setState({deletedInstructors: newArrayForDeletions})
+    });
+    this.setState({ deletedInstructors: newArrayForDeletions });
     const filteredArray = newInstructorsHereArray.filter(element => {
-      return element._id !== id}
-       );
-    this.setState({instructorsAlreadyHere: filteredArray})
-    
-  }
+      return element._id !== id;
+    });
+    this.setState({ instructorsAlreadyHere: filteredArray });
+  };
 
   sendDeletedInstructors(event) {
-      event.preventDefault();
-      const newInstructorsSendingArray = [];
-      this.state.instructorsAlreadyHere.forEach(element => {
-        newInstructorsSendingArray.push(element._id)
+    event.preventDefault();
+    const newInstructorsSendingArray = [];
+    this.state.instructorsAlreadyHere.forEach(element => {
+      newInstructorsSendingArray.push(element._id);
+    });
+    axios
+      .post(
+        "http://localhost:8080/api/clubprofile/instructorDeleteFromClub",
+        {
+          instructors: newInstructorsSendingArray,
+          deletedInstructors: this.state.deletedInstructors,
+          tennisClub: this.props.admin.admin.clubId
+        },
+        { headers: { "x-auth-token": this.props.adminToken } }
+      )
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({ deletedInstructors: [] });
+        }
       })
-      axios.post('http://localhost:8080/api/clubprofile/instructorDeleteFromClub',
-       {instructors: newInstructorsSendingArray, deletedInstructors: this.state.deletedInstructors, tennisClub: this.props.admin.admin.clubId},
-       {headers: {'x-auth-token': this.props.adminToken}}).then( response => {
-         if (response.status === 200) {
-           this.setState({deletedInstructors: []})
-         }
-       }
-       )
-       .catch(error => {
-        console.log(error)
-      })
-      //this.sendDeletedInstructors
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -274,14 +306,14 @@ class AdminProfileCreate extends React.Component {
       <div>
         <AdminNav />
         <div id={styles.adminProfileCreateMainDiv}>
-          <div style={{width: "340px"}}>
-          <p id={styles.introP}>
-            There are a few more things it would be great if you could add about
-            your club. Please add the instructors who work at your club,
-            services offered at your club, and if you would like, a bio for
-            users to read about your club.
-          </p>
-          {this.state.showSubmittedMessage &&
+          <div style={{ width: "340px" }}>
+            <p id={styles.introP}>
+              There are a few more things it would be great if you could add
+              about your club. Please add the instructors who work at your club,
+              services offered at your club, and if you would like, a bio for
+              users to read about your club.
+            </p>
+            {this.state.showSubmittedMessage &&
               this.state.showServices === false && (
                 <div className={styles.formP}>
                   {" "}
@@ -291,9 +323,9 @@ class AdminProfileCreate extends React.Component {
                     to make sure you have entered all instructors at your club.
                     If so, press continue.
                   </p>
-                  </div>
+                </div>
               )}
-                   {this.state.showSubmittedMessage === false &&
+            {this.state.showSubmittedMessage === false &&
               this.state.showInstructors === true && (
                 <p
                   id={
@@ -303,48 +335,94 @@ class AdminProfileCreate extends React.Component {
                   }
                   className={styles.formP}
                 >
-                  You can add or edit the instructors who are currently
-                  working at your tennis club. Please keep in mind that if the
+                  You can add or edit the instructors who are currently working
+                  at your tennis club. Please keep in mind that if the
                   instructors you are adding have not signed up for our website
                   yet, their names will not show up.
                 </p>
               )}
-               {this.state.showServices && (
+            {this.state.showServices && (
               <p className={styles.formP}>
-                Select any services that your club has to offer. Remember you can
-                always come back and edit this information later on by visiting
-                your profile page.
+                Select any services that your club has to offer. Remember you
+                can always come back and edit this information later on by
+                visiting your profile page.
               </p>
             )}
-              </div>
+          </div>
           <div id={styles.adminProfileFormDiv}>
             <div id={styles.formSelectorDiv}>
-            <i onClick={this.carrotLeftHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', color: this.state.showInstructors === true ?  "lightgray" : "black", left: '-7px'}} className="fas fa-chevron-left"></i>
-              <p style={{backgroundColor: this.state.showInstructors === true ? "gray" : 'white', color: this.state.showInstructors === true ? "white" : "black"}}
+              <i
+                onClick={this.carrotLeftHandler}
+                style={{
+                  position: "relative",
+                  cursor: "pointer",
+                  top: "3px",
+                  color:
+                    this.state.showInstructors === true ? "lightgray" : "black",
+                  left: "-7px"
+                }}
+                className="fas fa-chevron-left"
+              ></i>
+              <p
+                style={{
+                  backgroundColor:
+                    this.state.showInstructors === true ? "gray" : "white",
+                  color: this.state.showInstructors === true ? "white" : "black"
+                }}
                 onClick={this.instructorsTabButton}
                 className={styles.selector}
               >
                 Instructors
               </p>
               <p
-                style={{backgroundColor: this.state.showServices === true ? "gray" : 'white', color: this.state.showServices === true ? "white" : "black", borderLeft: 0}}
+                style={{
+                  backgroundColor:
+                    this.state.showServices === true ? "gray" : "white",
+                  color: this.state.showServices === true ? "white" : "black",
+                  borderLeft: 0
+                }}
                 onClick={this.servicesTabButton}
                 className={styles.selector}
               >
                 Services
               </p>
               <p
-              onClick={this.bioTabButton}
-              style={{borderLeft: "0", backgroundColor: this.state.showBio === true ? "gray" : 'white', color: this.state.showBio === true ? "white" : "black"}}
-               className={styles.selector}>
+                onClick={this.bioTabButton}
+                style={{
+                  borderLeft: "0",
+                  backgroundColor:
+                    this.state.showBio === true ? "gray" : "white",
+                  color: this.state.showBio === true ? "white" : "black"
+                }}
+                className={styles.selector}
+              >
                 Bio
               </p>
-              <i onClick={this.carrotRightHandler} style={{position: 'relative', cursor: 'pointer', top: '3px', left: '7px', color: this.state.showBio === true ? 'lightgray' : "black"}} className="fas fa-chevron-right"></i>
+              <i
+                onClick={this.carrotRightHandler}
+                style={{
+                  position: "relative",
+                  cursor: "pointer",
+                  top: "3px",
+                  left: "7px",
+                  color: this.state.showBio === true ? "lightgray" : "black"
+                }}
+                className="fas fa-chevron-right"
+              ></i>
             </div>
             <form id={styles.adminProfileForm}>
               {this.state.showInstructors === true && (
-                <div style={{position: "relative"}}>
-                    <p className={styles.hiddenEntryError} id={this.state.entryError !== "" || null ? styles.entryError : ""}>{this.state.entryError}</p>
+                <div style={{ position: "relative" }}>
+                  <p
+                    className={styles.hiddenEntryError}
+                    id={
+                      this.state.entryError !== "" || null
+                        ? styles.entryError
+                        : ""
+                    }
+                  >
+                    {this.state.entryError}
+                  </p>
                   <input
                     onFocus={this.unExit}
                     onBlur={() => {
@@ -380,63 +458,179 @@ class AdminProfileCreate extends React.Component {
                               key={element._id}
                               id={styles.nameCard}
                             >
-                              <p>{element.fullName}</p>
-                              <p>{element.tennisClub}</p>
+                              <p
+                                style={{
+                                  fontSize:
+                                    element.fullName.length > 22
+                                      ? "12px"
+                                      : "14px"
+                                }}
+                              >
+                                {element.fullName}
+                              </p>
+                              <p
+                                style={{
+                                  fontSize:
+                                    element.fullName.length > 24
+                                      ? "12px"
+                                      : "14px"
+                                }}
+                              >
+                                {element.tennisClub}
+                              </p>
                             </div>
                           );
                         }
                       })}
                   </div>
                 </div>
-              )}
+              )}{" "}
               {this.state.instructorNames.length > 0 &&
                 this.state.showInstructors && (
                   <div id={styles.addedDiv}>
-                    {!this.state.instructorsSubmitted &&this.state.instructorNames.map((element, index) => {
-                      return (
-                        <div
-                          key={element + index}
-                          className={styles.instructorsAdded}
-                        >
-                          <p>{element}</p>
-                        </div>
-                      );
-                    })}
-                    { !this.state.instructorsSubmitted && 
-                    <button
-                      onClick={this.sendInstructorList}
-                      id={styles.submitInstructorList}
+                    <p
+                      style={{
+                        textDecoration: "underline",
+                        marginBottom: "6px"
+                      }}
                     >
-                      Submit Instructor List
-                    </button>
-                    }
-                    {this.state.instructorsSubmitted &&
-                    <p>We have saved your instructors.</p>
-                    }
+                      Instructors To Be Added
+                    </p>
+                    {!this.state.instructorsSubmitted &&
+                      this.state.instructorNames.map((element, index) => {
+                        return (
+                          <div
+                            key={element + index}
+                            className={styles.instructorsAdded}
+                          >
+                            <p>{element}</p>
+                          </div>
+                        );
+                      })}
+                    {!this.state.instructorsSubmitted && (
+                      <button
+                        style={{ marginTop: "8px" }}
+                        onClick={this.sendInstructorList}
+                        id={styles.submitInstructorList}
+                      >
+                        Submit Instructor List
+                      </button>
+                    )}
+                    {this.state.instructorsSubmitted && (
+                      <p>We have saved your instructors.</p>
+                    )}
                   </div>
-                )}           
-                {this.state.showInstructors === true &&  (
-                  <div>
-                    {(this.state.deletedInstructors.length > 0 || this.state.instructorsAlreadyHere.length) > 0 && 
-                    <div style={{marginTop: '10px', display: 'flex', flexDirection: "column"}}>
-                     <p style={{textDecoration: 'underline', marginBottom: "10px"}}>Instructors currently at your club.</p>
-                     {this.state.instructorsAlreadyHere.map(element => {
-                       return <div style={{display: 'flex', width: '214px', justifyContent: 'space-between', margin: "2px 0px"}} key={element._id}>
-                         <p>{element.fullName}</p>
-                       <i onClick={this.deleteInstructor(element._id)} className="far fa-trash-alt" style={{marginLeft: '18px', color: 'red', fontWeight: 'bold'}}></i></div>
-                     })}
-                     {this.state.deletedInstructors.length > 0 && this.state.deletedInstructors.map(element => {
-                       return <div style={{display: 'flex'}} key={element._id}><p style={{textDecoration: "line-through", color: 'gray'}}>{element.fullName}</p></div>
-                     })}
-{/* come back to this*/}<button style={{marginTop:"8px"}} disabled={this.state.deletedInstructors.length === 0} onClick={this.sendDeletedInstructors}>Save Changes</button>
-                   </div> }
-                    </div> 
                 )}
-                {this.state.invitesPending.length > 0 && <div><p>Pending:</p>{this.state.invitesPending.map(element => {
-                return <p style={{color: 'darkgray'}}>{element.fullName}</p>
-                })}</div>}
-              {this.state.showServices && <ServicesForm services={this.state.servicesComingIn}/>}
-              {this.state.showBio && <BioForm bioComingDown={this.state.bioToPassDown}/>}
+              <div
+                style={{
+                  display:
+                    this.state.instructorsMatching.length > 0 ? "none" : "flex",
+                  justifyContent: "space-around",
+                  width: "110%",
+                  position: "absolute",
+                  top: "70px"
+                }}
+              >
+                {this.state.showInstructors === true && (
+                  <div>
+                    {(this.state.deletedInstructors.length > 0 ||
+                      this.state.instructorsAlreadyHere.length) > 0 && (
+                      <div
+                        style={{
+                          marginTop: "10px",
+                          display: "flex",
+                          flexDirection: "column"
+                        }}
+                      >
+                        <p
+                          style={{
+                            textDecoration: "underline",
+                            marginBottom: "10px"
+                          }}
+                        >
+                          Instructors currently at your club.
+                        </p>
+                        {this.state.instructorsAlreadyHere.map(element => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                width: "214px",
+                                justifyContent: "space-between",
+                                margin: "2px 0px"
+                              }}
+                              key={element._id}
+                            >
+                              <p>{element.fullName}</p>
+                              <i
+                                onClick={this.deleteInstructor(element._id)}
+                                className="far fa-trash-alt"
+                                style={{
+                                  marginLeft: "18px",
+                                  color: "red",
+                                  fontWeight: "bold"
+                                }}
+                              ></i>
+                            </div>
+                          );
+                        })}
+                        {this.state.deletedInstructors.length > 0 &&
+                          this.state.deletedInstructors.map(element => {
+                            return (
+                              <div
+                                style={{ display: "flex" }}
+                                key={element._id}
+                              >
+                                <p
+                                  style={{
+                                    textDecoration: "line-through",
+                                    color: "gray"
+                                  }}
+                                >
+                                  {element.fullName}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        {/* come back to this*/}
+                        <button
+                          style={{ marginTop: "8px" }}
+                          disabled={this.state.deletedInstructors.length === 0}
+                          onClick={this.sendDeletedInstructors}
+                        >
+                          Save Changes
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {this.state.invitesPending.length > 0 &&
+                  this.state.showInstructors && (
+                    <div style={{ marginTop: "11px" }}>
+                      <p
+                        style={{
+                          marginBottom: "4px",
+                          textDecoration: "underline"
+                        }}
+                      >
+                        Pending Invite:
+                      </p>
+                      {this.state.invitesPending.map(element => {
+                        return (
+                          <p style={{ color: "darkgray" }}>
+                            {element.fullName}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  )}
+                {this.state.showServices && (
+                  <ServicesForm services={this.state.servicesComingIn} />
+                )}
+                {this.state.showBio && (
+                  <BioForm bioComingDown={this.state.bioToPassDown} />
+                )}
+              </div>
             </form>
           </div>
         </div>
@@ -445,11 +639,11 @@ class AdminProfileCreate extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     admin: state.authReducer.admin,
     adminToken: state.authReducer.adminToken
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(AdminProfileCreate);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../../Notifications.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 
 const ClubAddedInstructorNotification = props => {
@@ -42,32 +43,14 @@ const ClubAddedInstructorNotification = props => {
       c = z;
       clubNameArray.push(newArray[z]);
     }
-
-    /* while (newArray[a] !== "b" && newArray[b] !== "y" && newArray[c] !== " ") {
-      a++;
-      b++;
-      c++;
-      d++;
-      e++;
-      f++;
-    }
-    while (newArray[d] !== "." && newArray[e] !== " " && newArray[f] !== "I") {
-      console.log(newArray[d]);
-      d++;
-      e++;
-      f++;
-    }
-    while (c !== d) {
-      ++c;
-      clubNameArray.push(newArray[c]);
-    } */
     clubNameArray.shift();
     let clubName = clubNameArray.join("");
     setClubNameState(clubName);
   }
 
+  console.log(props);
   function accept() {
-    getClubName()
+    getClubName();
     const objectToSend = {
       clubId: props.notification.notificationFromTennisClub,
       clubName: clubNameState,
@@ -80,6 +63,7 @@ const ClubAddedInstructorNotification = props => {
       objectToSend
     ).then(response => {
       if ((response.status = 200)) {
+        props.setNew(response.data.newNotifications)();
       }
     });
   }
@@ -160,7 +144,15 @@ const ClubAddedInstructorNotification = props => {
           Accepted
         </p>
       )}
-      <OtherAlert showAlert={clubAccepted ? true : false} alertType={clubAccepted ? "success" : "no-success"} alertMessage={clubAccepted === true ? `You have joined ${clubNameState} as an instructor.` : "You have denied this request."} />
+      <OtherAlert
+        showAlert={clubAccepted ? true : false}
+        alertType={clubAccepted ? "success" : "no-success"}
+        alertMessage={
+          clubAccepted === true
+            ? `You have joined ${clubNameState} as an instructor.`
+            : "You have denied this request."
+        }
+      />
     </div>
   );
 };
@@ -171,4 +163,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ClubAddedInstructorNotification);
+export default withRouter(
+  connect(mapStateToProps)(ClubAddedInstructorNotification)
+);

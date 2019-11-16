@@ -12,13 +12,13 @@
 }
 
 #entryError {
-position: absolute;
-top: 0px;
-opacity: 1;
-color: red;
-transition-duration: 1s;
-z-index: 200;
-left: 20%;
+  position: absolute;
+  top: 0px;
+  opacity: 1;
+  color: red;
+  transition-duration: 1s;
+  z-index: 200;
+  left: 20%;
 }
 
 .hiddenEntryError {
@@ -39,11 +39,11 @@ left: 20%;
 #nameCard {
   margin-left: -8px;
   cursor: pointer;
-  width: 77%;
+  width: 76.8%;
   padding: 3px;
   border-left: 2px solid gray;
   border-right: 2px solid gray;
-  height: 35px;
+  height: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,7 +113,6 @@ label {
   margin-left: 35px;
   position: relative;
   top: 16px;
-  
 }
 
 #formPAnimation {
@@ -155,7 +154,6 @@ label {
   width: 270px;
   display: flex;
   position: relative;
-
 }
 
 .selector {

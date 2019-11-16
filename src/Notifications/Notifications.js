@@ -19,6 +19,7 @@ class Notification extends React.Component {
         {this.props.admin && <AdminNotifications />}
         {this.props.instructor && (
           <InstructorNotifications
+            setNew={this.props.setNew}
             instructorNotifications={this.props.instructorNotifications}
           />
         )}
@@ -42,7 +43,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Notification);
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);

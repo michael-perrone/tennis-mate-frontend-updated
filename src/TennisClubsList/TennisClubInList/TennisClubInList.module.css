@@ -12,10 +12,6 @@
   margin-bottom: 10px;
 }
 
-#tennisClubHolder:hover {
-  border-bottom: 2px solid black;
-}
-
 #tennisClubSubHolder {
   display: flex;
   width: 100%;

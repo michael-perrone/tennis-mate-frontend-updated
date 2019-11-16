@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import ClubAddedInstructorNotification from "./ClubAddedInstructorNotification/ClubAddedInstructorNotification";
 
 class InstructorNotifications extends React.Component {
-  state = {
-    notifications: [],
-    notificationIds: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      notifications: [],
+      notificationIds: []
+    };
+  }
 
   componentDidMount() {
     if (this.props.instructorNotifications) {
@@ -37,7 +40,12 @@ class InstructorNotifications extends React.Component {
         {this.props.instructorNotifications &&
           this.props.instructorNotifications.map(element => {
             if (element.notificationType === "Club Added Instructor") {
-              return <ClubAddedInstructorNotification notification={element} />;
+              return (
+                <ClubAddedInstructorNotification
+                  setNew={this.props.setNew}
+                  notification={element}
+                />
+              );
             }
           })}
         {this.props.instructorNotifications.length === 0 && (

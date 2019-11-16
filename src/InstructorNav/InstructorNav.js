@@ -19,6 +19,7 @@ class InstructorNav extends React.Component {
 
     this.showDropDownHandler = this.showDropDownHandler.bind(this);
     this.goToProfileHome = this.goToProfileHome.bind(this);
+    this.setNewNotifications = this.setNewNotifications.bind(this);
     // this.logoutHandler = this.logoutHandler.bind(this);
   }
 
@@ -51,15 +52,18 @@ class InstructorNav extends React.Component {
       });
   }
 
+  setNewNotifications(notificationsFromUpDate) {
+    return () => {
+      this.setState({ notifications: notificationsFromUpDate });
+      this.setState({ newNotifications: [] });
+    };
+  }
+
   showDropDownHandler() {
     this.setState(prevState => {
       return { showDropDown: !prevState.showDropDown };
     });
   }
-
-  /*  logoutHandler() {
-    localStorage.removeItem("instructorToken");
-  } */
 
   goToProfileHome() {
     this.props.history.push(
@@ -177,7 +181,10 @@ class InstructorNav extends React.Component {
           </div>
         </div>
         {this.props.showNotificationsState && (
-          <Notifications instructorNotifications={this.state.notifications} />
+          <Notifications
+            setNew={this.setNewNotifications}
+            instructorNotifications={this.state.notifications}
+          />
         )}
       </React.Fragment>
     );
@@ -201,8 +208,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(InstructorNav)
+  connect(mapStateToProps, mapDispatchToProps)(InstructorNav)
 );
