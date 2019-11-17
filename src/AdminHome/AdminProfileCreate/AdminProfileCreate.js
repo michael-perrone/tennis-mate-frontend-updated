@@ -1,649 +1,184 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AdminProfileCreate.module.css";
+import { connect } from "react-redux";
+import AdminNav from "../../AdminNav/AdminNav";
 import axios from "axios";
 import ServicesForm from "./ServicesForm/ServicesForm";
-import AdminNav from "../../AdminNav/AdminNav";
 import BioForm from "./BioForm/BioForm";
-import { connect } from "react-redux";
+import InstructorsAddForm from "./InstructorsAddForm/InstructorsAddForm";
 
-class AdminProfileCreate extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showInstructors: true,
-      showServices: false,
-      showBio: false,
-      instructorsMatching: [],
-      instructorPossibilities: [],
-      nameClicked: "",
-      instructorValue: "",
-      valueClicked: false,
-      instructorId: "",
-      instructorIds: [],
-      instructorNames: [],
-      exited: false,
-      stopShowingNames: false,
-      showSubmittedMessage: false,
-      instructorsAlreadyHere: [],
-      entryError: "",
-      showCurrentInstructors: false,
-      deletedInstructors: [],
-      servicesComingIn: [],
-      bioToPassDown: "",
-      instructorsSubmitted: false,
-      invitesPending: []
-    };
-    this.bioTabButton = this.bioTabButton.bind(this);
-    this.instructinvitesPending = this.instructorsTabButton.bind(this);
-    this.finishInstructors = this.finishInstructors.bind(this);
-    this.grabInstructorValue = this.grabInstructorValue.bind(this);
-    this.instructorsHandler = this.instructorsHandler.bind(this);
-    this.addIdAndName = this.addIdAndName.bind(this);
-    this.cancelName = this.cancelName.bind(this);
-    this.onExit = this.onExit.bind(this);
-    this.unExit = this.unExit.bind(this);
-    this.sendInstructorList = this.sendInstructorList.bind(this);
-    this.showServices = this.showServices.bind(this);
-    this.servicesTabButton = this.servicesTabButton.bind(this);
-    this.cancelSubmitInstructors = this.cancelSubmitInstructors.bind(this);
-    this.carrotRightHandler = this.carrotRightHandler.bind(this);
-    this.carrotLeftHandler = this.carrotLeftHandler.bind(this);
-    this.setSeeInstructors = this.setSeeInstructors.bind(this);
-    this.sendDeletedInstructors = this.sendDeletedInstructors.bind(this);
-    this.instructorsTabButton = this.instructorsTabButton.bind(this);
-  }
-
-  componentDidMount() {
+const AdminProfileCreate = props => {
+  const [profileExists, setProfileExists] = useState(true);
+  const [showingInstructors, setShowingInstructors] = useState(true);
+  const [showingServices, setShowingServices] = useState(false);
+  const [showingBio, setShowingBio] = useState(false);
+  useEffect(() => {
     axios
-      .get("http://localhost:8080/api/clubprofile/myclub", {
-        headers: { "x-auth-token": this.props.adminToken }
+      .get("http://localhost:8080/api/clubProfile/profileexists", {
+        headers: { "x-auth-token": props.adminToken }
       })
-      .then(response => {
-        if (
-          response.data.clubProfile &&
-          response.data.clubProfile.services.length > 0
-        ) {
-          this.setState({
-            servicesComingIn: response.data.clubProfile.services
-          });
-        }
-        if (
-          response.data.clubProfile &&
-          response.data.clubProfile.instructorsWhoAccepted.length > 0
-        ) {
-          this.setState({
-            instructorsAlreadyHere:
-              response.data.clubProfile.instructorsWhoAccepted
-          });
-        }
-
-        if (
-          response.data.clubProfile &&
-          response.data.clubProfile.instructorsToSendInvite.length > 0
-        ) {
-          this.setState({
-            invitesPending: response.data.clubProfile.instructorsToSendInvite
-          });
-        }
-        if (response.data.clubProfile && response.data.clubProfile.bio) {
-          this.setState({ bioToPassDown: response.data.clubProfile.bio });
-        }
-      });
-
-    axios
-      .get("http://localhost:8080/api/instructorList")
-      .then(response => {
-        this.setState({
-          instructorPossibilities: response.data.instructorPossibilities
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  instructorsTabButton() {
-    this.setState({ showServices: false });
-    this.setState({ showBio: false });
-    this.setState({ showInstructors: true });
-  }
-
-  bioTabButton() {
-    this.setState({ showServices: false });
-    this.setState({ showInstructors: false });
-    this.setState({ showBio: true });
-  }
-
-  cancelSubmitInstructors() {
-    this.setState({ showSubmittedMessage: false });
-  }
-
-  servicesTabButton() {
-    this.setState({ showInstructors: false });
-    this.setState({ showBio: false });
-    this.setState({ showServices: true });
-  }
-
-  addIdAndName(event) {
-    event.preventDefault();
-    if (this.state.nameClicked !== "") {
-      const newIdsArray = [
-        ...this.state.instructorIds,
-        this.state.instructorId
-      ];
-      this.setState({ instructorIds: newIdsArray });
-      const newInstructorNames = [
-        ...this.state.instructorNames,
-        this.state.nameClicked
-      ];
-      this.setState({ instructorNames: newInstructorNames });
-      this.setState({ instructorName: "" });
-      this.setState({ instructorId: "" });
-      this.setState({ instructorValue: "" });
-      this.setState({ valueClicked: "" });
-      this.setState({ stopShowingNames: true });
-      this.setState({ nameClicked: "" });
-      this.setState({ instructorsSubmitted: false });
-      this.setState({instructorsMatching: []})
-    } else {
-      this.setState({ entryError: "Please choose an instructor!" });
-    }
-  }
-
-  grabInstructorValue(nameAndClub, id, justName) {
-    this.setState({ valueClicked: true });
-    this.setState({ nameClicked: nameAndClub });
-    this.setState({ instructorId: id });
-    this.setState({ instructorName: justName });
-    this.setState({ entryError: "" });
-  }
-
-  instructorsHandler(event) {
-    this.setState({ instructorValue: event.target.value });
-    const newInstructorMatchingArray = [];
-    this.state.instructorPossibilities.forEach(element => {
-      if (
-        element.fullName
-          .toLowerCase()
-          .includes(event.target.value.toLowerCase()) &&
-        event.target.value.length > 1
-      ) {
-        newInstructorMatchingArray.push(element);
-      }
-    });
-    this.setState({ instructorsMatching: newInstructorMatchingArray });
-  }
-  // map
-  cancelName() {
-    this.setState({ valueClicked: false });
-    this.setState({ instructorId: "" });
-    this.setState({ nameClicked: "" });
-    this.setState({ stopShowingNames: false });
-    this.setState({ showSubmittedMessage: false });
-  }
-
-  onExit() {
-    this.setState({ exited: true });
-  }
-
-  sendInstructorList(event) {
-    event.preventDefault();
-    let arrayToSend = this.state.instructorIds;
-    const objectToSend = {
-      tennisClub: this.props.admin.admin.clubId,
-      instructors: arrayToSend
-    };
-    axios
-      .post(
-        "http://localhost:8080/api/clubProfile/addInstructorsToClub",
-        objectToSend,
-        {
-          headers: { "x-auth-token": this.props.adminToken }
-        }
-      )
       .then(response => {
         if (response.status === 200) {
-          this.setState({ instructorsSubmitted: true });
-          const mergingWithInstructorsAlreadyHere = [
-            ...this.state.invitesPending,
-            ...response.data.instructorsForInstantAdd
-          ];
-          const setToFitlerArray = new Set(mergingWithInstructorsAlreadyHere);
-          const filteredArray = [...setToFitlerArray];
-          this.setState({ invitesPending: filteredArray });
+          if (response.data.failure) {
+            setProfileExists(false);
+          }
         }
-        console.log(response);
-        this.setState({ showSubmittedMessage: true });
       });
-    this.setState({ instructorIds: [] });
-    this.setState({ instructorNames: [] });
+  }, []);
+
+  function setBio() {
+    setShowingBio(true);
+    setShowingServices(false);
+    setShowingInstructors(false);
   }
 
-  unExit() {
-    this.setState({ exited: false });
+  function setServices() {
+    setShowingServices(true);
+    setShowingInstructors(false);
+    setShowingBio(false);
   }
 
-  finishInstructors() {
-    this.setState({ showInstructors: false });
+  function setInstructors() {
+    setShowingInstructors(true);
+    setShowingBio(false);
+    setShowingServices(false);
   }
 
-  showServices() {
-    this.setState({ showServices: true });
-    this.setState({ showInstructors: false });
-  }
-
-  carrotRightHandler() {
-    if (this.state.showInstructors === true) {
-      this.setState({ showInstructors: false });
-      this.setState({ showServices: true });
-    } else if (this.state.showServices === true) {
-      this.setState({ showServices: false });
-      this.setState({ showBio: true });
+  const leftArrowClick = () => {
+    if (showingBio) {
+      setShowingServices(true);
+      setShowingBio(false);
+    } else if (showingServices) {
+      setShowingInstructors(true);
+      setShowingServices(false);
     }
-  }
-
-  //instructors current
-
-  carrotLeftHandler() {
-    if (this.state.showBio === true) {
-      this.setState({ showBio: false });
-      this.setState({ showServices: true });
-    } else if (this.state.showServices === true) {
-      this.setState({ showServices: false });
-      this.setState({ showInstructors: true });
-    }
-  }
-
-  setSeeInstructors(event) {
-    event.preventDefault();
-    this.setState({ showCurrentInstructors: true });
-    this.setState({ showInstructors: false });
-  }
-
-  deleteInstructor = id => () => {
-    const newInstructorsHereArray = [...this.state.instructorsAlreadyHere];
-    const newArrayForDeletions = [...this.state.deletedInstructors];
-    newInstructorsHereArray.forEach(element => {
-      if (element._id === id) {
-        newArrayForDeletions.push(element);
-      }
-    });
-    this.setState({ deletedInstructors: newArrayForDeletions });
-    const filteredArray = newInstructorsHereArray.filter(element => {
-      return element._id !== id;
-    });
-    this.setState({ instructorsAlreadyHere: filteredArray });
   };
 
-  sendDeletedInstructors(event) {
-    event.preventDefault();
-    const newInstructorsSendingArray = [];
-    this.state.instructorsAlreadyHere.forEach(element => {
-      newInstructorsSendingArray.push(element._id);
-    });
-    axios
-      .post(
-        "http://localhost:8080/api/clubprofile/instructorDeleteFromClub",
-        {
-          instructors: newInstructorsSendingArray,
-          deletedInstructors: this.state.deletedInstructors,
-          tennisClub: this.props.admin.admin.clubId
-        },
-        { headers: { "x-auth-token": this.props.adminToken } }
-      )
-      .then(response => {
-        if (response.status === 200) {
-          this.setState({ deletedInstructors: [] });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  const rightArrowClick = () => {
+    if (showingInstructors) {
+      setShowingServices(true);
+      setShowingInstructors(false);
+    } else if (showingServices) {
+      setShowingBio(true);
+      setShowingServices(false);
+    }
+  };
 
-  render() {
-    return (
-      <div>
-        <AdminNav />
-        <div id={styles.adminProfileCreateMainDiv}>
-          <div style={{ width: "340px" }}>
-            <p id={styles.introP}>
-              There are a few more things it would be great if you could add
-              about your club. Please add the instructors who work at your club,
-              services offered at your club, and if you would like, a bio for
-              users to read about your club.
-            </p>
-            {this.state.showSubmittedMessage &&
-              this.state.showServices === false && (
-                <div className={styles.formP}>
-                  {" "}
-                  <p>
-                    We have saved the instructors who work at your club and have
-                    sent them verification requests. Please check the list below
-                    to make sure you have entered all instructors at your club.
-                    If so, press continue.
-                  </p>
-                </div>
-              )}
-            {this.state.showSubmittedMessage === false &&
-              this.state.showInstructors === true && (
-                <p
-                  id={
-                    this.state.showSubmittedMessage === true
-                      ? styles.formPAnimation
-                      : ""
-                  }
-                  className={styles.formP}
-                >
-                  You can add or edit the instructors who are currently working
-                  at your tennis club. Please keep in mind that if the
-                  instructors you are adding have not signed up for our website
-                  yet, their names will not show up.
-                </p>
-              )}
-            {this.state.showServices && (
-              <p className={styles.formP}>
-                Select any services that your club has to offer. Remember you
-                can always come back and edit this information later on by
-                visiting your profile page.
-              </p>
-            )}
-          </div>
-          <div id={styles.adminProfileFormDiv}>
-            <div id={styles.formSelectorDiv}>
-              <i
-                onClick={this.carrotLeftHandler}
-                style={{
-                  position: "relative",
-                  cursor: "pointer",
-                  top: "3px",
-                  color:
-                    this.state.showInstructors === true ? "lightgray" : "black",
-                  left: "-7px"
-                }}
-                className="fas fa-chevron-left"
-              ></i>
-              <p
-                style={{
-                  backgroundColor:
-                    this.state.showInstructors === true ? "gray" : "white",
-                  color: this.state.showInstructors === true ? "white" : "black"
-                }}
-                onClick={this.instructorsTabButton}
-                className={styles.selector}
-              >
-                Instructors
-              </p>
-              <p
-                style={{
-                  backgroundColor:
-                    this.state.showServices === true ? "gray" : "white",
-                  color: this.state.showServices === true ? "white" : "black",
-                  borderLeft: 0
-                }}
-                onClick={this.servicesTabButton}
-                className={styles.selector}
-              >
-                Services
-              </p>
-              <p
-                onClick={this.bioTabButton}
-                style={{
-                  borderLeft: "0",
-                  backgroundColor:
-                    this.state.showBio === true ? "gray" : "white",
-                  color: this.state.showBio === true ? "white" : "black"
-                }}
-                className={styles.selector}
-              >
-                Bio
-              </p>
-              <i
-                onClick={this.carrotRightHandler}
-                style={{
-                  position: "relative",
-                  cursor: "pointer",
-                  top: "3px",
-                  left: "7px",
-                  color: this.state.showBio === true ? "lightgray" : "black"
-                }}
-                className="fas fa-chevron-right"
-              ></i>
-            </div>
-            <form id={styles.adminProfileForm}>
-              {this.state.showInstructors === true && (
-                <div style={{ position: "relative" }}>
-                  <p
-                    className={styles.hiddenEntryError}
-                    id={
-                      this.state.entryError !== "" || null
-                        ? styles.entryError
-                        : ""
-                    }
-                  >
-                    {this.state.entryError}
-                  </p>
-                  <input
-                    onFocus={this.unExit}
-                    onBlur={() => {
-                      setTimeout(this.onExit, 150);
-                    }}
-                    onKeyDown={this.cancelName}
-                    value={
-                      !this.state.valueClicked
-                        ? this.state.instructorValue
-                        : this.state.nameClicked
-                    }
-                    id={styles.instructorsInput}
-                    onChange={this.instructorsHandler}
-                  />
-                  <button onClick={this.addIdAndName} id={styles.addInstructor}>
-                    Add Instructor
-                  </button>
-                  <div id={styles.instructorsDiv}>
-                    {!this.state.exited &&
-                      !this.state.stopShowingNames &&
-                      // eslint-disable-next-line array-callback-return
-                      this.state.instructorsMatching.map(element => {
-                        if (!this.state.valueClicked) {
-                          return (
-                            <div
-                              onClick={() =>
-                                this.grabInstructorValue(
-                                  `${element.fullName} - ${element.tennisClub}`,
-                                  element._id,
-                                  element.fullName
-                                )
-                              }
-                              key={element._id}
-                              id={styles.nameCard}
-                            >
-                              <p
-                                style={{
-                                  fontSize:
-                                    element.fullName.length > 22
-                                      ? "12px"
-                                      : "14px"
-                                }}
-                              >
-                                {element.fullName}
-                              </p>
-                              <p
-                                style={{
-                                  fontSize:
-                                    element.fullName.length > 24
-                                      ? "12px"
-                                      : "14px"
-                                }}
-                              >
-                                {element.tennisClub}
-                              </p>
-                            </div>
-                          );
-                        }
-                      })}
-                  </div>
-                </div>
-              )}{" "}
-              {this.state.instructorNames.length > 0 &&
-                this.state.showInstructors && (
-                  <div id={styles.addedDiv}>
-                    <p
-                      style={{
-                        textDecoration: "underline",
-                        marginBottom: "6px"
-                      }}
-                    >
-                      Instructors To Be Added
-                    </p>
-                    {!this.state.instructorsSubmitted &&
-                      this.state.instructorNames.map((element, index) => {
-                        return (
-                          <div
-                            key={element + index}
-                            className={styles.instructorsAdded}
-                          >
-                            <p>{element}</p>
-                          </div>
-                        );
-                      })}
-                    {!this.state.instructorsSubmitted && (
-                      <button
-                        style={{ marginTop: "8px" }}
-                        onClick={this.sendInstructorList}
-                        id={styles.submitInstructorList}
-                      >
-                        Submit Instructor List
-                      </button>
-                    )}
-                    {this.state.instructorsSubmitted && (
-                      <p>We have saved your instructors.</p>
-                    )}
-                  </div>
-                )}
-              <div
-                style={{
-                  display:
-                    this.state.instructorsMatching.length > 0 ? "none" : "flex",
-                  justifyContent: "space-around",
-                  width: "110%",
-                  position: "absolute",
-                  top: "70px"
-                }}
-              >
-                {this.state.showInstructors === true && (
-                  <div>
-                    {(this.state.deletedInstructors.length > 0 ||
-                      this.state.instructorsAlreadyHere.length) > 0 && (
-                      <div
-                        style={{
-                          marginTop: "10px",
-                          display: "flex",
-                          flexDirection: "column"
-                        }}
-                      >
-                        <p
-                          style={{
-                            textDecoration: "underline",
-                            marginBottom: "10px"
-                          }}
-                        >
-                          Instructors currently at your club.
-                        </p>
-                        {this.state.instructorsAlreadyHere.map(element => {
-                          return (
-                            <div
-                              style={{
-                                display: "flex",
-                                width: "214px",
-                                justifyContent: "space-between",
-                                margin: "2px 0px"
-                              }}
-                              key={element._id}
-                            >
-                              <p>{element.fullName}</p>
-                              <i
-                                onClick={this.deleteInstructor(element._id)}
-                                className="far fa-trash-alt"
-                                style={{
-                                  marginLeft: "18px",
-                                  color: "red",
-                                  fontWeight: "bold"
-                                }}
-                              ></i>
-                            </div>
-                          );
-                        })}
-                        {this.state.deletedInstructors.length > 0 &&
-                          this.state.deletedInstructors.map(element => {
-                            return (
-                              <div
-                                style={{ display: "flex" }}
-                                key={element._id}
-                              >
-                                <p
-                                  style={{
-                                    textDecoration: "line-through",
-                                    color: "gray"
-                                  }}
-                                >
-                                  {element.fullName}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        {/* come back to this*/}
-                        <button
-                          style={{ marginTop: "8px" }}
-                          disabled={this.state.deletedInstructors.length === 0}
-                          onClick={this.sendDeletedInstructors}
-                        >
-                          Save Changes
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
-                {this.state.invitesPending.length > 0 &&
-                  this.state.showInstructors && (
-                    <div style={{ marginTop: "11px" }}>
-                      <p
-                        style={{
-                          marginBottom: "4px",
-                          textDecoration: "underline"
-                        }}
-                      >
-                        Pending Invite:
-                      </p>
-                      {this.state.invitesPending.map(element => {
-                        return (
-                          <p style={{ color: "darkgray" }}>
-                            {element.fullName}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                {this.state.showServices && (
-                  <ServicesForm services={this.state.servicesComingIn} />
-                )}
-                {this.state.showBio && (
-                  <BioForm bioComingDown={this.state.bioToPassDown} />
-                )}
-              </div>
-            </form>
-          </div>
+  return (
+    <div>
+      {props.admin && <AdminNav />}
+      <div id={styles.pTagAboveForm}>
+        {!profileExists && (
+          <p className={styles.pTag}>
+            Thanks for signing up your club on Tennis Mate. To finish up the
+            process, we ask that you add a bit more information about your club
+            so we can give our users an accurate depiction of your Tennis Club.
+            You can add the instructors at your tennis club, the services your
+            club provides, and a small bio about your club as well. If you have
+            any questions feel free to contact us.
+          </p>
+        )}
+      </div>
+      <div className={styles.mainContentHolder}>
+        <div id={styles.selectionHolder}>
+          <i
+            onClick={leftArrowClick}
+            style={{
+              fontSize: "22px",
+              marginTop: "4px",
+              marginRight: "8px",
+              cursor: showingBio || showingServices ? "pointer" : "",
+              color: showingBio || showingServices ? "black" : "lightgray"
+            }}
+            className="fas fa-chevron-left"
+          ></i>
+          <p
+            onClick={setInstructors}
+            className={styles.pTagsForSelection}
+            id={showingInstructors ? styles.selectedPTag : ""}
+          >
+            Instructors
+          </p>
+          <p
+            onClick={setServices}
+            className={styles.pTagsForSelection}
+            id={showingServices ? styles.selectedPTag : ""}
+          >
+            Services
+          </p>
+          <p
+            onClick={setBio}
+            className={styles.pTagsForSelection}
+            id={showingBio ? styles.selectedPTag : ""}
+          >
+            Bio
+          </p>
+          <i
+            onClick={rightArrowClick}
+            style={{
+              fontSize: "22px",
+              marginTop: "4px",
+              marginLeft: "8px",
+              cursor: showingInstructors || showingServices ? "pointer" : "",
+              color:
+                showingInstructors || showingServices ? "black" : "lightgray"
+            }}
+            className="fas fa-chevron-right"
+          ></i>
+        </div>
+        <div
+          className={styles.divHolderNotAnimated}
+          id={showingInstructors ? styles.divHolderAnimated : ""}
+        >
+          <p className={styles.pTag}>
+            You can add instructors in the form below. If they have made a
+            profile with us, you should be able to add them in no time. If they
+            haven't made a profile with us. Please have them do so and you will
+            then be able to register them as instructor of your club. Once you
+            add an instructor a message will be sent to this instructor
+            notifying them that you have registered them as an instructor. If
+            they accept your request, they will be registered as an instructor
+            at your club.
+          </p>
+          <InstructorsAddForm />
+        </div>
+
+        <div
+          className={styles.divHolderNotAnimated}
+          id={showingServices ? styles.divHolderAnimated : ""}
+        >
+          <p className={styles.pTag}>
+            Add some services that your club provides. Below we have some
+            default services that most tennis clubs provide. These services are
+            tennis lessons, group clinics, racquet stringing, a summer program,
+            tournaments, and if your club offers a gym. You can check yes or no
+            depending on if your tennis club provides that service. You can also
+            add your own services below. You can always update these later on.{" "}
+          </p>
+          <ServicesForm />
+        </div>
+        <div
+          className={styles.divHolderNotAnimated}
+          id={showingBio ? styles.divHolderAnimated : ""}
+        >
+          <p className={styles.pTag}>
+            Here you can add a bio that describes your club. This bio will
+            provide more information to those interested in learning more about
+            your tennis club. You can also include any additional services,
+            activites, and other great things about your club. The bio will be
+            limited to 400 characters. You can always update your clubs bio
+            later.
+          </p>
+          <BioForm />
         </div>
       </div>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    admin: state.authReducer.admin,
-    adminToken: state.authReducer.adminToken
-  };
+    </div>
+  );
 };
+
+const mapStateToProps = state => ({
+  adminToken: state.authReducer.adminToken,
+  admin: state.authReducer.admin
+});
 
 export default connect(mapStateToProps)(AdminProfileCreate);

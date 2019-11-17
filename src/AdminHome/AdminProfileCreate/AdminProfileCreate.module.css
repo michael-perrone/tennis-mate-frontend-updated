@@ -1,167 +1,51 @@
-#introP {
-  width: 300px;
-  margin-top: 30px;
-  font-size: 14px;
-  margin-left: 35px;
-}
-
-#seeCurrentInstructors {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-}
-
-#entryError {
-  position: absolute;
-  top: 0px;
-  opacity: 1;
-  color: red;
-  transition-duration: 1s;
-  z-index: 200;
-  left: 20%;
-}
-
-.hiddenEntryError {
-  opacity: 0;
-}
-
-#adminProfileFormDiv {
-  width: 60%;
-  padding-top: 30px;
-  border-left: 2px solid gray;
-  margin-left: 20px;
+#pTagAboveForm {
+  background-color: rgb(231, 231, 231);
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-#nameCard {
-  margin-left: -8px;
-  cursor: pointer;
-  width: 76.8%;
-  padding: 3px;
-  border-left: 2px solid gray;
-  border-right: 2px solid gray;
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  box-shadow: 0px 0px 2px gray;
+.mainContentHolder {
+  background-color: rgb(231, 231, 231);
+  position: relative;
+  height: 80vh;
 }
 
-#continueToServices {
-  margin-top: 15px;
-  margin-left: 34%;
-  background-color: white;
-  border: 3px ridge whitesmoke;
-  padding: 4px;
-  border-radius: 8px;
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-#adminProfileForm {
-  height: 540px;
-  margin-left: 40px;
-  box-shadow: 0px 0px 8px black;
-  border-radius: 2px;
-  padding: 30px;
-  padding-top: 8px;
-  width: 450px;
+.divHolderNotAnimated {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  height: 455px;
+  width: 100%;
+  transform: translateX(-1200px);
+  transition-duration: 0.6s;
 }
 
-#adminProfileCreateMainDiv {
-  display: flex;
+#divHolderAnimated {
+  transition-delay: 0.6s;
+  transform: translateX(0px);
 }
 
-#submitInstructorList {
-  height: 40px;
-  width: 160px;
-  border-radius: 18px;
-}
-
-label {
-  font-size: 12px;
-}
-
-#instructorsInput {
-  height: 30px;
-  width: 340px;
-  font-size: 14px;
-  padding-left: 10px;
-  border: 2px solid gray;
-  border-radius: 4px;
-  border-bottom: 0px;
-  box-shadow: 0px 0px 2px black;
-  margin-left: -8px;
-  position: relative;
-  top: 4px;
-}
-
-.formP {
-  width: 82%;
-  font-size: 14px;
-  box-shadow: 0px 0px 8px black;
-  padding: 3px;
-  margin-left: 35px;
-  position: relative;
-  top: 16px;
-}
-
-#formPAnimation {
-  transition-duration: 0.5s;
-  transform: translateY(200px);
-}
-
-#nameCard:hover {
-  background-color: rgb(210, 220, 223);
-}
-
-#addedDiv {
-  position: absolute;
-  bottom: 10px;
-}
-
-#submittedMessage {
-  border: 2px solid black;
-  width: 160px;
-  margin-right: 30px;
-  margin-top: 100px;
-  height: 300px;
-}
-
-#addInstructor {
-  margin-left: 12px;
-  box-shadow: 0px 0px 4px black;
-  height: 32px;
-  border-radius: 8px;
-  background-color: white;
-  margin-top: 20px;
-  width: 90px;
-  font-size: 12px;
-  position: relative;
-  top: 3px;
-}
-
-#formSelectorDiv {
-  width: 270px;
-  display: flex;
-  position: relative;
-}
-
-.selector {
-  cursor: pointer;
-  width: 90px;
-  font-size: 16px;
-  height: 24px;
+.pTagsForSelection {
   border: 1px solid black;
+  padding: 5px;
+  width: 80px;
   text-align: center;
-  border-bottom: 0;
+  cursor: pointer;
+}
+
+#selectedPTag {
+  background-color: black;
+  color: rgb(202, 253, 202);
+  font-weight: bold;
+}
+
+#selectionHolder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pTag {
+  padding: 15px 20px;
+  width: 70%;
 }
