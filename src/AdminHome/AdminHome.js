@@ -22,15 +22,13 @@ class AdminHome extends React.Component {
       .then(response => {
         console.log(response);
         this.setState({ adminProfileCreated: response.data.profileCreated });
-        if (response.data.profileCreated === false) {
+      })
+      .catch(error => {
+        if (error.response.status === 406) {
           this.props.history.push(
             `/admin/${this.props.admin.admin.id}/createeditprofile`
           );
         }
-      })
-      .catch(error => {
-        console.log(error);
-        console.log(error.status);
       });
   }
 

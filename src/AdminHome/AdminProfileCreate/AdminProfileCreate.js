@@ -8,20 +8,25 @@ import BioForm from "./BioForm/BioForm";
 import InstructorsAddForm from "./InstructorsAddForm/InstructorsAddForm";
 
 const AdminProfileCreate = props => {
+  const [resultsNumber, setResultsNumber] = useState();
+  const [profile, setProfile] = useState({});
   const [profileExists, setProfileExists] = useState(true);
   const [showingInstructors, setShowingInstructors] = useState(true);
   const [showingServices, setShowingServices] = useState(false);
   const [showingBio, setShowingBio] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/clubProfile/profileexists", {
+      .get("http://localhost:8080/api/clubProfile/myclub", {
         headers: { "x-auth-token": props.adminToken }
       })
       .then(response => {
         if (response.status === 200) {
-          if (response.data.failure) {
-            setProfileExists(false);
-          }
+          setProfile(response.data.clubProfile);
+        }
+      })
+      .catch(error => {
+        if (error && error.response.status === 406) {
+          setProfileExists(false);
         }
       });
   }, []);
@@ -64,6 +69,10 @@ const AdminProfileCreate = props => {
     }
   };
 
+  function getAmountOfResults(resultsNumber) {
+    setResultsNumber(resultsNumber);
+  }
+
   return (
     <div>
       {props.admin && <AdminNav />}
@@ -80,7 +89,10 @@ const AdminProfileCreate = props => {
         )}
       </div>
       <div className={styles.mainContentHolder}>
-        <div id={styles.selectionHolder}>
+        <div
+          style={{ paddingTop: profileExists ? "30px" : "0px" }}
+          id={styles.selectionHolder}
+        >
           <i
             onClick={leftArrowClick}
             style={{
@@ -127,6 +139,7 @@ const AdminProfileCreate = props => {
           ></i>
         </div>
         <div
+          style={{ position: "relative" }}
           className={styles.divHolderNotAnimated}
           id={showingInstructors ? styles.divHolderAnimated : ""}
         >
@@ -140,7 +153,10 @@ const AdminProfileCreate = props => {
             they accept your request, they will be registered as an instructor
             at your club.
           </p>
-          <InstructorsAddForm />
+          <InstructorsAddForm
+            getAmountOfResults={getAmountOfResults}
+            profile={profile}
+          />
         </div>
 
         <div

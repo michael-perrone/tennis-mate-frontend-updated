@@ -35,7 +35,7 @@ class AdminNav extends React.Component {
             <i
               style={{
                 position: "relative",
-                left: "3px",
+                left: "5px",
                 top: "5px",
                 cursor: "pointer",
                 color: "rgb(152, 241, 152)"
@@ -90,7 +90,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdminNav);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminNav);

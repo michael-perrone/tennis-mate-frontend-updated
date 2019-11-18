@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import styles from "./InstructorsAddForm.module.css";
 import axios from "axios";
+import { connect } from "react-redux";
 import InstructorsToSelectList from "./InstructorsToSelectList/InstructorsToSelectList";
 
-const InstructorsAddForm = () => {
+const InstructorsAddForm = props => {
+  const [readyToBeClicked, setReadyToBeClicked] = useState(true);
   const [instructorInput, setInstructorInput] = useState("");
   const [instructorsFoundList, setInstructorsFoundList] = useState("");
   const [error, setError] = useState("");
   const [addedInstructors, setAddedInstructors] = useState([]);
+  const [instructorsSubmitted, setInstructorsSubmitted] = useState(false);
   function instructorInputHandler(event) {
+    setReadyToBeClicked(false);
     setInstructorInput(event.target.value);
+    setTimeout(() => setReadyToBeClicked(true), 2200);
   }
 
   function instructorSearch(event) {
@@ -20,11 +25,20 @@ const InstructorsAddForm = () => {
           name: instructorInput
         })
         .then(response => {
+          console.log("hi");
           if (response.status === 200) {
+            setError("");
             setInstructorsFoundList(response.data.instructors);
+          }
+        })
+        .catch(error => {
+          if (error.response.status == 406) {
+            setError("No Instructors Found");
+            setInstructorsFoundList([]);
           }
         });
     } else {
+      setInstructorsFoundList([]);
       setError("Please fill out the name of the instructor");
     }
   }
@@ -37,6 +51,26 @@ const InstructorsAddForm = () => {
     };
   }
 
+  function sendInstructorIds() {
+    let instructors = [];
+    addedInstructors.forEach(instructor => {
+      instructors.push(instructor._id);
+    });
+    axios
+      .post("http://localhost:8080/api/clubProfile/addInstructorsToClub", {
+        tennisClub: props.admin.admin.clubId,
+        instructors
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setInstructorsSubmitted(true);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   return (
     <div
       style={{
@@ -47,7 +81,7 @@ const InstructorsAddForm = () => {
       }}
     >
       {" "}
-      {addedInstructors.length > 0 && (
+      {addedInstructors.length > 0 && !instructorsSubmitted && (
         <div
           style={{
             marginBottom: "12px",
@@ -65,9 +99,14 @@ const InstructorsAddForm = () => {
             })}
           </div>
           <button
-            style={{ width: "75px", height: "32px", backgroundColor: "white" }}
+            onClick={sendInstructorIds}
+            style={{
+              width: addedInstructors.length === 1 ? "120px" : "75px",
+              height: "32px",
+              backgroundColor: "white"
+            }}
           >
-            Submit All
+            {addedInstructors.length === 1 ? "Submit Instructor" : "Submit All"}
           </button>
         </div>
       )}
@@ -75,7 +114,8 @@ const InstructorsAddForm = () => {
         <p
           className={styles.entryError}
           id={
-            error !== "" && instructorInput.length < 3
+            (error !== "" && instructorInput.length < 3) ||
+            error === "No Instructors Found"
               ? styles.entryErrorShow
               : ""
           }
@@ -88,8 +128,12 @@ const InstructorsAddForm = () => {
           placeholder="Instructor Search"
           id={styles.instructorSearch}
         />
-        <button onClick={instructorSearch} id={styles.searchButton}>
-          Search
+        <button
+          disabled={!readyToBeClicked}
+          onClick={instructorSearch}
+          id={styles.searchButton}
+        >
+          {!readyToBeClicked ? "loading" : "Search"}
         </button>
       </form>
       {instructorsFoundList.length > 0 && (
@@ -102,4 +146,10 @@ const InstructorsAddForm = () => {
   );
 };
 
-export default InstructorsAddForm;
+const mapStateToProps = state => {
+  return {
+    admin: state.authReducer.admin
+  };
+};
+
+export default connect(mapStateToProps)(InstructorsAddForm);
