@@ -7,6 +7,7 @@ import UserNav from "../UserNav/UserNav";
 import LocationModal from "./LocationModal/LocationModal";
 import { connect } from "react-redux";
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
+import OtherAlert from "../OtherAlerts/OtherAlerts";
 
 class TennisClubsList extends React.Component {
   constructor() {
@@ -17,7 +18,8 @@ class TennisClubsList extends React.Component {
       locationGiven: false,
       showLocationModal: false,
       locationDenied: false,
-      townLocation: ""
+      townLocation: "",
+      searchError: ""
     };
     this.getLocation = this.getLocation.bind(this);
     this.locationDenied = this.locationDenied.bind(this);
@@ -64,6 +66,7 @@ class TennisClubsList extends React.Component {
         state,
         zip
       };
+      this.setState({ searchError: "" });
       axios
         .post("http://localhost:8080/api/clubsList/clubSearch", objectToSend, {
           headers: { "x-auth-token": this.props.token }
@@ -71,6 +74,11 @@ class TennisClubsList extends React.Component {
         .then(response => {
           console.log(response);
           this.setState({ tennisClubs: response.data.tennisClubsBack });
+        })
+        .catch(error => {
+          if (error.response.status === 406) {
+            this.setState({ searchError: error.response.data.message });
+          }
         });
     };
   }
@@ -269,13 +277,17 @@ class TennisClubsList extends React.Component {
         <div
           style={{
             height: this.state.tennisClubs.length > 1 ? "" : "100vh",
-            justifyContent: "center",
             display: "flex",
             width: "100%",
             flexDirection: "column",
             backgroundColor: "rgb(217,217,217)"
           }}
         >
+          <OtherAlert
+            showAlert={this.state.searchError !== "" ? true : false}
+            alertMessage={this.state.searchError}
+            alertType={"error"}
+          />
           {this.state.tennisClubs.map(element => {
             console.log(element);
             return (

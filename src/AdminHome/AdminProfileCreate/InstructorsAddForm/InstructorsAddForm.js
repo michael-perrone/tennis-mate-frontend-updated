@@ -5,20 +5,16 @@ import { connect } from "react-redux";
 import InstructorsToSelectList from "./InstructorsToSelectList/InstructorsToSelectList";
 
 const InstructorsAddForm = props => {
-  const [hideButton, sethideButton] = useState(true);
+  const [readyToBeClicked, setReadyToBeClicked] = useState(true);
   const [instructorInput, setInstructorInput] = useState("");
   const [instructorsFoundList, setInstructorsFoundList] = useState("");
   const [error, setError] = useState("");
   const [addedInstructors, setAddedInstructors] = useState([]);
   const [instructorsSubmitted, setInstructorsSubmitted] = useState(false);
-
   function instructorInputHandler(event) {
+    setReadyToBeClicked(false);
     setInstructorInput(event.target.value);
-  }
-
-  function hideTheButton() {
-    sethideButton(false);
-    setTimeout(() => sethideButton(true));
+    setTimeout(() => setReadyToBeClicked(true), 2200);
   }
 
   function instructorSearch(event) {
@@ -127,18 +123,17 @@ const InstructorsAddForm = props => {
           {error}
         </p>
         <input
-          onKeyDown={hideTheButton}
           onChange={instructorInputHandler}
           value={instructorInput}
           placeholder="Instructor Search"
           id={styles.instructorSearch}
         />
         <button
-          id={!hideButton ? styles.hideButton : ""}
+          disabled={!readyToBeClicked}
           onClick={instructorSearch}
-          className={styles.searchButton}
+          id={styles.searchButton}
         >
-          Search
+          {!readyToBeClicked ? "loading" : "Search"}
         </button>
       </form>
       {instructorsFoundList.length > 0 && (
