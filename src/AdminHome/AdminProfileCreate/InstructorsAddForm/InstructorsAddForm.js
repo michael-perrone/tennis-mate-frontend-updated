@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./InstructorsAddForm.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
 import InstructorsToSelectList from "./InstructorsToSelectList/InstructorsToSelectList";
+import CurrentAddedPending from "./CurrentAddedPending/CurrentAddedPending";
 
 const InstructorsAddForm = props => {
-  const [readyToBeClicked, setReadyToBeClicked] = useState(true);
+  const [hideButton, setHideButton] = useState(false);
   const [instructorInput, setInstructorInput] = useState("");
   const [instructorsFoundList, setInstructorsFoundList] = useState("");
   const [error, setError] = useState("");
   const [addedInstructors, setAddedInstructors] = useState([]);
-  const [instructorsSubmitted, setInstructorsSubmitted] = useState(false);
+  const [showAddSelectPending, setShowAddSelectPending] = useState(false);
+  const [switchToAdded, setSwitchToAdded] = useState(false);
+
   function instructorInputHandler(event) {
-    setReadyToBeClicked(false);
+    setHideButton(true);
     setInstructorInput(event.target.value);
-    setTimeout(() => setReadyToBeClicked(true), 2200);
+    setTimeout(() => setHideButton(false), 1200);
+    setShowAddSelectPending(false);
   }
+
+  function hideAdded() {
+    setSwitchToAdded(false);
+  }
+
+  console.log(props);
 
   function instructorSearch(event) {
     event.preventDefault();
@@ -48,27 +58,8 @@ const InstructorsAddForm = props => {
       let newInstructorList = [...addedInstructors];
       newInstructorList.push(newInstructor);
       setAddedInstructors(newInstructorList);
+      setSwitchToAdded(true);
     };
-  }
-
-  function sendInstructorIds() {
-    let instructors = [];
-    addedInstructors.forEach(instructor => {
-      instructors.push(instructor._id);
-    });
-    axios
-      .post("http://localhost:8080/api/clubProfile/addInstructorsToClub", {
-        tennisClub: props.admin.admin.clubId,
-        instructors
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setInstructorsSubmitted(true);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   return (
@@ -80,36 +71,15 @@ const InstructorsAddForm = props => {
         alignItems: "center"
       }}
     >
-      {" "}
-      {addedInstructors.length > 0 && !instructorsSubmitted && (
-        <div
-          style={{
-            marginBottom: "12px",
-            display: "flex",
-            justifyContent: "space-between",
-            width: "344px"
-          }}
-        >
-          <div>
-            <p style={{ textDecoration: "underline", marginBottom: "4px" }}>
-              Instructors Added
-            </p>
-            {addedInstructors.map(instructorAdded => {
-              return <p>{instructorAdded.fullName}</p>;
-            })}
-          </div>
-          <button
-            onClick={sendInstructorIds}
-            style={{
-              width: addedInstructors.length === 1 ? "120px" : "75px",
-              height: "32px",
-              backgroundColor: "white"
-            }}
-          >
-            {addedInstructors.length === 1 ? "Submit Instructor" : "Submit All"}
-          </button>
-        </div>
-      )}
+      {(props.current || props.pending || props.addedInstructors.length) && (
+        <CurrentAddedPending
+          hideAdded={hideAdded}
+          showAddedOveride={switchToAdded}
+          current={props.current}
+          added={addedInstructors}
+          pending={props.pending}
+        />
+      )}{" "}
       <form style={{ position: "relative" }}>
         <p
           className={styles.entryError}
@@ -129,11 +99,11 @@ const InstructorsAddForm = props => {
           id={styles.instructorSearch}
         />
         <button
-          disabled={!readyToBeClicked}
           onClick={instructorSearch}
-          id={styles.searchButton}
+          id={hideButton ? styles.hideButton : ""}
+          className={styles.searchButton}
         >
-          {!readyToBeClicked ? "loading" : "Search"}
+          Search
         </button>
       </form>
       {instructorsFoundList.length > 0 && (

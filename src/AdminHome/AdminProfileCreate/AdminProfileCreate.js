@@ -14,6 +14,8 @@ const AdminProfileCreate = props => {
   const [showingInstructors, setShowingInstructors] = useState(true);
   const [showingServices, setShowingServices] = useState(false);
   const [showingBio, setShowingBio] = useState(false);
+  const [accepted, setAccepted] = useState([]);
+  const [pending, setPending] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/clubProfile/myclub", {
@@ -22,6 +24,18 @@ const AdminProfileCreate = props => {
       .then(response => {
         if (response.status === 200) {
           setProfile(response.data.clubProfile);
+          axios
+            .post(
+              "http://localhost:8080/api/clubProfile/getInstructorsPendingAndAccepted",
+              {
+                pending: response.data.clubProfile.instructorsToSendInvite,
+                accepted: response.data.clubProfile.instructorsWhoAccepted
+              }
+            )
+            .then(response => {
+              setAccepted(response.data.accepted);
+              setPending(response.data.pending);
+            });
         }
       })
       .catch(error => {
@@ -139,7 +153,6 @@ const AdminProfileCreate = props => {
           ></i>
         </div>
         <div
-          style={{ position: "relative" }}
           className={styles.divHolderNotAnimated}
           id={showingInstructors ? styles.divHolderAnimated : ""}
         >
@@ -155,7 +168,8 @@ const AdminProfileCreate = props => {
           </p>
           <InstructorsAddForm
             getAmountOfResults={getAmountOfResults}
-            profile={profile}
+            current={accepted}
+            pending={pending}
           />
         </div>
 
