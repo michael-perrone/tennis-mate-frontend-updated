@@ -16,7 +16,7 @@ const AddedInstructor = props => {
         })
         .then(response => {
           if (response.status === 200) {
-            console.log("RESPONSE WAS 200 ADDINSTURCTORSTOCLUB");
+            props.setNewPending(props.addedInstructors);
           }
         })
         .catch(error => {
@@ -24,8 +24,6 @@ const AddedInstructor = props => {
         });
     }
   }
-
-  console.log(props);
 
   return (
     props.addedInstructors.length > 0 && (
@@ -42,7 +40,17 @@ const AddedInstructor = props => {
             Instructors Added
           </p>
           {props.addedInstructors.map(instructorAdded => {
-            return <p>{instructorAdded.fullName}</p>;
+            console.log(instructorAdded);
+            return (
+              <div style={{ display: "flex" }}>
+                <p>{instructorAdded.fullName}</p>
+                <i
+                  onClick={props.filterAdded(instructorAdded)}
+                  style={{ cursor: "pointer", color: "red", marginLeft: "8px" }}
+                  className="fas fa-trash-alt"
+                ></i>
+              </div>
+            );
           })}
         </div>
         <button

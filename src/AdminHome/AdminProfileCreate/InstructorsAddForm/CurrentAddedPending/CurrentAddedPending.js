@@ -9,8 +9,6 @@ const CurrentAddedPending = props => {
   const [addedSelected, setAddedSelected] = React.useState(false);
   const [pendingSelected, setPendingSelected] = React.useState(false);
 
-  console.log(props);
-
   function selectCurrent() {
     if (!currentSelected) {
       setCurrentSelected(true);
@@ -51,48 +49,54 @@ const CurrentAddedPending = props => {
 
   return (
     <div>
-      <div id={styles.mainContainer}>
-        {props.current.length > 0 && (
-          <button
-            onClick={selectCurrent}
-            style={{
-              border:
-                currentSelected && !props.showAddedOveride
-                  ? "2px solid black"
-                  : ""
-            }}
-            className={styles.buttonSelectors}
-          >
-            Current
-          </button>
-        )}
-        {props.added.length > 0 && (
-          <button
-            style={{
-              border:
-                addedSelected || props.showAddedOveride ? "2px solid black" : ""
-            }}
-            onClick={selectAdded}
-            className={styles.buttonSelectors}
-          >
-            Added
-          </button>
-        )}
-        {props.pending.length > 0 && (
-          <button
-            style={{
-              border:
-                pendingSelected && !props.showAddedOveride
-                  ? "2px solid black"
-                  : ""
-            }}
-            onClick={selectPending}
-            className={styles.buttonSelectors}
-          >
-            Pending
-          </button>
-        )}
-      </div>
+      {(props.added.length > 0 ||
+        props.current.length > 0 ||
+        props.pending.length > 0) && (
+        <div id={styles.mainContainer}>
+          {props.current.length > 0 && (
+            <button
+              onClick={selectCurrent}
+              style={{
+                border:
+                  currentSelected && !props.showAddedOveride
+                    ? "2px solid black"
+                    : ""
+              }}
+              className={styles.buttonSelectors}
+            >
+              Current
+            </button>
+          )}
+          {props.added.length > 0 && (
+            <button
+              style={{
+                border:
+                  addedSelected || props.showAddedOveride
+                    ? "2px solid black"
+                    : ""
+              }}
+              onClick={selectAdded}
+              className={styles.buttonSelectors}
+            >
+              Added
+            </button>
+          )}
+          {props.pending.length > 0 && (
+            <button
+              style={{
+                border:
+                  pendingSelected && !props.showAddedOveride
+                    ? "2px solid black"
+                    : ""
+              }}
+              onClick={selectPending}
+              className={styles.buttonSelectors}
+            >
+              Pending
+            </button>
+          )}
+        </div>
+      )}
       {props.current.length > 0 &&
         currentSelected &&
         !props.showAddedOveride && (
@@ -104,7 +108,10 @@ const CurrentAddedPending = props => {
           <PendingInstructors pending={props.pending} />
         )}
       {(addedSelected || props.showAddedOveride) && (
-        <AddedInstructors addedInstructors={props.added} />
+        <AddedInstructors
+          filterAdded={props.filterAdded}
+          addedInstructors={props.added}
+        />
       )}
     </div>
   );

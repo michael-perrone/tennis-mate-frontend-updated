@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import { connect } from "react-redux";
 
 const PendingInstructors = props => {
   const [pendingToDelete, setPendingToDelete] = React.useState([]);
@@ -30,8 +31,13 @@ const PendingInstructors = props => {
   }
 
   function removeFromPending() {
+    let instructors = [];
+    pendingToDelete.forEach(pendingInstructor => {
+      instructors.push(pendingInstructor.id);
+    });
     Axios.post("http://localhost:8080/api/clubProfile/removeFromPending", {
-      pendingToRemove: pendingToDelete
+      instructors,
+      tennisClub: props.admin.admin.clubId
     }).then(response => {
       console.log(response.data);
     });
@@ -88,8 +94,24 @@ const PendingInstructors = props => {
           </div>
         );
       })}
+      {pendingToDelete.length > 0 && (
+        <button
+          style={{
+            width: "60px",
+            height: "32px",
+            backgroundColor: "white",
+            marginLeft: "40%"
+          }}
+          onClick={removeFromPending}
+        >
+          Update
+        </button>
+      )}
     </div>
   );
 };
 
-export default PendingInstructors;
+const mapStateToProps = state => {
+  return { admin: state.authReducer.admin };
+};
+export default connect(mapStateToProps)(PendingInstructors);

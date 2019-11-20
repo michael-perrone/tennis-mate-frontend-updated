@@ -73,6 +73,13 @@ const AdminProfileCreate = props => {
     }
   };
 
+  function setNewPending(newPending) {
+    return () => {
+      const newPendingArray = [...pending, ...newPending];
+      setPending(newPendingArray);
+    };
+  }
+
   const rightArrowClick = () => {
     if (showingInstructors) {
       setShowingServices(true);
@@ -167,6 +174,7 @@ const AdminProfileCreate = props => {
             at your club.
           </p>
           <InstructorsAddForm
+            setNewPending={setNewPending}
             getAmountOfResults={getAmountOfResults}
             current={accepted}
             pending={pending}

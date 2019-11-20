@@ -55,11 +55,19 @@ const InstructorsAddForm = props => {
 
   function addInstructorToList(newInstructor) {
     return () => {
+      console.log(newInstructor);
       let newInstructorList = [...addedInstructors];
       newInstructorList.push(newInstructor);
       setAddedInstructors(newInstructorList);
       setSwitchToAdded(true);
     };
+  }
+
+  function filterAdded(deletedPerson) {
+    const newAdded = addedInstructors.filter(element => {
+      return element.id !== deletedPerson.id;
+    });
+    setAddedInstructors(newAdded);
   }
 
   return (
@@ -73,11 +81,13 @@ const InstructorsAddForm = props => {
     >
       {(props.current || props.pending || props.addedInstructors.length) && (
         <CurrentAddedPending
+          setNewPending={props.setNewPending}
           hideAdded={hideAdded}
           showAddedOveride={switchToAdded}
           current={props.current}
           added={addedInstructors}
           pending={props.pending}
+          filterAdded={filterAdded}
         />
       )}{" "}
       <form style={{ position: "relative" }}>

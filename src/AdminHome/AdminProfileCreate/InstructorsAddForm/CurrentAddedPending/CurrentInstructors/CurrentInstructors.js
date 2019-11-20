@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import { connect } from "react-redux";
 
 const CurrentInstructors = props => {
   const [currentToDelete, setCurrentToDelete] = React.useState([]);
@@ -28,12 +29,23 @@ const CurrentInstructors = props => {
       setCurrentToDelete(currentToDeleteUpdate);
     };
   }
+  console.log(props.admin);
 
   function removeFromCurrent() {
-    Axios.post("http://localhost:8080/api/clubProfile/removeFromCurrent", {
-      currentToRemove: currentToDelete
-    }).then(response => {
-      console.log(response.data);
+    let instructors = [];
+    currentToDelete.forEach(instructor => {
+      instructors.push(instructor.id);
+    });
+    Axios.post(
+      "http://localhost:8080/api/clubProfile/instructorDeleteFromClub",
+      {
+        instructors,
+        tennisClub: props.admin.admin.clubId
+      }
+    ).then(response => {
+      if (response.status === 200) {
+        setCurrentToDelete([]);
+      }
     });
   }
 
@@ -88,8 +100,28 @@ const CurrentInstructors = props => {
           </div>
         );
       })}
+      {currentToDelete.length > 0 && (
+        <button
+          onClick={removeFromCurrent}
+          style={{
+            height: "32px",
+            backgroundColor: "white",
+            width: "60px",
+            marginTop: "15px",
+            marginLeft: "40%"
+          }}
+        >
+          Update
+        </button>
+      )}
     </div>
   );
 };
 
-export default CurrentInstructors;
+const mapStateToProps = state => {
+  return {
+    admin: state.authReducer.admin
+  };
+};
+
+export default connect(mapStateToProps)(CurrentInstructors);
