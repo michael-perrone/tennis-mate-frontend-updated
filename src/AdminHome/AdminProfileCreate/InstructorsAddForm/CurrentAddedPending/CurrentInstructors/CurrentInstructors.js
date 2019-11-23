@@ -1,10 +1,12 @@
 import React from "react";
 import Axios from "axios";
 import { connect } from "react-redux";
+import OtherAlert from "../../../../../OtherAlerts/OtherAlerts";
 
 const CurrentInstructors = props => {
   const [currentToDelete, setCurrentToDelete] = React.useState([]);
   const [current, setCurrent] = React.useState(props.current);
+  const [deleteAlert, setDeleteAlert] = React.useState(false);
 
   function restore(instructorToBeRestored) {
     return () => {
@@ -45,12 +47,19 @@ const CurrentInstructors = props => {
     ).then(response => {
       if (response.status === 200) {
         setCurrentToDelete([]);
+        setDeleteAlert(true);
+        props.setNewDeletedCurrent(current);
       }
     });
   }
 
   return (
     <div style={{ marginBottom: "10px" }}>
+      <OtherAlert
+        alertMessage={"Instructors successfully removed"}
+        showAlert={deleteAlert}
+        alertType={"success"}
+      />
       {current && (
         <p
           style={{

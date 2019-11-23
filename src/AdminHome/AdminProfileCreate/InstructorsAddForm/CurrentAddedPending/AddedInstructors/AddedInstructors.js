@@ -7,7 +7,7 @@ const AddedInstructor = props => {
     if (props.addedInstructors) {
       let instructors = [];
       props.addedInstructors.forEach(instructor => {
-        instructors.push(instructor._id);
+        instructors.push(instructor.id);
       });
       axios
         .post("http://localhost:8080/api/clubProfile/addInstructorsToClub", {
@@ -17,10 +17,15 @@ const AddedInstructor = props => {
         .then(response => {
           if (response.status === 200) {
             props.setNewPending(props.addedInstructors);
+            props.clearAdded();
+            props.instructorsSubmittedHandler();
           }
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.response.status);
+          if (error.response.status === 406) {
+            props.errorAddAlertHandler();
+          }
         });
     }
   }
@@ -40,10 +45,9 @@ const AddedInstructor = props => {
             Instructors Added
           </p>
           {props.addedInstructors.map(instructorAdded => {
-            console.log(instructorAdded);
             return (
               <div style={{ display: "flex" }}>
-                <p>{instructorAdded.fullName}</p>
+                <p>{instructorAdded.name}</p>
                 <i
                   onClick={props.filterAdded(instructorAdded)}
                   style={{ cursor: "pointer", color: "red", marginLeft: "8px" }}

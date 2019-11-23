@@ -1,10 +1,12 @@
 import React from "react";
 import Axios from "axios";
 import { connect } from "react-redux";
+import OtherAlerts from "../../../../../OtherAlerts/OtherAlerts";
 
 const PendingInstructors = props => {
   const [pendingToDelete, setPendingToDelete] = React.useState([]);
   const [pending, setPending] = React.useState(props.pending);
+  const [pendingSuccess, setPendingSuccess] = React.useState(false);
 
   function restore(instructorToBeRestored) {
     return () => {
@@ -39,12 +41,19 @@ const PendingInstructors = props => {
       instructors,
       tennisClub: props.admin.admin.clubId
     }).then(response => {
-      console.log(response.data);
+      setPendingToDelete([]);
+      setPendingSuccess(true);
+      props.setNewDeletedPending(pending);
     });
   }
 
   return (
     <div style={{ marginBottom: "10px" }}>
+      <OtherAlerts
+        showAlert={pendingSuccess}
+        alertType={"success"}
+        alertMessage={"Pending Instructors Removed"}
+      />
       {pending && (
         <p
           style={{

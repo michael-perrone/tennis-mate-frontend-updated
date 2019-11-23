@@ -21,11 +21,13 @@ const InstructorsAddForm = props => {
     setShowAddSelectPending(false);
   }
 
+  function clearAdded() {
+    setAddedInstructors([]);
+  }
+
   function hideAdded() {
     setSwitchToAdded(false);
   }
-
-  console.log(props);
 
   function instructorSearch(event) {
     event.preventDefault();
@@ -39,6 +41,7 @@ const InstructorsAddForm = props => {
           if (response.status === 200) {
             setError("");
             setInstructorsFoundList(response.data.instructors);
+            props.getAmountOfResults(response.data.instructors.length);
           }
         })
         .catch(error => {
@@ -55,19 +58,21 @@ const InstructorsAddForm = props => {
 
   function addInstructorToList(newInstructor) {
     return () => {
-      console.log(newInstructor);
-      let newInstructorList = [...addedInstructors];
-      newInstructorList.push(newInstructor);
+      let newInstructorList = [...addedInstructors, newInstructor];
+
       setAddedInstructors(newInstructorList);
+      console.log(newInstructorList);
       setSwitchToAdded(true);
     };
   }
 
   function filterAdded(deletedPerson) {
-    const newAdded = addedInstructors.filter(element => {
-      return element.id !== deletedPerson.id;
-    });
-    setAddedInstructors(newAdded);
+    return () => {
+      const newAdded = addedInstructors.filter(element => {
+        return element.id !== deletedPerson.id;
+      });
+      setAddedInstructors(newAdded);
+    };
   }
 
   return (
@@ -81,6 +86,8 @@ const InstructorsAddForm = props => {
     >
       {(props.current || props.pending || props.addedInstructors.length) && (
         <CurrentAddedPending
+          setNewDeletedCurrent={props.setNewDeletedCurrent}
+          setNewDeletedPending={props.setNewDeletedPending}
           setNewPending={props.setNewPending}
           hideAdded={hideAdded}
           showAddedOveride={switchToAdded}
@@ -88,6 +95,8 @@ const InstructorsAddForm = props => {
           added={addedInstructors}
           pending={props.pending}
           filterAdded={filterAdded}
+          hideAlert={props.hideAlert}
+          clearAdded={clearAdded}
         />
       )}{" "}
       <form style={{ position: "relative" }}>

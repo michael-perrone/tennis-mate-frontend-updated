@@ -3,11 +3,28 @@ import styles from "./CurrentAddedPending.module.css";
 import CurrentInstructors from "./CurrentInstructors/CurrentInstructors";
 import AddedInstructors from "./AddedInstructors/AddedInstructors";
 import PendingInstructors from "./PendingInstructors/PendingInstructors";
+import OtherAlerts from "../../../../OtherAlerts/OtherAlerts";
 
 const CurrentAddedPending = props => {
   const [currentSelected, setCurrentSelected] = React.useState(true);
   const [addedSelected, setAddedSelected] = React.useState(false);
   const [pendingSelected, setPendingSelected] = React.useState(false);
+  const [instructorsSubmitted, setInstructorsSubmitted] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [errorAddAlert, setErrorAddAlert] = React.useState(false);
+  console.log(props.pending);
+
+  function errorAddAlertHandler() {
+    setErrorAddAlert(true);
+    setTimeout(() => setErrorAddAlert(false), 4200);
+  }
+
+  function instructorsSubmittedHandler() {
+    setAddedSelected(false);
+    setPendingSelected(true);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 4200);
+  }
 
   function selectCurrent() {
     if (!currentSelected) {
@@ -25,6 +42,7 @@ const CurrentAddedPending = props => {
       setAddedSelected(true);
       setCurrentSelected(false);
       setPendingSelected(false);
+      setInstructorsSubmitted(false);
     } else {
       setAddedSelected(false);
     }
@@ -100,17 +118,40 @@ const CurrentAddedPending = props => {
       {props.current.length > 0 &&
         currentSelected &&
         !props.showAddedOveride && (
-          <CurrentInstructors current={props.current} />
+          <CurrentInstructors
+            current={props.current}
+            setNewDeletedCurrent={props.setNewDeletedCurrent}
+          />
         )}
       {props.pending.length > 0 &&
         pendingSelected &&
         !props.showAddedOveride && (
-          <PendingInstructors pending={props.pending} />
+          <PendingInstructors
+            setNewDeletedPending={props.setNewDeletedPending}
+            pending={props.pending}
+          />
         )}
+
+      <OtherAlerts
+        showAlert={showAlert}
+        alertType={"success"}
+        alertMessage={"You have successfully invited these instructors."}
+      />
+
+      <OtherAlerts
+        showAlert={errorAddAlert}
+        alertType={"failure"}
+        alertMessage={"You have already added this instructor."}
+      />
+
       {(addedSelected || props.showAddedOveride) && (
         <AddedInstructors
+          errorAddAlertHandler={errorAddAlertHandler}
+          clearAdded={props.clearAdded}
           filterAdded={props.filterAdded}
           addedInstructors={props.added}
+          setNewPending={props.setNewPending}
+          instructorsSubmittedHandler={instructorsSubmittedHandler}
         />
       )}
     </div>

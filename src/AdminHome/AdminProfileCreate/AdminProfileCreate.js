@@ -8,7 +8,7 @@ import BioForm from "./BioForm/BioForm";
 import InstructorsAddForm from "./InstructorsAddForm/InstructorsAddForm";
 
 const AdminProfileCreate = props => {
-  const [resultsNumber, setResultsNumber] = useState();
+  const [resultsNumber, setResultsNumber] = useState(0);
   const [profile, setProfile] = useState({});
   const [profileExists, setProfileExists] = useState(true);
   const [showingInstructors, setShowingInstructors] = useState(true);
@@ -16,6 +16,17 @@ const AdminProfileCreate = props => {
   const [showingBio, setShowingBio] = useState(false);
   const [accepted, setAccepted] = useState([]);
   const [pending, setPending] = useState([]);
+
+  console.log(resultsNumber);
+
+  function setNewDeletedPending(newPending) {
+    setPending(newPending);
+  }
+
+  function setNewDeletedAccepted(newAccepted) {
+    setAccepted(newAccepted);
+  }
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/clubProfile/myclub", {
@@ -74,10 +85,8 @@ const AdminProfileCreate = props => {
   };
 
   function setNewPending(newPending) {
-    return () => {
-      const newPendingArray = [...pending, ...newPending];
-      setPending(newPendingArray);
-    };
+    const newPendingArray = [...pending, ...newPending];
+    setPending(newPendingArray);
   }
 
   const rightArrowClick = () => {
@@ -109,7 +118,13 @@ const AdminProfileCreate = props => {
           </p>
         )}
       </div>
-      <div className={styles.mainContentHolder}>
+      <div
+        style={{
+          height:
+            resultsNumber < 4 ? "640px" : `${640 + (resultsNumber - 3) * 68}px`
+        }}
+        className={styles.mainContentHolder}
+      >
         <div
           style={{ paddingTop: profileExists ? "30px" : "0px" }}
           id={styles.selectionHolder}
@@ -174,10 +189,13 @@ const AdminProfileCreate = props => {
             at your club.
           </p>
           <InstructorsAddForm
+            setNewDeletedPending={setNewDeletedPending}
+            setNewDeletedCurrent={setNewDeletedAccepted}
             setNewPending={setNewPending}
             getAmountOfResults={getAmountOfResults}
             current={accepted}
             pending={pending}
+            hideAlert={showingInstructors}
           />
         </div>
 
@@ -193,7 +211,7 @@ const AdminProfileCreate = props => {
             depending on if your tennis club provides that service. You can also
             add your own services below. You can always update these later on.{" "}
           </p>
-          <ServicesForm />
+          <ServicesForm profile={profile} />
         </div>
         <div
           className={styles.divHolderNotAnimated}
@@ -207,7 +225,7 @@ const AdminProfileCreate = props => {
             limited to 400 characters. You can always update your clubs bio
             later.
           </p>
-          <BioForm />
+          <BioForm bio={profile.bio} />
         </div>
       </div>
     </div>
