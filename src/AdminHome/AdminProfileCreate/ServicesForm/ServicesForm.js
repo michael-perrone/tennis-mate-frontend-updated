@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ServicesForm.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 
 class ServicesForm extends React.Component {
   constructor(props) {
@@ -15,10 +16,12 @@ class ServicesForm extends React.Component {
         tournaments: "",
         gym: ""
       },
+      otherServicesError: false,
       otherServices: "",
       otherServicesArray: [],
       services: [],
-      empty: ""
+      empty: "",
+      successAlert: false
     };
     this.addServices = this.addServices.bind(this);
     this.changeRadios = this.changeRadios.bind(this);
@@ -62,10 +65,16 @@ class ServicesForm extends React.Component {
 
   addServices(event) {
     event.preventDefault();
-    const newArray = [...this.state.otherServicesArray];
-    newArray.push(this.state.otherServices);
-    this.setState({ otherServicesArray: newArray });
-    this.setState({ otherServices: "" });
+    if (this.state.otherServices !== "") {
+      console.log("hi");
+      const newArray = [...this.state.otherServicesArray];
+      newArray.push(this.state.otherServices);
+      this.setState({ otherServicesArray: newArray });
+      this.setState({ otherServices: "" });
+    } else {
+      this.setState({ otherServicesError: true });
+      setTimeout(() => this.setState({ otherServicesError: false }), 4400);
+    }
   }
 
   changeRadios(event) {
@@ -123,12 +132,27 @@ class ServicesForm extends React.Component {
     };
     Axios.post("http://localhost:8080/api/clubProfile", objectToSend, {
       headers: { "x-auth-token": this.props.adminToken }
+    }).then(response => {
+      if (response.status === 200) {
+        this.setState({ successAlert: true });
+        setTimeout(() => this.setState({ successAlert: false }), 4400);
+      }
     });
   }
 
   render() {
     return (
       <div style={{ marginTop: "-5px" }}>
+        <OtherAlert
+          alertType={"success"}
+          showAlert={this.state.successAlert}
+          alertMessage={"Services successfuly updated"}
+        />
+        <OtherAlert
+          alertType={"error"}
+          showAlert={this.state.otherServicesError}
+          alertMessage={"Please enter a service your club offers."}
+        />
         <p className={styles.servicesP}>
           Does your club offer Private Tennis Lessons?
         </p>

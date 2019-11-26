@@ -1,7 +1,8 @@
 #mainContainer {
-  background-color: rgb(237, 237, 237);
-  height: 100vh;
+  background-color: darkgray;
   display: flex;
+  width: 95%;
+  justify-content: space-around;
 }
 
 .eventDiv {
@@ -35,11 +36,8 @@
 
 .subContainer {
   display: flex;
-  width: 475px;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #showCourtsButton {
@@ -61,13 +59,12 @@
 
 .smallGreenDiv {
   position: relative;
-  background-color: rgb(189, 255, 189);
-  border-left: 8px solid black;
-  border-right: 8px solid black;
-  border-top: 4px solid black;
-  border-bottom: 4px solid black;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0px 0px 3px black;
   margin: 10px;
-  width: 405px;
+  width: 440px;
+  padding-bottom: 20px;
+  padding-top: 20px;
   height: 240px;
   display: flex;
   align-items: center;
@@ -127,18 +124,36 @@
 
 .largerPTag {
   position: absolute;
-  color: lightgreen;
+  color: gray;
   text-align: center;
   width: 100%;
   font-size: 24px;
-  text-shadow: 2px 2px black;
   top: 0px;
-  background-color: black;
   padding: 5px 0px;
 }
 
 #clubImage {
-  width: 405px;
+  width: 420px;
   border-radius: 2px;
-  height: 240px;
+  height: 280px;
+}
+
+@media (max-width: 1400px) {
+  .smallGreenDiv {
+    width: 400px;
+  }
+}
+
+@media (max-width: 1275px) {
+  .smallGreenDiv {
+    width: 440px;
+  }
+  #mainContainer {
+    flex-direction: column;
+  }
+
+  .subContainer {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

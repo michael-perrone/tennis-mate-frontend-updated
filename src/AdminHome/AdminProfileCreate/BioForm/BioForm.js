@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styles from "./BioForm.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 
 function BioForm(props) {
   const [bio, setBio] = useState("");
   const [changingBio, setChangingBio] = useState("");
+  const [successAlert, setSuccessAlert] = useState("");
 
   React.useEffect(() => {
     setBio(props.bio);
@@ -16,7 +18,12 @@ function BioForm(props) {
       "http://localhost:8080/api/clubProfile",
       { bio },
       { headers: { "x-auth-token": props.adminToken } }
-    );
+    ).then(response => {
+      if (response.status === 200) {
+        setSuccessAlert(true);
+        setTimeout(() => setSuccessAlert(false), 4400);
+      }
+    });
   }
 
   function bioHandler(event) {
@@ -30,6 +37,11 @@ function BioForm(props) {
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
+      <OtherAlert
+        alertType={"success"}
+        showAlert={successAlert}
+        alertMessage={"Bio successfully updated"}
+      />
       <textarea
         id={styles.bioForm}
         onChange={bioHandler}

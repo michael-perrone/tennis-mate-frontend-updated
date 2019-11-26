@@ -25,8 +25,12 @@ class AdminNav extends React.Component {
       <div id={styles.navBarContainer}>
         <p id={styles.title}>Tennis Mate</p>
         <div id={styles.secondContainer}>
-          <Link className={styles.links} to="/financials">
-            Financials
+          <Link
+            style={{ marginRight: "30px" }}
+            className={styles.links}
+            to="/skdksdks"
+          >
+            My Club
           </Link>
           <div onClick={this.showDropDownHandler} style={{ display: "flex" }}>
             <p className={styles.links} style={{ cursor: "pointer" }}>
