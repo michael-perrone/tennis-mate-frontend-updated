@@ -8,6 +8,7 @@ import AdminBooking from "./BookingHelpers/AdminBooking/AdminBooking";
 import { connect } from "react-redux";
 import InstructorNav from "../InstructorNav/InstructorNav";
 import UserNav from "../UserNav/UserNav";
+import { Link } from "react-router-dom";
 
 class TennisClub extends React.Component {
   constructor(props) {
@@ -172,42 +173,97 @@ class TennisClub extends React.Component {
                     src="https://www.clubcorp.com/var/ezflow_site/storage/images/media/clubs/the-downtown-club-media-folder/images/facilities/tennis-courts/downtown-club-at-met-houston-tennis-courts-560x310/1781915-2-eng-US/Downtown-Club-at-MET-houston-tennis-courts-560x310_largeimage.jpg"
                   />
                 </div>
-
-                <div className={styles.smallGreenDiv}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center"
+                  }}
+                  className={styles.smallGreenDiv}
+                >
                   <p
                     style={{ position: "absolute" }}
                     className={styles.largerPTag}
                   >
                     Location and Contact
                   </p>
-                  <div className={styles.subLocationContainer}>
-                    <p className={styles.fs18}>{this.state.club.address}</p>
-                    <p className={styles.fs18}>{this.state.club.city}</p>
-                    <p className={styles.fs18}>{this.state.club.state}</p>
-                    <p className={styles.fs18}>{this.state.club.zip}</p>
-                  </div>
-
-                  <div className={styles.subLocationContainer}>
-                    <p className={styles.f18}>
-                      {this.state.club.clubOpenTime} -{" "}
-                      {this.state.club.clubCloseTime}
-                    </p>
-                    <a
-                      style={{ textDecoration: "none" }}
-                      href={`https://${this.state.club.clubWebsite}`}
-                      className={styles.f18}
+                  <p style={{ marginTop: "12px", marginBottom: "8px" }}>
+                    Address:
+                  </p>
+                  <div
+                    style={{ width: "75%", position: "relative", top: "-4px" }}
+                    className={styles.subLocationContainer}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-around"
+                      }}
                     >
-                      {this.state.club.clubWebsite}
-                    </a>
-                    <p className={styles.f18}>{this.state.club.phoneNumber}</p>
-                    <p>{this.state.club.numberCourts} Tennis Courts</p>
+                      <p style={{ marginTop: "-7px" }} className={styles.fs18}>
+                        {this.state.club.address}
+                      </p>
+                      <p style={{ marginTop: "-7px" }} className={styles.fs18}>
+                        {this.state.club.city}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-around"
+                      }}
+                    >
+                      <p style={{ marginTop: "-7px" }} className={styles.fs18}>
+                        {this.state.club.state}
+                      </p>
+                      <p style={{ marginTop: "-7px" }} className={styles.fs18}>
+                        {this.state.club.zip}
+                      </p>
+                    </div>
+                  </div>
+                  <p
+                    style={{
+                      marginBottom: "12px",
+                      position: "relative",
+                      top: "8px"
+                    }}
+                  >
+                    Contact:
+                  </p>
+                  <div
+                    style={{ flexDirection: "row" }}
+                    className={styles.subLocationContainer}
+                  >
+                    <div className={styles.smallSeg}>
+                      <p style={{ marginBottom: "5px" }}>Club Hours:</p>
+                      <p className={styles.f18}>
+                        {this.state.club.clubOpenTime} -{" "}
+                        {this.state.club.clubCloseTime}
+                      </p>
+                    </div>
+                    <div className={styles.smallSeg}>
+                      <p style={{ marginBottom: "5px" }}>Club Website:</p>
+                      <a
+                        style={{ textDecoration: "none" }}
+                        href={`https://${this.state.club.clubWebsite}`}
+                        className={styles.f18}
+                      >
+                        {this.state.club.clubWebsite}
+                      </a>
+                    </div>
+                    <div className={styles.smallSeg}>
+                      <p style={{ marginBottom: "5px" }}>Club Phone:</p>
+                      <p className={styles.f18}>
+                        {this.state.club.phoneNumber}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className={styles.subContainer}>
                 <div className={styles.smallGreenDiv}>
                   <p className={styles.largerPTag}>What We Offer</p>
-                  <div className={styles.flexWrapDiv}>
+                  <ul className={styles.flexWrapDiv}>
                     {this.state.clubProfile &&
                       this.state.clubProfile.services.map((element, index) => {
                         let keyArray = Object.keys(element);
@@ -236,7 +292,7 @@ class TennisClub extends React.Component {
                               }}
                               className={styles.divHoldingItem}
                             >
-                              <p>{service}</p>
+                              <li>{service}</li>
                             </div>
                           );
                         }
@@ -253,91 +309,101 @@ class TennisClub extends React.Component {
                             }}
                             className={styles.divHoldingItem}
                           >
-                            <p>{element}</p>
+                            <li>{element}</li>
                           </div>
                         );
                       })}
-                  </div>
+                  </ul>
                 </div>
                 <div
                   style={{ flexDirection: "column" }}
                   className={styles.smallGreenDiv}
                 >
                   <p className={styles.largerPTag}>Events Coming Up</p>
-                  {this.state.addEventState === false &&
-                    this.state.events.length !== 0 && (
-                      <div style={{ position: "relative", marginTop: "40px" }}>
-                        {this.state.events.map((element, index) => {
-                          if (index < 6) {
-                            return (
-                              <div
-                                style={{
-                                  height: `${150 / this.state.events.length}px`
-                                }}
-                                className={styles.eventDiv}
-                              >
-                                <div
-                                  style={{
-                                    width: "250px",
-                                    position: "relative",
-                                    height: "21px"
-                                  }}
-                                >
-                                  {this.state.indexNumber === index &&
-                                  this.state.showEventDetailBox === true ? (
-                                    <div className={styles.eventDetailBox}>
-                                      <p
-                                        onClick={() =>
-                                          this.setState({
-                                            showEventDetailBox: false
-                                          })
-                                        }
-                                        style={{
-                                          color: "white",
-                                          border: "2px solid white",
-                                          width: "10px",
-                                          position: "relative",
-                                          left: "260px",
-                                          padding: "4x",
-                                          cursor: "pointer"
-                                        }}
-                                      >
-                                        X
-                                      </p>
-                                      <p
-                                        style={{
-                                          width: "200px",
-                                          marginLeft: "70px"
-                                        }}
-                                      >
-                                        {element.description}
-                                      </p>
-                                    </div>
-                                  ) : null}
-                                  <p
-                                    onClick={() => {
-                                      this.getIndexNumber(index);
-                                    }}
-                                    style={{
-                                      height: "20px",
-                                      fontWeight: "bold",
-                                      fontSize: "16px"
-                                    }}
-                                  >
-                                    {element.name}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          }
-                        })}
-                      </div>
-                    )}
                   {this.props.admin && this.state.addEventState === false && (
-                    <button onClick={this.addEventStateShow}>
+                    <button
+                      style={{
+                        position: "absolute",
+                        top: "40px",
+                        zIndex: "499"
+                      }}
+                      onClick={this.addEventStateShow}
+                    >
                       Add an Event
                     </button>
                   )}
+                  {this.state.addEventState === false &&
+                    this.state.events.length !== 0 && (
+                      <div style={{ position: "relative", marginTop: "40px" }}>
+                        <div className={styles.flexWrapDiv}>
+                          {this.state.events.map((element, index) => {
+                            if (index < 11) {
+                              return (
+                                <div
+                                  style={{
+                                    height: `${400 /
+                                      this.state.events.length}px`
+                                  }}
+                                  className={styles.eventDiv}
+                                >
+                                  <div
+                                    style={{
+                                      width: "200px",
+                                      position: "relative",
+                                      height: "21px"
+                                    }}
+                                  >
+                                    {this.state.indexNumber === index &&
+                                    this.state.showEventDetailBox === true ? (
+                                      <div className={styles.eventDetailBox}>
+                                        <p
+                                          onClick={() =>
+                                            this.setState({
+                                              showEventDetailBox: false
+                                            })
+                                          }
+                                          style={{
+                                            color: "white",
+                                            border: "2px solid white",
+                                            width: "10px",
+                                            position: "relative",
+                                            left: "260px",
+                                            padding: "4x",
+                                            cursor: "pointer"
+                                          }}
+                                        >
+                                          X
+                                        </p>
+                                        <p
+                                          style={{
+                                            marginLeft: "90px"
+                                          }}
+                                        >
+                                          {element.description}
+                                        </p>
+                                      </div>
+                                    ) : null}
+                                    <p
+                                      onClick={() => {
+                                        this.getIndexNumber(index);
+                                      }}
+                                      style={{
+                                        height: "20px",
+                                        fontWeight: "bold",
+                                        fontSize: "16px"
+                                      }}
+                                    >
+                                      {element.name}
+                                    </p>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          })}
+                        </div>
+                      </div>
+                    )}
+
                   {this.state.addEventState === true && (
                     <div
                       style={{
@@ -505,6 +571,19 @@ class TennisClub extends React.Component {
                         }}
                       >
                         <p>Event Description:</p>
+
+                        <button
+                          style={{
+                            position: "relative",
+                            top: "-40px",
+                            left: "95px"
+                          }}
+                          onClick={() => {
+                            this.setState({ addEventState: false });
+                          }}
+                        >
+                          Back To Events
+                        </button>
                         <button
                           onClick={this.addEventHandler}
                           style={{ position: "relative", top: "-3px" }}
@@ -522,16 +601,34 @@ class TennisClub extends React.Component {
                 </div>
               </div>
               <div className={styles.subContainer}>
-                <div className={styles.smallGreenDiv}>
+                <div
+                  style={{ alignItems: "flex-start" }}
+                  className={styles.smallGreenDiv}
+                >
                   <p className={styles.largerPTag}>About Us</p>
-                  <p style={{ padding: "10px" }}>
+                  <p style={{ marginTop: "10px", padding: "10px" }}>
                     {this.state.clubProfile.bio}
                   </p>
                 </div>
                 <div className={styles.smallGreenDiv}>
                   <p className={styles.largerPTag}>Tennis Instructors</p>
-                  <div className={styles.flexWrapDiv}>
-                    {this &&
+                  <div
+                    style={{ marginTop: "26px" }}
+                    className={styles.flexWrapDiv }
+                  >
+                    {this.state.instructors.length < 9 &&
+                      this.state.instructors.map(instructor => {
+                        console.log(instructor);
+                        return (
+                          <Link
+                            to={`/instructor/${instructor._id}`}
+                            style={{ margin: "6px", color: "black" }}
+                          >
+                            {instructor.fullName}
+                          </Link>
+                        );
+                      })}
+                    {this.state.instructors.length > 8 &&
                       this.state.instructors.map(element => {
                         return (
                           <div
@@ -540,7 +637,12 @@ class TennisClub extends React.Component {
                             }}
                             className={styles.divHoldingItem}
                           >
-                            <p>{element.fullName}</p>
+                            <Link
+                              to={`/instructor/${element._id}`}
+                              style={{ color: "black" }}
+                            >
+                              {element.fullName}
+                            </Link>
                           </div>
                         );
                       })}

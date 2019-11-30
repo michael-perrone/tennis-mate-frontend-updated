@@ -66,7 +66,7 @@ class TennisClub extends React.Component {
 
   render() {
     console.log(this.props);
-    return (
+    return this.props.club ? (
       <div id={styles.tennisClubHolder}>
         {this.state.errorArray.map(element => {
           return (
@@ -223,9 +223,14 @@ class TennisClub extends React.Component {
                 })}
               {this.props.profileInfo &&
                 this.props.profileInfo.otherServices.map((element, index) => {
-                  return <p key={element}>{element}: Yes</p>;
+                  return (
+                    <p style={{ fontSize: "12px" }} key={element}>
+                      {element}: Yes
+                    </p>
+                  );
                 })}
-              {this.props.profileInfo.otherServices.length === 0 &&
+              {this.props.profileInfo &&
+                this.props.profileInfo.otherServices.length === 0 &&
                 this.props.profileInfo.services.length === 0 && (
                   <p style={{ fontSize: "14px" }}>No Services Provided</p>
                 )}
@@ -233,6 +238,8 @@ class TennisClub extends React.Component {
           </div>
         </div>
       </div>
+    ) : (
+      <p>Clubs are loading</p>
     );
   }
 }

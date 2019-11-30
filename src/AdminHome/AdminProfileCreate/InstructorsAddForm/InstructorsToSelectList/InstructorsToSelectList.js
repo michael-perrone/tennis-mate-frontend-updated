@@ -13,6 +13,7 @@ const InstructorsToSelectList = props => {
               <p className={styles.listItem}>Age: 24</p>
             </div>
             <button
+              disabled={props.disabledAddButton}
               onClick={props.addInstructorToList(instructor)}
               id={styles.addButton}
             >

@@ -1,14 +1,12 @@
 #mainContainer {
-  background-color: darkgray;
+  background-color: rgb(202, 202, 202);
   display: flex;
   width: 95%;
   justify-content: space-around;
 }
 
 .eventDiv {
-  display: flex;
-  justify-content: space-around;
-  width: 360px;
+  width: 160px;
   font-size: 14px;
   position: relative;
 }
@@ -31,15 +29,25 @@
 }
 
 .fs18 {
-  font-size: 18px;
+  font-size: 16px;
+  margin-top: 20px;
 }
 
 .subContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
+.smallSeg {
+  font-size: 14px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 #showCourtsButton {
   position: fixed;
   bottom: 10px;
@@ -65,11 +73,12 @@
   width: 440px;
   padding-bottom: 20px;
   padding-top: 20px;
-  height: 240px;
+  height: 260px;
   display: flex;
   align-items: center;
   border-radius: 2px;
   justify-content: space-around;
+  margin-top: 3px;
 }
 
 .eventDetailBox {
@@ -102,11 +111,12 @@
 }
 
 .subLocationContainer {
-  height: 130px;
+  height: 90px;
+  width: 95%;
+  box-shadow: 0px 1px 3px black;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: flex-start;
 }
 
 .eventDateSubDiv {
@@ -124,8 +134,9 @@
 
 .largerPTag {
   position: absolute;
-  color: gray;
+  color: black;
   text-align: center;
+  background-color: lightgreen;
   width: 100%;
   font-size: 24px;
   top: 0px;
@@ -133,9 +144,9 @@
 }
 
 #clubImage {
-  width: 420px;
+  width: 100%;
   border-radius: 2px;
-  height: 280px;
+  height: 300px;
 }
 
 @media (max-width: 1400px) {
@@ -155,5 +166,26 @@
   .subContainer {
     flex-direction: row;
     justify-content: space-around;
+  }
+}
+
+@media (max-width: 750px) {
+  .subContainer {
+    flex-direction: column;
+  }
+
+  .smallGreenDiv {
+    width: 80%;
+    margin-top: 10px;
+  }
+
+  .subContainer {
+    padding: 0px;
+  }
+}
+
+@media (max-width: 495px) {
+  .smallGreenDiv {
+    width: 97%;
   }
 }

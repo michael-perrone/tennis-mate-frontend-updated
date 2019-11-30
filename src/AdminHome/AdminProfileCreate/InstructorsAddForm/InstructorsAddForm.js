@@ -4,15 +4,18 @@ import axios from "axios";
 import { connect } from "react-redux";
 import InstructorsToSelectList from "./InstructorsToSelectList/InstructorsToSelectList";
 import CurrentAddedPending from "./CurrentAddedPending/CurrentAddedPending";
+import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 
 const InstructorsAddForm = props => {
   const [hideButton, setHideButton] = useState(false);
   const [instructorInput, setInstructorInput] = useState("");
   const [instructorsFoundList, setInstructorsFoundList] = useState("");
   const [error, setError] = useState("");
+  const [doubleAddError, setDoubleAddError] = useState([]);
   const [addedInstructors, setAddedInstructors] = useState([]);
   const [showAddSelectPending, setShowAddSelectPending] = useState(false);
   const [switchToAdded, setSwitchToAdded] = useState(false);
+  const [disabledAddButton, setDisableAddButton] = useState(false);
 
   function instructorInputHandler(event) {
     setHideButton(true);
@@ -58,11 +61,27 @@ const InstructorsAddForm = props => {
 
   function addInstructorToList(newInstructor) {
     return () => {
-      let newInstructorList = [...addedInstructors, newInstructor];
-
-      setAddedInstructors(newInstructorList);
-      console.log(newInstructorList);
-      setSwitchToAdded(true);
+      let newDoubleAddedError = [];
+      console.log(newDoubleAddedError.length);
+      setDoubleAddError([]);
+      for (let i = 0; i < addedInstructors.length; i++) {
+        if (newInstructor.id === addedInstructors[i].id) {
+          newDoubleAddedError.push("You have already added this instructor.");
+        }
+      }
+      if (newDoubleAddedError.length === 0) {
+        let newInstructorList = [...addedInstructors, newInstructor];
+        setAddedInstructors(newInstructorList);
+        setSwitchToAdded(true);
+      } else {
+        console.log(newDoubleAddedError.length);
+        setDoubleAddError(newDoubleAddedError);
+        setDisableAddButton(true);
+        setTimeout(() => {
+          setDoubleAddError([]);
+          setDisableAddButton(false);
+        }, 4200);
+      }
     };
   }
 
@@ -84,6 +103,11 @@ const InstructorsAddForm = props => {
         alignItems: "center"
       }}
     >
+      <OtherAlert
+        alertMessage={doubleAddError[0]}
+        alertType={"Error"}
+        showAlert={doubleAddError.length > 0}
+      />
       {(props.current || props.pending || props.addedInstructors.length) && (
         <CurrentAddedPending
           setNewDeletedCurrent={props.setNewDeletedCurrent}
@@ -128,6 +152,7 @@ const InstructorsAddForm = props => {
       {instructorsFoundList.length > 0 && (
         <InstructorsToSelectList
           addInstructorToList={addInstructorToList}
+          disabledAddButton={disabledAddButton}
           instructorsFound={instructorsFoundList}
         />
       )}

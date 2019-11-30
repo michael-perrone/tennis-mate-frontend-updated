@@ -12,7 +12,6 @@ const CurrentAddedPending = props => {
   const [instructorsSubmitted, setInstructorsSubmitted] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAddAlert, setErrorAddAlert] = React.useState(false);
-  console.log(props.pending);
 
   function errorAddAlertHandler() {
     setErrorAddAlert(true);
@@ -141,7 +140,9 @@ const CurrentAddedPending = props => {
       <OtherAlerts
         showAlert={errorAddAlert}
         alertType={"failure"}
-        alertMessage={"You have already added this instructor."}
+        alertMessage={
+          "This instructor is already current or pending at your club."
+        }
       />
 
       {(addedSelected || props.showAddedOveride) && (

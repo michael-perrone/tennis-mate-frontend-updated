@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import InstructorProfile from "./InstructorProfile/InstructorProfile";
 import { GET_INSTRUCTOR_PROFILE } from "../actions/actions";
 import UserNav from "../UserNav/UserNav";
+import AdminNav from "../AdminNav/AdminNav";
 
 class InstructorHome extends React.Component {
   constructor(props) {
@@ -71,8 +72,9 @@ class InstructorHome extends React.Component {
     console.log(this.state);
     return (
       <div id={styles.instructorHomeContainer}>
-        {this.state.isUser && <UserNav />}
+        {this.state.isUser && !this.props.admin && <UserNav />}
         {this.state.profileCreated && <InstructorNav />}
+        {this.props.admin && <AdminNav />}
         {this.state.instructorProfile !== undefined && (
           <InstructorProfile
             bookings={this.state.bookings}
@@ -104,8 +106,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(InstructorHome)
+  connect(mapStateToProps, mapDispatchToProps)(InstructorHome)
 );

@@ -28,12 +28,13 @@ class TennisClubsList extends React.Component {
 
   componentDidMount() {
     axios
-      .post("http://localhost:8080/api/getUserLocationInfo", {
-        userId: this.props.user.user.id
+      .get("http://localhost:8080/api/getUserLocationInfo", {
+        headers: { "x-auth-token": this.props.token }
       })
       .then(response => {
         console.log(response);
         if (response.data.locationDenied === true) {
+          this.getLocation();
           this.setState({ locationDenied: true });
           this.setState({ showLocationModal: true });
         }
@@ -42,10 +43,9 @@ class TennisClubsList extends React.Component {
           this.setState({ stateLocation: response.data.userState });
           this.setState({ stateTown: response.data.userTown });
           axios
-            .get(
-              "http://localhost:8080/api/clubsList/clubsFromCurrentLocation",
-              { headers: { "x-auth-token": this.props.token } }
-            )
+            .get("http://localhost:8080/api/clubsList/clubsFromSavedLocation", {
+              headers: { "x-auth-token": this.props.token }
+            })
             .then(response => {
               this.setState({ tennisClubs: response.data.clubsFromLocation });
             });
@@ -103,9 +103,6 @@ class TennisClubsList extends React.Component {
   }
 
   getLocation() {
-    axios.get("http://localhost:8080/api/clubsList").then(response => {
-      this.setState({ tennisClubs: response.data.clubs });
-    });
     try {
       navigator.geolocation.getCurrentPosition(position => {
         this.setState({ showLocationModal: false });
@@ -240,20 +237,6 @@ class TennisClubsList extends React.Component {
               }
               this.setState({ townLocation: CLV });
               console.log(this.state.townLocation, this.state.stateLocation);
-              axios
-                .post("http://localhost:8080/api/saveLocation", {
-                  user: this.props.user,
-                  locationSaved: true,
-                  stateLocation: this.state.stateLocation,
-                  locationDenied: false,
-                  townLocation: this.state.townLocation
-                })
-                .then(response => {
-                  console.log(response);
-                })
-                .catch(error => {
-                  console.log(error);
-                });
             }.bind(this)
           );
         this.setState({ locationGiven: true });
@@ -263,7 +246,28 @@ class TennisClubsList extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.stateLocation !== this.state.stateLocation) {
+      axios
+        .post(
+          "http://localhost:8080/api/clubsList/clubsFromCurrentLocation",
+          {
+            state: this.state.stateLocation,
+            city: this.state.townLocation
+          },
+          { headers: { "x-auth-token": this.props.token } }
+        )
+        .then(response => {
+          this.setState({ tennisClubs: response.data.clubsBack });
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    }
+  }
+
   render() {
+    console.log(this.state.tennisClubs);
     return (
       <div id={styles.clubsContainer}>
         {this.state.showLocationModal === true && (

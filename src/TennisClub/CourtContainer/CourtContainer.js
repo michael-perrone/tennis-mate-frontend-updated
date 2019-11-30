@@ -326,11 +326,14 @@ class CourtContainer extends React.Component {
           />
         )}
         {this.state.tryingToBookModalState && (
+          <div style={{width: '100%', display: 
+          'flex', justifyContent: 'center'}}>
           <TryingToBookModal
             booking={this.state.bookingToSend}
             cancelBooking={this.cancelBooking}
             bookCourt={this.bookCourtArray}
           />
+          </div>
         )}
         <div id={styles.bookingIntroDiv}>
           <BookingIntro
