@@ -11,11 +11,10 @@ const InstructorsAddForm = props => {
   const [instructorInput, setInstructorInput] = useState("");
   const [instructorsFoundList, setInstructorsFoundList] = useState("");
   const [error, setError] = useState("");
-  const [doubleAddError, setDoubleAddError] = useState([]);
+  const [doubleAddError, setDoubleAddError] = useState(false);
   const [addedInstructors, setAddedInstructors] = useState([]);
   const [showAddSelectPending, setShowAddSelectPending] = useState(false);
   const [switchToAdded, setSwitchToAdded] = useState(false);
-  const [disabledAddButton, setDisableAddButton] = useState(false);
 
   function instructorInputHandler(event) {
     setHideButton(true);
@@ -61,9 +60,8 @@ const InstructorsAddForm = props => {
 
   function addInstructorToList(newInstructor) {
     return () => {
+      setDoubleAddError(false);
       let newDoubleAddedError = [];
-      console.log(newDoubleAddedError.length);
-      setDoubleAddError([]);
       for (let i = 0; i < addedInstructors.length; i++) {
         if (newInstructor.id === addedInstructors[i].id) {
           newDoubleAddedError.push("You have already added this instructor.");
@@ -74,13 +72,7 @@ const InstructorsAddForm = props => {
         setAddedInstructors(newInstructorList);
         setSwitchToAdded(true);
       } else {
-        console.log(newDoubleAddedError.length);
-        setDoubleAddError(newDoubleAddedError);
-        setDisableAddButton(true);
-        setTimeout(() => {
-          setDoubleAddError([]);
-          setDisableAddButton(false);
-        }, 4200);
+        setTimeout(() => setDoubleAddError(true), 200);
       }
     };
   }
@@ -104,9 +96,9 @@ const InstructorsAddForm = props => {
       }}
     >
       <OtherAlert
-        alertMessage={doubleAddError[0]}
+        alertMessage={"You cannot add the same instructor twice"}
         alertType={"Error"}
-        showAlert={doubleAddError.length > 0}
+        showAlert={doubleAddError === true}
       />
       {(props.current || props.pending || props.addedInstructors.length) && (
         <CurrentAddedPending
@@ -152,7 +144,6 @@ const InstructorsAddForm = props => {
       {instructorsFoundList.length > 0 && (
         <InstructorsToSelectList
           addInstructorToList={addInstructorToList}
-          disabledAddButton={disabledAddButton}
           instructorsFound={instructorsFoundList}
         />
       )}

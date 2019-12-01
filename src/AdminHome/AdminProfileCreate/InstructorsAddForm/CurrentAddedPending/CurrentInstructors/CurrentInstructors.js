@@ -20,6 +20,8 @@ const CurrentInstructors = props => {
     };
   }
 
+  console.log(current);
+
   function addToDeleteCurrent(instructorToBeDeleted) {
     return () => {
       let newCurrent = current.filter(

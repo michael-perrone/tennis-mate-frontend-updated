@@ -277,7 +277,7 @@ class CourtContainer extends React.Component {
     if (this.props.admin) {
       nameForBooking = this.props.admin.admin.name;
     } else if (this.props.instructor) {
-      nameForBooking = this.props.instructor.instructor.fullName;
+      nameForBooking = this.props.instructor.instructor.instructorName;
     } else if (this.props.user) {
       nameForBooking = this.props.user.user.userName;
     }
@@ -326,13 +326,14 @@ class CourtContainer extends React.Component {
           />
         )}
         {this.state.tryingToBookModalState && (
-          <div style={{width: '100%', display: 
-          'flex', justifyContent: 'center'}}>
-          <TryingToBookModal
-            booking={this.state.bookingToSend}
-            cancelBooking={this.cancelBooking}
-            bookCourt={this.bookCourtArray}
-          />
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <TryingToBookModal
+              booking={this.state.bookingToSend}
+              cancelBooking={this.cancelBooking}
+              bookCourt={this.bookCourtArray}
+            />
           </div>
         )}
         <div id={styles.bookingIntroDiv}>
