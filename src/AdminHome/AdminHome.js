@@ -20,7 +20,6 @@ class AdminHome extends React.Component {
         headers: { "x-auth-token": this.props.adminToken }
       })
       .then(response => {
-        console.log(response);
         this.setState({ adminProfileCreated: response.data.profileCreated });
       })
       .catch(error => {
@@ -33,7 +32,6 @@ class AdminHome extends React.Component {
   }
 
   render() {
-    console.log(this.state.adminProfileCreated);
     return (
       <div>
         <AdminNav />

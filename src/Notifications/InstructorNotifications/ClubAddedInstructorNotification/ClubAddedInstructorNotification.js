@@ -8,7 +8,6 @@ import OtherAlert from "../../../OtherAlerts/OtherAlerts";
 const ClubAddedInstructorNotification = props => {
   const [clubAccepted, setClubAccepted] = useState(false);
   const [clubNameState, setClubNameState] = useState("");
-  console.log(props);
   function getClubName() {
     const clubNameArray = [];
     let newArray = props.notification.notificationMessage.split("");
@@ -48,7 +47,6 @@ const ClubAddedInstructorNotification = props => {
     setClubNameState(clubName);
   }
 
-  console.log(props);
   function accept() {
     getClubName();
     const objectToSend = {
@@ -68,7 +66,7 @@ const ClubAddedInstructorNotification = props => {
     });
   }
   function deny() {
-    console.log(props);
+    // DONT KNOW YET
   }
 
   return (

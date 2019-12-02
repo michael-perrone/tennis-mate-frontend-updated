@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./AdminForm.module.css";
 import otherStyles from "../../../LoginScreen/LoginScreenRightSide/UserRegisterForm/UserRegisterForm.module.css";
 import { connect } from "react-redux";
-import Alert from '../../../Alert/Alert';
+import Alert from "../../../Alert/Alert";
 
 class AdminForm extends React.Component {
   constructor(props) {
@@ -36,7 +36,6 @@ class AdminForm extends React.Component {
   }
 
   setDirty(event) {
-    console.log(event.target.name);
     const newObject = { ...this.state.dirty };
     newObject[event.target.name] = true;
     this.setState({ dirty: newObject });
@@ -83,7 +82,10 @@ class AdminForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
         >
-          <div style={{marginTop: "15px"}} className={otherStyles.divWidthControl}>
+          <div
+            style={{ marginTop: "15px" }}
+            className={otherStyles.divWidthControl}
+          >
             <label style={{ color: "black" }} className={otherStyles.labels}>
               First Name:
             </label>
@@ -100,7 +102,9 @@ class AdminForm extends React.Component {
               type="text"
             />
             {this.state.dirty.firstName === true &&
-            this.state.admin.firstName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
+              this.state.admin.firstName === "" && (
+                <Alert alertPhrase={"Field cannot be blank"} />
+              )}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label
@@ -121,8 +125,10 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
-              {this.state.dirty.lastName === true &&
-            this.state.admin.lastName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
+            {this.state.dirty.lastName === true &&
+              this.state.admin.lastName === "" && (
+                <Alert alertPhrase={"Field cannot be blank"} />
+              )}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label
@@ -144,7 +150,9 @@ class AdminForm extends React.Component {
               type="text"
             />
             {this.validateEmail(this.state.admin.email) === false &&
-            this.state.dirty.email === true && <Alert alertPhrase={'Please enter a valid email'}/>}
+              this.state.dirty.email === true && (
+                <Alert alertPhrase={"Please enter a valid email"} />
+              )}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
@@ -161,9 +169,11 @@ class AdminForm extends React.Component {
               id={otherStyles.input2}
               className={otherStyles.inputs}
               type="text"
-            /> 
+            />
             {this.validatePhone(this.state.admin.phoneNumber) === false &&
-            this.state.dirty.phoneNumber === true && <Alert alertPhrase={"Please enter a valid phone number"}/>}
+              this.state.dirty.phoneNumber === true && (
+                <Alert alertPhrase={"Please enter a valid phone number"} />
+              )}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label
@@ -184,9 +194,9 @@ class AdminForm extends React.Component {
               type="password"
             />
             {this.state.dirty.createPassword === true &&
-            this.state.admin.createPassword.length < 7 && (
-              <Alert alertPhrase={'Password must be eight characters'}/>
-            )}
+              this.state.admin.createPassword.length < 7 && (
+                <Alert alertPhrase={"Password must be eight characters"} />
+              )}
           </div>
           <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
@@ -203,14 +213,14 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="password"
             />
-              {this.state.dirty.passwordConfirm === true &&
-            this.state.admin.passwordConfirm !==
-              this.state.admin.createPassword && <Alert alertPhrase={'Passwords must be matching'}/>}
+            {this.state.dirty.passwordConfirm === true &&
+              this.state.admin.passwordConfirm !==
+                this.state.admin.createPassword && (
+                <Alert alertPhrase={"Passwords must be matching"} />
+              )}
           </div>
-        
-          <div
-            className={otherStyles.divWidthControl}
-          >
+
+          <div className={otherStyles.divWidthControl}>
             <label style={{ color: "black" }} className={otherStyles.labels}>
               Tennis Club Name:
             </label>
@@ -225,7 +235,10 @@ class AdminForm extends React.Component {
               className={otherStyles.inputs}
               type="text"
             />
-            {this.state.dirty.clubName === true && this.state.admin.clubName === "" && <Alert alertPhrase={"Please enter your clubs name"}/>}
+            {this.state.dirty.clubName === true &&
+              this.state.admin.clubName === "" && (
+                <Alert alertPhrase={"Please enter your clubs name"} />
+              )}
           </div>
           <button
             onClick={this.props.getAdminInfo(this.state.admin)}

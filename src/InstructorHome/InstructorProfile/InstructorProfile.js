@@ -7,7 +7,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 const InstructorProfile = props => {
-  console.log(props);
   //const [bookings, setBookings] = useState([]);
   //const [instructorProfile, setInstructorProfile] = useState({});
 

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import otherStyles from "../UserRegisterForm/UserRegisterForm.module.css";
-import Alert from '../../../Alert/Alert';
+import Alert from "../../../Alert/Alert";
 import styles from "./InstructorRegisterForm.module.css";
 import {
   INSTRUCTOR_WANTS_TO_REGISTER,
@@ -50,7 +50,6 @@ class InstructorRegisterForm extends React.Component {
   };
 
   setDirty(event) {
-    console.log(event.target.name);
     const newObject = { ...this.state.dirty };
     newObject[event.target.name] = true;
     this.setState({ dirty: newObject });
@@ -59,8 +58,6 @@ class InstructorRegisterForm extends React.Component {
   getInstructorInput(event) {
     const newInstructorStateObject = { ...this.state.instructor };
     newInstructorStateObject[event.target.name] = event.target.value;
-    console.log(newInstructorStateObject);
-
     this.setState({ instructor: newInstructorStateObject });
   }
 
@@ -98,7 +95,6 @@ class InstructorRegisterForm extends React.Component {
   };
 
   render() {
-    console.log(this.props.instructor);
     let id = "";
     if (this.props.instructorRegister) {
       id = styles.animation;
@@ -108,7 +104,7 @@ class InstructorRegisterForm extends React.Component {
         <p
           className={otherStyles.registerP}
           id={styles.instructorRegisterP}
-          style={{color: "yellowgreen"}}
+          style={{ color: "yellowgreen" }}
         >
           Register as an Instructor
         </p>
@@ -117,12 +113,13 @@ class InstructorRegisterForm extends React.Component {
           onMouseLeave={this.hideOptionals}
           className={styles.registerForm}
         >
-          <form
-            id={styles.form}
-          >
-            <div style={{marginTop: "8px"}} className={otherStyles.divWidthControl}>
+          <form id={styles.form}>
+            <div
+              style={{ marginTop: "8px" }}
+              className={otherStyles.divWidthControl}
+            >
               <label
-                style={{ color: "yellowgreen"  }}
+                style={{ color: "yellowgreen" }}
                 className={otherStyles.labels}
               >
                 First Name:
@@ -138,10 +135,10 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
-               {this.state.dirty.firstName === true &&
-              this.state.instructor.firstName === "" && (
-               <Alert alertPhrase={"Field cannot be blank"}/>
-              )}
+              {this.state.dirty.firstName === true &&
+                this.state.instructor.firstName === "" && (
+                  <Alert alertPhrase={"Field cannot be blank"} />
+                )}
             </div>
             <div className={otherStyles.divWidthControl}>
               <label
@@ -164,11 +161,11 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
               {this.state.dirty.lastName === true &&
-              this.state.instructor.lastName === "" && (
-                <Alert alertPhrase={"Field cannot be blank"}/>
-              )}
+                this.state.instructor.lastName === "" && (
+                  <Alert alertPhrase={"Field cannot be blank"} />
+                )}
             </div>
-            
+
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.3px" }}
@@ -190,9 +187,11 @@ class InstructorRegisterForm extends React.Component {
                 type="text"
               />
               {this.validateEmail(this.state.instructor.email) === false &&
-              this.state.dirty.email === true && <Alert alertPhrase={"Please enter a valid email"}/>}
+                this.state.dirty.email === true && (
+                  <Alert alertPhrase={"Please enter a valid email"} />
+                )}
             </div>
-            
+
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen" }}
@@ -211,12 +210,13 @@ class InstructorRegisterForm extends React.Component {
                 className={otherStyles.inputs}
                 type="text"
               />
-               {this.validatePhone(this.state.instructor.phoneNumber) === false &&
-              this.state.dirty.phoneNumber === true && (
-                <Alert alertPhrase={"Please enter a valid phone number"}/>
-              )}
+              {this.validatePhone(this.state.instructor.phoneNumber) ===
+                false &&
+                this.state.dirty.phoneNumber === true && (
+                  <Alert alertPhrase={"Please enter a valid phone number"} />
+                )}
             </div>
-           
+
             <div className={otherStyles.divWidthControl}>
               <label
                 style={{ color: "yellowgreen", letterSpacing: "0.7px" }}
@@ -236,9 +236,11 @@ class InstructorRegisterForm extends React.Component {
                 type="password"
               />
               {this.state.dirty.createPassword === true &&
-              this.state.instructor.createPassword.length < 7 && (
-                <Alert alertPhrase={"Password must be eight characters long"}/>
-              )}
+                this.state.instructor.createPassword.length < 7 && (
+                  <Alert
+                    alertPhrase={"Password must be eight characters long"}
+                  />
+                )}
             </div>
             <div className={otherStyles.divWidthControl}>
               <label
@@ -259,10 +261,10 @@ class InstructorRegisterForm extends React.Component {
                 type="password"
               />
               {this.state.dirty.passwordConfirm === true &&
-              this.state.instructor.passwordConfirm !==
-                this.state.instructor.createPassword && (
-                  <Alert alertPhrase={"Passwords must be matching"}/>
-              )}
+                this.state.instructor.passwordConfirm !==
+                  this.state.instructor.createPassword && (
+                  <Alert alertPhrase={"Passwords must be matching"} />
+                )}
             </div>
             <div className={otherStyles.divWidthControl}>
               <label
@@ -285,28 +287,22 @@ class InstructorRegisterForm extends React.Component {
               />
             </div>
 
-           <div style={{display: 'flex',
-            justifyContent: "space-around",
-          }}>
-             
-            <p
-            id={styles.headBack}
-            onClick={this.props.instructorRegisterHandler}
-          >
-            Go back to user signup form
-          </p>
-          <button
-              style={{left: "-5px",
-                backgroundColor: "yellowgreen",
-              }}
-              onClick={this.registerInstructor}
-              id={otherStyles.signUpButton}
-            >
-              Sign Up
-            </button>
-          </div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <p
+                id={styles.headBack}
+                onClick={this.props.instructorRegisterHandler}
+              >
+                Go back to user signup form
+              </p>
+              <button
+                style={{ left: "-5px", backgroundColor: "yellowgreen" }}
+                onClick={this.registerInstructor}
+                id={otherStyles.signUpButton}
+              >
+                Sign Up
+              </button>
+            </div>
           </form>
-          
         </div>
       </div>
     );
@@ -333,8 +329,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(InstructorRegisterForm)
+  connect(mapStateToProps, mapDispatchToProps)(InstructorRegisterForm)
 );

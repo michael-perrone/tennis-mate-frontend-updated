@@ -1,13 +1,10 @@
 import React from "react";
 import styles from "./InstructorSignup.module.css";
 import { connect } from "react-redux";
-import {
-  INSTRUCTOR_WANTS_TO_REGISTER,
-} from "../../../../actions/actions";
+import { INSTRUCTOR_WANTS_TO_REGISTER } from "../../../../actions/actions";
 
 class InstuctorSignup extends React.Component {
   render() {
-    console.log(this.props.instructorRegister);
     return (
       <div id={styles.instructorSignupContainer}>
         <p
@@ -29,7 +26,4 @@ const mapDispatchToProps = function(dispatch) {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(InstuctorSignup);
+export default connect(null, mapDispatchToProps)(InstuctorSignup);

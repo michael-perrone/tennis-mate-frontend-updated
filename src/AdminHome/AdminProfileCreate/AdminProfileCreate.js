@@ -17,8 +17,6 @@ const AdminProfileCreate = props => {
   const [accepted, setAccepted] = useState([]);
   const [pending, setPending] = useState([]);
 
-  console.log(resultsNumber);
-
   function setNewDeletedPending(newPending) {
     setPending(newPending);
   }

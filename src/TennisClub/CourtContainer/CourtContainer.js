@@ -41,13 +41,11 @@ class CourtContainer extends React.Component {
       prevProps.date !== this.props.date ||
       prevProps.clubName !== this.props.clubName
     ) {
-      console.log("HI");
       axios
         .post("http://localhost:8080/api/courtBooked/getcourts", {
           clubName: this.props.clubName
         })
         .then(response => {
-          console.log(response);
           let clubsMatchArray = [];
           response.data.bookings.forEach(element => {
             if (this.props.date === element.date) {
@@ -124,7 +122,6 @@ class CourtContainer extends React.Component {
   };
 
   setPlayersComingBack = players => {
-    console.log(players);
     this.setState({ playersComingBack: players });
   };
 
@@ -154,7 +151,7 @@ class CourtContainer extends React.Component {
                   objectToSend
                 )
                 .then(response => {
-                  console.log(response);
+                  // waiting for this
                 })
                 .catch(error => {
                   console.log(error);

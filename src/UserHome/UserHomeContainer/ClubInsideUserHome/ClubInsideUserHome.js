@@ -16,24 +16,19 @@ const ClubInsideUserHome = props => {
   }
 
   function unfollowClub() {
-    console.log(props.user.user.id);
     let objectToSend = {
       tennisClubId: props.club._id,
       userId: props.user.user.id
     };
-    console.log(objectToSend);
     Axios.post(
       "http://localhost:8080/api/userSubscribe/unfollow",
       objectToSend
     ).then(response => {
       if (response.status === 200) {
-        console.log(response.data.tennisClubsAfterFilter);
         props.setNewClubs(response.data.tennisClubsAfterFilter);
       }
     });
   }
-
-  console.log(props);
 
   return (
     <div id={styles.userClubContainer}>
@@ -75,8 +70,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ClubInsideUserHome)
+  connect(mapStateToProps, mapDispatchToProps)(ClubInsideUserHome)
 );

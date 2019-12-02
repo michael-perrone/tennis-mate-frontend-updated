@@ -1,14 +1,13 @@
 import styles from "./TennisClubSignup.module.css";
 import React from "react";
-import AdminFormHolder from './AdminFormHolder/AdminFormHolder';
-import TennisClubFormHolder from './TennisClubFormHolder/TennisClubFormHolder';
+import AdminFormHolder from "./AdminFormHolder/AdminFormHolder";
+import TennisClubFormHolder from "./TennisClubFormHolder/TennisClubFormHolder";
 import { ADMIN_ENTERED, ADMIN_LOGIN_SUCCESS } from "../actions/actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import BackDrop from "./BackDrop/BackDrop";
 import DropdownModal from "./DropdownModal/DropdownModal";
-
 
 class TennisClubSignup extends React.Component {
   constructor(props) {
@@ -57,7 +56,6 @@ class TennisClubSignup extends React.Component {
     axios
       .post("http://localhost:8080/api/adminSignup", bigStateObject)
       .then(response => {
-        console.log(response);
         if (response.status === 200) {
           this.props.adminLoginSuccess(response.data.token);
         }
@@ -75,14 +73,17 @@ class TennisClubSignup extends React.Component {
     }
     return (
       <div id={newContainer} className={styles.container}>
-        {this.props.adminEntered && <TennisClubFormHolder getTennisClubInfo={this.getTennisClubInfo} /> }
+        {this.props.adminEntered && (
+          <TennisClubFormHolder getTennisClubInfo={this.getTennisClubInfo} />
+        )}
 
-        {!this.props.adminEntered &&<AdminFormHolder
-          name={this.state.admin.firstName}
-          tennisClub={this.state.admin.tennisClub}
-          getAdminInfo={this.getAdminInfo}
-        />
-        }
+        {!this.props.adminEntered && (
+          <AdminFormHolder
+            name={this.state.admin.firstName}
+            tennisClub={this.state.admin.tennisClub}
+            getAdminInfo={this.getAdminInfo}
+          />
+        )}
         {this.state.allInfoReadyToSend && (
           <BackDrop unShowConfirmModal={this.unShowConfirmModal} />
         )}
@@ -119,8 +120,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(TennisClubSignup)
+  connect(mapStateToProps, mapDispatchToProps)(TennisClubSignup)
 );

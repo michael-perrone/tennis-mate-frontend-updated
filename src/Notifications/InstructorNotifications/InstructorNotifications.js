@@ -27,14 +27,13 @@ class InstructorNotifications extends React.Component {
             notificationIds: notificationIds
           })
           .then(response => {
-            console.log(response);
+            // prob not correct
           });
       }
     }
   }
 
   render() {
-    console.log(this.props.instructorNotifications);
     return (
       <div className={styles.notificationsContainer}>
         {this.props.instructorNotifications &&

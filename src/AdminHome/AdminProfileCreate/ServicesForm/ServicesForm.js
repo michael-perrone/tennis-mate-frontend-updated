@@ -53,7 +53,6 @@ class ServicesForm extends React.Component {
             newServicesForm[`${name[i]}`] = "No";
           }
         }
-        console.log(newServicesForm);
         this.setState({ servicesForm: newServicesForm });
       }
     }
@@ -66,7 +65,6 @@ class ServicesForm extends React.Component {
   addServices(event) {
     event.preventDefault();
     if (this.state.otherServices !== "") {
-      console.log("hi");
       const newArray = [...this.state.otherServicesArray];
       newArray.push(this.state.otherServices);
       this.setState({ otherServicesArray: newArray });

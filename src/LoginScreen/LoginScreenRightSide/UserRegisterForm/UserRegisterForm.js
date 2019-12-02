@@ -43,7 +43,6 @@ class UserRegisterForm extends React.Component {
   }
 
   setDirty(event) {
-    console.log(event.target.name);
     const newObject = { ...this.state.dirty };
     newObject[event.target.name] = true;
     this.setState({ dirty: newObject });
@@ -60,11 +59,9 @@ class UserRegisterForm extends React.Component {
     return re.test(email);
   };
 
-
   getUserInput(event) {
     const newUserStateObject = { ...this.state.user };
     newUserStateObject[event.target.name] = event.target.value;
-    console.log(this.validateEmail(newUserStateObject.firstName));
     this.setState({ user: newUserStateObject });
   }
 
@@ -91,7 +88,6 @@ class UserRegisterForm extends React.Component {
       axios
         .post("http://localhost:8080/api/usersSignup", this.state.user)
         .then(response => {
-          console.log(response);
           /*   const tokenDecoded = decoder(response.data.token);
           localStorage.setItem("token", response.data.token);
           this.setState({ token: decoder(response.data.token) }); */
@@ -116,28 +112,21 @@ class UserRegisterForm extends React.Component {
 
     return (
       <div className={styles.registerFormContainer} id={className}>
-        <p
-          className={styles.registerP}
-        >
-          Register for Tennis Mate
-        </p>
+        <p className={styles.registerP}>Register for Tennis Mate</p>
 
         <div
           onMouseEnter={this.showOptionals}
           onMouseLeave={this.hideOptionals}
           id={styles.registerForm}
         >
-          <form
-            id={styles.form}
-          >
+          <form id={styles.form}>
             <div
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
               className={styles.divWidthControl}
             >
               <label className={styles.labels}>First Name:</label>
               <input
                 onBlur={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.firstName}
                 name="firstName"
@@ -147,9 +136,11 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
               {this.state.dirty.firstName === true &&
-              this.state.user.firstName === "" && <Alert alertPhrase={"Field cannot be blank"}/> }
+                this.state.user.firstName === "" && (
+                  <Alert alertPhrase={"Field cannot be blank"} />
+                )}
             </div>
-            
+
             <div className={styles.divWidthControl}>
               <label
                 style={{ letterSpacing: "0.4px" }}
@@ -159,7 +150,6 @@ class UserRegisterForm extends React.Component {
               </label>
               <input
                 onBlur={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.lastName}
                 name="lastName"
@@ -169,9 +159,11 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
               {this.state.dirty.lastName === true &&
-              this.state.user.lastName === "" && <Alert alertPhrase={"Field cannot be blank"}/>}
+                this.state.user.lastName === "" && (
+                  <Alert alertPhrase={"Field cannot be blank"} />
+                )}
             </div>
-            
+
             <div className={styles.divWidthControl}>
               <label
                 style={{ letterSpacing: "0.3px" }}
@@ -181,7 +173,6 @@ class UserRegisterForm extends React.Component {
               </label>
               <input
                 onBlur={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.email}
                 name="email"
@@ -190,15 +181,16 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="text"
               />
-               {this.validateEmail(this.state.user.email) === false &&
-              this.state.dirty.email === true && <Alert alertPhrase={"Please enter a valid email address"}/>}
+              {this.validateEmail(this.state.user.email) === false &&
+                this.state.dirty.email === true && (
+                  <Alert alertPhrase={"Please enter a valid email address"} />
+                )}
             </div>
-           
+
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Phone Number:</label>
               <input
                 onBlur={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.phoneNumber}
                 name="phoneNumber"
@@ -208,9 +200,11 @@ class UserRegisterForm extends React.Component {
                 type="text"
               />
               {this.validatePhone(this.state.user.phoneNumber) === false &&
-              this.state.dirty.phoneNumber === true && <Alert alertPhrase={"Please enter a valid phone number"}/>}
+                this.state.dirty.phoneNumber === true && (
+                  <Alert alertPhrase={"Please enter a valid phone number"} />
+                )}
             </div>
-            
+
             <div className={styles.divWidthControl}>
               <label
                 style={{ letterSpacing: "0.7px" }}
@@ -220,7 +214,6 @@ class UserRegisterForm extends React.Component {
               </label>
               <input
                 onKeyDown={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.createPassword}
                 name="createPassword"
@@ -230,16 +223,19 @@ class UserRegisterForm extends React.Component {
                 type="password"
               />
               {this.state.dirty.createPassword === true &&
-              this.state.user.createPassword.length < 7 && (
-                <Alert alertPhrase={"Password must be longer than eight characters"}/>
-              )}
+                this.state.user.createPassword.length < 7 && (
+                  <Alert
+                    alertPhrase={
+                      "Password must be longer than eight characters"
+                    }
+                  />
+                )}
             </div>
-            
+
             <div className={styles.divWidthControl}>
               <label className={styles.labels}>Password Confirm:</label>
               <input
                 onKeyDown={this.setDirty}
-                
                 onChange={this.getUserInput}
                 value={this.state.user.passwordConfirm}
                 name="passwordConfirm"
@@ -248,19 +244,16 @@ class UserRegisterForm extends React.Component {
                 className={styles.inputs}
                 type="password"
               />
-               {this.state.dirty.passwordConfirm === true &&
-              this.state.user.passwordConfirm !==
-                this.state.user.createPassword && <Alert alertPhrase={"Passwords must match"}/>}
+              {this.state.dirty.passwordConfirm === true &&
+                this.state.user.passwordConfirm !==
+                  this.state.user.createPassword && (
+                  <Alert alertPhrase={"Passwords must match"} />
+                )}
             </div>
-           
-          
           </form>
           <div id={styles.instructorSignUpAndRegSignUp}>
-          <InstructorSignup />
-          <button
-              onClick={this.registerUser}
-              id={styles.signUpButton}
-            >
+            <InstructorSignup />
+            <button onClick={this.registerUser} id={styles.signUpButton}>
               Sign Up
             </button>
           </div>
@@ -286,8 +279,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(UserRegisterForm)
+  connect(mapStateToProps, mapDispatchToProps)(UserRegisterForm)
 );

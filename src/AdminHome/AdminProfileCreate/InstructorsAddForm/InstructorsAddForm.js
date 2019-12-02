@@ -39,7 +39,6 @@ const InstructorsAddForm = props => {
           name: instructorInput
         })
         .then(response => {
-          console.log("hi");
           if (response.status === 200) {
             setError("");
             setInstructorsFoundList(response.data.instructors);

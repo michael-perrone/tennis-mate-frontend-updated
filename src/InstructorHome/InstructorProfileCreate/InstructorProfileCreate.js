@@ -29,7 +29,6 @@ class InstructorProfileCreate extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         {this.state.profileCreated && <InstructorNav />}

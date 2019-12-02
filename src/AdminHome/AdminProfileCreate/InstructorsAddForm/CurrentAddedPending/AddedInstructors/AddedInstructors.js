@@ -22,7 +22,6 @@ const AddedInstructor = props => {
           }
         })
         .catch(error => {
-          console.log(error.response.status);
           if (error.response.status === 406) {
             props.errorAddAlertHandler();
           }

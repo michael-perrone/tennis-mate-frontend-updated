@@ -31,7 +31,6 @@ class InstructorNav extends React.Component {
         }
       })
       .then(response => {
-        console.log(response);
         this.setState({ instructorProfile: response.data.instructorProfile });
       });
     axios
@@ -78,7 +77,7 @@ class InstructorNav extends React.Component {
         .split(" ")
         .reduce((accum, element) => accum + element)}`;
     }
-    console.log(this.props);
+
     return (
       <React.Fragment>
         <div id={styles.navBarContainer}>

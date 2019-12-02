@@ -7,7 +7,6 @@ class DropdownModal extends React.Component {
     if (this.props.allInfoReadyToSend) {
       showModal = styles.showModal;
     }
-    console.log(this.props.admin);
     return (
       <div id={showModal} className={styles.modalContainer}>
         <div id={styles.subModalContainer}>
@@ -31,14 +30,8 @@ class DropdownModal extends React.Component {
 
             <li>Zipcode: {this.props.tennisClub.clubZip}</li>
             <li>Club Phone: {this.props.tennisClub.phoneNumber}</li>
-            <li>
-              Open Time:{" "}
-              {this.props.tennisClub.clubOpenTime}
-            </li>
-            <li>
-              Close Time:{" "}
-              {this.props.tennisClub.clubCloseTime}
-            </li>
+            <li>Open Time: {this.props.tennisClub.clubOpenTime}</li>
+            <li>Close Time: {this.props.tennisClub.clubCloseTime}</li>
           </ul>
 
           <button id={styles.sendAllInfo} onClick={this.props.sendAllInfo}>

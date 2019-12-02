@@ -18,7 +18,6 @@ class TennisClub extends React.Component {
       prevState.instructorsAtClub &&
       prevState.instructorsAtClub.length === 0
     ) {
-      console.log("WILL FIRE");
       let instructorObject = {};
       if (this.props.profileInfo) {
         instructorObject = {
@@ -27,7 +26,6 @@ class TennisClub extends React.Component {
       }
       Axios.post("http://localhost:8080/api/getinstructors", instructorObject)
         .then(response => {
-          console.log(response.data);
           this.setState({
             instructorsAtClub: response.data.instructorsComingBack
           });
@@ -73,7 +71,6 @@ class TennisClub extends React.Component {
   }
 
   render() {
-    console.log(this.state.instructorsAtClub);
     return this.props.club ? (
       <div id={styles.tennisClubHolder}>
         {this.state.errorArray.map(element => {

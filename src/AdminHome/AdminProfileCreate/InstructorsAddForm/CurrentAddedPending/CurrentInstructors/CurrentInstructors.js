@@ -20,8 +20,6 @@ const CurrentInstructors = props => {
     };
   }
 
-  console.log(current);
-
   function addToDeleteCurrent(instructorToBeDeleted) {
     return () => {
       let newCurrent = current.filter(
@@ -33,7 +31,6 @@ const CurrentInstructors = props => {
       setCurrentToDelete(currentToDeleteUpdate);
     };
   }
-  console.log(props.admin);
 
   function removeFromCurrent() {
     let instructors = [];

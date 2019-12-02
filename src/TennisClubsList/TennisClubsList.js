@@ -32,7 +32,6 @@ class TennisClubsList extends React.Component {
         headers: { "x-auth-token": this.props.token }
       })
       .then(response => {
-        console.log(response);
         if (response.data.locationDenied === true) {
           this.getLocation();
           this.setState({ locationDenied: true });
@@ -72,7 +71,6 @@ class TennisClubsList extends React.Component {
           headers: { "x-auth-token": this.props.token }
         })
         .then(response => {
-          console.log(response);
           this.setState({ tennisClubs: response.data.tennisClubsBack });
         })
         .catch(error => {
@@ -94,7 +92,7 @@ class TennisClubsList extends React.Component {
           locationDenied: true
         })
         .then(response => {
-          console.log(response);
+          // waiting for this
         })
         .catch(error => {
           console.log(error);
@@ -106,7 +104,6 @@ class TennisClubsList extends React.Component {
     try {
       navigator.geolocation.getCurrentPosition(position => {
         this.setState({ showLocationModal: false });
-        console.log("hi");
         axios
           .get(
             `http://open.mapquestapi.com/geocoding/v1/reverse?key=${"enLuN7AK1OntX9nEbhnGO5uGqx04OtfP"}&location=${
@@ -236,7 +233,6 @@ class TennisClubsList extends React.Component {
                 this.setState({ stateLocation: "Wyoming" });
               }
               this.setState({ townLocation: CLV });
-              console.log(this.state.townLocation, this.state.stateLocation);
             }.bind(this)
           );
         this.setState({ locationGiven: true });
@@ -267,8 +263,6 @@ class TennisClubsList extends React.Component {
   }
 
   render() {
-    console.log(this.state.tennisClubs);
-    
     return (
       <div id={styles.clubsContainer}>
         {this.state.showLocationModal === true && (
@@ -294,7 +288,6 @@ class TennisClubsList extends React.Component {
             alertType={"error"}
           />
           {this.state.tennisClubs.map(element => {
-            console.log(element);
             return (
               <TennisClubInList
                 club={element.club}

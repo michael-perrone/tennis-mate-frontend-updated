@@ -3,7 +3,6 @@ import otherstyles from "../TryingToBookModal/TryingToBookModal.module.css";
 
 class CheckBookingModal extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <div className={otherstyles.bookingModal}>
         <button

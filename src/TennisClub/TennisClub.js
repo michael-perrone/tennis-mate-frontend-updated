@@ -45,7 +45,6 @@ class TennisClub extends React.Component {
   componentDidMount() {
     if (localStorage.getItem("adminToken")) {
       const admin = decoder(localStorage.getItem("adminToken"));
-      console.log(admin.admin.clubName);
       axios
         .post("http://localhost:8080/api/club", {
           clubName: admin.admin.clubName
@@ -92,7 +91,6 @@ class TennisClub extends React.Component {
       return { showEventDetailBox: true };
     });
     this.setState({ indexNumber: index });
-    console.log(index);
   }
 
   showEventDetailHandler() {
@@ -110,7 +108,6 @@ class TennisClub extends React.Component {
   }
 
   dateChoose(event) {
-    console.log(new Date(event.target.value));
     this.setState({ dateForEventString: event.target.value });
   }
 
@@ -614,11 +611,10 @@ class TennisClub extends React.Component {
                   <p className={styles.largerPTag}>Tennis Instructors</p>
                   <div
                     style={{ marginTop: "26px" }}
-                    className={styles.flexWrapDiv }
+                    className={styles.flexWrapDiv}
                   >
                     {this.state.instructors.length < 9 &&
                       this.state.instructors.map(instructor => {
-                        console.log(instructor);
                         return (
                           <Link
                             to={`/instructor/${instructor._id}`}

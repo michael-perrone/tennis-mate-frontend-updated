@@ -44,7 +44,6 @@ class InstructorHome extends React.Component {
     }
     if (this.props.user || this.props.admin) {
       this.setState({ isUser: true });
-      console.log("hi");
       axios
         .post("http://localhost:8080/api/getInstructor", {
           instructorId: this.props.match.params.instructorId
@@ -69,7 +68,6 @@ class InstructorHome extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div id={styles.instructorHomeContainer}>
         {this.state.isUser && !this.props.admin && <UserNav />}

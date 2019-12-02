@@ -46,7 +46,6 @@ class TryingToBookModal extends React.Component {
         howLong = `${this.props.booking.minutes} Minutes`;
       }
     }
-    console.log(this.props);
     return (
       <React.Fragment>
         <div onClick={this.props.cancelBooking} id={styles.backdrop}></div>
