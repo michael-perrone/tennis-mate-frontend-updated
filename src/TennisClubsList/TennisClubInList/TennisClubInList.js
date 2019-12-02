@@ -11,24 +11,32 @@ class TennisClub extends React.Component {
     this.state = { instructorsAtClub: [], errorArray: [], subscribeHit: false };
     this.subscribeToClub = this.subscribeToClub.bind(this);
   }
-  componentDidMount() {
-    let instructorObject = {};
-    if (this.props.profileInfo) {
-      instructorObject = {
-        instructors: this.props.profileInfo.instructors
-      };
-    }
-    Axios.post("http://localhost:8080/api/getinstructors", instructorObject)
-      .then(response => {
-        this.setState({
-          instructorsAtClub: response.data.instructorsComingBack
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.profileInfo &&
+      this.props.profileInfo.instructorsWhoAccepted.length > 0 &&
+      prevState.instructorsAtClub &&
+      prevState.instructorsAtClub.length === 0
+    ) {
+      console.log("WILL FIRE");
+      let instructorObject = {};
+      if (this.props.profileInfo) {
+        instructorObject = {
+          instructors: this.props.profileInfo.instructorsWhoAccepted
+        };
+      }
+      Axios.post("http://localhost:8080/api/getinstructors", instructorObject)
+        .then(response => {
+          console.log(response.data);
+          this.setState({
+            instructorsAtClub: response.data.instructorsComingBack
+          });
+        })
+        .catch(error => {
+          console.log(error.response);
         });
-      })
-      .catch(error => {
-        console.log(error.response);
-      });
+    }
   }
-
   removeSpaces = item => {
     const newString = item.split(" ").reduce((accum, element) => {
       return (accum += element);
@@ -65,7 +73,7 @@ class TennisClub extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    console.log(this.state.instructorsAtClub);
     return this.props.club ? (
       <div id={styles.tennisClubHolder}>
         {this.state.errorArray.map(element => {
@@ -181,7 +189,7 @@ class TennisClub extends React.Component {
                 this.state.instructorsAtClub.map((element, index) => {
                   return (
                     <p className={styles.services} key={element + index}>
-                      {element.fullName}
+                      {element.name}
                     </p>
                   );
                 })}

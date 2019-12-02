@@ -98,9 +98,7 @@
   height: 230px;
   width: 345px;
   margin-top: 70px;
-  flex-direction: column;
-  flex-flow: column;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   align-content: space-around;
 }
 

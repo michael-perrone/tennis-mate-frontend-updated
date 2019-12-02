@@ -61,6 +61,19 @@ const TryingToBookHelper = props => {
 
   return (
     <div id={styles.mainHelper}>
+      {!props.finish && (
+        <button
+          onClick={props.setFinish(addedPlayers)}
+          style={{
+            position: "absolute",
+            right: "-3px",
+            top: "-27px",
+            width: "60px"
+          }}
+        >
+          Finish
+        </button>
+      )}
       <div>
         <OtherAlert
           showAlert={addError === true}
@@ -102,14 +115,23 @@ const TryingToBookHelper = props => {
             Search
           </button>
         </form>
-        <div style={{ marginTop: "14px" }}>
-          {customers.map(customer => {
-            return (
-              <div className={styles.addCustomerContainer}>
-                <p className={styles.customer}>{customer.name}</p>
-                <i onClick={addPlayer(customer)} className="fas fa-plus"></i>
-              </div>
-            );
+        <div style={{ marginTop: "8px" }}>
+          {customers.map((customer, index) => {
+            if (index < 6) {
+              return (
+                <div className={styles.addCustomerContainer}>
+                  <p className={styles.customer}>{customer.name}</p>
+                  <p>Age: 42</p>
+                  <button
+                    className={styles.addButton}
+                    style={{ cursor: "pointer" }}
+                    onClick={addPlayer(customer)}
+                  >
+                    Add Player
+                  </button>
+                </div>
+              );
+            }
           })}
         </div>
       </div>
@@ -125,9 +147,9 @@ const TryingToBookHelper = props => {
         <p style={{ paddingTop: "10px", textDecoration: "underline" }}>
           Players Added
         </p>
-        <div>
+        <div id={styles.playerWrapDiv}>
           {addedPlayers.map(addedPlayer => {
-            return <p>{addedPlayer.name}</p>;
+            return <p style={{ marginTop: "6px" }}>{addedPlayer.name}</p>;
           })}
         </div>
       </div>

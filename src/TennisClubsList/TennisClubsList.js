@@ -268,6 +268,7 @@ class TennisClubsList extends React.Component {
 
   render() {
     console.log(this.state.tennisClubs);
+    
     return (
       <div id={styles.clubsContainer}>
         {this.state.showLocationModal === true && (

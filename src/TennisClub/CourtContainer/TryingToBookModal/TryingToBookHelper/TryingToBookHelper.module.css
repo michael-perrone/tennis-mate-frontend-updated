@@ -5,11 +5,20 @@
   height: 500px;
   padding: 10px;
   background-color: lightgray;
-  position: relative;
+  position: absolute;
+  top: 20px;
   z-index: 501;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+}
+
+#playerWrapDiv {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+  height: 160px;
+  align-content: space-around;
 }
 
 #helperInput {
@@ -33,11 +42,19 @@
 }
 
 .addCustomerContainer {
-  width: 218px;
+  width: 296px;
   margin-left: 7px;
   background-color: white;
   padding: 4px;
   border: 1px solid gray;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.addButton {
+  position: absolute;
+  right: 25px;
+  height: 30px;
+  margin-top: 4px;
+  padding: 0px 5px;
 }

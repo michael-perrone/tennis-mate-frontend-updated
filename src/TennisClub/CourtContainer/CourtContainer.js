@@ -31,7 +31,8 @@ class CourtContainer extends React.Component {
       bookingToSend: null,
       token: "",
       bookingSuccess: false,
-      newBooking: {}
+      newBooking: {},
+      playersComingBack: []
     };
   }
 
@@ -122,10 +123,24 @@ class CourtContainer extends React.Component {
     }
   };
 
+  setPlayersComingBack = players => {
+    console.log(players);
+    this.setState({ playersComingBack: players });
+  };
+
   bookCourtArray = () => {
     if (this.state.bookingToSend !== null) {
+      let playerIds = [];
+      if (this.state.playersComingBack.length > 0) {
+        for (let i = 0; i < this.state.playersComingBack.length; i++) {
+          playerIds.push(this.state.playersComingBack[i].id);
+        }
+      }
       axios
-        .post("http://localhost:8080/api/courtBooked", this.state.bookingToSend)
+        .post("http://localhost:8080/api/courtBooked", {
+          booking: this.state.bookingToSend,
+          players: playerIds
+        })
         .then(response => {
           if (response.status === 200) {
             if (this.props.instructorChosen) {
@@ -290,6 +305,10 @@ class CourtContainer extends React.Component {
       this.state.bookingArray.forEach(element => {
         courtIdsArray.push(element.courtId);
       });
+      let courtNumberComing = courtIdsArray[0].toString();
+      let courtNumberString = courtNumberComing.split("");
+      let courtNumber = parseInt(courtNumberString[0]);
+      let playerIds = [];
       const bookingToSend = {
         bookingType: this.props.bookingType.bookingType,
         instructorName,
@@ -300,7 +319,8 @@ class CourtContainer extends React.Component {
         courtIds: courtIdsArray,
         minutes: this.state.bookingArray.length * 15,
         clubName: this.props.clubName,
-        date: this.props.date
+        date: this.props.date,
+        courtNumber
       };
       this.setState({ bookingToSend });
 
@@ -333,6 +353,7 @@ class CourtContainer extends React.Component {
               booking={this.state.bookingToSend}
               cancelBooking={this.cancelBooking}
               bookCourt={this.bookCourtArray}
+              setPlayersComingBack={this.setPlayersComingBack}
             />
           </div>
         )}
