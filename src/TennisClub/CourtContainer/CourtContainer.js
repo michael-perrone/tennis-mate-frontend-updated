@@ -4,9 +4,9 @@ import axios from "axios";
 import CourtColumns from "./CourtColumns/CourtColumns";
 import CheckBookingModal from "./CheckBookingModal/CheckBookingModal";
 import TryingToBookModal from "./TryingToBookModal/TryingToBookModal";
-import decoder from "jwt-decode";
 import BookingIntro from "./BookingIntro/BookingIntro";
 import { connect } from "react-redux";
+import OtherAlert from "../../OtherAlerts/OtherAlerts";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -14,10 +14,12 @@ class CourtContainer extends React.Component {
     this.courtNumbersToCourtColumns = this.courtNumbersToCourtColumns.bind(
       this
     );
-    // objectToModal
+    this.deleteBooking = this.deleteBooking.bind(this);
     this.convertTimeToCourts = this.convertTimeToCourts.bind(this);
+    this.setShowDeleteSuccess = this.setShowDeleteSuccess.bind(this);
     this.courtClicked = this.courtClicked.bind(this);
     this.state = {
+      showDeleteSuccess: false,
       courtsClicked: false,
       firstSlotInArray: {},
       lastSlotInArray: {},
@@ -43,19 +45,36 @@ class CourtContainer extends React.Component {
     ) {
       axios
         .post("http://localhost:8080/api/courtBooked/getcourts", {
-          clubName: this.props.clubName
+          clubName: this.props.clubName,
+          date: this.props.date
         })
         .then(response => {
-          let clubsMatchArray = [];
-          response.data.bookings.forEach(element => {
-            if (this.props.date === element.date) {
-              clubsMatchArray.push(element);
-            }
-          });
-
-          this.setState({ bookedCourts: clubsMatchArray });
+          this.setState({ bookedCourts: response.data.bookings });
         });
     }
+  }
+
+  setShowDeleteSuccess() {
+    this.setState({ showDeleteSuccess: false });
+    setTimeout(() => this.setState({ showDeleteSuccess: true }), 200);
+  }
+
+  deleteBooking(bookingId) {
+    return () => {
+      axios
+        .post("http://localhost:8080/api/courtBooked/delete", {
+          bookingId,
+          clubName: this.props.clubName,
+          date: this.props.date
+        })
+        .then(response => {
+          this.setState({ bookedCourts: response.data.bookings });
+          if (response.status === 200) {
+            this.setState({ showBookingModalState: false });
+            this.setShowDeleteSuccess();
+          }
+        });
+    };
   }
 
   courtClicked() {
@@ -136,7 +155,8 @@ class CourtContainer extends React.Component {
       axios
         .post("http://localhost:8080/api/courtBooked", {
           booking: this.state.bookingToSend,
-          players: playerIds
+          players: playerIds,
+          date: this.props.date
         })
         .then(response => {
           if (response.status === 200) {
@@ -305,7 +325,7 @@ class CourtContainer extends React.Component {
       let courtNumberComing = courtIdsArray[0].toString();
       let courtNumberString = courtNumberComing.split("");
       let courtNumber = parseInt(courtNumberString[0]);
-      let playerIds = [];
+      console.log();
       const bookingToSend = {
         bookingType: this.props.bookingType.bookingType,
         instructorName,
@@ -339,9 +359,15 @@ class CourtContainer extends React.Component {
         {this.state.showBookingModalState && (
           <CheckBookingModal
             cancel={this.cancelBookingModal}
+            deleteBooking={this.deleteBooking}
             objectToModal={this.state.objectToModal}
           />
         )}
+        <OtherAlert
+          alertType="success"
+          alertMessage="Court Deleted"
+          showAlert={this.state.showDeleteSuccess}
+        />
         {this.state.tryingToBookModalState && (
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
