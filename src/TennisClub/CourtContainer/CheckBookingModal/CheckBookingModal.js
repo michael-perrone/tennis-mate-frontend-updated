@@ -8,10 +8,16 @@ class CheckBookingModal extends React.Component {
     super(props);
     this.state = {
       playersToShow: [],
-      confirmDelete: false
+      confirmDelete: false,
+      editing: false
     };
     this.showConfirmDelete = this.showConfirmDelete.bind(this);
     this.cancelConfirmDelete = this.cancelConfirmDelete.bind(this);
+    this.setEditing = this.setEditing.bind(this);
+  }
+
+  setEditing() {
+    this.setState({ editing: !this.state.editing });
   }
 
   componentDidMount() {
@@ -117,9 +123,27 @@ class CheckBookingModal extends React.Component {
                 {this.state.players &&
                   this.state.players.map(player => {
                     return (
-                      <p style={{ padding: "4px", fontSize: "14px" }}>
-                        {player.name}
-                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between"
+                        }}
+                      >
+                        <p style={{ padding: "4px", fontSize: "14px" }}>
+                          {player.name}{" "}
+                        </p>
+                        {this.state.editing && (
+                          <i
+                            style={{
+                              padding: "4px",
+                              position: "relative",
+                              top: "2px"
+                            }}
+                            id={styles.littleGuy}
+                            class="fas fa-ban"
+                          ></i>
+                        )}
+                      </div>
                     );
                   })}
               </div>
@@ -184,9 +208,22 @@ class CheckBookingModal extends React.Component {
               onClick={this.showConfirmDelete}
               className={styles.editCancel}
             >
+              <i
+                style={{
+                  position: "relative",
+                  left: "-5px"
+                }}
+                class="far fa-trash-alt"
+              ></i>
               Remove
             </button>
-            <button className={styles.editCancel}>Edit</button>
+            <button className={styles.editCancel} onClick={this.setEditing}>
+              <i
+                style={{ position: "relative", left: "-5px" }}
+                class="far fa-edit"
+              ></i>
+              Edit
+            </button>
           </div>
         </div>
       </React.Fragment>

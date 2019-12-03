@@ -655,6 +655,7 @@ class TennisClub extends React.Component {
                 <AdminBooking instructors={this.state.instructors} />
               </div>
               <CourtContainer
+                clubNameAllLower={this.state.club.clubNameAllLower}
                 numberCourts={this.state.club.numberCourts}
                 date={`${this.state.dateChosenForCourts.getMonth() +
                   1} ${this.state.dateChosenForCourts.getDate()} ${this.state.dateChosenForCourts.getYear() +

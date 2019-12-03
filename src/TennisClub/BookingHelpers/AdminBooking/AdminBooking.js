@@ -127,13 +127,13 @@ AdminBooking.defaultProps = {
     "5 Hours"
   ],
   bookingTypes: [
-    "Group Clinic",
+    "Open Clinic",
     "Group Lesson",
     "Private Clinic",
     "Private Lesson",
     "Court Time",
     "Employee Court Time",
-    "Birthday Party",
+    "Tournament",
     "Other"
   ]
 };
@@ -157,7 +157,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdminBooking);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminBooking);

@@ -6,3 +6,12 @@
   border: none;
   margin: 0px 10px;
 }
+
+#littleGuy {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#littleGuy:hover {
+  color: red;
+}

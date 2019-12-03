@@ -373,6 +373,7 @@ class CourtContainer extends React.Component {
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
             <TryingToBookModal
+              clubNameAllLower={this.props.clubNameAllLower}
               booking={this.state.bookingToSend}
               cancelBooking={this.cancelBooking}
               bookCourt={this.bookCourtArray}

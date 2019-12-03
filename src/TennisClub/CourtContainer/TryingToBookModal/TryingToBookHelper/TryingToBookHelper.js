@@ -3,6 +3,7 @@ import styles from "./TryingToBookHelper.module.css";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import OtherAlert from "../../../../OtherAlerts/OtherAlerts";
+import { connect } from "react-redux";
 
 const TryingToBookHelper = props => {
   const [customerName, setCustomerName] = React.useState("");
@@ -16,10 +17,16 @@ const TryingToBookHelper = props => {
     event.preventDefault();
     if (customerName.length > 2) {
       setSearchHit(true);
+      let clubName = "";
+      if (props.admin) {
+        clubName = props.clubNameAllLower;
+      } else {
+        clubName = props.match.params.clubName;
+      }
       axios
         .post("http://localhost:8080/api/getCustomers", {
           customerName,
-          clubNameAllLower: props.match.params.clubName
+          clubNameAllLower: clubName
         })
         .then(response => {
           if (response.data.customers.length > 0) {
@@ -157,4 +164,10 @@ const TryingToBookHelper = props => {
   );
 };
 
-export default withRouter(TryingToBookHelper);
+const mapStateToProps = state => {
+  return {
+    admin: state.authReducer.admin
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(TryingToBookHelper));

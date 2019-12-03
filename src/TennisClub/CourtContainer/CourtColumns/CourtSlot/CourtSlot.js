@@ -57,6 +57,44 @@ class CourtSlot extends React.Component {
   };
 
   render() {
+    let color = "";
+    if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Open Clinic"
+    ) {
+      color = "#c5ffa1";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Employee Court Time"
+    ) {
+      color = "#faff73";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Private Lesson"
+    ) {
+      color = "#82fff3";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Private Clinic"
+    ) {
+      color = "#fd66ff  ";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Group Lesson"
+    ) {
+      color = "white";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Other"
+    ) {
+      color = "pink";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Tournament"
+    ) {
+      color = "#cda1ff";
+    }
+
     return (
       <div
         style={{
@@ -89,7 +127,14 @@ class CourtSlot extends React.Component {
             onClick={this.props.getModalObject(this.props.bookingInfo)}
             id={styles.bookingInfo}
           >
-            <button id={styles.bookedCheckButton}>Booked</button>
+            <button
+              style={{
+                backgroundColor: color
+              }}
+              id={styles.bookedCheckButton}
+            >
+              {this.props.bookingInfo.bookingType}
+            </button>
           </div>
         )}
         {!this.props.booked && !this.props.beingBooked && (

@@ -130,6 +130,7 @@ class TryingToBookModal extends React.Component {
           )}
           {this.state.showBookingHelper && (
             <TryingToBookHelper
+              clubNameAllLower={this.props.clubNameAllLower}
               setFinish={this.setFinish}
               finish={this.state.finish}
               bookCourt={this.props.bookCourt}
