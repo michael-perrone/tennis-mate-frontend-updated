@@ -325,7 +325,6 @@ class CourtContainer extends React.Component {
       let courtNumberComing = courtIdsArray[0].toString();
       let courtNumberString = courtNumberComing.split("");
       let courtNumber = parseInt(courtNumberString[0]);
-      console.log();
       const bookingToSend = {
         bookingType: this.props.bookingType.bookingType,
         instructorName,

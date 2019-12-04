@@ -1,14 +1,16 @@
 import React from "react";
-import styles from "./TryingToBookHelper.module.css";
+import styles from "../../TryingToBookModal/TryingToBookHelper/TryingToBookHelper.module.css";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import OtherAlert from "../../../../OtherAlerts/OtherAlerts";
 import { connect } from "react-redux";
 
-const TryingToBookHelper = props => {
+const AddingPlayers = props => {
   const [customerName, setCustomerName] = React.useState("");
   const [customers, setCustomers] = React.useState([]);
-  const [addedPlayers, setAddedPlayers] = React.useState([]);
+  const [addedPlayers, setAddedPlayers] = React.useState([
+    ...props.playersFromModal
+  ]);
   const [searchHit, setSearchHit] = React.useState(false);
   const [tooSmallError, setTooSmallError] = React.useState(false);
   const [addError, setAddError] = React.useState(false);
@@ -67,20 +69,18 @@ const TryingToBookHelper = props => {
   };
 
   return (
-    <div id={styles.mainHelper}>
-      {!props.finish && (
-        <button
-          onClick={props.setFinish(addedPlayers)}
-          style={{
-            position: "absolute",
-            right: "-3px",
-            top: "-27px",
-            width: "60px"
-          }}
-        >
-          Finish
-        </button>
-      )}
+    <div style={{ height: "500px", top: "10px" }} id={styles.mainHelper}>
+      <i
+        style={{
+          position: "absolute",
+          left: "4px",
+          cursor: "pointer",
+          top: "1px",
+          fontSize: "18px"
+        }}
+        onClick={props.goBackHandler}
+        className="fas fa-arrow-left"
+      ></i>
       <div>
         <OtherAlert
           showAlert={addError === true}
@@ -151,10 +151,35 @@ const TryingToBookHelper = props => {
           height: "180px"
         }}
       >
-        <p style={{ paddingTop: "10px", textDecoration: "underline" }}>
-          Players Added
+        <p
+          style={{
+            position: "relative",
+            top: "2px",
+            paddingTop: "10px",
+            textDecoration: "underline"
+          }}
+        >
+          Players
         </p>
-        <div id={styles.playerWrapDiv}>
+        <button
+          style={{
+            height: "26px",
+            width: "65px",
+            backgroundColor: "lightgreen",
+            border: "none",
+            boxShadow: "0px 0px 2px black",
+            position: "relative",
+            top: "-20px",
+            left: "120px"
+          }}
+          onClick={props.done(addedPlayers)}
+        >
+          Finished
+        </button>
+        <div
+          style={{ position: "relative", top: "-18px" }}
+          id={styles.playerWrapDiv}
+        >
           {addedPlayers.map(addedPlayer => {
             return (
               <p
@@ -179,4 +204,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(TryingToBookHelper));
+export default withRouter(connect(mapStateToProps)(AddingPlayers));

@@ -19,12 +19,23 @@ const UserHomeContainer = props => {
     });
   }, []);
 
+  useEffect(() => {
+    Axios.get("http://localhost:8080/api/getBookings", {
+      headers: { "x-auth-token": props.userToken }
+    });
+  });
+
   function setNewClubs(newClubs) {
     setClubs(newClubs);
   }
 
   return (
-    <div id={styles.userHomeContainer}>
+    <div
+      style={{
+        height: clubs.length < 3 ? "92vh" : `${(clubs.length - 1) * 300}px`
+      }}
+      id={styles.userHomeContainer}
+    >
       <div id={styles.clubsSubscribedHalf}>
         {clubs.length > 0 &&
           clubs.map(individualClub => {

@@ -2,18 +2,56 @@ import React from "react";
 import otherstyles from "../TryingToBookModal/TryingToBookModal.module.css";
 import Axios from "axios";
 import styles from "./CheckBookingModal.module.css";
+import OtherAlert from "../../../OtherAlerts/OtherAlerts";
+import AddingPlayers from "./AddingPlayers/AddingPlayers";
 
 class CheckBookingModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playersToShow: [],
+      players: [],
       confirmDelete: false,
-      editing: false
+      editing: false,
+      playersChanged: false,
+      showAddHelper: false
     };
+    this.done = this.done.bind(this);
     this.showConfirmDelete = this.showConfirmDelete.bind(this);
     this.cancelConfirmDelete = this.cancelConfirmDelete.bind(this);
     this.setEditing = this.setEditing.bind(this);
+    this.removePlayers = this.removePlayers.bind(this);
+    this.savePlayers = this.savePlayers.bind(this);
+    this.addPlayers = this.addPlayers.bind(this);
+    this.goBackHandler = this.goBackHandler.bind(this);
+  }
+
+  goBackHandler() {
+    this.setState({ showAddHelper: false });
+  }
+
+  done(players) {
+    return () => {
+      this.setState({ players });
+      this.setState({ editing: true });
+      setTimeout(() => this.setState({ showAddHelper: false }), 200);
+    };
+  }
+
+  addPlayers() {
+    this.setState({ showAddHelper: true });
+  }
+
+  savePlayers() {
+    this.setState({ playersChanged: false });
+    let newPlayers = [];
+    this.state.players.forEach(player => {
+      newPlayers.push(player.id);
+    });
+    Axios.post("http://localhost:8080/api/getCustomers/saveNewPlayers", {
+      newPlayers,
+      bookingId: this.props.objectToModal._id
+    });
+    setTimeout(() => this.setState({ playersChanged: true }), 300);
   }
 
   setEditing() {
@@ -30,11 +68,18 @@ class CheckBookingModal extends React.Component {
     ) {
       console.log("hi");
       Axios.post("http://localhost:8080/api/getPlayers", {
-        players: this.props.objectToModal.players
+        bookingId: this.props.objectToModal._id
       }).then(response => {
         this.setState({ players: response.data.players });
       });
     }
+  }
+
+  removePlayers(id) {
+    return () => {
+      let newPlayers = this.state.players.filter(player => player.id !== id);
+      this.setState({ players: newPlayers });
+    };
   }
 
   showConfirmDelete() {
@@ -46,7 +91,6 @@ class CheckBookingModal extends React.Component {
   }
 
   render() {
-    console.log("hi");
     return (
       <React.Fragment>
         <div
@@ -66,6 +110,10 @@ class CheckBookingModal extends React.Component {
             style={{
               boxShadow: "0px 0px 2px black",
               position: "absolute",
+              borderLeft: "1px solid black",
+              borderBottom: "1px solid black",
+              borderRight: "none",
+              borderTop: "none",
               top: "0",
               right: "0",
               zIndex: "1000",
@@ -75,6 +123,11 @@ class CheckBookingModal extends React.Component {
           >
             X
           </button>
+          <OtherAlert
+            alertMessage={"Players Changed Successfully"}
+            showAlert={this.state.playersChanged}
+            alertType={"success"}
+          />
           <p style={{ marginTop: "20px", textDecoration: "underline" }}>
             Information
           </p>
@@ -113,7 +166,7 @@ class CheckBookingModal extends React.Component {
                   marginTop: "6px",
                   boxShadow: "0px 0px 2px black",
                   width: "90%",
-                  height: "200px",
+                  height: "220px",
                   display: "flex",
                   flexDirection: "column",
                   flexWrap: "wrap",
@@ -129,11 +182,18 @@ class CheckBookingModal extends React.Component {
                           justifyContent: "space-between"
                         }}
                       >
-                        <p style={{ padding: "4px", fontSize: "14px" }}>
+                        <p
+                          style={{
+                            padding: "4px",
+                            fontSize:
+                              this.state.players.length > 8 ? "12px" : "14px"
+                          }}
+                        >
                           {player.name}{" "}
                         </p>
-                        {this.state.editing && (
+                        {this.state.editing && this.state.players.length > 1 && (
                           <i
+                            onClick={this.removePlayers(player.id)}
                             style={{
                               padding: "4px",
                               position: "relative",
@@ -146,6 +206,43 @@ class CheckBookingModal extends React.Component {
                       </div>
                     );
                   })}
+                {this.state.editing && this.state.players.length !== 0 && (
+                  <button
+                    style={{
+                      backgroundColor: "lightgreen",
+                      height: "26px",
+                      width: "60px",
+                      border: "none",
+                      boxShadow: "0px 0px 3px black",
+                      position: "absolute",
+                      bottom: "18px"
+                    }}
+                    onClick={this.savePlayers}
+                  >
+                    Save
+                  </button>
+                )}
+                <button
+                  style={{
+                    backgroundColor: "lightgreen",
+                    height: "22px",
+                    width: "90px",
+                    border: "none",
+                    boxShadow: "0px 0px 3px black",
+                    position: "absolute",
+                    bottom: "115px"
+                  }}
+                  onClick={this.addPlayers}
+                >
+                  Add Players
+                </button>
+                {this.state.showAddHelper && (
+                  <AddingPlayers
+                    playersFromModal={this.state.players}
+                    goBackHandler={this.goBackHandler}
+                    done={this.done}
+                  />
+                )}
               </div>
             </React.Fragment>
           )}
@@ -215,7 +312,7 @@ class CheckBookingModal extends React.Component {
                 }}
                 class="far fa-trash-alt"
               ></i>
-              Remove
+              Delete
             </button>
             <button className={styles.editCancel} onClick={this.setEditing}>
               <i
