@@ -8,7 +8,11 @@ import { connect } from "react-redux";
 const TryingToBookHelper = props => {
   const [customerName, setCustomerName] = React.useState("");
   const [customers, setCustomers] = React.useState([]);
-  const [addedPlayers, setAddedPlayers] = React.useState([]);
+  const [addedPlayers, setAddedPlayers] = React.useState(
+    props.user
+      ? [{ name: props.user.user.userName, id: props.user.user.id }]
+      : []
+  );
   const [searchHit, setSearchHit] = React.useState(false);
   const [tooSmallError, setTooSmallError] = React.useState(false);
   const [addError, setAddError] = React.useState(false);
@@ -175,6 +179,7 @@ const TryingToBookHelper = props => {
 
 const mapStateToProps = state => {
   return {
+    user: state.authReducer.user,
     admin: state.authReducer.admin
   };
 };

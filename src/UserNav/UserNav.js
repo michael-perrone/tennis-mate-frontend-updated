@@ -26,7 +26,7 @@ const UserNav = props => {
       <div id={styles.secondContainer}>
         <p
           onClick={goToClubs}
-          style={{ cursor: "pointer", marginRight: "25px" }}
+          style={{ cursor: "pointer", marginRight: "25px", height: "32px" }}
         >
           View Clubs
         </p>
@@ -34,7 +34,7 @@ const UserNav = props => {
           <p
             className={styles.links}
             onClick={goToUser}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", height: "32px" }}
           >
             {props.user.user.userName}
           </p>{" "}
@@ -93,8 +93,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(UserNav)
+  connect(mapStateToProps, mapDispatchToProps)(UserNav)
 );

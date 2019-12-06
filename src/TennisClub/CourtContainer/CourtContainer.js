@@ -141,6 +141,13 @@ class CourtContainer extends React.Component {
   };
 
   setPlayersComingBack = players => {
+    if (this.props.user) {
+      let playerAlreadyHereArray = [
+        { name: this.props.user.user.userName, id: this.props.user.user.id },
+        ...players
+      ];
+      this.setState({ playersComingBack: playerAlreadyHereArray });
+    }
     this.setState({ playersComingBack: players });
   };
 

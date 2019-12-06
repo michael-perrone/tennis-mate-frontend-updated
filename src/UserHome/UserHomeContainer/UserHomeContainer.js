@@ -3,10 +3,13 @@ import styles from "./UserHomeContainer.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
 import ClubInsideUserHome from "./ClubInsideUserHome/ClubInsideUserHome";
+import UserBooking from "./UserBooking/UserBooking";
 
 const UserHomeContainer = props => {
   const [clubs, setClubs] = useState([]);
   const [noClubs, setNoClubs] = useState("");
+  const [bookings, setBookings] = useState([]);
+
   useEffect(() => {
     Axios.get("http://localhost:8080/api/userClubs", {
       headers: { "x-auth-token": props.userToken }
@@ -22,8 +25,12 @@ const UserHomeContainer = props => {
   useEffect(() => {
     Axios.get("http://localhost:8080/api/getBookings", {
       headers: { "x-auth-token": props.userToken }
+    }).then(response => {
+      if (response.status === 200) {
+        setBookings(response.data.bookings);
+      }
     });
-  });
+  }, []);
 
   function setNewClubs(newClubs) {
     setClubs(newClubs);
@@ -31,12 +38,20 @@ const UserHomeContainer = props => {
 
   return (
     <div
-      style={{
-        height: clubs.length < 3 ? "92vh" : `${(clubs.length - 1) * 300}px`
-      }}
+      style={{ height: bookings.length < 3 && clubs.length < 3 ? "92vh" : "" }}
       id={styles.userHomeContainer}
     >
-      <div id={styles.clubsSubscribedHalf}>
+      <div className={styles.half} id={styles.clubsSubscribedHalf}>
+        {clubs.length > 0 && (
+          <p
+            style={{
+              marginBottom: "10px",
+              fontFamily: '"Josefin Sans", sans-serif'
+            }}
+          >
+            Clubs you follow
+          </p>
+        )}
         {clubs.length > 0 &&
           clubs.map(individualClub => {
             return (
@@ -48,8 +63,18 @@ const UserHomeContainer = props => {
           })}
         {clubs.length < 1 && <p>{noClubs}</p>}
       </div>
-      <div id={styles.bookingsHalf}>
-        <p>Bookings coming up</p>
+      <div className={styles.half} id={styles.bookingsHalf}>
+        <p
+          style={{
+            marginBottom: "10px",
+            fontFamily: '"Josefin Sans", sans-serif'
+          }}
+        >
+          Your bookings coming up
+        </p>
+        {bookings.map(booking => {
+          return <UserBooking bookingInfo={booking} />;
+        })}
       </div>
     </div>
   );

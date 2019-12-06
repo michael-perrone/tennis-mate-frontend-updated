@@ -92,19 +92,32 @@ class AdminBooking extends React.Component {
           <p style={{ marginBottom: "-8px" }}>Choose Booking Type</p>
           <div className={styles.bookingHolderSubContainer}>
             {this.props.bookingTypes.map(element => {
-              return (
-                <p
-                  style={{
-                    backgroundColor:
-                      this.state.bookingType === element ? "navy" : "",
-                    color: this.state.bookingType === element ? "white" : ""
-                  }}
-                  onClick={this.selectBookingType(element)}
-                  className={styles.itemPTag}
-                >
-                  {element}
-                </p>
-              );
+              if (
+                this.props.user &&
+                (element === "Open Clinic" ||
+                  element === "Employee Court Time" ||
+                  element === "Tournament")
+              ) {
+                return "";
+              } else if (
+                this.props.admin ||
+                this.props.instructor ||
+                this.props.user
+              ) {
+                return (
+                  <p
+                    style={{
+                      backgroundColor:
+                        this.state.bookingType === element ? "navy" : "",
+                      color: this.state.bookingType === element ? "white" : ""
+                    }}
+                    onClick={this.selectBookingType(element)}
+                    className={styles.itemPTag}
+                  >
+                    {element}
+                  </p>
+                );
+              }
             })}
           </div>
         </div>
@@ -140,6 +153,9 @@ AdminBooking.defaultProps = {
 
 const mapStateToProps = state => {
   return {
+    user: state.authReducer.user,
+    instructor: state.authReducer.instructor,
+    admin: state.authReducer.admin,
     bookingType: state.bookingInfoReducer.bookingType,
     instructorChosen: state.bookingInfoReducer.instructorChosen,
     timeChosen: state.bookingInfoReducer.timeSelected

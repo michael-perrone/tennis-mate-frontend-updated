@@ -33,7 +33,9 @@ const ClubInsideUserHome = props => {
   return (
     <div id={styles.userClubContainer}>
       <div id={styles.leftContainer} className={styles.userSubContainer}>
-        <p className={styles.clubItem}>{props.club.clubName}</p>
+        <p style={{ fontWeight: "bold" }} className={styles.clubItem}>
+          {props.club.clubName}
+        </p>
         <p className={styles.clubItem}>{props.club.address}</p>
         <p className={styles.clubItem}>{props.club.city}</p>
         <p className={styles.clubItem}>{props.club.state}</p>

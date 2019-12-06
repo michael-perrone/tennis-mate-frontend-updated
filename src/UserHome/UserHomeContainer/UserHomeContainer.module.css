@@ -4,12 +4,15 @@
 
 #clubsSubscribedHalf {
   width: 65%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 20px 0px;
 }
 
 #bookingsHalf {
   width: 35%;
+}
+
+.half {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px 0px;
 }

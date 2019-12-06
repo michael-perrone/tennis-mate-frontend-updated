@@ -56,15 +56,15 @@ class InstructorHome extends React.Component {
           }
         });
     }
-    if (this.props.instructorToken) {
+    /*  if (this.props.instructorToken) {
       axios
-        .get("http://localhost:8080/api/getBookings", {
+        .get("http://localhost:8080/api/getBookings/instructor", {
           headers: { "x-auth-token": this.props.instructorToken }
         })
         .then(response => {
           this.setState({ bookings: response.data.bookings });
         });
-    }
+    } */
   }
 
   render() {
