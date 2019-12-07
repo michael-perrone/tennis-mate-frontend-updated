@@ -15,7 +15,8 @@ class InstructorHome extends React.Component {
     this.state = {
       profileCreated: false,
       instructorProfile: undefined,
-      isUser: false
+      isUser: false,
+      bookings: []
     };
   }
   componentDidMount() {
@@ -53,18 +54,20 @@ class InstructorHome extends React.Component {
             this.setState({
               instructorProfile: response.data.instructorProfile
             });
+            if (this.props.user || this.props.admin)
+              axios
+                .post("http://localhost:8080/api/iBookings", {
+                  instructorId: response.data.instructorProfile.instructor._id,
+                  userId: this.props.user
+                    ? this.props.user.user.id
+                    : this.props.admin.admin.id
+                })
+                .then(response => {
+                  this.setState({ bookings: response.data.bookings });
+                });
           }
         });
     }
-    /*  if (this.props.instructorToken) {
-      axios
-        .get("http://localhost:8080/api/getBookings/instructor", {
-          headers: { "x-auth-token": this.props.instructorToken }
-        })
-        .then(response => {
-          this.setState({ bookings: response.data.bookings });
-        });
-    } */
   }
 
   render() {

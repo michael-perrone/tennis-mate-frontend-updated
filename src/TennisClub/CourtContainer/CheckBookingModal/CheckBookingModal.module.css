@@ -15,3 +15,14 @@
 #littleGuy:hover {
   color: red;
 }
+
+#showing {
+  opacity: 1;
+}
+
+.notShowing {
+  opacity: 0;
+  transition-duration: 0.7s;
+  position: absolute;
+  bottom: 300px;
+}

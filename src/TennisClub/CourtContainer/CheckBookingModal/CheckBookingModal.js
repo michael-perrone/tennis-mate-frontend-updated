@@ -16,7 +16,9 @@ class CheckBookingModal extends React.Component {
       playersChanged: false,
       showAddHelper: false,
       rebooking: false,
-      canView: false
+      canView: false,
+      clinicJoined: false,
+      rebooker: ""
     };
     this.done = this.done.bind(this);
     this.showConfirmDelete = this.showConfirmDelete.bind(this);
@@ -27,6 +29,23 @@ class CheckBookingModal extends React.Component {
     this.addPlayers = this.addPlayers.bind(this);
     this.goBackHandler = this.goBackHandler.bind(this);
     this.rebookingHandler = this.rebookingHandler.bind(this);
+    this.joinClinic = this.joinClinic.bind(this);
+  }
+
+  joinClinic() {
+    let playerIds = [];
+    this.state.players.forEach(player => {
+      playerIds.push(player.id);
+    });
+    let newPlayers = [...playerIds, this.props.user.user.id];
+    Axios.post("http://localhost:8080/api/getCustomers/saveNewPlayers", {
+      newPlayers,
+      bookingId: this.props.objectToModal._id
+    }).then(response => {
+      if (response.status === 200) {
+        this.setState({ clinicJoined: true });
+      }
+    });
   }
 
   rebookingHandler() {
@@ -73,8 +92,6 @@ class CheckBookingModal extends React.Component {
   }
 
   componentDidMount() {
-    console.log("hi");
-    console.log(this.props);
     if (
       this.props.objectToModal &&
       this.props.objectToModal.players &&
@@ -92,6 +109,16 @@ class CheckBookingModal extends React.Component {
               return;
             }
           }
+        }
+      });
+    }
+    if (this.props.objectToModal) {
+      Axios.post("http://localhost:8080/api/rebooked", {
+        currentlyBookedBy: this.props.objectToModal.bookedBy,
+        bookingId: this.props.objectToModal
+      }).then(response => {
+        if (response.data.rebooked === true) {
+          this.setState({ rebooker: response.data.bookedBy });
         }
       });
     }
@@ -127,10 +154,10 @@ class CheckBookingModal extends React.Component {
             backgroundColor: "rgba(0,0,0,0.85)"
           }}
         ></div>
-        {(this.props.instructor ||
-          this.props.admin ||
+        {(this.props.instructor !== null ||
+          this.props.admin !== null ||
           (this.props.user &&
-            this.props.objectToModal.bookingType !== "Open Clinic") ||
+            this.props.objectToModal.bookingType === "Open Clinic") ||
           this.state.canView) && (
           <div style={{ left: "35%" }} className={otherstyles.bookingModal}>
             <button
@@ -165,12 +192,20 @@ class CheckBookingModal extends React.Component {
                 marginTop: "6px"
               }}
             >
-              <p style={{ padding: "5px" }}>
-                Booked by:{" "}
-                {this.state.rebooking
-                  ? this.props.instructor.instructor.instructorName
-                  : this.props.objectToModal.bookedBy}
-              </p>
+              {" "}
+              {this.state.rebooker !== "" && (
+                <p style={{ padding: "5px" }}>
+                  Rebooked by: {this.state.rebooker}
+                </p>
+              )}
+              {this.state.rebooker === "" && (
+                <p style={{ padding: "5px" }}>
+                  Booked by:{" "}
+                  {this.state.rebooking
+                    ? this.props.instructor.instructor.instructorName
+                    : this.props.objectToModal.bookedBy}
+                </p>
+              )}
               <p style={{ padding: "5px" }}>
                 Booking starts: {this.props.objectToModal.timeStart}
               </p>
@@ -186,59 +221,93 @@ class CheckBookingModal extends React.Component {
                 </p>
               )}
             </div>
-            {this.state.players && this.state.players.length > 0 && (
-              <React.Fragment>
-                <p style={{ textDecoration: "underline", marginTop: "16px" }}>
-                  Players
-                </p>
-                <div
-                  style={{
-                    marginTop: "6px",
-                    boxShadow: "0px 0px 2px black",
-                    width: "90%",
-                    height: "220px",
-                    display: "flex",
-                    flexDirection: "column",
-                    flexWrap: "wrap",
-                    alignContent: "space-around"
-                  }}
-                >
-                  {this.state.players &&
-                    this.state.players.map(player => {
-                      return (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between"
-                          }}
-                        >
-                          <p
+            {this.state.players &&
+              this.state.players.length > 0 &&
+              !this.props.user && (
+                <React.Fragment>
+                  <p style={{ textDecoration: "underline", marginTop: "16px" }}>
+                    Players
+                  </p>
+                  <div
+                    style={{
+                      marginTop: "6px",
+                      boxShadow: "0px 0px 2px black",
+                      width: "90%",
+                      height: "220px",
+                      display: "flex",
+                      flexDirection: "column",
+                      flexWrap: "wrap",
+                      alignContent: "space-around"
+                    }}
+                  >
+                    {this.state.players &&
+                      this.state.players.map(player => {
+                        return (
+                          <div
                             style={{
-                              padding: "4px",
-                              fontSize:
-                                this.state.players.length > 8 ? "12px" : "14px"
+                              display: "flex",
+                              justifyContent: "space-between"
                             }}
                           >
-                            {player.name}{" "}
-                          </p>
-                          {this.state.editing && this.state.players.length > 0 && (
-                            <i
-                              onClick={this.removePlayers(player.id)}
+                            <p
                               style={{
                                 padding: "4px",
-                                position: "relative",
-                                top: "2px"
+                                fontSize:
+                                  this.state.players.length > 8
+                                    ? "12px"
+                                    : "14px"
                               }}
-                              id={styles.littleGuy}
-                              class="fas fa-ban"
-                            ></i>
-                          )}
-                        </div>
-                      );
-                    })}
-                </div>
-              </React.Fragment>
-            )}
+                            >
+                              {player.name}{" "}
+                            </p>
+                            {this.state.editing &&
+                              this.state.players.length > 0 && (
+                                <i
+                                  onClick={this.removePlayers(player.id)}
+                                  style={{
+                                    padding: "4px",
+                                    position: "relative",
+                                    top: "2px"
+                                  }}
+                                  id={styles.littleGuy}
+                                  class="fas fa-ban"
+                                ></i>
+                              )}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </React.Fragment>
+              )}
+            {this.props.user &&
+              !this.state.canView &&
+              !this.state.clinicJoined && (
+                <button
+                  style={{ marginTop: "20px" }}
+                  className={styles.editCancel}
+                  onClick={this.joinClinic}
+                >
+                  Join Clinic
+                </button>
+              )}
+
+            {this.state.canView &&
+              this.props.objectToModal.bookingType === "Open Clinic" && (
+                <p
+                  style={{
+                    position: "absolute",
+                    bottom: "300px"
+                  }}
+                >
+                  You are in this clinic!
+                </p>
+              )}
+            <p
+              className={styles.notShowing}
+              id={this.state.clinicJoined ? styles.showing : ""}
+            >
+              You have joined this clinic!
+            </p>
             {this.state.showAddHelper && (
               <AddingPlayers
                 playersFromModal={this.state.players}

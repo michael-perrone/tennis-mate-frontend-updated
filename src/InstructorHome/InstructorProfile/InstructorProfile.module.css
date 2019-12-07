@@ -81,3 +81,32 @@
   font-size: 16px;
   margin-top: 28px;
 }
+
+@media (max-width: 1000px) {
+  #instructorProfileContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #instructorProfileLeftBar {
+    flex-direction: row;
+    width: 100%;
+    height: 310px;
+    justify-content: space-around;
+  }
+  #bottomPartBar {
+    width: 310px;
+  }
+
+  #imageContainer {
+    width: 50%;
+    background-color: lightgreen;
+    background: none;
+  }
+  #imageNameDiv {
+    width: 300px;
+  }
+  #profileContentHolder {
+    width: 100%;
+  }
+}

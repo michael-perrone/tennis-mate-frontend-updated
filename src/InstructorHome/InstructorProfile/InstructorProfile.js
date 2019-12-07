@@ -7,8 +7,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 const InstructorProfile = props => {
-  //const [bookings, setBookings] = useState([]);
-  //const [instructorProfile, setInstructorProfile] = useState({});
+  const [bookings, setBookings] = useState([]);
+  console.log(props);
 
   return (
     <div id={styles.instructorProfileContainer}>
@@ -81,9 +81,7 @@ const InstructorProfile = props => {
 
 const mapStateToProps = state => {
   return {
-    instructorToken: state.authReducer.instructorToken,
-    userToken: state.authReducer.userToken,
-    adminToken: state.authReducer.adminToken
+    instructor: state.authReducer.instructor
   };
 };
 

@@ -113,8 +113,16 @@ class CourtContainer extends React.Component {
         i <= topOfArray.courtId + numToAdd;
         i++
       ) {
+        let courtIdArray = i.toString().split("");
+
+        courtIdArray.shift();
+
+        let stringNeeded = courtIdArray.join("");
+
+        let numberNeeded = parseInt(stringNeeded);
+
         newArray.push({
-          court: courtsToLoopOver[i - topOfArray.courtId],
+          court: courtsToLoopOver[numberNeeded],
           courtId: i
         });
       }

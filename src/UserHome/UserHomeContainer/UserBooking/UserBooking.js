@@ -4,9 +4,7 @@ import styles from "./UserBooking.module.css";
 const UserBooking = props => {
   let court = props.bookingInfo.courtIds[0].split("")[0];
   let date = props.bookingInfo.date.split(" ");
-  console.log(date);
 
-  console.log(props);
   return (
     <div id={styles.bookingContainer}>
       <p className={styles.moveLeft}>{props.bookingInfo.bookingType}</p>
