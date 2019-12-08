@@ -7,8 +7,20 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 const InstructorProfile = props => {
-  const [bookings, setBookings] = useState([]);
-  console.log(props);
+  const [instructorsBookings, setInstructorsBookings] = useState([]);
+  console.log(props.instructorToken);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/iBookings/instructor", {
+        headers: { "x-auth-token": props.instructorToken }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setInstructorsBookings(response.data.instructorsBookings);
+        }
+      });
+  }, []);
 
   return (
     <div id={styles.instructorProfileContainer}>
@@ -64,11 +76,171 @@ const InstructorProfile = props => {
             <BioJobExpHolder profile={props.instructorProfile} />
             <div className={otherstyles.row}>
               <div className={otherstyles.contentHolder}>
-                <p className={otherstyles.pTagHeader}>Future Bookings</p>
-                {props.bookings &&
-                  props.bookings.map(element => {
-                    return <p>hi</p>;
-                  })}
+                {props.user ||
+                  (props.admin && (
+                    <p className={otherstyles.pTagHeader}>
+                      Bookings with Instructor
+                    </p>
+                  ))}
+                {props.instructor && (
+                  <p className={otherstyles.pTagHeader}>Today's Schedule</p>
+                )}
+                {props.instructor && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      fontSize: "14px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                      }}
+                    >
+                      <p
+                        style={{
+                          marginTop: "5px",
+                          textDecoration: "underline"
+                        }}
+                      >
+                        Booking Type
+                      </p>
+                      {instructorsBookings.map((booking, index) => {
+                        if (index < 9) {
+                          return (
+                            <p style={{ marginTop: "3px" }}>
+                              {booking.bookingType}
+                            </p>
+                          );
+                        }
+                      })}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                      }}
+                    >
+                      <p
+                        style={{
+                          marginTop: "5px",
+                          textDecoration: "underline"
+                        }}
+                      >
+                        Starts At
+                      </p>
+                      {instructorsBookings.map((booking, index) => {
+                        if (index < 9) {
+                          return (
+                            <p style={{ marginTop: "3px" }}>
+                              {booking.timeStart}
+                            </p>
+                          );
+                        }
+                      })}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                      }}
+                    >
+                      <p
+                        style={{
+                          marginTop: "5px",
+                          textDecoration: "underline"
+                        }}
+                      >
+                        Court
+                      </p>
+                      {instructorsBookings.map((booking, index) => {
+                        if (index < 9) {
+                          return (
+                            <p style={{ marginTop: "3px" }}>
+                              {booking.courtIds[0].split("")[0]}
+                            </p>
+                          );
+                        }
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {props.user && props.admin && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      marginTop: "6px"
+                    }}
+                  >
+                    <div>
+                      <p
+                        style={{
+                          textDecoration: "underline",
+                          textAlign: "center"
+                        }}
+                      >
+                        Booking Type
+                      </p>
+                      {props.bookings &&
+                        props.bookings.map((element, index) => {
+                          if (index < 8) {
+                            return (
+                              <p style={{ marginTop: "3px" }}>
+                                {element.bookingType}
+                              </p>
+                            );
+                          }
+                        })}
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          textDecoration: "underline",
+                          textAlign: "center"
+                        }}
+                      >
+                        Date
+                      </p>
+                      {props.bookings &&
+                        props.bookings.map((element, index) => {
+                          if (index < 8) {
+                            return (
+                              <p style={{ marginTop: "3px" }}>
+                                {element.date.split(" ").join("-")}
+                              </p>
+                            );
+                          }
+                        })}
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          textDecoration: "underline",
+                          textAlign: "center"
+                        }}
+                      >
+                        Time
+                      </p>
+                      {props.bookings &&
+                        props.bookings.map((element, index) => {
+                          if (index < 8) {
+                            return (
+                              <p style={{ marginTop: "3px" }}>
+                                {element.timeStart}
+                              </p>
+                            );
+                          }
+                        })}
+                    </div>
+                  </div>
+                )}
               </div>
               <CertHolder profile={props.instructorProfile} />
             </div>
@@ -81,7 +253,8 @@ const InstructorProfile = props => {
 
 const mapStateToProps = state => {
   return {
-    instructor: state.authReducer.instructor
+    instructor: state.authReducer.instructor,
+    instructorToken: state.authReducer.instructorToken
   };
 };
 

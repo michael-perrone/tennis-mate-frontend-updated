@@ -145,7 +145,7 @@ AdminBooking.defaultProps = {
     "Private Clinic",
     "Private Lesson",
     "Court Time",
-    "Employee Court Time",
+    "Employee Time",
     "Tournament",
     "Other"
   ]

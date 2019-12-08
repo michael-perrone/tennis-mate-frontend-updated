@@ -35,8 +35,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ff9999;
-  border-bottom: 1px solid #ff9999;
+  background-color: indianred;
+  border-bottom: 1px solid indianred;
 }
 
 #courtSlotNotBooked:nth-child(4n) {

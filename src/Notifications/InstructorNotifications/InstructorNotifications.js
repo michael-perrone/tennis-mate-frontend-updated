@@ -35,7 +35,7 @@ class InstructorNotifications extends React.Component {
 
   render() {
     return (
-      <div className={styles.notificationsContainer}>
+      <React.Fragment>
         {this.props.instructorNotifications &&
           this.props.instructorNotifications.map(element => {
             if (element.notificationType === "Club Added Instructor") {
@@ -53,7 +53,7 @@ class InstructorNotifications extends React.Component {
             sure to let you know!
           </p>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

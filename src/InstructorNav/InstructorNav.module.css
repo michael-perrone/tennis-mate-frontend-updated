@@ -11,7 +11,7 @@
   font-size: 34px;
   font-family: "Permanent Marker", cursive;
   position: relative;
-  left: 120px;
+  left: 60px;
 }
 
 .links {
@@ -71,5 +71,14 @@
 
   to {
     transform: scaleY(1);
+  }
+}
+
+@media (max-width: 775px) {
+  #title {
+    display: none;
+  }
+  #secondContainer {
+    right: -10%;
   }
 }

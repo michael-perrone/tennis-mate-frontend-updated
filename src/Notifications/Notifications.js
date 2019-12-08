@@ -15,14 +15,16 @@ class Notification extends React.Component {
     return (
       <React.Fragment>
         <div onClick={this.props.hideNotifications} id={styles.backDrop}></div>
-        {this.props.admin && <AdminNotifications />}
-        {this.props.instructor && (
-          <InstructorNotifications
-            setNew={this.props.setNew}
-            instructorNotifications={this.props.instructorNotifications}
-          />
-        )}
-        {this.props.user && <UserNotifications />}
+        <div className={styles.notificationsContainer}>
+          {this.props.admin && <AdminNotifications />}
+          {this.props.instructor && (
+            <InstructorNotifications
+              setNew={this.props.setNew}
+              instructorNotifications={this.props.instructorNotifications}
+            />
+          )}
+          {this.props.user && <UserNotifications />}
+        </div>
       </React.Fragment>
     );
   }

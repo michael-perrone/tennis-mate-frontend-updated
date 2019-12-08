@@ -8,7 +8,7 @@
   box-shadow: 1px 1px 9px white;
   background-color: rgb(209, 247, 250);
   border: 1px solid black;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .notificationContainer {

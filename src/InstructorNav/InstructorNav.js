@@ -2,10 +2,15 @@ import React from "react";
 import styles from "./InstructorNav.module.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { INSTRUCTOR_LOGOUT, SHOW_NOTIFICATIONS } from "../actions/actions";
+import {
+  INSTRUCTOR_LOGOUT,
+  SHOW_NOTIFICATIONS,
+  SHOW_SCHEDULE
+} from "../actions/actions";
 import axios from "axios";
 import Notifications from "../Notifications/Notifications";
 import { withRouter } from "react-router-dom";
+import Schedule from "./Schedule/Schedule";
 
 class InstructorNav extends React.Component {
   constructor(props) {
@@ -83,6 +88,13 @@ class InstructorNav extends React.Component {
         <div id={styles.navBarContainer}>
           <p id={styles.title}>Tennis Mate</p>
           <div id={styles.secondContainer}>
+            <p
+              onClick={this.props.showSchedule}
+              style={{ cursor: "pointer", marginRight: "30px" }}
+              className={styles.links}
+            >
+              Schedule
+            </p>
             {newVar !== "" &&
               this.state.instructorProfile.instructor.clubAccepted === true && (
                 <Link
@@ -179,6 +191,7 @@ class InstructorNav extends React.Component {
             </div>
           </div>
         </div>
+        {this.props.showScheduleState && <Schedule />}
         {this.props.showNotificationsState && (
           <Notifications
             setNew={this.setNewNotifications}
@@ -195,12 +208,14 @@ const mapStateToProps = state => {
     instructor: state.authReducer.instructor,
     instructorToken: state.authReducer.instructorToken,
     instructorProfile: state.authReducer.instructorProfile.instructorProfile,
-    showNotificationsState: state.booleanReducers.showNotifications
+    showNotificationsState: state.booleanReducers.showNotifications,
+    showScheduleState: state.booleanReducers.showSchedule
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    showSchedule: () => dispatch({ type: SHOW_SCHEDULE }),
     instructorLogout: () => dispatch({ type: INSTRUCTOR_LOGOUT }),
     showNotifications: () => dispatch({ type: SHOW_NOTIFICATIONS })
   };

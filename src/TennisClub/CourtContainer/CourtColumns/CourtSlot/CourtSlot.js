@@ -58,6 +58,13 @@ class CourtSlot extends React.Component {
 
   render() {
     let color = "";
+
+    if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Employee Time"
+    ) {
+      color = "#faff73";
+    }
     if (
       this.props.bookingInfo &&
       this.props.bookingInfo.bookingType === "Open Clinic"
@@ -93,8 +100,12 @@ class CourtSlot extends React.Component {
       this.props.bookingInfo.bookingType === "Tournament"
     ) {
       color = "#cda1ff";
+    } else if (
+      this.props.bookingInfo &&
+      this.props.bookingInfo.bookingType === "Court Time"
+    ) {
+      color = "lightsalmon";
     }
-
     return (
       <div
         style={{
@@ -117,7 +128,7 @@ class CourtSlot extends React.Component {
               borderTop: "none",
               height: "100%",
               width: "100%",
-              borderBottom: "2px solid #ebedf0"
+              borderBottom: "2px solid black"
             }}
           />
         )}
@@ -129,6 +140,8 @@ class CourtSlot extends React.Component {
           >
             <button
               style={{
+                position: "relative",
+                top: "7px",
                 backgroundColor: color
               }}
               id={styles.bookedCheckButton}
