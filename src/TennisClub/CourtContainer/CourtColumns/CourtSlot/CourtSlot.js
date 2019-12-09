@@ -13,18 +13,23 @@ class CourtSlot extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.booked && this.props.hoverNumber === nextProps.hoverNumber) {
+      return true;
+    }
+    if (this.props.date !== nextProps.date) {
+      return true;
+    }
+    if (this.props.booked != nextProps.booked) {
+      return true;
+    }
+
     if (this.props.bookingInfo != nextProps.bookingInfo) {
       return true;
     }
     if (this.state.clicked) {
       return true;
     }
-    if (this.props.booked != nextProps.booked) {
-      return true;
-    }
-    if (this.props.date !== nextProps.date) {
-      return true;
-    }
+
     if (this.props.beingBooked == nextProps.beingBooked) {
       if (
         this.props.courtId == nextProps.firstSlotInArray.courtId ||
@@ -57,6 +62,8 @@ class CourtSlot extends React.Component {
   };
 
   render() {
+    console.log(this.props.hoverNumber);
+
     let color = "";
 
     if (
@@ -287,4 +294,5 @@ class CourtSlot extends React.Component {
     );
   }
 }
+
 export default CourtSlot;

@@ -259,18 +259,22 @@ class CourtColumns extends React.PureComponent {
   checkBooked = courtId => {
     let booked = [];
     let checkingVar = false;
-    this.props.bookedCourts.forEach(element1 => {
-      element1.courtIds.forEach(element => {
-        booked.push(element);
+    if (this.props.bookedCourts.length > 0) {
+      this.props.bookedCourts.forEach(element1 => {
+        element1.courtIds.forEach(element => {
+          booked.push(element);
+        });
       });
-    });
 
-    booked.forEach(element => {
-      if (courtId == element) {
-        checkingVar = true;
-      }
-    });
-    return checkingVar;
+      booked.forEach(element => {
+        if (courtId == element) {
+          checkingVar = true;
+        }
+      });
+      return checkingVar;
+    } else {
+      return false;
+    }
   };
 
   beingBooked = courtId => {
@@ -298,6 +302,7 @@ class CourtColumns extends React.PureComponent {
           {this.state.courtsInColumn.map((element, index) => {
             return (
               <CourtSlot
+                hoverNumber={this.props.hoverNumber}
                 courtClicked={this.props.courtClicked}
                 bookingArray={this.props.bookingArray}
                 date={this.props.date}

@@ -7,6 +7,7 @@ import TryingToBookModal from "./TryingToBookModal/TryingToBookModal";
 import BookingIntro from "./BookingIntro/BookingIntro";
 import { connect } from "react-redux";
 import OtherAlert from "../../OtherAlerts/OtherAlerts";
+import { HOVER_NUMBER } from "../../actions/actions";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -34,7 +35,8 @@ class CourtContainer extends React.Component {
       token: "",
       bookingSuccess: false,
       newBooking: {},
-      playersComingBack: []
+      playersComingBack: [],
+      courtHoverNumber: null
     };
   }
 
@@ -144,6 +146,7 @@ class CourtContainer extends React.Component {
         this.setState({
           lastSlotInArray: newArray[newArray.length - 1]
         });
+        this.setState({ courtHoverNumber: newArray[0].courtId });
       }
     }
   };
@@ -417,6 +420,7 @@ class CourtContainer extends React.Component {
           {this.courtNumbersToCourtColumns().map((element, index) => {
             return (
               <CourtColumns
+                hoverNumber={this.state.hoverNumber}
                 courtClicked={this.courtClicked}
                 numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
@@ -444,6 +448,13 @@ class CourtContainer extends React.Component {
     );
   }
 }
+
+/* const mapDispatchToProps = dispatch => {
+  return {
+    getHoverNumber: hoverNumber =>
+      dispatch({ type: HOVER_NUMBER, payload: hoverNumber })
+  };
+}; */
 
 const mapStateToProps = state => {
   return {
