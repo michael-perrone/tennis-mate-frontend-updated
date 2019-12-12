@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import Notifications from "./Notifications/Notifications";
 import NeedToLoginPage from "./NeedToLoginPage/NeedToLoginPage";
 import InstructorProfile from "./InstructorHome/InstructorProfile/InstructorProfile";
+import Values from "./Values/Values";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class App extends React.Component {
 
     return (
       <Switch>
+        <Route path="/values" exact component={Values} />
         <Route
           path="/clubs"
           exact
