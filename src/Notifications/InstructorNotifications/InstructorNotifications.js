@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../Notifications.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
+import UserBookedCourtWithInstructor from "./ClubAddedInstructorNotification/ClubAddedInstructorNotification";
 import ClubAddedInstructorNotification from "./ClubAddedInstructorNotification/ClubAddedInstructorNotification";
 
 class InstructorNotifications extends React.Component {
@@ -38,13 +39,9 @@ class InstructorNotifications extends React.Component {
       <React.Fragment>
         {this.props.instructorNotifications &&
           this.props.instructorNotifications.map(element => {
-            if (element.notificationType === "Club Added Instructor") {
-              return (
-                <ClubAddedInstructorNotification
-                  setNew={this.props.setNew}
-                  notification={element}
-                />
-              );
+            console.log(element.notificationType);
+            if (element.notificationType === "instructorBookedUser") {
+              return <UserBookedCourtWithInstructor notification={element} />;
             }
           })}
         {this.props.instructorNotifications.length === 0 && (

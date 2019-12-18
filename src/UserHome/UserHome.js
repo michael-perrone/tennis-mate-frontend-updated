@@ -7,6 +7,7 @@ import UserHomeContainer from "./UserHomeContainer/UserHomeContainer";
 
 const UserHome = props => {
   const [userProfile, setUserProfile] = useState({});
+  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
     axios
@@ -22,10 +23,29 @@ const UserHome = props => {
       });
   }, []);
 
+  function searchingHandler(trueOrFalse) {
+    setSearching(trueOrFalse);
+  }
+
   return (
     <div style={{ backgroundColor: "rgb(217,217,217)" }}>
+      {searching && (
+        <div
+          style={{
+            position: "fixed",
+            top: "0px",
+            height: "100vh",
+            width: "100%",
+            backgroundColor: "rgb(0,0,0,0.92)",
+            zIndex: 100
+          }}
+        ></div>
+      )}
       <UserNav />
-      <UserHomeContainer />
+      <UserHomeContainer
+        searching={searching}
+        searchingHandler={searchingHandler}
+      />
     </div>
   );
 };

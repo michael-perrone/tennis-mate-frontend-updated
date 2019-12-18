@@ -71,43 +71,10 @@ const ClubAddedInstructorNotification = props => {
 
   return (
     <div className={styles.notificationContainer}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%"
-        }}
-      >
-        {!props.notification.notificationRead && (
-          <i
-            style={{
-              position: "relative",
-              top: "-6px",
-              color: "red",
-              fontSize: "34px",
-              marginLeft: "10px"
-            }}
-            className="fas fa-exclamation"
-          ></i>
-        )}
-        {props.notification.notificationRead && (
-          <i
-            style={{
-              position: "relative",
-              top: "-6px",
-              fontSize: "34px",
-              color: "green",
-              marginLeft: "10px"
-            }}
-            className="far fa-check-square"
-          ></i>
-        )}
-      </div>
       <p
         style={{
           padding: "6px 8px 6px 12px",
-          width: "360px",
+          width: "215px",
           fontSize: "14px"
         }}
       >
@@ -127,20 +94,28 @@ const ClubAddedInstructorNotification = props => {
         </div>
       )}
       {(props.notification.answer === "Accepted" || clubAccepted) && (
-        <p
+        <div
           style={{
-            border: "1px solid gray",
-            backgroundColor: "lightgreen",
-            height: "20px",
-            color: "gray",
+            display: "flex",
             position: "relative",
-            top: "40px",
+            top: "30px",
             right: "5px",
             padding: "0px 2px"
           }}
         >
-          Accepted
-        </p>
+          <i className="far fa-check-square"></i>
+          <p
+            style={{
+              marginLeft: "4px",
+              fontFamily: "sans",
+              fontWeight: "bold",
+              height: "20px",
+              color: "black"
+            }}
+          >
+            Accepted
+          </p>
+        </div>
       )}
       <OtherAlert
         showAlert={clubAccepted ? true : false}

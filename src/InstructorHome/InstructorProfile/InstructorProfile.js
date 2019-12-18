@@ -11,15 +11,17 @@ const InstructorProfile = props => {
   console.log(props.instructorToken);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/iBookings/instructor", {
-        headers: { "x-auth-token": props.instructorToken }
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setInstructorsBookings(response.data.instructorsBookings);
-        }
-      });
+    if (props.instructor) {
+      axios
+        .get("http://localhost:8080/api/iBookings/instructor", {
+          headers: { "x-auth-token": props.instructorToken }
+        })
+        .then(response => {
+          if (response.status === 200) {
+            setInstructorsBookings(response.data.instructorsBookings);
+          }
+        });
+    }
   }, []);
 
   return (
@@ -76,12 +78,99 @@ const InstructorProfile = props => {
             <BioJobExpHolder profile={props.instructorProfile} />
             <div className={otherstyles.row}>
               <div className={otherstyles.contentHolder}>
-                {props.user ||
-                  (props.admin && (
+                {(props.user || props.admin) && (
+                  <React.Fragment>
                     <p className={otherstyles.pTagHeader}>
                       Bookings with Instructor
                     </p>
-                  ))}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        fontSize: "14px"
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <p
+                          style={{
+                            marginTop: "5px",
+                            textDecoration: "underline"
+                          }}
+                        >
+                          Booking Type
+                        </p>
+                        {props.bookings &&
+                          props.bookings.map((booking, index) => {
+                            if (index < 9) {
+                              return (
+                                <p style={{ marginTop: "3px" }}>
+                                  {booking.bookingType}
+                                </p>
+                              );
+                            }
+                          })}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <p
+                          style={{
+                            marginTop: "5px",
+                            textDecoration: "underline"
+                          }}
+                        >
+                          Starts At
+                        </p>
+                        {props.bookings &&
+                          props.bookings.map((booking, index) => {
+                            if (index < 9) {
+                              return (
+                                <p style={{ marginTop: "3px" }}>
+                                  {booking.timeStart}
+                                </p>
+                              );
+                            }
+                          })}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <p
+                          style={{
+                            marginTop: "5px",
+                            textDecoration: "underline"
+                          }}
+                        >
+                          Court
+                        </p>
+                        {props.bookings &&
+                          props.bookings.map((booking, index) => {
+                            if (index < 9) {
+                              return (
+                                <p style={{ marginTop: "3px" }}>
+                                  {booking.courtIds[0].split("")[0]}
+                                </p>
+                              );
+                            }
+                          })}
+                      </div>
+                    </div>
+                  </React.Fragment>
+                )}
                 {props.instructor && (
                   <p className={otherstyles.pTagHeader}>Today's Schedule</p>
                 )}
@@ -253,6 +342,8 @@ const InstructorProfile = props => {
 
 const mapStateToProps = state => {
   return {
+    user: state.authReducer.user,
+    admin: state.authReducer.admin,
     instructor: state.authReducer.instructor,
     instructorToken: state.authReducer.instructorToken
   };

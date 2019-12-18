@@ -6,13 +6,13 @@ class BookingIntro extends React.Component {
     return (
       <div id={styles.bookingIntroSubDiv}>
         <p id={styles.courtP}>Court Schedule</p>
-        <p style={{ width: "45%" }}>
-          You are looking at the court schedule for {this.props.clubName}. You
-          make book a court anytime from {this.props.openTime} to{" "}
+        <p id={styles.bookingP}>
+          You may book a court anytime from {this.props.openTime} to{" "}
           {this.props.closeTime}. To book a court, please select your preferred
-          date for the booking on the calendar above. Once you have done so, you
-          can choose the time limit of your booking, what you would like to
-          book, and if needed, which instructor will be on that booking.
+          date for the booking on the calendar above. You can also choose the
+          time limit of your booking, what you would like to book, and if
+          needed, which instructor will be on that booking. Click on your
+          selected time slot to continue.
         </p>
       </div>
     );

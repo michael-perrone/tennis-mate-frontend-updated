@@ -74,7 +74,9 @@ class InstructorHome extends React.Component {
     return (
       <div id={styles.instructorHomeContainer}>
         {this.state.isUser && !this.props.admin && <UserNav />}
-        {this.state.profileCreated && <InstructorNav />}
+        {this.state.profileCreated && this.props.instructor && (
+          <InstructorNav />
+        )}
         {this.props.admin && <AdminNav />}
         {this.state.instructorProfile !== undefined && (
           <InstructorProfile

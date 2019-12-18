@@ -12,12 +12,22 @@ const InstructorsToSelectList = props => {
               <p className={styles.listItem}>Club: {instructor.tennisClub}</p>
               <p className={styles.listItem}>Age: 24</p>
             </div>
-            <button
-              onClick={props.addInstructorToList(instructor)}
-              id={styles.addButton}
-            >
-              Add
-            </button>
+            {!props.viewInstead && (
+              <button
+                onClick={props.addInstructorToList(instructor)}
+                id={styles.addButton}
+              >
+                Add
+              </button>
+            )}
+            {props.viewInstead && (
+              <button
+                id={styles.addButton}
+                onClick={props.viewInstructor(instructor.id)}
+              >
+                View
+              </button>
+            )}
           </div>
         );
       })}

@@ -60,7 +60,7 @@
 .borderSurroundingDivs {
   padding: 20px;
   box-shadow: 0px 0px 3px black;
-
+  width: 145px;
   background-color: rgb(233, 233, 233);
   text-align: center;
   height: 182px;

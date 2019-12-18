@@ -8,6 +8,7 @@ import BookingIntro from "./BookingIntro/BookingIntro";
 import { connect } from "react-redux";
 import OtherAlert from "../../OtherAlerts/OtherAlerts";
 import { HOVER_NUMBER } from "../../actions/actions";
+import BookingButtons from "./BookingButtons/BookingButtons";
 
 class CourtContainer extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class CourtContainer extends React.Component {
     this.setShowDeleteSuccess = this.setShowDeleteSuccess.bind(this);
     this.courtClicked = this.courtClicked.bind(this);
     this.state = {
+      blockBooking: false,
       showDeleteSuccess: false,
       courtsClicked: false,
       firstSlotInArray: {},
@@ -36,7 +38,8 @@ class CourtContainer extends React.Component {
       bookingSuccess: false,
       newBooking: {},
       playersComingBack: [],
-      courtHoverNumber: null
+      courtHoverNumber: null,
+      doubleBookError: false
     };
   }
 
@@ -176,20 +179,30 @@ class CourtContainer extends React.Component {
           players: playerIds,
           date: this.props.date
         })
-        .then(response => {
-          if (response.status === 200) {
+        .then(firstResponse => {
+          if (firstResponse.status === 200) {
             if (this.props.instructorChosen) {
               const objectToSend = {
                 instructorId: this.props.instructorChosen.instructorChosen._id,
-                newBooking: response.data.newBooking._id
+                newBooking: firstResponse.data.newBooking._id
               };
               axios
                 .post(
                   "http://localhost:8080/api/instructorCourtsBooked",
                   objectToSend
                 )
-                .then(response => {
-                  // waiting for this
+                .then(secondResponse => {
+                  if (secondResponse.status === 200 && this.props.user) {
+                    axios.post(
+                      "http://localhost:8080/api/notifications/userBookedInstructor",
+                      {
+                        instructorId: this.props.instructorChosen
+                          .instructorChosen._id,
+                        userId: this.props.user.user._id,
+                        bookingId: firstResponse.data.newBooking._id
+                      }
+                    );
+                  }
                 })
                 .catch(error => {
                   console.log(error);
@@ -197,7 +210,7 @@ class CourtContainer extends React.Component {
             }
           }
           let clubsMatchArray = [];
-          response.data.bookings.forEach(element => {
+          firstResponse.data.bookings.forEach(element => {
             if (this.props.date === element.date) {
               clubsMatchArray.push(element);
             }
@@ -321,46 +334,120 @@ class CourtContainer extends React.Component {
   }
 
   showTryingToBookModal = () => {
-    let nameForBooking = "";
-    let instructorName = "None";
-    let instructorId;
-    if (this.props.admin) {
-      nameForBooking = this.props.admin.admin.name;
-    } else if (this.props.instructor) {
-      nameForBooking = this.props.instructor.instructor.instructorName;
-    } else if (this.props.user) {
-      nameForBooking = this.props.user.user.userName;
-    }
+    this.setState({ doubleBookError: false });
+    let blockBooking;
     if (this.props.instructorChosen) {
-      instructorName = this.props.instructorChosen.instructorChosen.fullName;
-      instructorId = this.props.instructorChosen.instructorChosen._id;
-    }
-    if (this.state.bookingArray.length > 1) {
-      const courtIdsArray = [];
+      let courtIds = [];
       this.state.bookingArray.forEach(element => {
-        courtIdsArray.push(element.courtId);
+        let courtIdArray = element.courtId.toString().split("");
+        courtIdArray.shift();
+        let realId = courtIdArray.join("");
+        console.log(realId);
+        courtIds.push(realId);
       });
-      let courtNumberComing = courtIdsArray[0].toString();
-      let courtNumberString = courtNumberComing.split("");
-      let courtNumber = parseInt(courtNumberString[0]);
-      const bookingToSend = {
-        bookingType: this.props.bookingType.bookingType,
-        instructorName,
-        instructorId,
-        bookedBy: nameForBooking,
-        timeStart: this.state.firstSlotInArray.court.timeStart,
-        timeEnd: this.state.lastSlotInArray.court.timeEnd,
-        courtIds: courtIdsArray,
-        minutes: this.state.bookingArray.length * 15,
-        clubName: this.props.clubName,
-        date: this.props.date,
-        courtNumber
-      };
-      this.setState({ bookingToSend });
+      axios
+        .post("http://localhost:8080/api/checkInstructorAvailability", {
+          instructorId: this.props.instructorChosen.instructorChosen._id,
+          courtIds,
+          date: this.props.date
+        })
+        .then(response => {
+          if (response.data.bookingNotOkay === true) {
+            setTimeout(() => this.setState({ doubleBookError: true }), 200);
+            blockBooking = true;
+          }
+          if (!blockBooking) {
+            console.log("HELLLO");
+            let nameForBooking = "";
+            let instructorName = "None";
+            let instructorId;
+            if (this.props.admin) {
+              nameForBooking = this.props.admin.admin.name;
+            } else if (this.props.instructor) {
+              nameForBooking = this.props.instructor.instructor.instructorName;
+            } else if (this.props.user) {
+              nameForBooking = this.props.user.user.userName;
+            }
+            if (this.props.instructorChosen) {
+              instructorName = this.props.instructorChosen.instructorChosen
+                .fullName;
+              instructorId = this.props.instructorChosen.instructorChosen._id;
+            }
+            if (this.state.bookingArray.length > 1) {
+              const courtIdsArray = [];
+              this.state.bookingArray.forEach(element => {
+                courtIdsArray.push(element.courtId);
+              });
+              let courtNumberComing = courtIdsArray[0].toString();
+              let courtNumberString = courtNumberComing.split("");
+              let courtNumber = parseInt(courtNumberString[0]);
+              const bookingToSend = {
+                bookingType: this.props.bookingType.bookingType,
+                instructorName,
+                instructorId,
+                bookedBy: nameForBooking,
+                timeStart: this.state.firstSlotInArray.court.timeStart,
+                timeEnd: this.state.lastSlotInArray.court.timeEnd,
+                courtIds: courtIdsArray,
+                minutes: this.state.bookingArray.length * 15,
+                clubName: this.props.clubName,
+                date: this.props.date,
+                courtNumber
+              };
+              this.setState({ bookingToSend });
 
-      this.setState(prevState => {
-        return { tryingToBookModalState: !prevState.tryingToBookModalState };
-      });
+              this.setState(prevState => {
+                return {
+                  tryingToBookModalState: !prevState.tryingToBookModalState
+                };
+              });
+            }
+          }
+        });
+    } else {
+      let nameForBooking = "";
+      let instructorName = "None";
+      let instructorId;
+      if (this.props.admin) {
+        nameForBooking = this.props.admin.admin.name;
+      } else if (this.props.instructor) {
+        nameForBooking = this.props.instructor.instructor.instructorName;
+      } else if (this.props.user) {
+        nameForBooking = this.props.user.user.userName;
+      }
+      if (this.props.instructorChosen) {
+        instructorName = this.props.instructorChosen.instructorChosen.fullName;
+        instructorId = this.props.instructorChosen.instructorChosen._id;
+      }
+      if (this.state.bookingArray.length > 1) {
+        const courtIdsArray = [];
+        this.state.bookingArray.forEach(element => {
+          courtIdsArray.push(element.courtId);
+        });
+        let courtNumberComing = courtIdsArray[0].toString();
+        let courtNumberString = courtNumberComing.split("");
+        let courtNumber = parseInt(courtNumberString[0]);
+        const bookingToSend = {
+          bookingType: this.props.bookingType.bookingType,
+          instructorName,
+          instructorId,
+          bookedBy: nameForBooking,
+          timeStart: this.state.firstSlotInArray.court.timeStart,
+          timeEnd: this.state.lastSlotInArray.court.timeEnd,
+          courtIds: courtIdsArray,
+          minutes: this.state.bookingArray.length * 15,
+          clubName: this.props.clubName,
+          date: this.props.date,
+          courtNumber
+        };
+        this.setState({ bookingToSend });
+
+        this.setState(prevState => {
+          return {
+            tryingToBookModalState: !prevState.tryingToBookModalState
+          };
+        });
+      }
     }
   };
 
@@ -385,6 +472,11 @@ class CourtContainer extends React.Component {
           alertMessage="Court Deleted"
           showAlert={this.state.showDeleteSuccess}
         />
+        <OtherAlert
+          alertType="error"
+          alertMessage="This instructor is already booked at this time."
+          showAlert={this.state.doubleBookError}
+        />
         {this.state.tryingToBookModalState && (
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -404,23 +496,17 @@ class CourtContainer extends React.Component {
             closeTime={this.props.clubCloseTime}
             clubName={this.props.clubName}
           />
-          <div style={{ marginTop: "15px" }}>
-            <button
-              className={styles.courtButton}
-              onClick={this.showTryingToBookModal}
-            >
-              Book Court
-            </button>
-            <button className={styles.courtButton} onClick={this.cancelBooking}>
-              Cancel Booking
-            </button>
-          </div>
+          <BookingButtons
+            courtsClicked={this.state.courtsClicked}
+            cancelBooking={this.cancelBooking}
+            showTryingToBookModal={this.showTryingToBookModal}
+          />
         </div>
-        <div id={styles.courtContainer}>
+        <div id={styles.courtContainer} onClick={this.courtClickedOn}>
           {this.courtNumbersToCourtColumns().map((element, index) => {
             return (
               <CourtColumns
-                hoverNumber={this.state.hoverNumber}
+                hoverNumber={this.state.courtHoverNumber}
                 courtClicked={this.courtClicked}
                 numberCourts={parseInt(this.props.numberCourts)}
                 cancelModal={this.cancelBookingModal}
@@ -448,13 +534,6 @@ class CourtContainer extends React.Component {
     );
   }
 }
-
-/* const mapDispatchToProps = dispatch => {
-  return {
-    getHoverNumber: hoverNumber =>
-      dispatch({ type: HOVER_NUMBER, payload: hoverNumber })
-  };
-}; */
 
 const mapStateToProps = state => {
   return {
