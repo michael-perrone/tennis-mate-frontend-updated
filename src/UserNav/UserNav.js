@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../InstructorNav/InstructorNav.module.css";
-import { USER_LOGOUT } from "../actions/actions";
+import { USER_LOGOUT, SHOW_NOTIFICATIONS } from "../actions/actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import Axios from "axios";
+import Notifications from "../Notifications/Notifications";
 
 const UserNav = props => {
   const [showDropDown, setShowDropDown] = useState(false);
+  const [userNotifications, setUserNotifications] = useState([]);
+
+  React.useEffect(() => {
+    Axios.get("http://localhost:8080/api/notifications/user", {
+      headers: { "x-auth-token": props.userToken }
+    }).then(response => {
+      setUserNotifications(response.data.userNotifications);
+    });
+  }, []);
 
   function showDropDownHandler() {
     setShowDropDown(oldDropDownState => !oldDropDownState);
@@ -56,7 +67,10 @@ const UserNav = props => {
                 </Link>
               </div>
               <div className={styles.dropDownDiv}>
-                <Link className={styles.dropDownItem} to="/Notifications">
+                <Link
+                  className={styles.dropDownItem}
+                  onClick={props.showNotifications}
+                >
                   Notifications
                 </Link>
               </div>
@@ -76,19 +90,25 @@ const UserNav = props => {
           )}
         </div>
       </div>
+      {props.showNotificationsState && (
+        <Notifications userNotifications={userNotifications} />
+      )}
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.authReducer.user
+    showNotificationsState: state.booleanReducers.showNotifications,
+    user: state.authReducer.user,
+    userToken: state.authReducer.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    userLogout: () => dispatch({ type: USER_LOGOUT })
+    userLogout: () => dispatch({ type: USER_LOGOUT }),
+    showNotifications: () => dispatch({ type: SHOW_NOTIFICATIONS })
   };
 };
 

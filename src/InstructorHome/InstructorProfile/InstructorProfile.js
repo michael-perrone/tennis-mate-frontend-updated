@@ -5,10 +5,21 @@ import CertHolder from "./CertHolder/CertHolder";
 import otherstyles from "./BioCertsJobExpHolder/BioCertsJobExp.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 const InstructorProfile = props => {
   const [instructorsBookings, setInstructorsBookings] = useState([]);
   console.log(props.instructorToken);
+
+  function pushToClubName(clubName) {
+    return () => {
+      if (clubName !== "No Current Club") {
+        let clubNameArray = clubName.split(" ");
+        let realClubName = clubNameArray.join("");
+        props.history.push(`/clubs/${realClubName}`);
+      }
+    };
+  }
 
   useEffect(() => {
     if (props.instructor) {
@@ -57,7 +68,22 @@ const InstructorProfile = props => {
             </div>
             <div id={styles.bottomPartBar}>
               <p
-                style={{ fontSize: "16px" }}
+                style={{
+                  fontSize: "16px",
+                  textDecoration:
+                    props.instructorProfile.instructor.tennisClub ===
+                    "No Current Club"
+                      ? ""
+                      : "underline",
+                  cursor:
+                    props.instructorProfile.instructor.tennisClub ===
+                    "No Current Club"
+                      ? ""
+                      : "pointer"
+                }}
+                onClick={pushToClubName(
+                  props.instructorProfile.instructor.tennisClub
+                )}
                 className={styles.pTagsInBottomBar}
               >
                 {props.instructorProfile.instructor.tennisClub}
@@ -349,4 +375,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(InstructorProfile);
+export default withRouter(connect(mapStateToProps)(InstructorProfile));

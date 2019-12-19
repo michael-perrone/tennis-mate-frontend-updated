@@ -73,7 +73,7 @@ const ClubAddedInstructorNotification = props => {
     <div className={styles.notificationContainer}>
       <p
         style={{
-          padding: "6px 8px 6px 12px",
+          padding: "6px 8px",
           width: "215px",
           fontSize: "14px"
         }}

@@ -668,7 +668,7 @@ class TennisClub extends React.Component {
             </div>
           </div>
         )}{" "}
-        {this.state.profileComplete === false &&
+        {this.state.profileComplete === false && this.props.user && 
           this.props.user.user.isUser && (
             <p style={{ marginTop: "80px" }}>
               This club has not finished setting up on tennis-mate yet. Check

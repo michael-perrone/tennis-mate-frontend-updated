@@ -203,6 +203,21 @@ class CourtContainer extends React.Component {
                       }
                     );
                   }
+                  if (
+                    secondResponse.status === 200 &&
+                    this.props.instructor &&
+                    firstResponse.data.newBooking.players.length > 0
+                  ) {
+                    axios.post(
+                      "http://localhost:8080/api/notifications/instructorBookedUser",
+                      {
+                        users: firstResponse.data.newBooking.players,
+                        instructorId: this.props.instructorChosen
+                          .instructorChosen._id,
+                        bookingId: firstResponse.data.newBooking._id
+                      }
+                    );
+                  }
                 })
                 .catch(error => {
                   console.log(error);

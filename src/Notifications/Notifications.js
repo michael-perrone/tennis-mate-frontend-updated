@@ -6,12 +6,13 @@ import UserNotifications from "./UserNotifications/UserNotifications";
 import InstructorNotifications from "./InstructorNotifications/InstructorNotifications";
 import styles from "./Notifications.module.css";
 
-class Notification extends React.Component {
+class Notifications extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <div onClick={this.props.hideNotifications} id={styles.backDrop}></div>
@@ -23,7 +24,11 @@ class Notification extends React.Component {
               instructorNotifications={this.props.instructorNotifications}
             />
           )}
-          {this.props.user && <UserNotifications />}
+          {this.props.user && (
+            <UserNotifications
+              userNotifications={this.props.userNotifications}
+            />
+          )}
         </div>
       </React.Fragment>
     );
@@ -44,4 +49,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notification);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
